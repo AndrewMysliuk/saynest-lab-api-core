@@ -1,8 +1,10 @@
 import { Router } from "express"
-import whisperRoutes from "./whisperRouter"
+import whisperRouter from "./whisperRouter"
+import textToSpeachRouter from "./textToSpeachRouter"
 
 const router = Router()
 
-router.use("/whisper", whisperRoutes)
+router.use("/whisper", whisperRouter)
+router.use("/tts", textToSpeachRouter)
 
 export default router

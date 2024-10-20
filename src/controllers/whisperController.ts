@@ -9,7 +9,7 @@ export const whisperSpeechToTextHandler = async (req: Request, res: Response) =>
     const prompt = req.body.prompt as string
 
     if (!audioFile) {
-      res.status(400).json({ error: "Audio file is required" })
+      res.status(400).json({ error: "whisperController | audio file is required" })
     } else {
       const transcription = await whisperSpeechToText(audioFile, prompt)
 
