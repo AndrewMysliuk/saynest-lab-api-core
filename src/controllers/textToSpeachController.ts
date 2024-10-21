@@ -11,11 +11,7 @@ export const ttsTextToSpeachHandler = async (req: Request, res: Response) => {
     if (!model || !voice || !input) {
       res.status(400).json({ error: "textToSpeachController | Missing required fields in payload" })
     } else {
-      const tempFilePath = await ttsTextToSpeach({
-        model,
-        voice,
-        input,
-      })
+      const tempFilePath = await ttsTextToSpeach(req.body)
 
       res.sendFile(tempFilePath, (err) => {
         if (err) {
