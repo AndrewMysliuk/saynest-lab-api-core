@@ -1,4 +1,4 @@
-import { openai } from "../config"
+import { openaiREST } from "../config"
 import fs from "fs"
 import logger from "../utils/logger"
 import { ITTSPayload } from "../types"
@@ -6,7 +6,7 @@ import * as tmp from "tmp"
 
 export const ttsTextToSpeach = async (payload: ITTSPayload) => {
   try {
-    const audio = await openai.audio.speech.create({
+    const audio = await openaiREST.audio.speech.create({
       model: payload.model,
       voice: payload.voice,
       input: payload.input,

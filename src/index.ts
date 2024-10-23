@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { createServer } from "http"
-import { serverConfig } from "./config"
+import { serverConfig, wsServerConfig } from "./config"
 import logger from "./utils/logger"
 import routers from "./routes"
 
@@ -19,6 +19,8 @@ app.use(
 app.use(express.json())
 
 app.use("/api", routers)
+
+wsServerConfig(server)
 
 server.listen(serverConfig.PORT, () => {
   logger.info(`Server started on port ${serverConfig.PORT}`)

@@ -1,4 +1,4 @@
-import { openai } from "../config"
+import { openaiREST } from "../config"
 import logger from "../utils/logger"
 import * as fs from "fs"
 import { promises as fsPromises } from "fs"
@@ -10,7 +10,7 @@ export const whisperSpeechToText = async (audioFile: Express.Multer.File, prompt
   try {
     await fsPromises.writeFile(tempFile.name, audioFile.buffer)
 
-    const response = await openai.audio.transcriptions.create({
+    const response = await openaiREST.audio.transcriptions.create({
       file: fs.createReadStream(tempFile.name),
       model: "whisper-1",
       prompt,
