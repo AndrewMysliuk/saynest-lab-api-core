@@ -1,15 +1,17 @@
 import WebSocket from "ws"
 import { Server as HttpServer } from "http"
-import { realtimeConnectionHandlers } from "../controllers/RealtimeController"
+import { RealtimeController } from "../controllers/realtimeControllet"
 import logger from "../utils/logger"
+import { serverConfig } from "./serverConfig"
 
 export const wsServerConfig = (server: HttpServer) => {
   const wss = new WebSocket.Server({ server })
+  const realtimeController = new RealtimeController(serverConfig.OPENAI_API_KEY)
 
   wss.on("connection", (ws) => {
     logger.info("WS | Client connected")
 
-    realtimeConnectionHandlers(ws)
+    realtimeController.handleConnection(ws)
 
     ws.on("close", () => {
       logger.info("WS | Client disconnected")
