@@ -1,10 +1,9 @@
-import { RealtimeClient } from "@openai/realtime-api-beta"
 import WebSocket from "ws"
 import logger from "../utils/logger"
 
 export class RealtimeController {
   private apiKey: string
-  private client: RealtimeClient | null = null
+  private client: any | null = null
   private messageQueue: string[] = []
 
   constructor(apiKey: string) {
@@ -12,6 +11,7 @@ export class RealtimeController {
   }
 
   async handleConnection(ws: WebSocket) {
+    const { RealtimeClient } = await import("@openai/realtime-api-beta")
     this.client = new RealtimeClient({ apiKey: this.apiKey })
 
     this.client.realtime.on("server.*", (event: any) => {
