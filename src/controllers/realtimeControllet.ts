@@ -14,6 +14,33 @@ export class RealtimeController {
     const { RealtimeClient } = await import("@openai/realtime-api-beta")
     this.client = new RealtimeClient({ apiKey: this.apiKey })
 
+    // Add Tools
+    this.client.addTool(
+      {
+        name: "set_memory",
+        description: "Saves important data about the user into memory.",
+        parameters: {
+          type: "object",
+          properties: {
+            key: {
+              type: "string",
+              description: "The key of the memory value. Always use lowercase and underscores, no other characters.",
+            },
+            value: {
+              type: "string",
+              description: "Value can be anything represented as a string",
+            },
+          },
+          required: ["key", "value"],
+        },
+      },
+      async ({ key, value }: { [key: string]: any }) => {
+        // In a real implementation, you'd store this data somewhere
+        console.log(`Memory set: ${key} = ${value}`)
+        return { ok: true }
+      }
+    )
+
     this.client.realtime.on("server.*", (event: any) => {
       logger.info(`Relaying event: ${event.type}`)
       ws.send(JSON.stringify(event))
