@@ -1,12 +1,14 @@
 import { Router } from "express"
-import whisperRouter from "./whisperRouter"
-import textToSpeachRouter from "./textToSpeachRouter"
-import gptRouter from "./gptRouter"
+import whisperRoute from "./whisperRoute"
+import textToSpeachRoute from "./textToSpeachRoute"
+import gptRoute from "./gptRoute"
+import conversationRoute from "./conversationRoute"
 
 const router = Router()
 
-router.use("/whisper", whisperRouter)
-router.use("/gpt", gptRouter)
-router.use("/tts", textToSpeachRouter)
+router.use("/whisper", whisperRoute)
+router.use("/gpt", gptRoute)
+router.use("/tts", textToSpeachRoute)
+router.use("/conversation", conversationRoute)
 
 export default router

@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
-import fs from "fs"
 import logger from "../utils/logger"
-import { ttsTextToSpeach } from "../services/textToSpeachService"
+import { ttsTextToSpeech } from "../services/textToSpeachService"
 import { ITTSPayload } from "../types"
 
 export const ttsTextToSpeachHandler = async (req: Request, res: Response) => {
@@ -11,16 +10,12 @@ export const ttsTextToSpeachHandler = async (req: Request, res: Response) => {
     if (!model || !voice || !input) {
       res.status(400).json({ error: "textToSpeachController | Missing required fields in payload" })
     } else {
-      const tempFilePath = await ttsTextToSpeach(req.body)
+      const filePath = await ttsTextToSpeech(req.body)
 
-      res.sendFile(tempFilePath, (err) => {
+      res.sendFile(filePath, (err) => {
         if (err) {
           return res.status(500).json({ error: "Failed to send file" })
         }
-
-        fs.unlink(tempFilePath, (error: unknown) => {
-          if (error) throw error
-        })
       })
     }
   } catch (error: unknown) {

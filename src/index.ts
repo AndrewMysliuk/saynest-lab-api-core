@@ -1,4 +1,5 @@
 import express from "express"
+import path from "path"
 import cors from "cors"
 import { createServer } from "http"
 import { serverConfig, wsServerConfig } from "./config"
@@ -17,6 +18,8 @@ app.use(
 )
 
 app.use(express.json())
+
+app.use("/user_sessions", express.static(path.join(__dirname, "../user_sessions")))
 
 app.use("/api", routers)
 
