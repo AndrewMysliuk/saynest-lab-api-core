@@ -8,7 +8,7 @@ export const gptConversation = async (payload: IGPTPayload) => {
       model: payload.model,
       messages: payload.messages,
       temperature: payload?.temperature || 0.7,
-      max_tokens: payload?.max_tokens || 100,
+      max_tokens: payload?.max_tokens || 1000,
     })
 
     return response

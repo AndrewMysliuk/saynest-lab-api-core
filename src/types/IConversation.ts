@@ -1,4 +1,4 @@
-import { IGPTPayload } from "./IGPT"
+import { GPTRoleType, IGPTPayload } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
 export interface IConversationWhisper {
@@ -10,4 +10,14 @@ export interface IConversationPayload {
   whisper: IConversationWhisper
   gpt_model: IGPTPayload
   tts: ITTSPayload
+  system: {
+    sessionId?: string
+    globalPrompt: string
+  }
+}
+
+export interface IConversationHistory {
+  role: GPTRoleType
+  content: string
+  audioUrl?: string
 }

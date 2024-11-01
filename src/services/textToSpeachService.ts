@@ -4,8 +4,8 @@ import logger from "../utils/logger"
 import { ITTSPayload } from "../types"
 import * as path from "path"
 
-export const ttsTextToSpeech = async (payload: ITTSPayload) => {
-  const userSessionsDir = path.join(process.cwd(), "user_sessions")
+export const ttsTextToSpeech = async (payload: ITTSPayload, session_folder?: string) => {
+  const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
   const fileExtension = payload?.response_format || "wav"
   const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
 

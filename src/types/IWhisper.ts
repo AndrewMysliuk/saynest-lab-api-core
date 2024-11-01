@@ -1,3 +1,4 @@
 export interface IWhisperHandlerResponse {
-  text: string
+  transcription: string
+  user_audio_path: string
 }

@@ -4,8 +4,8 @@ import * as fs from "fs"
 import { promises as fsPromises } from "fs"
 import * as path from "path"
 
-export const whisperSpeechToText = async (audioFile: Express.Multer.File, prompt?: string): Promise<string> => {
-  const userSessionsDir = path.join(process.cwd(), "user_sessions")
+export const whisperSpeechToText = async (audioFile: Express.Multer.File, prompt?: string, session_folder?: string) => {
+  const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
   const fileExtension = audioFile.originalname.split(".").pop()
   const filePath = path.join(userSessionsDir, `${Date.now()}-user-request.${fileExtension}`)
 
@@ -22,7 +22,10 @@ export const whisperSpeechToText = async (audioFile: Express.Multer.File, prompt
       prompt,
     })
 
-    return response.text
+    return {
+      transcription: response.text,
+      user_audio_path: filePath,
+    }
   } catch (error: unknown) {
     logger.error("whisperService | error in whisperSpeechToText: ", error)
     throw error
