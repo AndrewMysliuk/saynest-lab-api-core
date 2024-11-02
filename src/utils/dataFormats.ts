@@ -20,28 +20,27 @@ export const convertMessageToString = (message: string | ArrayBuffer | Buffer | 
   return ""
 }
 
-export const trimConversationHistory = (conversationHistory: IConversationHistory[], maxTokens: number) => {
-  const estimateTokens = (text: string) => Math.ceil(text.length / 4)
+const calculateTotalTokens = (history: IConversationHistory[]): number => {
+  return history.reduce((acc, message) => acc + calculateTokens(message.content), 0)
+}
 
-  let totalTokens = conversationHistory.reduce((acc, message) => acc + estimateTokens(message.content), 0)
+const calculateTokens = (content: string): number => {
+  return Math.ceil(content.length / 4)
+}
 
-  if (totalTokens <= maxTokens) {
-    return conversationHistory
-  }
+export const trimConversationHistory = (conversationHistory: IConversationHistory[], maxTokens: number): IConversationHistory[] => {
+  let totalTokens = calculateTotalTokens(conversationHistory)
 
-  // System Prompt Always First
-  let tokenCount = estimateTokens(conversationHistory[0].content)
-  let trimmedHistory = [conversationHistory[0]]
+  if (totalTokens <= maxTokens) return conversationHistory
 
-  for (let i = 1; i < conversationHistory.length; i++) {
-    const message = conversationHistory[i]
-    const messageTokens = estimateTokens(message.content)
+  const trimmedHistory = [...conversationHistory]
 
-    if (tokenCount + messageTokens <= maxTokens) {
-      trimmedHistory.push(message)
-      tokenCount += messageTokens
-    } else {
-      break
+  for (let i = trimmedHistory.length - 1; i > 0; i -= 2) {
+    if (totalTokens <= maxTokens) break
+
+    if (i - 1 > 0) {
+      totalTokens -= calculateTokens(trimmedHistory[i].content) + calculateTokens(trimmedHistory[i - 1].content)
+      trimmedHistory.splice(i - 1, 2)
     }
   }
 

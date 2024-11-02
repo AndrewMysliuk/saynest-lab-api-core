@@ -9,15 +9,19 @@ export const ttsTextToSpeachHandler = async (req: Request, res: Response) => {
 
     if (!model || !voice || !input) {
       res.status(400).json({ error: "textToSpeachController | Missing required fields in payload" })
-    } else {
-      const filePath = await ttsTextToSpeech(req.body)
-
-      res.sendFile(filePath, (err) => {
-        if (err) {
-          return res.status(500).json({ error: "Failed to send file" })
-        }
-      })
+      return
     }
+
+    res.writeHead(200, {
+      "Content-Type": "audio/wav",
+      "Transfer-Encoding": "chunked",
+    })
+
+    await ttsTextToSpeech(req.body, (data) => {
+      res.write(data)
+    })
+
+    res.end()
   } catch (error: unknown) {
     logger.error("textToSpeachController | error in ttsTextToSpeachHandler:", error)
     res.status(500).json({ error: "Internal Server Error" })

@@ -10,4 +10,5 @@ export interface ITTSPayload {
   input: string
   response_format?: TTSModelFormatsType
   speed?: number
+  stream?: boolean
 }

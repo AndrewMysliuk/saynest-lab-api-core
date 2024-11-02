@@ -1,4 +1,4 @@
-import fs from "fs"
+import fs from "fs/promises"
 import path from "path"
 import logger from "../utils/logger"
 import { IConversationPayload } from "../types"
@@ -7,10 +7,15 @@ import { whisperSpeechToText } from "./whisperService"
 import { gptConversation } from "./gptService"
 import { ttsTextToSpeech } from "./textToSpeachService"
 
-export const processConversation = async ({ whisper, gpt_model, tts, system }: IConversationPayload) => {
+export const processConversation = async (
+  { whisper, gpt_model, tts, system }: IConversationPayload,
+  onData: (role: string, content: string, audioUrl?: string, audioChunk?: Buffer) => void
+) => {
   try {
     const { session_id: activeSessionId, sessionDir, conversationHistory } = getSessionData(system.sessionId, system.globalPrompt)
     const { transcription, user_audio_path } = await whisperSpeechToText(whisper.audioFile, whisper?.prompt, sessionDir)
+
+    onData("user", transcription, `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`)
 
     conversationHistory.push({
       role: "user",
@@ -18,19 +23,22 @@ export const processConversation = async ({ whisper, gpt_model, tts, system }: I
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
     })
 
-    const trimmedHistory = trimConversationHistory(conversationHistory, gpt_model.max_tokens || 4096)
+    //gpt_model.max_tokens || 128000
+    // const trimmedHistory = trimConversationHistory(conversationHistory, gpt_model.max_tokens || 4096)
 
-    const gptResponse = await gptConversation({
-      ...gpt_model,
-      messages: trimmedHistory,
+    let gptText = ""
+    await gptConversation({ ...gpt_model, messages: conversationHistory }, (chunk) => {
+      gptText += chunk
+      onData("assistant", chunk)
     })
 
-    const gptText = gptResponse.choices[0]?.message?.content
-    if (!gptText) {
-      throw new Error("GPT response did not contain content")
-    }
-
-    const audioFilePath = await ttsTextToSpeech({ ...tts, input: gptText }, sessionDir)
+    const audioFilePath = await ttsTextToSpeech(
+      { ...tts, input: gptText },
+      (audioChunk) => {
+        onData("assistant", "", "", audioChunk)
+      },
+      sessionDir
+    )
 
     conversationHistory.push({
       role: "assistant",
@@ -38,7 +46,7 @@ export const processConversation = async ({ whisper, gpt_model, tts, system }: I
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
     })
 
-    fs.writeFileSync(path.join(sessionDir, "history.json"), JSON.stringify(conversationHistory, null, 2))
+    await fs.writeFile(path.join(sessionDir, "history.json"), JSON.stringify(conversationHistory, null, 2))
 
     return {
       session_id: activeSessionId,

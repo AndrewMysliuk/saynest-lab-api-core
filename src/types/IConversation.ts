@@ -20,4 +20,5 @@ export interface IConversationHistory {
   role: GPTRoleType
   content: string
   audioUrl?: string
+  audioChunk?: Buffer
 }
