@@ -17,6 +17,8 @@ export interface IConversationPayload {
 }
 
 export interface IConversationHistory {
+  id: string
+  pairId: string
   role: GPTRoleType
   content: string
   audioUrl?: string

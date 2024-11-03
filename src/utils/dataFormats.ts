@@ -1,3 +1,4 @@
+import tiktoken from "tiktoken"
 import { IConversationHistory } from "../types"
 
 export const convertMessageToString = (message: string | ArrayBuffer | Buffer | Buffer[]): string => {
@@ -20,29 +21,39 @@ export const convertMessageToString = (message: string | ArrayBuffer | Buffer | 
   return ""
 }
 
-const calculateTotalTokens = (history: IConversationHistory[]): number => {
-  return history.reduce((acc, message) => acc + calculateTokens(message.content), 0)
+const countTokens = (history: IConversationHistory[]): number => {
+  const encoding = tiktoken.get_encoding("cl100k_base")
+  return history.reduce((acc, message) => acc + encoding.encode(message.content).length, 0)
 }
 
-const calculateTokens = (content: string): number => {
-  return Math.ceil(content.length / 4)
-}
+export const trimConversationHistory = (
+  history: IConversationHistory[],
+  max_tokens: number,
+  currentPairId: string
+): IConversationHistory[] => {
+  const systemPrompt = history[0]
+  let trimmedHistory = history.slice(1)
 
-export const trimConversationHistory = (conversationHistory: IConversationHistory[], maxTokens: number): IConversationHistory[] => {
-  let totalTokens = calculateTotalTokens(conversationHistory)
+  while (countTokens([systemPrompt, ...trimmedHistory]) > max_tokens && trimmedHistory.length > 1) {
+    const lastUserIndex = trimmedHistory
+      .map((message, index) => ({ message, index }))
+      .reverse()
+      .find(({ message }) => message.role === "user" && message.pairId !== currentPairId)
 
-  if (totalTokens <= maxTokens) return conversationHistory
+    if (!lastUserIndex) break
 
-  const trimmedHistory = [...conversationHistory]
+    const { index: userIndex, message: userMessage } = lastUserIndex
+    const pairId = userMessage.pairId
+    const assistantIndex = trimmedHistory.findIndex(
+      (message, idx) => message.role === "assistant" && message.pairId === pairId && idx > userIndex
+    )
 
-  for (let i = trimmedHistory.length - 1; i > 0; i -= 2) {
-    if (totalTokens <= maxTokens) break
-
-    if (i - 1 > 0) {
-      totalTokens -= calculateTokens(trimmedHistory[i].content) + calculateTokens(trimmedHistory[i - 1].content)
-      trimmedHistory.splice(i - 1, 2)
+    if (assistantIndex !== -1) {
+      trimmedHistory.splice(Math.min(userIndex, assistantIndex), 2)
+    } else {
+      trimmedHistory.splice(userIndex, 1)
     }
   }
 
-  return trimmedHistory
+  return [systemPrompt, ...trimmedHistory]
 }

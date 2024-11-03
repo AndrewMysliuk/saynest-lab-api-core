@@ -8,7 +8,7 @@ export const startNewSession = (system_prompt: string) => {
   const sessionDir = path.join(__dirname, "../../user_sessions", session_id)
   fs.mkdirSync(sessionDir, { recursive: true })
 
-  const conversationHistory: IConversationHistory[] = [{ role: "system", content: system_prompt }]
+  const conversationHistory: IConversationHistory[] = [{ id: uuidv4(), pairId: uuidv4(), role: "system", content: system_prompt }]
 
   return { session_id, sessionDir, conversationHistory }
 }

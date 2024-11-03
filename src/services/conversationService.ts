@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid"
 import fs from "fs/promises"
 import path from "path"
 import logger from "../utils/logger"
@@ -17,17 +18,20 @@ export const processConversation = async (
 
     onData("user", transcription, `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`)
 
+    const pairId = uuidv4()
+
     conversationHistory.push({
+      id: uuidv4(),
+      pairId,
       role: "user",
       content: transcription,
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
     })
 
-    //gpt_model.max_tokens || 128000
-    // const trimmedHistory = trimConversationHistory(conversationHistory, gpt_model.max_tokens || 4096)
+    const trimmedHistory = trimConversationHistory(conversationHistory, gpt_model.max_tokens || 128000, pairId)
 
     let gptText = ""
-    await gptConversation({ ...gpt_model, messages: conversationHistory }, (chunk) => {
+    await gptConversation({ ...gpt_model, messages: trimmedHistory }, (chunk) => {
       gptText += chunk
       onData("assistant", chunk)
     })
@@ -41,6 +45,8 @@ export const processConversation = async (
     )
 
     conversationHistory.push({
+      id: uuidv4(),
+      pairId,
       role: "assistant",
       content: gptText,
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
