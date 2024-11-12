@@ -1,5 +1,8 @@
 import tiktoken from "tiktoken"
-import { IConversationHistory } from "../types"
+import { HistoryRepository } from "../repositories/conversationRepository"
+import { IConversationHistory } from "../models/conversationModel"
+
+const historyRepository = new HistoryRepository()
 
 export const convertMessageToString = (message: string | ArrayBuffer | Buffer | Buffer[]): string => {
   if (typeof message === "string") {
@@ -26,11 +29,15 @@ const countTokens = (history: IConversationHistory[]): number => {
   return history.reduce((acc, message) => acc + encoding.encode(message.content).length, 0)
 }
 
-export const trimConversationHistory = (
-  history: IConversationHistory[],
+export const trimConversationHistory = async (
+  sessionId: string,
   max_tokens: number,
   currentPairId: string
-): IConversationHistory[] => {
+): Promise<IConversationHistory[]> => {
+  const history = await historyRepository.getHistoryBySession(sessionId)
+
+  if (history.length === 0) return []
+
   const systemPrompt = history[0]
   let trimmedHistory = history.slice(1)
 
@@ -44,13 +51,16 @@ export const trimConversationHistory = (
 
     const { index: userIndex, message: userMessage } = lastUserIndex
     const pairId = userMessage.pairId
+
     const assistantIndex = trimmedHistory.findIndex(
       (message, idx) => message.role === "assistant" && message.pairId === pairId && idx > userIndex
     )
 
     if (assistantIndex !== -1) {
+      await historyRepository.deleteHistoryByPairId(sessionId, pairId)
       trimmedHistory.splice(Math.min(userIndex, assistantIndex), 2)
     } else {
+      await historyRepository.deleteHistoryById(sessionId, userMessage.id!)
       trimmedHistory.splice(userIndex, 1)
     }
   }

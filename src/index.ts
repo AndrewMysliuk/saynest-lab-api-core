@@ -2,7 +2,7 @@ import express from "express"
 import path from "path"
 import cors from "cors"
 import { createServer } from "http"
-import { serverConfig, wsServerConfig } from "./config"
+import { serverConfig, wsServerConfig, connectToDatabase } from "./config"
 import logger from "./utils/logger"
 import routers from "./routes"
 
@@ -23,8 +23,17 @@ app.use("/user_sessions", express.static(path.join(__dirname, "../user_sessions"
 
 app.use("/api", routers)
 
+// WS
 wsServerConfig(server)
 
-server.listen(serverConfig.PORT, () => {
-  logger.info(`Server started on port ${serverConfig.PORT}`)
-})
+async function startServer() {
+  // DB
+  await connectToDatabase()
+
+  // Server
+  server.listen(serverConfig.PORT, () => {
+    logger.info(`Server started on port ${serverConfig.PORT}`)
+  })
+}
+
+startServer()

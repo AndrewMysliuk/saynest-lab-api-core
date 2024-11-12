@@ -15,12 +15,3 @@ export interface IConversationPayload {
     globalPrompt: string
   }
 }
-
-export interface IConversationHistory {
-  id: string
-  pairId: string
-  role: GPTRoleType
-  content: string
-  audioUrl?: string
-  audioChunk?: Buffer
-}
