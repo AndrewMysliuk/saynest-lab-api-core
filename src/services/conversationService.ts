@@ -8,6 +8,8 @@ import { whisperSpeechToText } from "./whisperService"
 import { gptConversation } from "./gptService"
 import { ttsTextToSpeech } from "./textToSpeachService"
 
+const MAX_CONVERSATION_TOKENS = 128000
+
 const historyRepository = new HistoryRepository()
 
 export const processConversation = async (
@@ -16,7 +18,7 @@ export const processConversation = async (
 ) => {
   try {
     const sessionData = await getSessionData(system.sessionId, system.globalPrompt)
-    const { session_id: activeSessionId, sessionDir } = sessionData
+    const { session_id: activeSessionId, sessionDir, conversationHistory } = sessionData
 
     const { transcription, user_audio_path } = await whisperSpeechToText(whisper.audioFile, whisper?.prompt, sessionDir)
 
@@ -32,7 +34,9 @@ export const processConversation = async (
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
     })
 
-    const trimmedHistory = await trimConversationHistory(activeSessionId, gpt_model.max_tokens || 128000, pairId)
+    const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pairId)
+
+    console.log("trimmedHistory: ", trimmedHistory)
 
     let gptText = ""
     await gptConversation({ ...gpt_model, messages: trimmedHistory }, (chunk) => {

@@ -29,19 +29,24 @@ const countTokens = (history: IConversationHistory[]): number => {
   return history.reduce((acc, message) => acc + encoding.encode(message.content).length, 0)
 }
 
-export const trimConversationHistory = async (
-  sessionId: string,
+export const trimConversationHistory = (
+  conversationHistory: IConversationHistory | IConversationHistory[],
   max_tokens: number,
   currentPairId: string
-): Promise<IConversationHistory[]> => {
-  const history = await historyRepository.getHistoryBySession(sessionId)
+): IConversationHistory[] => {
+  const historyArray = Array.isArray(conversationHistory) ? conversationHistory : [conversationHistory]
 
-  if (history.length === 0) return []
+  console.log("historyArray: ", historyArray)
 
-  const systemPrompt = history[0]
-  let trimmedHistory = history.slice(1)
+  if (historyArray.length === 0) return []
+
+  const systemPrompt = historyArray[0]
+  let trimmedHistory = historyArray.slice(1)
+
+  console.log("countTokens([systemPrompt, ...trimmedHistory]): ", countTokens([systemPrompt, ...trimmedHistory]))
 
   while (countTokens([systemPrompt, ...trimmedHistory]) > max_tokens && trimmedHistory.length > 1) {
+    console.log("DEBUG WHILE")
     const lastUserIndex = trimmedHistory
       .map((message, index) => ({ message, index }))
       .reverse()
@@ -51,16 +56,13 @@ export const trimConversationHistory = async (
 
     const { index: userIndex, message: userMessage } = lastUserIndex
     const pairId = userMessage.pairId
-
     const assistantIndex = trimmedHistory.findIndex(
       (message, idx) => message.role === "assistant" && message.pairId === pairId && idx > userIndex
     )
 
     if (assistantIndex !== -1) {
-      await historyRepository.deleteHistoryByPairId(sessionId, pairId)
       trimmedHistory.splice(Math.min(userIndex, assistantIndex), 2)
     } else {
-      await historyRepository.deleteHistoryById(sessionId, userMessage.id!)
       trimmedHistory.splice(userIndex, 1)
     }
   }
