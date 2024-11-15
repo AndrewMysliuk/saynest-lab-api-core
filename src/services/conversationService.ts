@@ -18,7 +18,10 @@ export const processConversation = async (
 ) => {
   try {
     const sessionData = await getSessionData(system.sessionId, system.globalPrompt)
-    const { session_id: activeSessionId, sessionDir, conversationHistory } = sessionData
+    const { session_id: activeSessionId, sessionDir, conversationHistory: initialHistory } = sessionData
+
+    const historyArray = Array.isArray(initialHistory) ? initialHistory : [initialHistory]
+    const conversationHistory = [...historyArray]
 
     const { transcription, user_audio_path } = await whisperSpeechToText(whisper.audioFile, whisper?.prompt, sessionDir)
 
@@ -26,23 +29,24 @@ export const processConversation = async (
 
     const pairId = uuidv4()
 
-    await historyRepository.saveHistory({
+    const savedUserData = await historyRepository.saveHistory({
       sessionId: activeSessionId,
       pairId,
       role: "user",
       content: transcription,
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
     })
+    conversationHistory.push(savedUserData)
 
     const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pairId)
-
-    console.log("trimmedHistory: ", trimmedHistory)
 
     let gptText = ""
     await gptConversation({ ...gpt_model, messages: trimmedHistory }, (chunk) => {
       gptText += chunk
       onData("assistant", chunk)
     })
+
+    onData("assistant", gptText)
 
     const audioFilePath = await ttsTextToSpeech(
       { ...tts, input: gptText },
@@ -52,17 +56,18 @@ export const processConversation = async (
       sessionDir
     )
 
-    await historyRepository.saveHistory({
+    const savedAssistantData = await historyRepository.saveHistory({
       sessionId: activeSessionId,
       pairId,
       role: "assistant",
       content: gptText,
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
     })
+    conversationHistory.push(savedAssistantData)
 
     return {
       session_id: activeSessionId,
-      conversation_history: await historyRepository.getHistoryBySession(activeSessionId),
+      conversation_history: conversationHistory,
     }
   } catch (error: unknown) {
     logger.error(`conversationService | error in processConversation: ${error}`)

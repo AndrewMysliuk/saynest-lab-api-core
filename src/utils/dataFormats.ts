@@ -30,23 +30,14 @@ const countTokens = (history: IConversationHistory[]): number => {
 }
 
 export const trimConversationHistory = (
-  conversationHistory: IConversationHistory | IConversationHistory[],
+  conversationHistory: IConversationHistory[],
   max_tokens: number,
   currentPairId: string
 ): IConversationHistory[] => {
-  const historyArray = Array.isArray(conversationHistory) ? conversationHistory : [conversationHistory]
-
-  console.log("historyArray: ", historyArray)
-
-  if (historyArray.length === 0) return []
-
-  const systemPrompt = historyArray[0]
-  let trimmedHistory = historyArray.slice(1)
-
-  console.log("countTokens([systemPrompt, ...trimmedHistory]): ", countTokens([systemPrompt, ...trimmedHistory]))
+  const systemPrompt = conversationHistory[0]
+  let trimmedHistory = conversationHistory.slice(1)
 
   while (countTokens([systemPrompt, ...trimmedHistory]) > max_tokens && trimmedHistory.length > 1) {
-    console.log("DEBUG WHILE")
     const lastUserIndex = trimmedHistory
       .map((message, index) => ({ message, index }))
       .reverse()

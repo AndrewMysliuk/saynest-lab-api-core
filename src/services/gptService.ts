@@ -6,7 +6,7 @@ export const gptConversation = async (payload: IGPTPayload, onData: (data: strin
   try {
     const responseStream = await openaiREST.chat.completions.create({
       model: payload.model,
-      messages: payload.messages,
+      messages: payload.messages ?? [],
       temperature: payload.temperature || 0.7,
       max_tokens: payload.max_tokens || 1000,
       stream: true,

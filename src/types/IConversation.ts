@@ -1,4 +1,4 @@
-import { GPTRoleType, IGPTPayload } from "./IGPT"
+import { IGPTPayload } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
 export interface IConversationWhisper {

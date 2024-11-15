@@ -17,7 +17,7 @@ export const ttsTextToSpeech = async (payload: ITTSPayload, onData: (data: Buffe
     const response = await openaiREST.audio.speech.create({
       model: payload.model,
       voice: payload.voice,
-      input: payload.input,
+      input: payload.input ?? "",
       response_format: payload?.response_format ?? "wav",
     })
 
