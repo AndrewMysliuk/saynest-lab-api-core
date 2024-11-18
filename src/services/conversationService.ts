@@ -3,7 +3,7 @@ import path from "path"
 import logger from "../utils/logger"
 import { HistoryRepository } from "../repositories/conversationRepository"
 import { IConversationPayload } from "../types"
-import { getSessionData, trimConversationHistory } from "../utils"
+import { getSessionData, trimConversationHistory, removeCorrections } from "../utils"
 import { whisperSpeechToText } from "./whisperService"
 import { gptConversation } from "./gptService"
 import { ttsTextToSpeech } from "./textToSpeachService"
@@ -49,7 +49,7 @@ export const processConversation = async (
     onData("assistant", gptText)
 
     const audioFilePath = await ttsTextToSpeech(
-      { ...tts, input: gptText },
+      { ...tts, input: removeCorrections(gptText) },
       (audioChunk) => {
         onData("assistant", "", "", audioChunk)
       },

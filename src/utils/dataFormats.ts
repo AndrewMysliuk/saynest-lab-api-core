@@ -1,8 +1,5 @@
 import tiktoken from "tiktoken"
-import { HistoryRepository } from "../repositories/conversationRepository"
 import { IConversationHistory } from "../models/conversationModel"
-
-const historyRepository = new HistoryRepository()
 
 export const convertMessageToString = (message: string | ArrayBuffer | Buffer | Buffer[]): string => {
   if (typeof message === "string") {
@@ -59,4 +56,27 @@ export const trimConversationHistory = (
   }
 
   return [systemPrompt, ...trimmedHistory]
+}
+
+export const removeCorrections = (originalText: string): string => {
+  if (!originalText) return ""
+
+  let result = ""
+  let startIndex = 0
+
+  while (true) {
+    const correctionStart = originalText.indexOf("[CORRECTION:", startIndex)
+    if (correctionStart === -1) break
+
+    result += originalText.slice(startIndex, correctionStart)
+
+    const correctionEnd = originalText.indexOf('"]', correctionStart)
+    if (correctionEnd === -1) break
+
+    startIndex = correctionEnd + 2
+  }
+
+  result += originalText.slice(startIndex)
+
+  return result.trim()
 }
