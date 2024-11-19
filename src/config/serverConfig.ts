@@ -1,10 +1,6 @@
 import dotenv from "dotenv"
 import { IServerConfig } from "../types"
 
-// if (process.env.NODE_ENV !== "production") {
-//   dotenv.config()
-// }
-
 dotenv.config()
 
 export const serverConfig: IServerConfig = {
