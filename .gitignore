@@ -40,7 +40,5 @@ Thumbs.db
 # SCSS cache
 .sass-cache
 
-yarn.lock
-
 # Dev
 /user_sessions
