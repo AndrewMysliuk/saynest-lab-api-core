@@ -9,9 +9,10 @@ import routers from "./routes"
 const app = express()
 const server = createServer(app)
 
+const allowedOrigins = ["http://localhost:3000", "http://209.38.199.61:3000"]
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
