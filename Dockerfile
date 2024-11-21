@@ -16,6 +16,8 @@ COPY --from=builder /app/.env ./.env
 RUN yarn install --production
 
 ENV NODE_ENV=production
+ENV CERT_KEY_PATH=/certs/server.key
+ENV CERT_CERT_PATH=/certs/server.crt
 
 EXPOSE 3001
 

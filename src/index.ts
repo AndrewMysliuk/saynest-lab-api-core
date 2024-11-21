@@ -8,10 +8,10 @@ import logger from "./utils/logger"
 import routers from "./routes"
 
 const httpsOptions = {
+  key: fs.readFileSync("/certs/server.key"),
+  cert: fs.readFileSync("/certs/server.crt"),
   // key: fs.readFileSync("/Users/andrewmysliuk/server.key"),
   // cert: fs.readFileSync("/Users/andrewmysliuk/server.crt"),
-  key: fs.readFileSync("/etc/ssl/private/server.key"),
-  cert: fs.readFileSync("/etc/ssl/certs/server.crt"),
 }
 
 const app = express()
