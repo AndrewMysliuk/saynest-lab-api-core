@@ -30,5 +30,5 @@ yarn build && yarn start
 ### Build and run Docker
 
 ```
-make docker-build && make docker-run
+make docker_build && make docker_run_local
 ```
