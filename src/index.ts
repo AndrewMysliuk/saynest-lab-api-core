@@ -1,15 +1,23 @@
 import express from "express"
 import path from "path"
 import cors from "cors"
-import { createServer } from "http"
+import { createServer } from "https"
+import fs from "fs"
 import { serverConfig, wsServerConfig, connectToDatabase } from "./config"
 import logger from "./utils/logger"
 import routers from "./routes"
 
-const app = express()
-const server = createServer(app)
+const httpsOptions = {
+  // key: fs.readFileSync("/Users/andrewmysliuk/server.key"),
+  // cert: fs.readFileSync("/Users/andrewmysliuk/server.crt"),
+  key: fs.readFileSync("/etc/ssl/private/server.key"),
+  cert: fs.readFileSync("/etc/ssl/certs/server.crt"),
+}
 
-const allowedOrigins = ["http://localhost:3000", "http://209.38.199.61:3000"]
+const app = express()
+const server = createServer(httpsOptions, app)
+
+const allowedOrigins = ["http://localhost:3000", "http://209.38.199.61:3000", "https://localhost:3000", "https://209.38.199.61:3000"]
 app.use(
   cors({
     origin: allowedOrigins,
