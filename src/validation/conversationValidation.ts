@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { FunctionParameters } from "openai/src/resources/index.js"
 
 export const whisperSchema = z.object({
   prompt: z.string().optional(),
@@ -7,6 +8,23 @@ export const whisperSchema = z.object({
     .refine((file): file is Express.Multer.File => file && typeof file === "object" && "originalname" in file && "buffer" in file, {
       message: "Invalid file type",
     }),
+})
+
+export const functionParametersSchema: z.ZodType<FunctionParameters> = z.object({
+  type: z.enum(["object", "array", "string", "integer", "boolean", "number"]),
+  properties: z
+    .record(
+      z.string(),
+      z.lazy(() => functionParametersSchema)
+    )
+    .optional(),
+  items: z.lazy(() => functionParametersSchema).optional(),
+  required: z.array(z.string()).optional(),
+  enum: z.array(z.union([z.string(), z.number()])).optional(),
+  description: z.string().optional(),
+  minimum: z.number().optional(),
+  maximum: z.number().optional(),
+  default: z.any().optional(),
 })
 
 export const gptModelSchema = z.object({
@@ -22,6 +40,7 @@ export const gptModelSchema = z.object({
   temperature: z.number().optional(),
   max_tokens: z.number().optional(),
   stream: z.boolean().optional(),
+  jsonSchema: functionParametersSchema,
 })
 
 export const ttsSchema = z.object({

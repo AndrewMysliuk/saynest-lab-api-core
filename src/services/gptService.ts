@@ -2,25 +2,29 @@ import { openaiREST } from "../config"
 import logger from "../utils/logger"
 import { IGPTPayload } from "../types"
 
-export const gptConversation = async (payload: IGPTPayload, onData: (data: string) => void) => {
+export const gptConversation = async (payload: IGPTPayload): Promise<any> => {
   try {
-    const responseStream = await openaiREST.chat.completions.create({
+    const response = await openaiREST.chat.completions.create({
       model: payload.model,
       messages: payload.messages ?? [],
       temperature: payload.temperature || 0.7,
       max_tokens: payload.max_tokens || 1000,
-      stream: true,
+      tools: [
+        {
+          type: "function",
+          function: {
+            name: "structured_response_tool",
+            description: "Process user conversation and provide structured JSON response.",
+            parameters: payload.jsonSchema,
+          },
+        },
+      ],
+      tool_choice: { type: "function", function: { name: "structured_response_tool" } },
     })
 
-    for await (const chunk of responseStream) {
-      const [choice] = chunk.choices
-      const { content } = choice.delta
-      if (content) {
-        onData(content)
-      }
-    }
+    return response
   } catch (error: unknown) {
-    logger.error("gptService | error in gptConversation: ", error)
+    logger.error(`gptConversation | error: ${error}`)
     throw error
   }
 }

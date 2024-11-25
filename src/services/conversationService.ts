@@ -3,7 +3,7 @@ import path from "path"
 import logger from "../utils/logger"
 import { HistoryRepository } from "../repositories/conversationRepository"
 import { IConversationPayload } from "../types"
-import { getSessionData, trimConversationHistory, removeCorrections } from "../utils"
+import { getSessionData, trimConversationHistory } from "../utils"
 import { whisperSpeechToText } from "./whisperService"
 import { gptConversation } from "./gptService"
 import { ttsTextToSpeech } from "./textToSpeachService"
@@ -40,16 +40,22 @@ export const processConversation = async (
 
     const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pairId)
 
-    let gptText = ""
-    await gptConversation({ ...gpt_model, messages: trimmedHistory }, (chunk) => {
-      gptText += chunk
-      onData("assistant", chunk)
+    const gptResponse = await gptConversation({
+      ...gpt_model,
+      messages: trimmedHistory,
     })
 
-    onData("assistant", gptText)
+    const toolCalls = gptResponse.choices[0]?.message?.tool_calls?.[0]?.function?.arguments
+    if (!toolCalls) {
+      throw new Error("gptConversation | No tool_calls found in response.")
+    }
+
+    const parsedArguments = JSON.parse(toolCalls)
+
+    onData("assistant", toolCalls)
 
     const audioFilePath = await ttsTextToSpeech(
-      { ...tts, input: removeCorrections(gptText) },
+      { ...tts, input: parsedArguments?.message },
       (audioChunk) => {
         onData("assistant", "", "", audioChunk)
       },
@@ -60,7 +66,7 @@ export const processConversation = async (
       sessionId: activeSessionId,
       pairId,
       role: "assistant",
-      content: gptText,
+      content: toolCalls,
       audioUrl: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
     })
     conversationHistory.push(savedAssistantData)

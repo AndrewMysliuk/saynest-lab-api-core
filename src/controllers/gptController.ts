@@ -5,25 +5,18 @@ import { IGPTPayload } from "../types"
 
 export const gptConversationHandler = async (req: Request, res: Response) => {
   try {
-    const { model, messages } = req.body as IGPTPayload
+    const { model, messages, jsonSchema } = req.body as IGPTPayload
 
-    if (!model || !messages) {
+    if (!model || !messages || !jsonSchema) {
       res.status(400).json({ error: "gptController | Missing required fields in payload" })
       return
     }
 
-    res.writeHead(200, {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Transfer-Encoding": "chunked",
-    })
+    const response = await gptConversation(req.body)
 
-    await gptConversation(req.body, (data) => {
-      res.write(data)
-    })
-
-    res.end()
+    res.status(200).json(response)
   } catch (error: unknown) {
-    logger.error("gptController | error in gptConversationHandler:", error)
+    logger.error(`gptController | error in gptConversationHandler: ${error}`)
     res.status(500).json({ error: "Internal Server Error" })
   }
 }
