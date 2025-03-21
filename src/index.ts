@@ -3,15 +3,15 @@ import path from "path"
 import cors from "cors"
 import { createServer } from "https"
 import fs from "fs"
-import { serverConfig, wsServerConfig, connectToDatabase } from "./config"
+import { serverConfig, connectToDatabase } from "./config"
 import logger from "./utils/logger"
 import routers from "./routes"
 
 const httpsOptions = {
-  key: fs.readFileSync("/certs/server.key"),
-  cert: fs.readFileSync("/certs/server.crt"),
-  // key: fs.readFileSync("/Users/andrewmysliuk/server.key"),
-  // cert: fs.readFileSync("/Users/andrewmysliuk/server.crt"),
+  // key: fs.readFileSync("/certs/server.key"),
+  // cert: fs.readFileSync("/certs/server.crt"),
+  key: fs.readFileSync("/Users/andrewmysliuk/server.key"),
+  cert: fs.readFileSync("/Users/andrewmysliuk/server.crt"),
 }
 
 const app = express()
@@ -33,7 +33,7 @@ app.use("/user_sessions", express.static(path.join(__dirname, "../user_sessions"
 app.use("/api", routers)
 
 // WS
-wsServerConfig(server)
+// wsServerConfig(server)
 
 async function startServer() {
   // DB
