@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Backend (Mock)
 
 on:
   push:
@@ -13,18 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      - name: Mock SSH Setup (skipped)
+        run: echo "Skipping SSH setup in mock mode"
 
-      - name: Build and Deploy Backend
+      - name: Mock Build and Deploy Backend
         run: |
-          ssh -o StrictHostKeyChecking=no root@209.38.199.61 << 'EOF'
-            cd ~/openai-speak-mate-core || exit 1
-            
-            make stop && make clean_all
-            
-            git pull origin master
-            make docker_build && make docker_run_server
-          EOF
+          echo "🚧 MOCK DEPLOYMENT IN PROGRESS"
+          echo "cd ~/openai-speak-mate-core || exit 1"
+          echo "make stop && make clean_all"
+          echo "git pull origin master"
+          echo "make docker_build && make docker_run_server"
+          echo "✅ MOCK DEPLOY COMPLETED"
