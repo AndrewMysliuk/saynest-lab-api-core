@@ -1,7 +1,7 @@
-import { openaiREST } from "../../../config"
-import logger from "../../../utils/logger"
-import { IGPTPayload } from "../../../types"
-import { ITextAnalysis } from ".."
+import { ITextAnalysis } from "..";
+import { openaiREST } from "../../../config";
+import { IGPTPayload } from "../../../types";
+import logger from "../../../utils/logger";
 
 export class TextAnalysisService implements ITextAnalysis {
   async gptConversation(payload: IGPTPayload): Promise<any> {
@@ -16,18 +16,22 @@ export class TextAnalysisService implements ITextAnalysis {
             type: "function",
             function: {
               name: "structured_response_tool",
-              description: "Process user conversation and provide structured JSON response.",
+              description:
+                "Process user conversation and provide structured JSON response.",
               parameters: payload.jsonSchema,
             },
           },
         ],
-        tool_choice: { type: "function", function: { name: "structured_response_tool" } },
-      })
+        tool_choice: {
+          type: "function",
+          function: { name: "structured_response_tool" },
+        },
+      });
 
-      return response
+      return response;
     } catch (error: unknown) {
-      logger.error(`gptConversation | error: ${error}`)
-      throw error
+      logger.error(`gptConversation | error: ${error}`);
+      throw error;
     }
   }
 }

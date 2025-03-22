@@ -1,14 +1,22 @@
-import { Router } from "express"
-import multer from "multer"
-import { createConversationHandler } from "../handlers"
-import { IConversationService } from "../index"
+import { Router } from "express";
 
-const upload = multer()
+import multer from "multer";
 
-export const createConversationRouter = (conversationService: IConversationService): Router => {
-  const router = Router()
+import { createConversationHandler } from "../handlers";
+import { IConversationService } from "../index";
 
-  router.post("/", upload.single("audio"), createConversationHandler(conversationService))
+const upload = multer();
 
-  return router
-}
+export const createConversationRouter = (
+  conversationService: IConversationService,
+): Router => {
+  const router = Router();
+
+  router.post(
+    "/",
+    upload.single("audio"),
+    createConversationHandler(conversationService),
+  );
+
+  return router;
+};

@@ -1,11 +1,14 @@
-import { Router } from "express"
-import { textAnalysisHandler } from "../handlers"
-import { ITextAnalysis } from ".."
+import { Router } from "express";
 
-export const createTextAnalysisRouter = (textAnalysisService: ITextAnalysis): Router => {
-  const router = Router()
+import { ITextAnalysis } from "..";
+import { textAnalysisHandler } from "../handlers";
 
-  router.post("/", textAnalysisHandler(textAnalysisService))
+export const createTextAnalysisRouter = (
+  textAnalysisService: ITextAnalysis,
+): Router => {
+  const router = Router();
 
-  return router
-}
+  router.post("/", textAnalysisHandler(textAnalysisService));
+
+  return router;
+};

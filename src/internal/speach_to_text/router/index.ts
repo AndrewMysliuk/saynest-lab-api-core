@@ -1,14 +1,22 @@
-import { Router } from "express"
-import multer from "multer"
-import { whisperSpeechToTextHandler } from "../handlers"
-import { ISpeachToText } from "../index"
+import { Router } from "express";
 
-const upload = multer()
+import multer from "multer";
 
-export const createSpeachToTextRouter = (speachToTextService: ISpeachToText): Router => {
-  const router = Router()
+import { whisperSpeechToTextHandler } from "../handlers";
+import { ISpeachToText } from "../index";
 
-  router.post("/", upload.single("audio"), whisperSpeechToTextHandler(speachToTextService))
+const upload = multer();
 
-  return router
-}
+export const createSpeachToTextRouter = (
+  speachToTextService: ISpeachToText,
+): Router => {
+  const router = Router();
+
+  router.post(
+    "/",
+    upload.single("audio"),
+    whisperSpeechToTextHandler(speachToTextService),
+  );
+
+  return router;
+};

@@ -1,15 +1,18 @@
-import { Router } from "express"
-import { textToSpeachHandler } from "../handlers"
-import { ITextToSpeach } from "../index"
+import { Router } from "express";
 
-const router = Router()
+import { textToSpeachHandler } from "../handlers";
+import { ITextToSpeach } from "../index";
 
-export default router
+const router = Router();
 
-export const createTextToSpeachRouter = (textToSpeachService: ITextToSpeach): Router => {
-  const router = Router()
+export default router;
 
-  router.post("/", textToSpeachHandler(textToSpeachService))
+export const createTextToSpeachRouter = (
+  textToSpeachService: ITextToSpeach,
+): Router => {
+  const router = Router();
 
-  return router
-}
+  router.post("/", textToSpeachHandler(textToSpeachService));
+
+  return router;
+};

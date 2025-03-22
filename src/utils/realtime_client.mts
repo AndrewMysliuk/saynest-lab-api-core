@@ -1,2 +1,3 @@
-import { RealtimeClient } from "@openai/realtime-api-beta"
-export { RealtimeClient }
+import { RealtimeClient } from "@openai/realtime-api-beta";
+
+export { RealtimeClient };
