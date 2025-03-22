@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "properties": {
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "original_text": { "type": "string" },
+          "corrected_text": { "type": "string" },
+          "error_words": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "value": { "type": "string" }
+              },
+              "required": ["id", "value"]
+            }
+          },
+          "corrected_words": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "value": { "type": "string" }
+              },
+              "required": ["id", "value"]
+            }
+          },
+          "explanation": { "type": "string" },
+          "topic_tag": { "type": "string" }
+        },
+        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"]
+      }
+    },
+    "summary_comment": { "type": "string" },
+    "has_errors": { "type": "boolean" }
+  },
+  "required": ["issues", "has_errors"]
+}

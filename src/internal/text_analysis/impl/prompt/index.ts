@@ -20,4 +20,4 @@ Do not:
 - Output anything outside the JSON schema.
 
 Be concise, accurate, and always follow the JSON structure.
-`;
+`
