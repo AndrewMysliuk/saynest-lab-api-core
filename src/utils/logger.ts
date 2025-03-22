@@ -1,18 +1,18 @@
-import fs from "fs";
-import path from "path";
-import { createLogger, format, transports } from "winston";
+import fs from "fs"
+import path from "path"
+import { createLogger, format, transports } from "winston"
 
-const { combine, timestamp, printf, colorize } = format;
+const { combine, timestamp, printf, colorize } = format
 
-const logsDir = path.join(__dirname, "../logs");
+const logsDir = path.join(__dirname, "../logs")
 
 if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
+  fs.mkdirSync(logsDir, { recursive: true })
 }
 
 const logFormat = printf(({ level, message, timestamp }) => {
-  return `${timestamp} [${level}]: ${message}`;
-});
+  return `${timestamp} [${level}]: ${message}`
+})
 
 const logger = createLogger({
   level: "info",
@@ -23,10 +23,7 @@ const logger = createLogger({
     }),
     logFormat,
   ),
-  transports: [
-    new transports.Console(),
-    new transports.File({ filename: path.join(logsDir, "app.log") }),
-  ],
-});
+  transports: [new transports.Console(), new transports.File({ filename: path.join(logsDir, "app.log") })],
+})
 
-export default logger;
+export default logger

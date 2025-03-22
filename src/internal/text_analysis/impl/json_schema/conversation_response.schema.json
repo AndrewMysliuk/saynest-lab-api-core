@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "detected_language": { "type": "string" },
+    "is_target_language": { "type": "boolean" },
+    "topic": { "type": "string" },
+    "subtopics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sentence_structure": {
+      "type": "string",
+      "enum": ["simple", "compound", "complex"]
+    },
+    "comment_to_user": { "type": "string" },
+    "reply_to_user": { "type": "string" }
+  },
+  "required": [
+    "detected_language",
+    "is_target_language",
+    "topic",
+    "subtopics",
+    "keywords",
+    "sentence_structure",
+    "reply_to_user"
+  ]
+}

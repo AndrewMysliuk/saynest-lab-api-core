@@ -1,10 +1,10 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose"
 
-import { IConversationHistory } from "../../../../types";
+import { IConversationHistory } from "../../../../types"
 
-export const TABLE_NAME = "conversation_histories";
+export const TABLE_NAME = "conversation_histories"
 
-export type IConversationHistoryDocument = IConversationHistory & Document;
+export type IConversationHistoryDocument = IConversationHistory & Document
 
 const conversationHistorySchema = new Schema<IConversationHistoryDocument>({
   sessionId: { type: String, required: true },
@@ -13,10 +13,6 @@ const conversationHistorySchema = new Schema<IConversationHistoryDocument>({
   content: { type: String, required: true },
   audioUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
-});
+})
 
-export const ConversationHistoryModel =
-  mongoose.model<IConversationHistoryDocument>(
-    TABLE_NAME,
-    conversationHistorySchema,
-  );
+export const ConversationHistoryModel = mongoose.model<IConversationHistoryDocument>(TABLE_NAME, conversationHistorySchema)
