@@ -1,4 +1,7 @@
 export * from "./IConfig"
+export * from "./IOrganisation"
+export * from "./IUser"
+export * from "./ISession"
 export * from "./IWhisper"
 export * from "./ITTS"
 export * from "./IGPT"
