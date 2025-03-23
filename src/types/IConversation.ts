@@ -2,16 +2,16 @@ import { IGPTPayload } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
 export interface IConversationHistory {
-  sessionId: string
-  pairId: string
+  session_id: string
+  pair_id: string
   role: "system" | "user" | "assistant"
   content: string
-  audioUrl?: string
-  createdAt: Date
+  audio_url?: string
+  created_at: Date
 }
 
 export interface IConversationWhisper {
-  audioFile: Express.Multer.File
+  audio_file: Express.Multer.File
   prompt?: string
 }
 
@@ -20,8 +20,8 @@ export interface IConversationPayload {
   gpt_model: IGPTPayload
   tts: ITTSPayload
   system: {
-    sessionId?: string
-    globalPrompt: string
+    session_id?: string
+    global_prompt: string
   }
 }
 

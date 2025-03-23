@@ -1,14 +1,23 @@
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
-import { IErrorAnalysisResponse, IGPTPayload } from "../../../types"
+import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IGPTPayload } from "../../../types"
 import logger from "../../../utils/logger"
+import { IRepository } from "../storage"
 import ConversationErrorAnalyserSchema from "./json_schema/conversation_error_analysis.schema.json"
 import { CONVERSATION_ERROR_ANALYSIS_RESPONSE_SYSTEM_PROMPT } from "./prompt"
 
 export class ErrorAnalysisService implements IErrorAnalysis {
-  async conversationErrorAnalysis(payload: IGPTPayload): Promise<IErrorAnalysisResponse> {
+  private readonly errorAnalysisRepo: IRepository
+
+  constructor(errorAnalysisRepo: IRepository) {
+    this.errorAnalysisRepo = errorAnalysisRepo
+  }
+
+  async conversationErrorAnalysis(session_id: string, payload: IGPTPayload): Promise<IErrorAnalysisEntity | null> {
     try {
       const messages = payload.messages ?? []
+      const userMessages = messages.filter((item) => item.role === "user")
+      const lastUserMessage = userMessages[userMessages.length - 1]
 
       if (messages.length === 0) {
         throw new Error("no messages provided in payload.")
@@ -16,6 +25,14 @@ export class ErrorAnalysisService implements IErrorAnalysis {
 
       if (messages[0].role !== "system") {
         throw new Error("first message must be a system prompt.")
+      }
+
+      if (userMessages.length === 0) {
+        throw new Error("no user messages provided in payload.")
+      }
+
+      if (lastUserMessage.content === "") {
+        throw new Error("no user content provided in last message.")
       }
 
       messages[0].content = CONVERSATION_ERROR_ANALYSIS_RESPONSE_SYSTEM_PROMPT + "\n\n" + messages[0].content
@@ -52,7 +69,9 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         throw new Error("no tool response returned by model.")
       }
 
-      return JSON.parse(toolCall.function.arguments) as IErrorAnalysisResponse
+      const modelResponse = JSON.parse(toolCall.function.arguments) as IErrorAnalysisModelEntity
+
+      return await this.errorAnalysisRepo.setErrorAnalysis(session_id, lastUserMessage.content, modelResponse)
     } catch (error: unknown) {
       logger.error(`conversationErrorAnalysis | error: ${error}`)
       throw error

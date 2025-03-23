@@ -3,7 +3,7 @@ import { z } from "zod"
 
 export const whisperSchema = z.object({
   prompt: z.string().optional(),
-  audioFile: z.any().refine((file): file is Express.Multer.File => file && typeof file === "object" && "originalname" in file && "buffer" in file, {
+  audio_file: z.any().refine((file): file is Express.Multer.File => file && typeof file === "object" && "originalname" in file && "buffer" in file, {
     message: "Invalid file type",
   }),
 })
@@ -50,8 +50,8 @@ export const ttsSchema = z.object({
 })
 
 export const systemSchema = z.object({
-  sessionId: z.string().optional(),
-  globalPrompt: z.string(),
+  session_id: z.string().optional(),
+  global_prompt: z.string(),
 })
 
 export const conversationSchema = z.object({

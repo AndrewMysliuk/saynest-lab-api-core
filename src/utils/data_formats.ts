@@ -35,13 +35,13 @@ export const trimConversationHistory = (conversationHistory: IConversationHistor
     const lastUserIndex = trimmedHistory
       .map((message, index) => ({ message, index }))
       .reverse()
-      .find(({ message }) => message.role === "user" && message.pairId !== currentPairId)
+      .find(({ message }) => message.role === "user" && message.pair_id !== currentPairId)
 
     if (!lastUserIndex) break
 
     const { index: userIndex, message: userMessage } = lastUserIndex
-    const pairId = userMessage.pairId
-    const assistantIndex = trimmedHistory.findIndex((message, idx) => message.role === "assistant" && message.pairId === pairId && idx > userIndex)
+    const pairId = userMessage.pair_id
+    const assistantIndex = trimmedHistory.findIndex((message, idx) => message.role === "assistant" && message.pair_id === pairId && idx > userIndex)
 
     if (assistantIndex !== -1) {
       trimmedHistory.splice(Math.min(userIndex, assistantIndex), 2)

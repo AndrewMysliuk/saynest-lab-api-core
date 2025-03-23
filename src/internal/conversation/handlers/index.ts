@@ -17,7 +17,7 @@ export const createConversationHandler = (conversationService: IConversationServ
         system: JSON.parse(req.body.system),
       })
 
-      if (!parsedBody.whisper.audioFile) {
+      if (!parsedBody.whisper.audio_file) {
         res.status(400).json({ error: "Missing audio file" })
         return
       }

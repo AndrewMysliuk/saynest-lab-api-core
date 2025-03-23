@@ -31,24 +31,24 @@ export class ConversationService implements IConversationService {
     onData: (role: string, content: string, audioUrl?: string, audioChunk?: Buffer) => void,
   ): Promise<IConversationResponse> {
     try {
-      const sessionData = await this.getSessionData(system.sessionId, system.globalPrompt)
+      const sessionData = await this.getSessionData(system.session_id, system.global_prompt)
       const { session_id: activeSessionId, sessionDir, conversationHistory: initialHistory } = sessionData
 
       const historyArray = Array.isArray(initialHistory) ? initialHistory : [initialHistory]
       const conversationHistory = [...historyArray]
 
-      const { transcription, user_audio_path } = await this.speachToTextService.whisperSpeechToText(whisper.audioFile, whisper?.prompt, sessionDir)
+      const { transcription, user_audio_path } = await this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
 
       onData("user", transcription, `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`)
 
       const pairId = uuidv4()
 
       const savedUserData = await this.historyRepo.saveHistory({
-        sessionId: activeSessionId,
-        pairId,
+        session_id: activeSessionId,
+        pair_id: pairId,
         role: "user",
         content: transcription,
-        audioUrl: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
+        audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
       })
       conversationHistory.push(savedUserData)
 
@@ -110,8 +110,8 @@ export class ConversationService implements IConversationService {
 
     const pairId = uuidv4()
     const conversationHistory = await this.historyRepo.saveHistory({
-      sessionId: session_id,
-      pairId,
+      session_id: session_id,
+      pair_id: pairId,
       role: "system",
       content: system_prompt,
     })

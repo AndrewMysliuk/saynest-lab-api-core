@@ -9,6 +9,8 @@ export class TextAnalysisService implements ITextAnalysis {
   async gptConversation(payload: IGPTPayload): Promise<ITextAnalysisResponse> {
     try {
       const messages = payload.messages ?? []
+      const userMessages = messages.filter((item) => item.role === "user")
+      const lastUserMessage = userMessages[userMessages.length - 1]
 
       if (messages.length === 0) {
         throw new Error("no messages provided in payload.")
@@ -16,6 +18,14 @@ export class TextAnalysisService implements ITextAnalysis {
 
       if (messages[0].role !== "system") {
         throw new Error("first message must be a system prompt.")
+      }
+
+      if (userMessages.length === 0) {
+        throw new Error("no user messages provided in payload.")
+      }
+
+      if (lastUserMessage.content === "") {
+        throw new Error("no user content provided in last message.")
       }
 
       messages[0].content = CONVERSATION_RESPONSE_SYSTEM_PROMPT + "\n\n" + messages[0].content

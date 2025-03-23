@@ -1,10 +1,12 @@
 import mongoose from "mongoose"
 
-import { TABLE_NAME } from "../internal/conversation/storage/mongo/model"
+import { TABLE_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
+import { TABLE_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
 import logger from "../utils/logger"
 import { serverConfig } from "./server_config"
 
 const MONGO_URI = serverConfig.MONGO_URI
+const CURRENT_TABLES = [CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE]
 
 export const connectToDatabase = async () => {
   try {
@@ -13,12 +15,14 @@ export const connectToDatabase = async () => {
     const dbName = mongoose.connection.db?.databaseName
     logger.info(`Connected to MongoDB. Using database: ${dbName}`)
 
-    const collections = await mongoose.connection.db?.listCollections().toArray()
-    const collectionNames = collections?.map((col) => col.name)
+    const existingCollections = await mongoose.connection.db?.listCollections().toArray()
+    const existingNames = existingCollections?.map((col) => col.name) || []
 
-    if (!collectionNames?.includes(TABLE_NAME)) {
-      await mongoose.connection.db?.createCollection(TABLE_NAME)
-      logger.info(`Created collection: ${TABLE_NAME}`)
+    for (const name of CURRENT_TABLES) {
+      if (!existingNames.includes(name)) {
+        await mongoose.connection.db?.createCollection(name)
+        logger.info(`Created collection: ${name}`)
+      }
     }
   } catch (error: unknown) {
     logger.error(`Failed to connect to MongoDB: ${error}`)

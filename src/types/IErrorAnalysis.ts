@@ -12,8 +12,17 @@ export interface IssueItem {
   topic_tag: string
 }
 
-export interface IErrorAnalysisResponse {
+export interface IErrorAnalysisModelEntity {
   issues: IssueItem[]
   summary_comment?: string
   has_errors: boolean
+}
+
+export interface IErrorAnalysisEntity {
+  session_id: string
+  message: string
+  issues: IssueItem[]
+  summary_comment?: string
+  has_errors: boolean
+  created_at: Date
 }
