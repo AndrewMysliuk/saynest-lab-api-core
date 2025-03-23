@@ -32,7 +32,7 @@ export class TextAnalysisService implements ITextAnalysis {
 
       const response = await openaiREST.chat.completions.create({
         model: payload.model,
-        messages: payload.messages ?? [],
+        messages,
         temperature: payload.temperature || 0.7,
         max_tokens: payload.max_tokens || 1500,
         tools: [

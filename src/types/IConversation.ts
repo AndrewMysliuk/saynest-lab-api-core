@@ -1,4 +1,5 @@
-import { IGPTPayload } from "./IGPT"
+import { IErrorAnalysisEntity } from "./IErrorAnalysis"
+import { IGPTPayload, ITextAnalysisResponse } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
 export interface IConversationHistory {
@@ -28,4 +29,6 @@ export interface IConversationPayload {
 export interface IConversationResponse {
   session_id: string
   conversation_history: IConversationHistory[]
+  last_model_response: ITextAnalysisResponse
+  error_analyser_response: IErrorAnalysisEntity | null
 }

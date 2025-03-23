@@ -6,6 +6,9 @@ import { HistoryRepository } from "../internal/conversation/storage/mongo/reposi
 import { ErrorAnalysisService } from "../internal/error_analysis/impl"
 import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
+import { SessionService } from "../internal/session/impl"
+import { createSessionRouter } from "../internal/session/router"
+import { SessionRepository } from "../internal/session/storage/mongo/repository"
 import { SpeachToTextService } from "../internal/speach_to_text/impl"
 import { createSpeachToTextRouter } from "../internal/speach_to_text/router"
 import { TextAnalysisService } from "../internal/text_analysis/impl"
@@ -14,18 +17,21 @@ import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
 
 // Repositories
+const sessionRepo = new SessionRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
 const historyRepo = new HistoryRepository()
 
 // Services
+const sessionService = new SessionService(sessionRepo)
 const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository)
-const conversationService = new ConversationService(historyRepo, speachToTextService, textAnalysisService, textToSpeachService)
+const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, errorAnalysisService, textToSpeachService)
 
 const router = Router()
 
+router.use("/session", createSessionRouter(sessionService))
 router.use("/error-analysis", createErrorAnalysisRouter(errorAnalysisService))
 router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))
 router.use("/text-analysis", createTextAnalysisRouter(textAnalysisService))

@@ -1,6 +1,7 @@
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IGPTPayload } from "../../../types"
+import { trimmedMessageHistoryForErrorAnalyser } from "../../../utils"
 import logger from "../../../utils/logger"
 import { IRepository } from "../storage"
 import ConversationErrorAnalyserSchema from "./json_schema/conversation_error_analysis.schema.json"
@@ -15,7 +16,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
 
   async conversationErrorAnalysis(session_id: string, payload: IGPTPayload): Promise<IErrorAnalysisEntity | null> {
     try {
-      const messages = payload.messages ?? []
+      let messages = payload.messages ?? []
       const userMessages = messages.filter((item) => item.role === "user")
       const lastUserMessage = userMessages[userMessages.length - 1]
 
@@ -36,10 +37,11 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       }
 
       messages[0].content = CONVERSATION_ERROR_ANALYSIS_RESPONSE_SYSTEM_PROMPT + "\n\n" + messages[0].content
+      messages = trimmedMessageHistoryForErrorAnalyser(messages)
 
       const response = await openaiREST.chat.completions.create({
         model: payload.model,
-        messages: payload.messages ?? [],
+        messages,
         temperature: payload.temperature || 0.7,
         max_tokens: payload.max_tokens || 1500,
         tools: [

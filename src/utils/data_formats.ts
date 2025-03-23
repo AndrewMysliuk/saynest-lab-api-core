@@ -1,6 +1,6 @@
 import tiktoken from "tiktoken"
 
-import { IConversationHistory } from "../types"
+import { GPTRoleType, IConversationHistory } from "../types"
 
 export const convertMessageToString = (message: string | ArrayBuffer | Buffer | Buffer[]): string => {
   if (typeof message === "string") {
@@ -51,4 +51,15 @@ export const trimConversationHistory = (conversationHistory: IConversationHistor
   }
 
   return [systemPrompt, ...trimmedHistory]
+}
+
+export const trimmedMessageHistoryForErrorAnalyser = (messages: Array<{ role: GPTRoleType; content: string }>) => {
+  const first = messages[0]
+  const lastUser = [...messages].reverse().find((msg) => msg.role === "user")
+
+  if (first.role === "system" && lastUser) {
+    return [first, lastUser]
+  }
+
+  return []
 }

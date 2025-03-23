@@ -2,9 +2,11 @@ import fs from "fs"
 import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
-import { IConversationHistory, IConversationPayload, IConversationResponse } from "../../../types"
+import { IConversationHistory, IConversationPayload, IConversationResponse, SessionTypeEnum } from "../../../types"
 import { trimConversationHistory } from "../../../utils"
 import logger from "../../../utils/logger"
+import { IErrorAnalysis } from "../../error_analysis"
+import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
 import { ITextAnalysis } from "../../text_analysis"
 import { ITextToSpeach } from "../../text_to_speach"
@@ -15,24 +17,35 @@ const MAX_CONVERSATION_TOKENS = 128000
 
 export class ConversationService implements IConversationService {
   private readonly historyRepo: IRepository
+  private readonly sessionService: ISessionService
   private readonly speachToTextService: ISpeachToText
   private readonly textAnalysisService: ITextAnalysis
+  private readonly errorAnalysisService: IErrorAnalysis
   private readonly textToSpeachService: ITextToSpeach
 
-  constructor(historyRepo: IRepository, speachToTextService: ISpeachToText, textAnalysisService: ITextAnalysis, textToSpeachService: ITextToSpeach) {
+  constructor(
+    historyRepo: IRepository,
+    sessionService: ISessionService,
+    speachToTextService: ISpeachToText,
+    textAnalysisService: ITextAnalysis,
+    errorAnalysisService: IErrorAnalysis,
+    textToSpeachService: ITextToSpeach,
+  ) {
     this.historyRepo = historyRepo
+    this.sessionService = sessionService
     this.speachToTextService = speachToTextService
     this.textAnalysisService = textAnalysisService
+    this.errorAnalysisService = errorAnalysisService
     this.textToSpeachService = textToSpeachService
   }
 
   async processConversation(
     { whisper, gpt_model, tts, system }: IConversationPayload,
-    onData: (role: string, content: string, audioUrl?: string, audioChunk?: Buffer) => void,
+    onData: (role: string, content: string, audio_url?: string, audio_chunk?: Buffer) => void,
   ): Promise<IConversationResponse> {
     try {
       const sessionData = await this.getSessionData(system.session_id, system.global_prompt)
-      const { session_id: activeSessionId, sessionDir, conversationHistory: initialHistory } = sessionData
+      const { session_id: activeSessionId, session_directory: sessionDir, conversation_history: initialHistory } = sessionData
 
       const historyArray = Array.isArray(initialHistory) ? initialHistory : [initialHistory]
       const conversationHistory = [...historyArray]
@@ -41,85 +54,83 @@ export class ConversationService implements IConversationService {
 
       onData("user", transcription, `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`)
 
-      const pairId = uuidv4()
+      const pair_id = uuidv4()
 
       const savedUserData = await this.historyRepo.saveHistory({
         session_id: activeSessionId,
-        pair_id: pairId,
+        pair_id,
         role: "user",
         content: transcription,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
       })
       conversationHistory.push(savedUserData)
 
-      const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pairId)
+      const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
 
-      const gptResponse = await this.textAnalysisService.gptConversation({
-        ...gpt_model,
-        messages: trimmedHistory,
+      const [gptResponse, errorResponse] = await Promise.all([
+        this.textAnalysisService.gptConversation({
+          ...gpt_model,
+          messages: trimmedHistory,
+        }),
+        this.errorAnalysisService.conversationErrorAnalysis(activeSessionId, {
+          ...gpt_model,
+          messages: trimmedHistory,
+        }),
+      ])
+
+      onData("assistant", gptResponse.reply_to_user)
+
+      const audioFilePath = await this.textToSpeachService.ttsTextToSpeech(
+        { ...tts, input: gptResponse.reply_to_user },
+        (audio_chunk) => {
+          onData("assistant", "", "", audio_chunk)
+        },
+        sessionDir,
+      )
+
+      const savedAssistantData = await this.historyRepo.saveHistory({
+        session_id: activeSessionId,
+        pair_id,
+        role: "assistant",
+        content: gptResponse.reply_to_user,
+        audio_url: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
       })
+      conversationHistory.push(savedAssistantData)
 
-      // const toolCalls = gptResponse.choices[0]?.message?.tool_calls?.[0]?.function?.arguments
-      // if (!toolCalls) {
-      //   throw new Error("gptConversation | No tool_calls found in response.")
-      // }
-
-      if (true) {
-        throw new Error("gptConversation | No tool_calls found in response.")
+      return {
+        session_id: activeSessionId,
+        conversation_history: conversationHistory,
+        last_model_response: gptResponse,
+        error_analyser_response: errorResponse,
       }
-
-      // const parsedArguments = JSON.parse(toolCalls)
-
-      // onData("assistant", toolCalls)
-
-      // const audioFilePath = await this.textToSpeachService.ttsTextToSpeech(
-      //   { ...tts, input: parsedArguments?.message },
-      //   (audioChunk) => {
-      //     onData("assistant", "", "", audioChunk)
-      //   },
-      //   sessionDir,
-      // )
-
-      // const savedAssistantData = await this.historyRepo.saveHistory({
-      //   sessionId: activeSessionId,
-      //   pairId,
-      //   role: "assistant",
-      //   content: toolCalls,
-      //   audioUrl: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
-      // })
-      // conversationHistory.push(savedAssistantData)
-
-      // return {
-      //   session_id: activeSessionId,
-      //   conversation_history: conversationHistory,
-      // }
     } catch (error: unknown) {
-      logger.error(`conversationService | error in processConversation: ${error}`)
+      logger.error(`ConversationService | error in processConversation: ${error}`)
       throw error
     }
   }
 
   async startNewSession(system_prompt: string): Promise<{
     session_id: string
-    sessionDir: string
-    conversationHistory: IConversationHistory[]
+    session_directory: string
+    conversation_history: IConversationHistory[]
   }> {
-    const session_id = uuidv4()
-    const sessionDir = path.join(__dirname, "../../../../user_sessions", session_id)
-    fs.mkdirSync(sessionDir, { recursive: true })
+    const session = await this.sessionService.createSession(system_prompt, SessionTypeEnum.SPEACKING)
 
-    const pairId = uuidv4()
-    const conversationHistory = await this.historyRepo.saveHistory({
-      session_id: session_id,
-      pair_id: pairId,
+    const pair_id = uuidv4()
+    const session_id = session._id.toString()
+    const session_directory = session.session_directory
+
+    const conversation_history = await this.historyRepo.saveHistory({
+      session_id,
+      pair_id,
       role: "system",
       content: system_prompt,
     })
 
     return {
       session_id,
-      sessionDir,
-      conversationHistory: [conversationHistory],
+      session_directory,
+      conversation_history: [conversation_history],
     }
   }
 
@@ -128,14 +139,17 @@ export class ConversationService implements IConversationService {
     system_prompt: string,
   ): Promise<{
     session_id: string
-    sessionDir: string
-    conversationHistory: IConversationHistory[]
+    session_directory: string
+    conversation_history: IConversationHistory[]
   }> {
     if (session_id) {
-      const sessionDir = path.join(__dirname, "../../../../user_sessions", session_id)
-      if (fs.existsSync(sessionDir)) {
-        const conversationHistory = await this.historyRepo.getHistoryBySession(session_id)
-        return { session_id, sessionDir, conversationHistory }
+      const session = await this.sessionService.getSession(session_id)
+      const session_directory = session.session_directory
+
+      if (fs.existsSync(session_directory)) {
+        const conversation_history = await this.historyRepo.getHistoryBySession(session_id)
+
+        return { session_id, session_directory, conversation_history }
       }
     }
 

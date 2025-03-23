@@ -2,11 +2,12 @@ import mongoose from "mongoose"
 
 import { TABLE_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
 import { TABLE_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
+import { TABLE_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
 import logger from "../utils/logger"
 import { serverConfig } from "./server_config"
 
 const MONGO_URI = serverConfig.MONGO_URI
-const CURRENT_TABLES = [CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE]
+const CURRENT_TABLES = [CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, SESSION_TABLE]
 
 export const connectToDatabase = async () => {
   try {

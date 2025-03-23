@@ -10,7 +10,7 @@ export const createConversationHandler = (conversationService: IConversationServ
       const parsedBody = conversationSchema.parse({
         whisper: {
           ...JSON.parse(req.body.whisper),
-          audioFile: req.file,
+          audio_file: req.file,
         },
         gpt_model: JSON.parse(req.body.gpt_model),
         tts: JSON.parse(req.body.tts),
@@ -30,37 +30,42 @@ export const createConversationHandler = (conversationService: IConversationServ
 
       const { whisper, gpt_model, tts, system } = parsedBody
 
-      const { session_id, conversation_history } = await conversationService.processConversation({ whisper, gpt_model, tts, system }, (role, content, audioUrl, audioChunk) => {
-        if (streamEnded) return
+      const { session_id, conversation_history, last_model_response, error_analyser_response } = await conversationService.processConversation(
+        { whisper, gpt_model, tts, system },
+        (role, content, audio_url, audio_chunk) => {
+          if (streamEnded) return
 
-        const data: {
-          role: string
-          content?: string
-          audioUrl?: string
-          audioChunk?: string
-        } = { role }
-        if (content) data.content = content
-        if (audioUrl) data.audioUrl = audioUrl
-        if (audioChunk) data.audioChunk = audioChunk.toString("base64")
+          const data: {
+            role: string
+            content?: string
+            audio_url?: string
+            audio_chunk?: string
+          } = { role }
+          if (content) data.content = content
+          if (audio_url) data.audio_url = audio_url
+          if (audio_chunk) data.audio_chunk = audio_chunk.toString("base64")
 
-        try {
-          res.write(`${JSON.stringify(data)}\n`)
-        } catch (error) {
-          logger.error("conversationHandler | Error writing to stream:", error)
-        }
-      })
+          try {
+            res.write(`${JSON.stringify(data)}\n`)
+          } catch (error) {
+            logger.error("createConversationHandler | Error writing to stream:", error)
+          }
+        },
+      )
 
       if (!streamEnded) {
         res.write(
           JSON.stringify({
             session_id,
             conversation_history,
+            last_model_response,
+            error_analyser_response,
           }),
         )
         res.end()
       }
     } catch (error: unknown) {
-      logger.error("conversationController | error:", error)
+      logger.error("createConversationHandler | error:", error)
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
