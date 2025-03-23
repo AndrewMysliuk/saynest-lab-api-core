@@ -1,9 +1,11 @@
+import { ObjectId } from "mongoose"
+
 import { IErrorAnalysisEntity } from "./IErrorAnalysis"
 import { IGPTPayload, ITextAnalysisResponse } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
 export interface IConversationHistory {
-  session_id: string
+  session_id: ObjectId
   pair_id: string
   role: "system" | "user" | "assistant"
   content: string

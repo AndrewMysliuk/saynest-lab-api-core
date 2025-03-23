@@ -1,4 +1,5 @@
 import fs from "fs"
+import { ObjectId } from "mongoose"
 import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
@@ -72,7 +73,7 @@ export class ConversationService implements IConversationService {
           ...gpt_model,
           messages: trimmedHistory,
         }),
-        this.errorAnalysisService.conversationErrorAnalysis(activeSessionId, {
+        this.errorAnalysisService.conversationErrorAnalysis(activeSessionId.toString(), {
           ...gpt_model,
           messages: trimmedHistory,
         }),
@@ -98,7 +99,7 @@ export class ConversationService implements IConversationService {
       conversationHistory.push(savedAssistantData)
 
       return {
-        session_id: activeSessionId,
+        session_id: activeSessionId.toString(),
         conversation_history: conversationHistory,
         last_model_response: gptResponse,
         error_analyser_response: errorResponse,
@@ -110,14 +111,14 @@ export class ConversationService implements IConversationService {
   }
 
   async startNewSession(system_prompt: string): Promise<{
-    session_id: string
+    session_id: ObjectId
     session_directory: string
     conversation_history: IConversationHistory[]
   }> {
     const session = await this.sessionService.createSession(system_prompt, SessionTypeEnum.SPEACKING)
 
     const pair_id = uuidv4()
-    const session_id = session._id.toString()
+    const session_id = session._id
     const session_directory = session.session_directory
 
     const conversation_history = await this.historyRepo.saveHistory({
@@ -138,7 +139,7 @@ export class ConversationService implements IConversationService {
     session_id: string | undefined,
     system_prompt: string,
   ): Promise<{
-    session_id: string
+    session_id: ObjectId
     session_directory: string
     conversation_history: IConversationHistory[]
   }> {
@@ -149,7 +150,7 @@ export class ConversationService implements IConversationService {
       if (fs.existsSync(session_directory)) {
         const conversation_history = await this.historyRepo.getHistoryBySession(session_id)
 
-        return { session_id, session_directory, conversation_history }
+        return { session_id: session._id, session_directory, conversation_history }
       }
     }
 
