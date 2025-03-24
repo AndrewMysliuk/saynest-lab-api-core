@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import { IConversationHistory } from "../../../../types"
-import { TABLE_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
+import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
 
-export const TABLE_NAME = "conversation_histories"
+export const MODEL_NAME = "conversation_histories"
 
 export type IConversationHistoryDocument = IConversationHistory & Document
 
@@ -16,4 +16,4 @@ const conversationHistorySchema = new Schema<IConversationHistoryDocument>({
   created_at: { type: Date, default: Date.now },
 })
 
-export const ConversationHistoryModel = mongoose.model<IConversationHistoryDocument>(TABLE_NAME, conversationHistorySchema)
+export const ConversationHistoryModel = mongoose.model<IConversationHistoryDocument>(MODEL_NAME, conversationHistorySchema)

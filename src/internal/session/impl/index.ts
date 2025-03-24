@@ -9,19 +9,19 @@ export class SessionService implements ISessionService {
     this.sessionRepo = sessionRepo
   }
 
-  async createSession(system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity> {
-    return this.sessionRepo.createSession(system_prompt, type)
+  async createSession(organization_id: string, user_id: string, system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity> {
+    return this.sessionRepo.createSession(organization_id, user_id, system_prompt, type)
   }
 
-  async getSession(session_id: string): Promise<ISessionEntity> {
-    if (!session_id) throw new Error("session_id field is required")
+  async getSession(organization_id: string, user_id: string, session_id: string): Promise<ISessionEntity> {
+    if (!session_id || !organization_id || !user_id) throw new Error("session_id, organization_id, user_id fields is required")
 
-    return this.sessionRepo.getSession(session_id)
+    return this.sessionRepo.getSession(organization_id, user_id, session_id)
   }
 
-  async finishSession(session_id: string): Promise<ISessionEntity> {
-    if (!session_id) throw new Error("session_id field is required")
+  async finishSession(organization_id: string, user_id: string, session_id: string): Promise<ISessionEntity> {
+    if (!session_id || !organization_id || !user_id) throw new Error("session_id, organization_id, user_id fields is required")
 
-    return this.sessionRepo.setSessionStatus(session_id, SessionStatusEnum.FINISHED)
+    return this.sessionRepo.setSessionStatus(organization_id, user_id, session_id, SessionStatusEnum.FINISHED)
   }
 }

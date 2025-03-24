@@ -1,5 +1,11 @@
 import { ObjectId } from "mongoose"
 
+export enum UserRoleEnum {
+  USER = "USER",
+  ADMIN = "ADMIN",
+  OWNER = "OWNER",
+}
+
 export interface IUserEntity {
   _id: ObjectId
   organization_id: ObjectId
@@ -7,6 +13,6 @@ export interface IUserEntity {
   first_name: string
   last_name: string
   country: string
-  role: "user" | "admin" | "owner"
+  role: UserRoleEnum
   created_at: Date
 }

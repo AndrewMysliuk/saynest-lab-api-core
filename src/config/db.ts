@@ -1,14 +1,16 @@
 import mongoose from "mongoose"
 
-import { TABLE_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
-import { TABLE_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
-import { TABLE_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
-import { TABLE_NAME as VOCABULARY_TABLE } from "../internal/vocabulary_tracker/storage/mongo/model"
+import { MODEL_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
+import { MODEL_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
+import { MODEL_NAME as ORGANISATION_TABLE } from "../internal/organisation/storage/mongo/model"
+import { MODEL_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../internal/user/storage/mongo/model"
+import { MODEL_NAME as VOCABULARY_TABLE } from "../internal/vocabulary_tracker/storage/mongo/model"
 import logger from "../utils/logger"
 import { serverConfig } from "./server_config"
 
 const MONGO_URI = serverConfig.MONGO_URI
-const CURRENT_TABLES = [CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, SESSION_TABLE, VOCABULARY_TABLE]
+const CURRENT_TABLES = [ORGANISATION_TABLE, USER_TABLE, SESSION_TABLE, CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, VOCABULARY_TABLE]
 
 export const connectToDatabase = async () => {
   try {

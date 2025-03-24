@@ -6,6 +6,7 @@ import { HistoryRepository } from "../internal/conversation/storage/mongo/reposi
 import { ErrorAnalysisService } from "../internal/error_analysis/impl"
 import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
+import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
 import { SessionService } from "../internal/session/impl"
 import { createSessionRouter } from "../internal/session/router"
 import { SessionRepository } from "../internal/session/storage/mongo/repository"
@@ -15,9 +16,14 @@ import { TextAnalysisService } from "../internal/text_analysis/impl"
 import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
+import { UserRepository } from "../internal/user/storage/mongo/repository"
+import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
 
 // Repositories
+const organisationRepo = new OrganisationRepository()
+const userRepo = new UserRepository()
 const sessionRepo = new SessionRepository()
+const vocabularyRepo = new VocabularyRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
 const historyRepo = new HistoryRepository()
 

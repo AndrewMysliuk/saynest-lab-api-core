@@ -1,7 +1,7 @@
 import { ISessionEntity, SessionTypeEnum } from "../../types"
 
 export interface ISessionService {
-  createSession(system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity>
-  getSession(session_id: string): Promise<ISessionEntity>
-  finishSession(session_id: string): Promise<ISessionEntity>
+  createSession(organization_id: string, user_id: string, system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity>
+  getSession(organization_id: string, user_id: string, session_id: string): Promise<ISessionEntity>
+  finishSession(organization_id: string, user_id: string, session_id: string): Promise<ISessionEntity>
 }

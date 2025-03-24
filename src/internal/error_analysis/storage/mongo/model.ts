@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from "mongoose"
 
 import { IErrorAnalysisEntity, IWord, IssueItem } from "../../../../types"
 
-export const TABLE_NAME = "error_analyses"
+export const MODEL_NAME = "error_analyses"
 
 export type IErrorAnalysisDocument = IErrorAnalysisEntity & Document
 
@@ -35,4 +35,4 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>({
   created_at: { type: Date, default: Date.now },
 })
 
-export const ErrorAnalysisModel = mongoose.model<IErrorAnalysisDocument>(TABLE_NAME, ErrorAnalysisSchema)
+export const ErrorAnalysisModel = mongoose.model<IErrorAnalysisDocument>(MODEL_NAME, ErrorAnalysisSchema)

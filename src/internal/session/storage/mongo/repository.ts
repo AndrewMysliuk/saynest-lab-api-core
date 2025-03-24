@@ -7,7 +7,7 @@ import { ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../../
 import { SessionModel } from "./model"
 
 export class SessionRepository implements IRepository {
-  async createSession(system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity> {
+  async createSession(organization_id: string, user_id: string, system_prompt: string, type: SessionTypeEnum): Promise<ISessionEntity> {
     const _id = new Types.ObjectId()
 
     const session_directory = path.join(__dirname, "../../../../../user_sessions", _id.toString())
@@ -15,6 +15,8 @@ export class SessionRepository implements IRepository {
 
     const session = await SessionModel.create({
       _id,
+      organization_id: new Types.ObjectId(organization_id),
+      user_id: new Types.ObjectId(user_id),
       type,
       system_prompt,
       session_directory,
@@ -25,8 +27,12 @@ export class SessionRepository implements IRepository {
     return session.toObject()
   }
 
-  async getSession(session_id: string): Promise<ISessionEntity> {
-    const session = await SessionModel.findById(session_id)
+  async getSession(organization_id: string, user_id: string, session_id: string): Promise<ISessionEntity> {
+    const session = await SessionModel.findById({
+      _id: new Types.ObjectId(session_id),
+      organization_id: new Types.ObjectId(organization_id),
+      user_id: new Types.ObjectId(user_id),
+    })
 
     if (!session) {
       throw new Error(`session with ID ${session_id} not found`)
@@ -35,7 +41,7 @@ export class SessionRepository implements IRepository {
     return session.toObject()
   }
 
-  async setSessionStatus(session_id: string, status: SessionStatusEnum): Promise<ISessionEntity> {
+  async setSessionStatus(organization_id: string, user_id: string, session_id: string, status: SessionStatusEnum): Promise<ISessionEntity> {
     const update: Partial<ISessionEntity> = {
       status,
     }
@@ -44,7 +50,15 @@ export class SessionRepository implements IRepository {
       update.ended_at = new Date()
     }
 
-    const session = await SessionModel.findByIdAndUpdate(session_id, update, { new: true })
+    const session = await SessionModel.findByIdAndUpdate(
+      {
+        _id: new Types.ObjectId(session_id),
+        organization_id: new Types.ObjectId(organization_id),
+        user_id: new Types.ObjectId(user_id),
+      },
+      update,
+      { new: true },
+    )
 
     if (!session) {
       throw new Error(`session with ID ${session_id} not found`)

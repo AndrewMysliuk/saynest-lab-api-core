@@ -7,6 +7,13 @@ import { conversationSchema } from "./validation"
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
+      const { organization_id, user_id }: { organization_id: string; user_id: string } = req.body
+
+      if (!organization_id || !user_id) {
+        res.status(400).json({ error: "Missing required fields" })
+        return
+      }
+
       const parsedBody = conversationSchema.parse({
         whisper: {
           ...JSON.parse(req.body.whisper),
@@ -31,6 +38,8 @@ export const createConversationHandler = (conversationService: IConversationServ
       const { whisper, gpt_model, tts, system } = parsedBody
 
       const { session_id, conversation_history, last_model_response, error_analyser_response } = await conversationService.processConversation(
+        organization_id,
+        user_id,
         { whisper, gpt_model, tts, system },
         (role, content, audio_url, audio_chunk) => {
           if (streamEnded) return

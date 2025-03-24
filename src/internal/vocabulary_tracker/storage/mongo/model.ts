@@ -1,14 +1,15 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import { IVocabularyEntity, VocabularyFrequencyLevelEnum, VocabularySourceEnum } from "../../../../types"
-import { TABLE_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
+import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
-export const TABLE_NAME = "vocabularies"
+export const MODEL_NAME = "vocabularies"
 
 export type IVocabularyDocument = IVocabularyEntity & Document
 
 const VocabularySchema = new Schema<IVocabularyEntity>({
-  user_id: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+  user_id: { type: Schema.Types.ObjectId, required: true, ref: USER_TABLE },
   session_id: { type: Schema.Types.ObjectId, required: true, ref: SESSION_TABLE },
   language: { type: String, required: true },
   word: { type: String, required: true },
@@ -30,4 +31,4 @@ const VocabularySchema = new Schema<IVocabularyEntity>({
   is_archived: { type: Boolean, default: false },
 })
 
-export const VocabularyModel = mongoose.model<IVocabularyEntity>(TABLE_NAME, VocabularySchema)
+export const VocabularyModel = mongoose.model<IVocabularyEntity>(MODEL_NAME, VocabularySchema)

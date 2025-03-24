@@ -41,11 +41,13 @@ export class ConversationService implements IConversationService {
   }
 
   async processConversation(
+    organization_id: string,
+    user_id: string,
     { whisper, gpt_model, tts, system }: IConversationPayload,
     onData: (role: string, content: string, audio_url?: string, audio_chunk?: Buffer) => void,
   ): Promise<IConversationResponse> {
     try {
-      const sessionData = await this.getSessionData(system.session_id, system.global_prompt)
+      const sessionData = await this.getSessionData(organization_id, user_id, system.session_id, system.global_prompt)
       const { session_id: activeSessionId, session_directory: sessionDir, conversation_history: initialHistory } = sessionData
 
       const historyArray = Array.isArray(initialHistory) ? initialHistory : [initialHistory]
@@ -110,12 +112,16 @@ export class ConversationService implements IConversationService {
     }
   }
 
-  async startNewSession(system_prompt: string): Promise<{
+  async startNewSession(
+    organization_id: string,
+    user_id: string,
+    system_prompt: string,
+  ): Promise<{
     session_id: ObjectId
     session_directory: string
     conversation_history: IConversationHistory[]
   }> {
-    const session = await this.sessionService.createSession(system_prompt, SessionTypeEnum.SPEACKING)
+    const session = await this.sessionService.createSession(organization_id, user_id, system_prompt, SessionTypeEnum.SPEACKING)
 
     const pair_id = uuidv4()
     const session_id = session._id
@@ -136,6 +142,8 @@ export class ConversationService implements IConversationService {
   }
 
   async getSessionData(
+    organization_id: string,
+    user_id: string,
     session_id: string | undefined,
     system_prompt: string,
   ): Promise<{
@@ -144,7 +152,7 @@ export class ConversationService implements IConversationService {
     conversation_history: IConversationHistory[]
   }> {
     if (session_id) {
-      const session = await this.sessionService.getSession(session_id)
+      const session = await this.sessionService.getSession(organization_id, user_id, session_id)
       const session_directory = session.session_directory
 
       if (fs.existsSync(session_directory)) {
@@ -154,6 +162,6 @@ export class ConversationService implements IConversationService {
       }
     }
 
-    return this.startNewSession(system_prompt)
+    return this.startNewSession(organization_id, user_id, system_prompt)
   }
 }
