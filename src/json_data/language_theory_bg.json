@@ -1,0 +1,1465 @@
+[
+  {
+    "id": "bg_001",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Българската азбука",
+    "title_translations": {
+      "en": "The Bulgarian alphabet",
+      "uk": "Болгарська абетка"
+    },
+    "tags": {
+      "en": ["alphabet", "pronunciation", "letters"],
+      "uk": ["абетка", "вимова", "літери"]
+    },
+    "description": {
+      "en": "Learn the Bulgarian alphabet, how each letter sounds, and examples of words that use them.",
+      "uk": "Вивчіть болгарську абетку, як звучить кожна літера та приклади слів з ними."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Българската азбука съдържа 30 букви. Тя е кирилска азбука, подобна на руската, но има свои особености.",
+        "content_translation": {
+          "en": "The Bulgarian alphabet contains 30 letters. It uses the Cyrillic script, similar to Russian, but with its own characteristics.",
+          "uk": "Болгарська абетка містить 30 літер. Вона використовує кирилицю, подібну до російської, але має свої особливості."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Буква", "Транскрипция", "Пример дума"],
+        "headers_translation": {
+          "en": ["Letter", "Pronunciation", "Example word"],
+          "uk": ["Літера", "Транскрипція", "Приклад слова"]
+        },
+        "rows": [
+          ["А", "[a]", "автомобил"],
+          ["Б", "[b]", "банан"],
+          ["В", "[v]", "вода"],
+          ["Г", "[g]", "град"],
+          ["Д", "[d]", "дом"],
+          ["Е", "[ɛ]", "електричество"],
+          ["Ж", "[ʒ]", "жена"],
+          ["З", "[z]", "зебра"],
+          ["И", "[i]", "игра"],
+          ["Й", "[j]", "йога"],
+          ["К", "[k]", "котка"],
+          ["Л", "[l]", "лястовица"],
+          ["М", "[m]", "маса"],
+          ["Н", "[n]", "нощ"],
+          ["О", "[ɔ]", "облак"],
+          ["П", "[p]", "планина"],
+          ["Р", "[r]", "река"],
+          ["С", "[s]", "село"],
+          ["Т", "[t]", "трапеза"],
+          ["У", "[u]", "училище"],
+          ["Ф", "[f]", "филм"],
+          ["Х", "[x]", "хляб"],
+          ["Ц", "[ts]", "цвете"],
+          ["Ч", "[tʃ]", "чаша"],
+          ["Ш", "[ʃ]", "шапка"],
+          ["Щ", "[ʃt]", "щастие"],
+          ["Ъ", "[ɤ]", "сън"],
+          ["Ь", "[ʲ]", "дъб (мека форма в стари думи)"],
+          ["Ю", "[ju]", "юни"],
+          ["Я", "[ja]", "ябълка"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Буквата 'Ж' се произнася като [ʒ], както в думата 'жена'.",
+        "content_translation": {
+          "en": "The letter 'Ж' is pronounced as [ʒ], as in the word 'жена' (woman).",
+          "uk": "Літера 'Ж' вимовляється як [ʒ], як у слові 'жена' (жінка)."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Буквата 'Щ' се произнася като [ʃt], както в думата 'щастие'.",
+        "content_translation": {
+          "en": "The letter 'Щ' is pronounced as [ʃt], as in the word 'щастие' (happiness).",
+          "uk": "Літера 'Щ' вимовляється як [ʃt], як у слові 'щастие' (щастя)."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Буквата 'Ъ' се произнася като [ɤ], както в думата 'сън'. Звукът е подобен на нещо между 'а' и 'о', но без отваряне на устата.",
+        "content_translation": {
+          "en": "The letter 'Ъ' is pronounced as [ɤ], as in the word 'сън' (sleep). The sound is similar to something between 'a' and 'o', but with a closed mouth.",
+          "uk": "Літера 'Ъ' вимовляється як [ɤ], як у слові 'сън' (сон). Цей звук схожий на щось між 'а' та 'о', але з закритим ротом."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Буквата 'Ю' се произнася като [ju], както в думата 'юни'. Тя е комбинация от 'й' и 'у'.",
+        "content_translation": {
+          "en": "The letter 'Ю' is pronounced as [ju], as in the word 'юни' (June). It's a combination of 'y' and 'u' sounds.",
+          "uk": "Літера 'Ю' вимовляється як [ju], як у слові 'юни' (червень). Це комбінація звуків 'й' і 'у'."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Буквата 'Я' се произнася като [ja], както в думата 'ябълка'. Тя е комбинация от 'й' и 'а'.",
+        "content_translation": {
+          "en": "The letter 'Я' is pronounced as [ja], as in the word 'ябълка' (apple). It's a combination of 'y' and 'a' sounds.",
+          "uk": "Літера 'Я' вимовляється як [ja], як у слові 'ябълка' (яблуко). Це комбінація звуків 'й' і 'а'."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Мек знак 'Ь' не се произнася самостоятелно, но прави предходната съгласна мека. Използва се главно в заемки или стари думи, като 'кьоше'.",
+        "content_translation": {
+          "en": "The soft sign 'Ь' is not pronounced on its own but softens the preceding consonant. It is mainly used in loanwords or old words, like 'кьоше' (corner).",
+          "uk": "М’який знак 'Ь' сам по собі не вимовляється, але пом’якшує попередній приголосний. Використовується переважно у запозичених або старих словах, як-от 'кьоше' (куток)."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_002",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Лични местоимения",
+    "title_translations": {
+      "en": "Personal pronouns",
+      "uk": "Особові займенники"
+    },
+    "tags": {
+      "en": ["pronouns", "personal", "grammar"],
+      "uk": ["займенники", "особові", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use Bulgarian personal pronouns for different persons and numbers.",
+      "uk": "Вивчіть, як використовуються особові займенники в болгарській мові для різних осіб і чисел."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Личните местоимения се използват, за да заменят съществителни и да покажат кой извършва действието.",
+        "content_translation": {
+          "en": "Personal pronouns are used to replace nouns and show who is performing the action.",
+          "uk": "Особові займенники використовуються для заміни іменників і вказують, хто виконує дію."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Ед.ч.", "Местоимение", "Превод"],
+        "headers_translation": {
+          "en": ["Singular", "Pronoun", "Translation"],
+          "uk": ["Однина", "Займенник", "Переклад"]
+        },
+        "rows": [
+          ["1 л.", "аз", "I / я"],
+          ["2 л.", "ти", "you / ти"],
+          ["3 л. (м.р.)", "той", "he / він"],
+          ["3 л. (ж.р.)", "тя", "she / вона"],
+          ["3 л. (ср.р.)", "то", "it / воно"]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Мн.ч.", "Местоимение", "Превод"],
+        "headers_translation": {
+          "en": ["Plural", "Pronoun", "Translation"],
+          "uk": ["Множина", "Займенник", "Переклад"]
+        },
+        "rows": [
+          ["1 л.", "ние", "we / ми"],
+          ["2 л.", "вие", "you / ви"],
+          ["3 л.", "те", "they / вони"]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Местоимение", "Обектна форма", "Превод"],
+        "headers_translation": {
+          "en": ["Pronoun", "Object form", "Translation"],
+          "uk": ["Займенник", "Об'єктна форма", "Переклад"]
+        },
+        "rows": [
+          ["аз", "мен", "me / мене"],
+          ["ти", "теб", "you / тебе"],
+          ["той", "него", "him / його"],
+          ["тя", "нея", "her / її"],
+          ["то", "него", "it / його"],
+          ["ние", "нас", "us / нас"],
+          ["вие", "вас", "you / вас"],
+          ["те", "тях", "them / їх"]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз живея в София. Той е мой приятел.",
+        "content_translation": {
+          "en": "I live in Sofia. He is my friend.",
+          "uk": "Я живу в Софії. Він мій друг."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Тя обича кафе. Те работят в банка.",
+        "content_translation": {
+          "en": "She loves coffee. They work in a bank.",
+          "uk": "Вона любить каву. Вони працюють у банку."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Формата 'вие' се използва не само за множествено число, но и като учтиво обръщение към един човек.",
+        "content_translation": {
+          "en": "The form 'вие' is used not only for the plural but also as a polite form of address to one person.",
+          "uk": "'вие' використовується не лише як множина, але і як ввічлива форма звертання до однієї особи."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_003",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Глаголът „съм“ в сегашно време",
+    "title_translations": {
+      "en": "The verb 'to be' in Present Tense",
+      "uk": "Дієслово 'бути' в теперішньому часі"
+    },
+    "tags": {
+      "en": ["verb", "to be", "present tense", "conjugation"],
+      "uk": ["дієслово", "бути", "теперішній час", "відмінювання"]
+    },
+    "description": {
+      "en": "Learn how to conjugate and use the verb 'съм' (to be) in the present tense in Bulgarian.",
+      "uk": "Вивчіть, як відмінюється та використовується дієслово 'съм' (бути) в теперішньому часі болгарською."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Глаголът „съм“ означава „съществувам“ или „намирам се“ и се използва много често в ежедневната реч.",
+        "content_translation": {
+          "en": "The verb 'съм' means 'to exist' or 'to be located' and is very commonly used in everyday speech.",
+          "uk": "Дієслово 'съм' означає 'існувати' або 'знаходитися' і дуже часто використовується в повсякденному мовленні."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Form", "Translation"],
+          "uk": ["Особа", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "съм", "I am / я є"],
+          ["Ти", "си", "You are / ти є"],
+          ["Той", "е", "He is / він є"],
+          ["Тя", "е", "She is / вона є"],
+          ["То", "е", "It is / воно є"],
+          ["Ние", "сме", "We are / ми є"],
+          ["Вие", "сте", "You are / ви є (або Ви є)"],
+          ["Те", "са", "They are / вони є"]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз съм студент. Тя е учителка.",
+        "content_translation": {
+          "en": "I am a student. She is a teacher.",
+          "uk": "Я — студент. Вона — вчителька."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ние сме приятели. Вие сте българи.",
+        "content_translation": {
+          "en": "We are friends. You are Bulgarians.",
+          "uk": "Ми — друзі. Ви — болгари."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз съм учител. / Аз не съм учител.\nТой е тук. / Той не е тук.\nНие сме готови. / Ние не сме готови.",
+        "content_translation": {
+          "en": "I am a teacher. / I am not a teacher.\nHe is here. / He is not here.\nWe are ready. / We are not ready.",
+          "uk": "Я — вчитель. / Я не вчитель.\nВін тут. / Він не тут.\nМи готові. / Ми не готові."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Глаголът 'съм' често се пропуска в неофициалната реч, особено в кратки изречения, но граматически присъства.",
+        "content_translation": {
+          "en": "The verb 'съм' is often omitted in informal speech, especially in short sentences, but it is grammatically present.",
+          "uk": "Дієслово 'съм' часто опускається в неофіційній мові, особливо в коротких реченнях, але граматично воно є."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В утвърдителни изречения глаголът 'съм' се използва според лицето и числото. В отрицателна форма пред него се поставя 'не'.",
+        "content_translation": {
+          "en": "In affirmative sentences, the verb 'съм' is used according to the person and number. In negative form, 'не' is placed before it.",
+          "uk": "У стверджувальних реченнях дієслово 'съм' вживається залежно від особи та числа. У заперечній формі перед ним ставиться 'не'."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Въпреки че в някои езици глаголът 'съм' се променя в отрицателна форма (напр. 'isn't', 'aren't'), в български език се добавя само частицата 'не' отпред.",
+        "content_translation": {
+          "en": "While in some languages the verb 'to be' changes in negative form (e.g., 'isn't', 'aren't'), in Bulgarian only the particle 'не' is added in front.",
+          "uk": "У деяких мовах дієслово 'бути' змінюється в заперечній формі (наприклад, 'isn't', 'aren't'), але в болгарській просто додається частка 'не' спереду."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_004",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Сегашно време на глаголи от първо и второ спрежение",
+    "title_translations": {
+      "en": "Present tense of verbs from the first and second conjugation",
+      "uk": "Теперішній час дієслів першої та другої дієвідміни"
+    },
+    "tags": {
+      "en": ["verbs", "present tense", "conjugation", "grammar"],
+      "uk": ["дієслова", "теперішній час", "відмінювання", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to conjugate regular Bulgarian verbs from the first and second conjugation in the present tense.",
+      "uk": "Вивчіть, як відмінювати правильні болгарські дієслова першої та другої дієвідміни в теперішньому часі."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В българския език глаголите се делят на три спрежения според окончанията си в сегашно време. Първото и второто са най-често срещани и следват ясни модели.",
+        "content_translation": {
+          "en": "In Bulgarian, verbs are divided into three conjugations based on their endings in the present tense. The first and second are most common and follow regular patterns.",
+          "uk": "У болгарській мові дієслова поділяються на три дієвідміни за закінченнями в теперішньому часі. Перша і друга — найпоширеніші та мають регулярні моделі."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "говоря (1 спрежение)", "превод"],
+        "headers_translation": {
+          "en": ["Person", "говоря (1st conjugation)", "translation"],
+          "uk": ["Особа", "говоря (1-а відміна)", "переклад"]
+        },
+        "rows": [
+          ["Аз", "говоря", "I speak / я говорю"],
+          ["Ти", "говориш", "you speak / ти говориш"],
+          ["Той/тя/то", "говори", "he/she/it speaks / він/вона говорить"],
+          ["Ние", "говорим", "we speak / ми говоримо"],
+          ["Вие", "говорите", "you speak / ви говорите"],
+          ["Те", "говорят", "they speak / вони говорять"]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "пиша (2 спрежение)", "превод"],
+        "headers_translation": {
+          "en": ["Person", "пиша (2nd conjugation)", "translation"],
+          "uk": ["Особа", "пиша (2-а відміна)", "переклад"]
+        },
+        "rows": [
+          ["Аз", "пиша", "I write / я пишу"],
+          ["Ти", "пишеш", "you write / ти пишеш"],
+          ["Той/тя/то", "пише", "he/she/it writes / він/вона пише"],
+          ["Ние", "пишем", "we write / ми пишемо"],
+          ["Вие", "пишете", "you write / ви пишете"],
+          ["Те", "пишат", "they write / вони пишуть"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Глаголите от първо спрежение обикновено завършват на -а или -я, а тези от второ — на -е. Окончанията в сегашно време зависят от лицето.",
+        "content_translation": {
+          "en": "First conjugation verbs usually end in -a or -я, and second conjugation verbs in -e. Endings in present tense depend on the grammatical person.",
+          "uk": "Дієслова першої дієвідміни зазвичай закінчуються на -а або -я, а другої — на -е. Закінчення в теперішньому часі залежать від особи."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз говоря български. Ти пишеш имейл.",
+        "content_translation": {
+          "en": "I speak Bulgarian. You are writing an email.",
+          "uk": "Я говорю болгарською. Ти пишеш електронний лист."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ние говорим тихо. Те пишат домашно.",
+        "content_translation": {
+          "en": "We speak quietly. They are writing homework.",
+          "uk": "Ми говоримо тихо. Вони пишуть домашнє завдання."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_005",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Сегашно време на неправилни глаголи",
+    "title_translations": {
+      "en": "Present tense of irregular verbs",
+      "uk": "Теперішній час неправильних дієслів"
+    },
+    "tags": {
+      "en": ["verbs", "irregular", "present tense", "grammar"],
+      "uk": ["дієслова", "неправильні", "теперішній час", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to conjugate common irregular Bulgarian verbs in the present tense.",
+      "uk": "Вивчіть, як відмінюються поширені неправильні болгарські дієслова в теперішньому часі."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Някои глаголи в българския език не следват стандартните правила за спрежение. Те имат неправилни форми в сегашно време, които трябва да се запомнят.",
+        "content_translation": {
+          "en": "Some Bulgarian verbs do not follow standard conjugation rules. They have irregular forms in the present tense that must be memorized.",
+          "uk": "Деякі дієслова в болгарській мові не підкоряються стандартним правилам відмінювання. Їхні форми в теперішньому часі потрібно запам’ятати."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често използваните неправилни глаголи са: съм (to be), имам (to have), ида (to come), ям (to eat), дам (to give), знам (to know), мога (can).",
+        "content_translation": {
+          "en": "The most commonly used irregular verbs are: съм (to be), имам (to have), ида (to come), ям (to eat), дам (to give), знам (to know), мога (can).",
+          "uk": "Найчастіше вживані неправильні дієслова: съм (бути), имам (мати), ида (прийти), ям (їсти), дам (дати), знам (знати), мога (могти)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "ям (to eat)", "знам (to know)", "мога (can)"],
+        "headers_translation": {
+          "en": ["Person", "ям (to eat)", "знам (to know)", "мога (can)"],
+          "uk": ["Особа", "ям (їсти)", "знам (знати)", "мога (могти)"]
+        },
+        "rows": [
+          ["Аз", "ям", "зная / знам", "мога"],
+          ["Ти", "ядеш", "знаеш", "можеш"],
+          ["Той/тя/то", "яде", "знае", "може"],
+          ["Ние", "ядем", "знаем", "можем"],
+          ["Вие", "ядете", "знаете", "можете"],
+          ["Те", "ядат", "знаят", "могат"]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз ям ябълка. Той знае отговора. Те могат да дойдат утре.",
+        "content_translation": {
+          "en": "I am eating an apple. He knows the answer. They can come tomorrow.",
+          "uk": "Я їм яблуко. Він знає відповідь. Вони можуть прийти завтра."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Някои глаголи имат две форми (напр. 'зная' и 'знам') — и двете са правилни, но в разговорна реч по-често се използва кратката форма.",
+        "content_translation": {
+          "en": "Some verbs have two forms (e.g., 'зная' and 'знам') — both are correct, but the shorter form is more common in speech.",
+          "uk": "Деякі дієслова мають дві форми (наприклад, 'зная' і 'знам') — обидві правильні, але у розмовній мові частіше використовується коротка форма."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_006",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Въпросителни думи",
+    "title_translations": {
+      "en": "Question words",
+      "uk": "Питальні слова"
+    },
+    "tags": {
+      "en": ["questions", "interrogatives", "grammar"],
+      "uk": ["питальні слова", "граматика"]
+    },
+    "description": {
+      "en": "Learn the basic question words in Bulgarian and how to use them in questions.",
+      "uk": "Вивчіть основні питальні слова болгарською мовою та як їх використовувати в запитаннях."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Въпросителните думи се използват, за да задаваме въпроси за хора, предмети, време, място, причина и начин на действие.",
+        "content_translation": {
+          "en": "Question words are used to ask about people, things, time, place, reason, and manner of action.",
+          "uk": "Питальні слова використовуються, щоб ставити запитання про людей, речі, час, місце, причину та спосіб дії."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Български", "Превод (EN)", "Превод (UK)"],
+        "headers_translation": {
+          "en": ["Bulgarian", "Translation (EN)", "Translation (UK)"],
+          "uk": ["Болгарська", "Переклад (англ.)", "Переклад (укр.)"]
+        },
+        "rows": [
+          ["Кой?", "Who?", "Хто?"],
+          ["Какво?", "What?", "Що? / Що саме?"],
+          ["Къде?", "Where?", "Де?"],
+          ["Кога?", "When?", "Коли?"],
+          ["Защо?", "Why?", "Чому?"],
+          ["Как?", "How?", "Як?"],
+          ["Чий?", "Whose?", "Чий?"],
+          ["Колко?", "How much/many?", "Скільки?"],
+          ["Кой...?", "Which...?", "Котрий...?"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Въпросителните думи обикновено стоят в началото на изречението. След тях често следва глаголът.",
+        "content_translation": {
+          "en": "Question words usually come at the beginning of the sentence. They are often followed by the verb.",
+          "uk": "Питальні слова зазвичай стоять на початку речення. Після них часто йде дієслово."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Къде живееш? Какво правиш? Защо закъсня?",
+        "content_translation": {
+          "en": "Where do you live? What are you doing? Why are you late?",
+          "uk": "Де ти живеш? Що ти робиш? Чому ти запізнився?"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Кой е този човек? Колко струва това?",
+        "content_translation": {
+          "en": "Who is this person? How much does it cost?",
+          "uk": "Хто ця людина? Скільки це коштує?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_007",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Прости съобщителни изречения",
+    "title_translations": {
+      "en": "Simple declarative sentences",
+      "uk": "Прості розповідні речення"
+    },
+    "tags": {
+      "en": ["sentence structure", "declarative", "simple sentences"],
+      "uk": ["структура речення", "розповідні", "прості речення"]
+    },
+    "description": {
+      "en": "Learn how to build simple declarative sentences in Bulgarian.",
+      "uk": "Вивчіть, як будувати прості розповідні речення болгарською мовою."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Простите съобщителни изречения изразяват факт, твърдение или мисъл. Те завършват с точка и имат обикновено подлог и сказуемо.",
+        "content_translation": {
+          "en": "Simple declarative sentences express a fact, statement, or thought. They end with a period and usually contain a subject and a predicate.",
+          "uk": "Прості розповідні речення виражають факт, твердження або думку. Вони закінчуються крапкою і зазвичай мають підмет і присудок."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Елемент", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Element", "Example", "Translation"],
+          "uk": ["Елемент", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Подлог + сказуемо", "Аз чета.", "I read. / Я читаю."],
+          ["Подлог + сказуемо + допълнение", "Тя обича кафе.", "She likes coffee. / Вона любить каву."],
+          ["Подлог + сказуемо + обстоятелство", "Ние живеем в София.", "We live in Sofia. / Ми живемо в Софії."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Редът на думите в българското изречение обикновено е: подлог – сказуемо – останали части. Но той може да се променя за акцент.",
+        "content_translation": {
+          "en": "The typical word order in a Bulgarian sentence is: subject – verb – other parts. However, it can change for emphasis.",
+          "uk": "Звичайний порядок слів у болгарському реченні: підмет – присудок – інші частини. Але він може змінюватися для акценту."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз говоря. Той играе футбол. Вие сте тук.",
+        "content_translation": {
+          "en": "I speak. He plays football. You are here.",
+          "uk": "Я говорю. Він грає у футбол. Ви тут."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Те живеят в голяма къща. Учителката обяснява урока.",
+        "content_translation": {
+          "en": "They live in a big house. The teacher is explaining the lesson.",
+          "uk": "Вони живуть у великому будинку. Вчителька пояснює урок."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_008",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Отрицание с „не“",
+    "title_translations": {
+      "en": "Negation with 'не'",
+      "uk": "Заперечення з „не“"
+    },
+    "tags": {
+      "en": ["negation", "grammar", "not", "negative sentences"],
+      "uk": ["заперечення", "граматика", "негативні речення"]
+    },
+    "description": {
+      "en": "Learn how to form negative sentences in Bulgarian using the word 'не'.",
+      "uk": "Вивчіть, як будувати заперечні речення в болгарській мові за допомогою слова „не“."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език отрицанието се образува, като пред глагола се постави частицата 'не'. Тя не се отделя и не се променя.",
+        "content_translation": {
+          "en": "In Bulgarian, negation is formed by placing the particle 'не' in front of the verb. It does not change or separate.",
+          "uk": "У болгарській мові заперечення утворюється шляхом додавання частки „не“ перед дієсловом. Вона не змінюється і не відокремлюється."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Утвердително", "Отрицание", "Превод"],
+        "headers_translation": {
+          "en": ["Affirmative", "Negative", "Translation"],
+          "uk": ["Ствердження", "Заперечення", "Переклад"]
+        },
+        "rows": [
+          ["Аз съм тук.", "Аз не съм тук.", "I am here. / I am not here."],
+          ["Ти разбираш.", "Ти не разбираш.", "You understand. / You do not understand."],
+          ["Те имат кола.", "Те нямат кола.", "They have a car. / They don't have a car."],
+          ["Той работи.", "Той не работи.", "He works. / He does not work."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "При глагола 'имам' в отрицателна форма често се използва формата 'нямам', която е слята форма.",
+        "content_translation": {
+          "en": "With the verb 'имам' (to have), the negative form is often 'нямам', a fused (contracted) form.",
+          "uk": "У дієслова 'имам' (мати) в заперечній формі часто використовується злитий варіант 'нямам'."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ние не живеем тук. Тя не знае отговора.",
+        "content_translation": {
+          "en": "We don’t live here. She doesn’t know the answer.",
+          "uk": "Ми не живемо тут. Вона не знає відповіді."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз нямам време. Вие нямате домашно.",
+        "content_translation": {
+          "en": "I don’t have time. You don’t have homework.",
+          "uk": "Я не маю часу. Ви не маєте домашнього завдання."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В български език се използва двойно отрицание — когато в изречението има отрицателна дума като „никой“, „нищо“, „никъде“, глаголът също трябва да е с „не“. Това е задължително правило.",
+        "content_translation": {
+          "en": "In Bulgarian, double negation is used — when there is a negative word like 'никой', 'нищо', or 'никъде' in the sentence, the verb must also be negated with 'не'. This is a required rule.",
+          "uk": "У болгарській мові використовується подвійне заперечення — якщо в реченні є заперечне слово типу 'нікoй', 'ніщо', 'нікъде', дієслово також має бути з 'не'. Це обов’язкове правило."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Никой не идва. / Нищо не разбирам. / Те никъде не ходят.",
+        "content_translation": {
+          "en": "Nobody is coming. / I don’t understand anything. / They don’t go anywhere.",
+          "uk": "Ніхто не приходить. / Я нічого не розумію. / Вони нікуди не ходять."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В официална или учтива реч отрицанието се изразява със същата структура, но често се използва по-мек тон и по-пълни изрази.",
+        "content_translation": {
+          "en": "In formal or polite speech, negation uses the same structure, but often with a softer tone and more complete expressions.",
+          "uk": "У формальному або ввічливому мовленні заперечення будується за тією ж структурою, але часто з м’якшим тоном і повнішими виразами."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Съжалявам, но не мога да ви помогна. / За съжаление, не разполагаме с тази информация.",
+        "content_translation": {
+          "en": "I’m sorry, but I cannot help you. / Unfortunately, we do not have that information.",
+          "uk": "Вибачте, але я не можу вам допомогти. / На жаль, у нас немає цієї інформації."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_009",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Числителни 0–100",
+    "title_translations": {
+      "en": "Numbers 0–100",
+      "uk": "Числівники 0–100"
+    },
+    "tags": {
+      "en": ["numbers", "counting", "cardinal numerals"],
+      "uk": ["числівники", "лічба", "кількісні числівники"]
+    },
+    "description": {
+      "en": "Learn how to read, form, and use numbers from 0 to 100 in Bulgarian.",
+      "uk": "Вивчіть, як читати, утворювати й використовувати числівники від 0 до 100 болгарською мовою."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Числителните имена обозначават брой. Те от 0 до 100 се използват често в ежедневната реч: за възраст, пари, телефонни номера, време и др.",
+        "content_translation": {
+          "en": "Cardinal numbers indicate quantity. Numbers from 0 to 100 are often used in daily life: for age, money, phone numbers, time, etc.",
+          "uk": "Кількісні числівники означають кількість. Числа від 0 до 100 часто використовуються в повсякденному житті: для віку, грошей, номерів телефону, часу тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Число", "Български", "Превод"],
+        "headers_translation": {
+          "en": ["Number", "Bulgarian", "Translation"],
+          "uk": ["Число", "Болгарською", "Переклад"]
+        },
+        "rows": [
+          ["0", "нула", "zero / нуль"],
+          ["1", "едно", "one / один"],
+          ["2", "две", "two / два"],
+          ["3", "три", "three / три"],
+          ["4", "четири", "four / чотири"],
+          ["5", "пет", "five / п’ять"],
+          ["6", "шест", "six / шість"],
+          ["7", "седем", "seven / сім"],
+          ["8", "осем", "eight / вісім"],
+          ["9", "девет", "nine / дев’ять"],
+          ["10", "десет", "ten / десять"],
+          ["11", "единадесет", "eleven / одинадцять"],
+          ["12", "дванадесет", "twelve / дванадцять"],
+          ["13", "тринадесет", "thirteen / тринадцять"],
+          ["14", "четиринадесет", "fourteen / чотирнадцять"],
+          ["15", "петнадесет", "fifteen / п’ятнадцять"],
+          ["16", "шестнадесет", "sixteen / шістнадцять"],
+          ["17", "седемнадесет", "seventeen / сімнадцять"],
+          ["18", "осемнадесет", "eighteen / вісімнадцять"],
+          ["19", "деветнадесет", "nineteen / дев’ятнадцять"],
+          ["20", "двадесет", "twenty / двадцять"],
+          ["30", "тридесет", "thirty / тридцять"],
+          ["40", "четиридесет", "forty / сорок"],
+          ["50", "петдесет", "fifty / п’ятдесят"],
+          ["60", "шестдесет", "sixty / шістдесят"],
+          ["70", "седемдесет", "seventy / сімдесят"],
+          ["80", "осемдесет", "eighty / вісімдесят"],
+          ["90", "деветдесет", "ninety / дев’яносто"],
+          ["100", "сто", "one hundred / сто"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Числата от 21 до 99 се образуват, като първо се казва десетицата, след това единицата: например „двадесет и едно“, „петдесет и седем“. Съюзът 'и' се използва винаги между десетицата и единицата.",
+        "content_translation": {
+          "en": "Numbers from 21 to 99 are formed by saying the tens first, then the units: e.g., 'двадесет и едно', 'петдесет и седем'. The conjunction 'и' is always used between the tens and units.",
+          "uk": "Числа від 21 до 99 утворюються шляхом додавання одиниць до десятків: наприклад, „двадесет и едно“, „петдесет и седем“. Сполучник 'и' завжди використовується між десятками й одиницями."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Имам тридесет и пет години. Телефонният ми номер е нула осем осем пет…",
+        "content_translation": {
+          "en": "I am thirty-five years old. My phone number is zero eight eight five…",
+          "uk": "Мені тридцять п’ять років. Мій номер телефону — нуль вісім вісім п’ять…"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "В клас има двадесет и шест ученици. Това струва деветдесет и девет лева.",
+        "content_translation": {
+          "en": "There are twenty-six students in the class. This costs ninety-nine leva.",
+          "uk": "У класі двадцять шість учнів. Це коштує дев’яносто дев’ять левів."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_010",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Редни числителни имена",
+    "title_translations": {
+      "en": "Ordinal numerals",
+      "uk": "Порядкові числівники"
+    },
+    "tags": {
+      "en": ["ordinal numbers", "grammar", "numerals"],
+      "uk": ["порядкові числівники", "граматика", "числівники"]
+    },
+    "description": {
+      "en": "Learn how to form and use ordinal numbers (first, second, third, etc.) in Bulgarian.",
+      "uk": "Вивчіть, як утворювати й використовувати порядкові числівники (перший, другий, третій тощо) в болгарській мові."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Редните числителни показват ред, позиция или последователност. Те се съгласуват по род и число с съществителното, към което се отнасят.",
+        "content_translation": {
+          "en": "Ordinal numbers indicate order, position, or sequence. They agree in gender and number with the noun they refer to.",
+          "uk": "Порядкові числівники показують порядок, позицію або послідовність. Вони узгоджуються за родом і числом з іменником, до якого відносяться."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Число", "М.р.", "Ж.р.", "Ср.р.", "Мн.ч.", "Превод"],
+        "headers_translation": {
+          "en": ["Number", "Masc.", "Fem.", "Neut.", "Plur.", "Translation"],
+          "uk": ["Число", "Ч.р.", "Ж.р.", "С.р.", "Множ.", "Переклад"]
+        },
+        "rows": [
+          ["1", "първи", "първа", "първо", "първи", "first / перший"],
+          ["2", "втори", "втора", "второ", "втори", "second / другий"],
+          ["3", "трети", "трета", "трето", "трети", "third / третій"],
+          ["4", "четвърти", "четвърта", "четвърто", "четвърти", "fourth / четвертий"],
+          ["5", "пети", "пета", "пето", "пети", "fifth / п’ятий"],
+          ["6", "шести", "шеста", "шесто", "шести", "sixth / шостий"],
+          ["7", "седми", "седма", "седмо", "седми", "seventh / сьомий"],
+          ["8", "осми", "осма", "осмо", "осми", "eighth / восьмий"],
+          ["9", "девети", "девета", "девето", "девети", "ninth / дев’ятий"],
+          ["10", "десети", "десета", "десето", "десети", "tenth / десятий"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Редните числителни се пишат и с цифра и точка: 1. – първи, 2. – втори и т.н. Когато се използват с дати или класиране, обикновено се съкращават по този начин.",
+        "content_translation": {
+          "en": "Ordinal numbers can also be written with a digit and a dot: 1. – първи, 2. – втори, etc. This is commonly used in dates or rankings.",
+          "uk": "Порядкові числівники також записуються цифрою з крапкою: 1. – перший, 2. – другий тощо. Такий запис часто використовується в датах і рейтингах."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Днес е първи януари. Той е вторият участник. Това е петата задача.",
+        "content_translation": {
+          "en": "Today is the first of January. He is the second participant. This is the fifth task.",
+          "uk": "Сьогодні перше січня. Він — другий учасник. Це п’яте завдання."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Моята стая е на третия етаж. Това е десето място в класацията.",
+        "content_translation": {
+          "en": "My room is on the third floor. This is the tenth place in the ranking.",
+          "uk": "Моя кімната на третьому поверсі. Це десяте місце в рейтингу."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_011",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Определителен член (постпозитивна форма)",
+    "title_translations": {
+      "en": "Definite article (postpositive form)",
+      "uk": "Означений артикль (постпозитивна форма)"
+    },
+    "tags": {
+      "en": ["articles", "grammar", "definite article"],
+      "uk": ["артиклі", "граматика", "означений артикль"]
+    },
+    "description": {
+      "en": "Learn how Bulgarian definite articles work. Unlike many languages, the article is added to the end of the noun.",
+      "uk": "Вивчіть, як працює означений артикль у болгарській мові. На відміну від багатьох мов, він додається в кінці слова."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език определителният член не стои пред думата, а се прибавя като наставка след нея — това се нарича постпозитивна форма.",
+        "content_translation": {
+          "en": "In Bulgarian, the definite article is not placed before the word but is added as a suffix after it — this is called a postpositive form.",
+          "uk": "У болгарській мові означений артикль не стоїть перед словом, а додається до його кінця — це називається постпозитивною формою."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Род / Число", "Пример (неопределен)", "Определена форма", "Превод"],
+        "headers_translation": {
+          "en": ["Gender / Number", "Example (indefinite)", "Definite form", "Translation"],
+          "uk": ["Рід / Число", "Неозначена форма", "Означена форма", "Переклад"]
+        },
+        "rows": [
+          ["М.р. (подлог)", "учител", "учителят", "the teacher (subject) / учитель"],
+          ["М.р. (други позиции)", "учител", "учителя", "the teacher (object) / учителя"],
+          ["Ж.р.", "жена", "жената", "the woman / жінка"],
+          ["Ср.р.", "дете", "детето", "the child / дитина"],
+          ["Мн.ч.", "книги", "книгите", "the books / книги"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "При мъжки род в единствено число има две форми: „-ят“ се използва, когато съществителното е подлог; „-я“ — в другите случаи.",
+        "content_translation": {
+          "en": "In masculine singular, there are two definite forms: '-ят' is used when the noun is the subject; '-я' in other positions.",
+          "uk": "У чоловічому роді в однині є дві форми означеного артикля: „-ят“ вживається, якщо іменник — підмет; „-я“ — в інших випадках."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Учителят говори. Виждам учителя. Жената чете книга.",
+        "content_translation": {
+          "en": "The teacher is speaking. I see the teacher. The woman is reading a book.",
+          "uk": "Учитель говорить. Я бачу вчителя. Жінка читає книжку."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Детето играе. Децата пеят.",
+        "content_translation": {
+          "en": "The child is playing. The children are singing.",
+          "uk": "Дитина грається. Діти співають."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_012",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Показателни местоимения",
+    "title_translations": {
+      "en": "Demonstrative pronouns",
+      "uk": "Вказівні займенники"
+    },
+    "tags": {
+      "en": ["pronouns", "demonstratives", "grammar"],
+      "uk": ["займенники", "вказівні", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use demonstrative pronouns in Bulgarian: този, онази, тези, etc.",
+      "uk": "Вивчіть, як використовуються вказівні займенники в болгарській мові: този, онази, тези тощо."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Показателните местоимения се използват, за да сочат към хора или предмети. Те зависят от род и число, и могат да сочат нещо близко или далечно.",
+        "content_translation": {
+          "en": "Demonstrative pronouns are used to point to people or objects. They change according to gender and number and can indicate something near or far.",
+          "uk": "Вказівні займенники використовуються для вказівки на людей або предмети. Вони змінюються за родом і числом і можуть позначати щось близьке або далеке."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Род / Число", "Близо (този)", "Далече (онзи)", "Превод"],
+        "headers_translation": {
+          "en": ["Gender / Number", "Near (this)", "Far (that)", "Translation"],
+          "uk": ["Рід / Число", "Близько (цей)", "Далеко (той)", "Переклад"]
+        },
+        "rows": [
+          ["Мъжки род", "този", "онзи", "this / that (masc.)"],
+          ["Женски род", "тази", "онази", "this / that (fem.)"],
+          ["Среден род", "това", "онова", "this / that (neut.)"],
+          ["Множествено число", "тези", "онези", "these / those"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Формите с „т-“ се използват за нещо близко, а формите с „он-“ – за нещо далечно, в пространството или в мисълта.",
+        "content_translation": {
+          "en": "Forms with 'т-' are used for something near, and forms with 'он-' – for something distant, either in space or thought.",
+          "uk": "Форми з 'т-' використовуються для чогось близького, а з 'он-' – для чогось далекого, у просторі чи думці."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Този човек е мой приятел. Онази жена живее там.",
+        "content_translation": {
+          "en": "This man is my friend. That woman lives there.",
+          "uk": "Цей чоловік — мій друг. Та жінка живе там."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Тези книги са интересни. Онова дете играе в парка.",
+        "content_translation": {
+          "en": "These books are interesting. That child is playing in the park.",
+          "uk": "Ці книжки цікаві. Та дитина грається в парку."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_013",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Притежателни местоимения",
+    "title_translations": {
+      "en": "Possessive pronouns",
+      "uk": "Присвійні займенники"
+    },
+    "tags": {
+      "en": ["pronouns", "possessive", "grammar"],
+      "uk": ["займенники", "присвійні", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use Bulgarian possessive pronouns like мой, твой, негов, etc., based on person, gender, and number.",
+      "uk": "Вивчіть, як використовувати болгарські присвійні займенники, такі як мой, твой, негов тощо, відповідно до особи, роду та числа."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Притежателните местоимения показват принадлежност. Те се съгласуват по род и число със съществителното, което поясняват, а не със самия притежател.",
+        "content_translation": {
+          "en": "Possessive pronouns indicate possession. They agree in gender and number with the noun they refer to, not with the owner.",
+          "uk": "Присвійні займенники вказують на приналежність. Вони узгоджуються за родом і числом з іменником, до якого відносяться, а не з власником."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "М.р.", "Ж.р.", "Ср.р.", "Мн.ч.", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Masc.", "Fem.", "Neut.", "Plur.", "Translation"],
+          "uk": ["Особа", "Ч.р.", "Ж.р.", "С.р.", "Множ.", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "мой", "моя", "мое", "мои", "my / мій"],
+          ["Ти", "твой", "твоя", "твое", "твои", "your (sing.) / твій"],
+          ["Той", "негов", "негова", "негово", "негови", "his / його"],
+          ["Тя", "неин", "неина", "неино", "неини", "her / її"],
+          ["То", "негов", "негова", "негово", "негови", "its / його"],
+          ["Ние", "наш", "наша", "наше", "наши", "our / наш"],
+          ["Вие", "ваш", "ваша", "ваше", "ваши", "your (pl./formal) / ваш"],
+          ["Те", "техен", "тяхна", "тяхно", "техни", "their / їх"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Формата зависи от рода и числото на предмета: „моя книга“ (ж.р.), „моят компютър“ (м.р.), „моето дете“ (ср.р.).",
+        "content_translation": {
+          "en": "The form depends on the gender and number of the object: 'моя книга' (fem.), 'моят компютър' (masc.), 'моето дете' (neut.).",
+          "uk": "Форма залежить від роду та числа об’єкта: „моя книга“ (ж.р.), „мій комп’ютер“ (ч.р.), „моє дитя“ (с.р.)."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Това е моята кола. Твоят телефон звъни.",
+        "content_translation": {
+          "en": "This is my car. Your phone is ringing.",
+          "uk": "Це моя машина. Твій телефон дзвонить."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Нашият дом е близо. Тяхната къща е далече.",
+        "content_translation": {
+          "en": "Our home is near. Their house is far.",
+          "uk": "Наш дім поруч. Їхній будинок далеко."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_014",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Род и число на съществителни",
+    "title_translations": {
+      "en": "Gender and number of nouns",
+      "uk": "Рід і число іменників"
+    },
+    "tags": {
+      "en": ["nouns", "gender", "singular", "plural", "grammar"],
+      "uk": ["іменники", "рід", "однина", "множина", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to recognize and form genders (masculine, feminine, neuter) and plural forms of Bulgarian nouns.",
+      "uk": "Вивчіть, як визначати рід (чоловічий, жіночий, середній) та утворювати множину болгарських іменників."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Съществителните имена в българския език имат род (мъжки, женски, среден) и число (единствено и множествено). Родът се разпознава по окончанието, а множественото число се образува с различни наставки.",
+        "content_translation": {
+          "en": "Bulgarian nouns have gender (masculine, feminine, neuter) and number (singular and plural). Gender is recognized by the ending, and plural is formed with different suffixes.",
+          "uk": "У болгарській мові іменники мають рід (чоловічий, жіночий, середній) і число (однина і множина). Рід визначається за закінченням, а множина утворюється за допомогою суфіксів."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Род", "Пример (ед.ч.)", "Превод", "Окончание"],
+        "headers_translation": {
+          "en": ["Gender", "Example (sing.)", "Translation", "Ending"],
+          "uk": ["Рід", "Приклад (одн.)", "Переклад", "Закінчення"]
+        },
+        "rows": [
+          ["Мъжки род", "учител", "teacher (m.) / учитель", "обикновено съгласна"],
+          ["Женски род", "жена", "woman / жінка", "-а, -я"],
+          ["Среден род", "дете", "child / дитина", "-е, -о"]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Ед.ч.", "Мн.ч.", "Превод"],
+        "headers_translation": {
+          "en": ["Singular", "Plural", "Translation"],
+          "uk": ["Однина", "Множина", "Переклад"]
+        },
+        "rows": [
+          ["учител", "учители", "teacher / учитель – учителі"],
+          ["жена", "жени", "woman / жінка – жінки"],
+          ["дете", "деца", "child / дитина – діти"],
+          ["книга", "книги", "book / книжка – книжки"],
+          ["стол", "столове", "chair / стілець – стільці"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Някои съществителни имена имат неправилни форми в множествено число (напр. 'дете – деца'). Те трябва да се запомнят.",
+        "content_translation": {
+          "en": "Some nouns have irregular plural forms (e.g., 'дете – деца'). These must be memorized.",
+          "uk": "Деякі іменники мають неправильні форми множини (наприклад: 'дете – деца'). Їх потрібно запам’ятати."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Това е маса. Това са маси. Жената чете книга. Децата играят.",
+        "content_translation": {
+          "en": "This is a table. These are tables. The woman is reading a book. The children are playing.",
+          "uk": "Це — стіл. Це — столи. Жінка читає книжку. Діти граються."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_015",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Прилагателни и съгласуване по род",
+    "title_translations": {
+      "en": "Adjectives and gender agreement",
+      "uk": "Прикметники та узгодження за родом"
+    },
+    "tags": {
+      "en": ["adjectives", "gender", "agreement", "grammar"],
+      "uk": ["прикметники", "рід", "узгодження", "граматика"]
+    },
+    "description": {
+      "en": "Learn how Bulgarian adjectives agree in gender, number, and definiteness with the nouns they describe.",
+      "uk": "Вивчіть, як болгарські прикметники узгоджуються з іменниками за родом, числом та означеністю."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Прилагателните имена описват съществителни и се съгласуват с тях по род, число и определеност. Формата на прилагателното се променя според това, към кого се отнася.",
+        "content_translation": {
+          "en": "Adjectives describe nouns and agree with them in gender, number, and definiteness. The form of the adjective changes depending on the noun it refers to.",
+          "uk": "Прикметники описують іменники і узгоджуються з ними за родом, числом та означеністю. Форма прикметника змінюється залежно від іменника."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Род / Число", "Неопределена форма", "Определена форма", "Превод"],
+        "headers_translation": {
+          "en": ["Gender / Number", "Indefinite form", "Definite form", "Translation"],
+          "uk": ["Рід / Число", "Неозначена форма", "Означена форма", "Переклад"]
+        },
+        "rows": [
+          ["Мъжки род", "добър човек", "добрият човек", "a good man / the good man"],
+          ["Женски род", "добра жена", "добрата жена", "a good woman / the good woman"],
+          ["Среден род", "добро дете", "доброто дете", "a good child / the good child"],
+          ["Множествено число", "добри хора", "добрите хора", "good people / the good people"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Определената форма се използва, когато е ясно за кого или какво се говори. Артикълът се добавя към прилагателното и съществителното.",
+        "content_translation": {
+          "en": "The definite form is used when it is clear who or what is being referred to. The article is added to both the adjective and the noun.",
+          "uk": "Означена форма вживається, коли зрозуміло, про кого або що йдеться. Артикль додається як до прикметника, так і до іменника."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Виждам нова кола. Новата кола е червена.",
+        "content_translation": {
+          "en": "I see a new car. The new car is red.",
+          "uk": "Я бачу нову машину. Нова машина червона."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Имаме малко дете. Малкото дете спи.",
+        "content_translation": {
+          "en": "We have a small child. The small child is sleeping.",
+          "uk": "У нас є мала дитина. Мала дитина спить."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_016",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Наречия (прости)",
+    "title_translations": {
+      "en": "Adverbs (simple)",
+      "uk": "Прислівники (прості)"
+    },
+    "tags": {
+      "en": ["adverbs", "grammar", "simple adverbs"],
+      "uk": ["прислівники", "граматика", "прості прислівники"]
+    },
+    "description": {
+      "en": "Learn how to use simple Bulgarian adverbs that describe actions, places, time, and manner.",
+      "uk": "Вивчіть, як використовувати прості болгарські прислівники, які описують дію, місце, час та спосіб."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Наречията поясняват как, къде, кога и колко често се извършва дадено действие. Простите наречия не се изменят и обикновено стоят близо до глагола.",
+        "content_translation": {
+          "en": "Adverbs describe how, where, when, and how often an action occurs. Simple adverbs do not change and are usually placed near the verb.",
+          "uk": "Прислівники описують, як, де, коли і як часто відбувається дія. Прості прислівники не змінюються і зазвичай стоять біля дієслова."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Вид", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Example", "Translation"],
+          "uk": ["Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Наречие за място", "тук, там, навън, вътре", "here, there, outside, inside / тут, там, надворі, усередині"],
+          ["Наречие за време", "сега, вчера, днес, утре", "now, yesterday, today, tomorrow / зараз, вчора, сьогодні, завтра"],
+          ["Наречие за начин", "бързо, добре, зле, тихо", "quickly, well, badly, quietly / швидко, добре, погано, тихо"],
+          ["Наречие за честота", "често, рядко, винаги, понякога", "often, rarely, always, sometimes / часто, рідко, завжди, іноді"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Не бъркайте наречията с прилагателни: 'Той е бърз.' (прилагателно) / 'Той тича бързо.' (наречие)",
+        "content_translation": {
+          "en": "Don't confuse adverbs with adjectives: 'He is fast.' (adjective) / 'He runs fast.' (adverb)",
+          "uk": "Не плутайте прислівники з прикметниками: 'Він швидкий.' (прикметник) / 'Він біжить швидко.' (прислівник)"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз често чета книги. Днес тя е тук. Децата играят навън.",
+        "content_translation": {
+          "en": "I often read books. Today she is here. The children are playing outside.",
+          "uk": "Я часто читаю книжки. Сьогодні вона тут. Діти граються надворі."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Той говори бавно. Ние винаги закусваме в 8 часа.",
+        "content_translation": {
+          "en": "He speaks slowly. We always have breakfast at 8 o’clock.",
+          "uk": "Він говорить повільно. Ми завжди снідаємо о 8-й годині."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_017",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Прост словоред",
+    "title_translations": {
+      "en": "Basic word order",
+      "uk": "Простий порядок слів"
+    },
+    "tags": {
+      "en": ["word order", "sentence structure", "grammar"],
+      "uk": ["порядок слів", "структура речення", "граматика"]
+    },
+    "description": {
+      "en": "Learn the basic word order in Bulgarian declarative sentences: subject – verb – object.",
+      "uk": "Вивчіть базовий порядок слів у болгарських розповідних реченнях: підмет – присудок – додаток."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Най-основният словоред в българския език е: подлог – сказуемо – допълнение (SVO). Този ред е неутрален и най-често срещан в съобщителни изречения.",
+        "content_translation": {
+          "en": "The most basic word order in Bulgarian is: subject – verb – object (SVO). This is the neutral and most common order in declarative sentences.",
+          "uk": "Найбазовіший порядок слів у болгарській — підмет – присудок – додаток (SVO). Це нейтральний і найпоширеніший порядок у розповідних реченнях."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Елемент", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Element", "Example", "Translation"],
+          "uk": ["Елемент", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Подлог + сказуемо", "Аз чета.", "I read. / Я читаю."],
+          ["Подлог + сказуемо + допълнение", "Тя обича кафе.", "She likes coffee. / Вона любить каву."],
+          ["Подлог + сказуемо + обстоятелство", "Ние живеем в София.", "We live in Sofia. / Ми живемо в Софії."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Понякога за акцент или стил думите могат да сменят място: например 'Кафе обича тя.' (акцент върху 'кафе'). Това е правилно, но се използва по-рядко.",
+        "content_translation": {
+          "en": "Sometimes, for emphasis or style, words can change their position: for example, 'Кафе обича тя.' (emphasis on 'coffee'). This is correct, but less common.",
+          "uk": "Іноді для акценту або стилістики слова можуть змінювати місце: наприклад, 'Каву любить вона.' — акцент на 'каву'. Це правильно, але вживається рідше."
+        }
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Въпросителните и отрицателни изречения също следват основния словоред, но се добавят съответно въпросителна дума или „не“.",
+        "content_translation": {
+          "en": "Interrogative and negative sentences also follow basic word order, with a question word or 'не' added.",
+          "uk": "Питальні та заперечні речення також дотримуються базового порядку слів, просто додається питальне слово або 'не'."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Вие гледате телевизия. Той не разбира въпроса. Къде живееш?",
+        "content_translation": {
+          "en": "You are watching TV. He doesn’t understand the question. Where do you live?",
+          "uk": "Ви дивитесь телевізор. Він не розуміє запитання. Де ти живеш?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_018",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Прости предлози (в, на, под)",
+    "title_translations": {
+      "en": "Basic prepositions (в, на, под)",
+      "uk": "Прості прийменники (в, на, під)"
+    },
+    "tags": {
+      "en": ["prepositions", "grammar", "location"],
+      "uk": ["прийменники", "граматика", "місце"]
+    },
+    "description": {
+      "en": "Learn the most common simple prepositions in Bulgarian and how to use them with nouns and pronouns.",
+      "uk": "Вивчіть найпоширеніші прості прийменники в болгарській мові та як їх вживати з іменниками й займенниками."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Простите предлози показват връзки между думи — място, време, притежание. Те стоят пред съществителното и не се изменят.",
+        "content_translation": {
+          "en": "Simple prepositions show relationships between words — place, time, possession. They come before the noun and do not change.",
+          "uk": "Прості прийменники показують зв’язки між словами — місце, час, приналежність. Вони стоять перед іменником і не змінюються."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Предлог", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Preposition", "Example", "Translation"],
+          "uk": ["Прийменник", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["в", "в кутията", "in the box / у коробці"],
+          ["на", "на масата", "on the table / на столі"],
+          ["под", "под леглото", "under the bed / під ліжком"],
+          ["над", "над главата", "above the head / над головою"],
+          ["до", "до прозореца", "next to the window / біля вікна"],
+          ["пред", "пред къщата", "in front of the house / перед будинком"],
+          ["зад", "зад вратата", "behind the door / за дверима"],
+          ["с", "с приятел", "with a friend / з другом"],
+          ["без", "без пари", "without money / без грошей"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "След предлозите съществителното обикновено е в определена форма (напр. „в училището“, „на масата“).",
+        "content_translation": {
+          "en": "After prepositions, the noun is usually in the definite form (e.g., 'в училището', 'на масата').",
+          "uk": "Після прийменників іменник зазвичай вживається в означеній формі (наприклад: 'в школі', 'на столі')."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Книгата е на масата. Той е в училището. Топката е под стола.",
+        "content_translation": {
+          "en": "The book is on the table. He is in the school. The ball is under the chair.",
+          "uk": "Книга на столі. Він у школі. М’яч під стільцем."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Седим до прозореца. Детето е зад вратата.",
+        "content_translation": {
+          "en": "We are sitting next to the window. The child is behind the door.",
+          "uk": "Ми сидимо біля вікна. Дитина за дверима."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_019",
+    "language": "bg",
+    "cerf_level": "A1",
+    "title": "Формули за поздрав и сбогуване",
+    "title_translations": {
+      "en": "Greetings and farewells",
+      "uk": "Формули привітання та прощання"
+    },
+    "tags": {
+      "en": ["greetings", "farewell", "communication"],
+      "uk": ["привітання", "прощання", "спілкування"]
+    },
+    "description": {
+      "en": "Learn the most common Bulgarian phrases for greeting and saying goodbye, both formally and informally.",
+      "uk": "Вивчіть найпоширеніші болгарські фрази для привітання й прощання — як у формальній, так і в неформальній ситуації."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език се използват различни фрази за поздрав и сбогуване в зависимост от времето на деня, социалната ситуация и степента на официалност.",
+        "content_translation": {
+          "en": "In Bulgarian, different phrases are used for greeting and saying goodbye depending on the time of day, social context, and level of formality.",
+          "uk": "У болгарській мові використовуються різні формули для привітання й прощання залежно від часу доби, соціального контексту та рівня офіційності."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Ситуация", "Фраза", "Превод"],
+        "headers_translation": {
+          "en": ["Context", "Phrase", "Translation"],
+          "uk": ["Ситуація", "Фраза", "Переклад"]
+        },
+        "rows": [
+          ["Неформално (поздрав)", "Здрасти!", "Hi! / Привіт!"],
+          ["Официално (поздрав)", "Здравейте!", "Hello! / Добрий день!"],
+          ["Сутрин", "Добро утро!", "Good morning! / Доброго ранку!"],
+          ["През деня", "Добър ден!", "Good afternoon! / Добрий день!"],
+          ["Вечер", "Добър вечер!", "Good evening! / Добрий вечір!"],
+          ["Неформално (сбогом)", "Чао!", "Bye! / Па-па!"],
+          ["Официално (сбогом)", "Довиждане!", "Goodbye! / До побачення!"],
+          ["Приятелски", "До скоро!", "See you soon! / До скорого!"],
+          ["Лека нощ", "Лека нощ!", "Good night! / На добраніч!"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Обръщението също се променя: при 'Здравей' често се добавя име – 'Здравей, Анна!'. Формите с 'Здравейте' са по-учтиви или се използват за повече хора.",
+        "content_translation": {
+          "en": "The greeting can also include a name: 'Здравей, Анна!' (Hi, Anna!). 'Здравейте' is more polite or used for multiple people.",
+          "uk": "Привітання також може включати ім’я: 'Здравей, Анна!' (Привіт, Анно!). 'Здравейте' — більш ввічлива форма або для звернення до кількох осіб."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Здравей, Мария! — Здрасти, как си? — Добре, благодаря. Довиждане! — До скоро!",
+        "content_translation": {
+          "en": "Hello, Maria! — Hi, how are you? — Fine, thank you. Goodbye! — See you soon!",
+          "uk": "Привіт, Маріє! — Привіт, як справи? — Добре, дякую. До побачення! — До скорого!"
+        }
+      }
+    ]
+  }
+]
