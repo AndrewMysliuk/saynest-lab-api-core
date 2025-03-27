@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "required": ["items", "mode"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["audio_url", "correct_transcript"],
+        "properties": {
+          "audio_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "correct_transcript": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["LISTEN_AND_WRITE"]
+    },
+    "hint": {
+      "type": "string"
+    }
+  }
+}

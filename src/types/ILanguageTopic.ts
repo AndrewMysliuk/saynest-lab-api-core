@@ -30,7 +30,7 @@ type TopicContentBlockType = ITopicContentTextModel | ITopicContentTableModel | 
 export interface ILanguageTopic {
   id: string // например: "bg_001"
   language: string // язык, который изучается (например: "bg")
-  cerf_level: VocabularyFrequencyLevelEnum
+  cefr_level: VocabularyFrequencyLevelEnum
   title: string // название ТОЛЬКО на изучаемом языке
   title_translations: Record<string, string> // например: { "en": "The verb 'to be'", "uk": "Дієслово 'бути'" }
   tags: Record<string, string[]> // например { "en": ["verbs", "alphabet"], "uk": ["дієслова", "абетка"] }

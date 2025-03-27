@@ -1,0 +1,133 @@
+import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
+
+export enum TaskTypeEnum {
+  FILL_BLANK = "FILL_BLANK",
+  MATCH_TRANSLATION = "MATCH_TRANSLATION",
+  REORDER_WORDS = "REORDER_WORDS",
+  MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
+  CORRECT_SENTENCE = "CORRECT_SENTENCE",
+  FREE_ANSWER = "FREE_ANSWER",
+  LISTEN_AND_TYPE = "LISTEN_AND_TYPE",
+}
+
+export enum TaskModeEnum {
+  WRITE = "WRITE",
+  SELECT = "SELECT",
+  CHECKBOX_MULTIPLE = "CHECKBOX_MULTIPLE",
+  DRAG_AND_DROP = "DRAG_AND_DROP",
+  LISTEN_AND_WRITE = "LISTEN_AND_WRITE",
+}
+
+export interface ITaskGeneratorRequest {
+  user_id: string
+  organization_id: string
+  type: TaskTypeEnum // например: "fill_blank", "multiple_choice" и т.д.
+  topic_ids?: string[] // id тем из библиотеки (можно 1 или несколько)
+  topic_titles?: string[] // title тем из библиотеки (можно 1 или несколько)
+  level_cefr?: VocabularyFrequencyLevelEnum[] // например: ["A1", "A2"]
+  context?: string // Смысловой контекст: "покупки", "врач", "в парикмахерской"
+  sandbox_prompt?: string // Произвольный текст от пользователя, если он не хочет выбирать тему
+  sentence_count?: number
+  mode: TaskModeEnum
+  blank_count?: number // Опционально: сколько пропусков сгенерировать (если не указано — автоматически)
+  language: string // Язык, который изучается
+  native_language: string // Родной язык для перевода, если нужно
+  limit?: number // Кол-во заданий (по умолчанию 1)
+}
+
+export interface ITaskSentence {
+  sentence_with_blanks: string // Например: "Аз ___ студент и ___ в София."
+  correct_answers: string[] // ["съм", "живея"]
+  options?: string[][]
+}
+
+export interface ITranslationPair {
+  source: string // Фраза на изучаемом языке
+  correct_target: string // Верный перевод
+  distractors?: string[] // Дополнительные, неправильные переводы
+}
+
+export interface IReorderSentence {
+  correct_order: string[] // ["Аз", "съм", "студент"]
+  shuffled: string[] // ["съм", "студент", "Аз"]
+}
+
+export interface IMultipleChoiceQuestion {
+  question: string // Формулировка задания
+  options: string[] // Варианты ответа
+  correct_option_indexes: number[] // Индексы правильных ответов
+  explanation?: string // Объяснение (опционально)
+}
+
+export interface ICorrectSentenceItem {
+  sentence_with_error: string
+  corrected_sentence: string
+  explanation?: string
+}
+
+export interface IFreeAnswerItem {
+  question: string
+  reference_answer?: string // пример хорошего ответа
+  expected_keywords?: string[] // для оценки — ключевые слова
+}
+
+export interface IListenAndTypeItem {
+  audio_url: string
+  correct_transcript: string
+}
+
+export interface IFillBlankTask {
+  sentences: ITaskSentence[]
+  mode: TaskModeEnum.WRITE | TaskModeEnum.SELECT
+  blank_count?: number
+  hint?: string
+}
+
+export interface IMatchTranslationTask {
+  pairs: ITranslationPair[]
+  mode: TaskModeEnum.SELECT | TaskModeEnum.DRAG_AND_DROP
+  hint?: string
+}
+
+export interface IReorderWordsTask {
+  sentences: IReorderSentence[]
+  mode: TaskModeEnum.DRAG_AND_DROP | TaskModeEnum.SELECT
+  hint?: string
+}
+
+export interface IMultipleChoiceTask {
+  questions: IMultipleChoiceQuestion[]
+  mode: TaskModeEnum.CHECKBOX_MULTIPLE
+  hint?: string
+}
+
+export interface ICorrectSentenceTask {
+  sentences: ICorrectSentenceItem[]
+  mode: TaskModeEnum.WRITE
+  hint?: string
+}
+
+export interface IFreeAnswerTask {
+  questions: IFreeAnswerItem[]
+  mode: TaskModeEnum.WRITE
+  hint?: string
+}
+
+export interface IListenAndTypeTask {
+  items: IListenAndTypeItem[]
+  mode: TaskModeEnum.LISTEN_AND_WRITE
+  hint?: string
+}
+
+export interface ITaskGeneratorResponse {
+  id: string // Уникальный ID задания
+  type: TaskTypeEnum // Тип задания (fill_blank, multiple_choice, и т.д.)
+  language: string // Язык задания
+  level_cefr: VocabularyFrequencyLevelEnum
+  topic_ids?: string[] // Темы, к которым относится задание
+  context?: string // Жизненная ситуация, если указана
+  native_language: string // Родной язык пользователя (если использован для перевода)
+  prompt: string // Общая инструкция к заданию
+  metadata?: Record<string, any> // Любая служебная инфа (для отладки, генерации, кеша)
+  data: IFillBlankTask | IMatchTranslationTask | IReorderWordsTask | IMultipleChoiceTask | ICorrectSentenceTask | IFreeAnswerTask | IListenAndTypeTask
+}

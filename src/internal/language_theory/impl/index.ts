@@ -13,10 +13,10 @@ export class LanguageTheoryService implements ILanguageTheory {
     return records.filter((item) => item.language === language)
   }
 
-  async listByLevel(cerf_level: VocabularyFrequencyLevelEnum): Promise<ILanguageTopic[]> {
+  async listByLevel(cefr_level: VocabularyFrequencyLevelEnum): Promise<ILanguageTopic[]> {
     const records = language_theory_bg_json as ILanguageTopic[]
 
-    return records.filter((item) => item.cerf_level === cerf_level)
+    return records.filter((item) => item.cefr_level === cefr_level)
   }
 
   async getById(id: string): Promise<ILanguageTopic> {

@@ -38,9 +38,7 @@ export const createConversationHandler = (conversationService: IConversationServ
       const { whisper, gpt_model, tts, system } = parsedBody
 
       const { session_id, conversation_history, last_model_response, error_analyser_response } = await conversationService.processConversation(
-        organization_id,
-        user_id,
-        { whisper, gpt_model, tts, system },
+        { organization_id, user_id, whisper, gpt_model, tts, system },
         (role, content, audio_url, audio_chunk) => {
           if (streamEnded) return
 

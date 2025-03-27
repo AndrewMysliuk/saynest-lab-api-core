@@ -2,7 +2,7 @@
   {
     "id": "bg_001",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Българската азбука",
     "title_translations": {
       "en": "The Bulgarian alphabet",
@@ -118,7 +118,7 @@
   {
     "id": "bg_002",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Лични местоимения",
     "title_translations": {
       "en": "Personal pronouns",
@@ -216,7 +216,7 @@
   {
     "id": "bg_003",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Глаголът „съм“ в сегашно време",
     "title_translations": {
       "en": "The verb 'to be' in Present Tense",
@@ -310,7 +310,7 @@
   {
     "id": "bg_004",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Сегашно време на глаголи от първо и второ спрежение",
     "title_translations": {
       "en": "Present tense of verbs from the first and second conjugation",
@@ -394,7 +394,7 @@
   {
     "id": "bg_005",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Сегашно време на неправилни глаголи",
     "title_translations": {
       "en": "Present tense of irregular verbs",
@@ -462,7 +462,7 @@
   {
     "id": "bg_006",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Въпросителни думи",
     "title_translations": {
       "en": "Question words",
@@ -533,7 +533,7 @@
   {
     "id": "bg_007",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Прости съобщителни изречения",
     "title_translations": {
       "en": "Simple declarative sentences",
@@ -598,7 +598,7 @@
   {
     "id": "bg_008",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Отрицание с „не“",
     "title_translations": {
       "en": "Negation with 'не'",
@@ -696,7 +696,7 @@
   {
     "id": "bg_009",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Числителни 0–100",
     "title_translations": {
       "en": "Numbers 0–100",
@@ -787,7 +787,7 @@
   {
     "id": "bg_010",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Редни числителни имена",
     "title_translations": {
       "en": "Ordinal numerals",
@@ -859,7 +859,7 @@
   {
     "id": "bg_011",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Определителен член (постпозитивна форма)",
     "title_translations": {
       "en": "Definite article (postpositive form)",
@@ -926,7 +926,7 @@
   {
     "id": "bg_012",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Показателни местоимения",
     "title_translations": {
       "en": "Demonstrative pronouns",
@@ -992,7 +992,7 @@
   {
     "id": "bg_013",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Притежателни местоимения",
     "title_translations": {
       "en": "Possessive pronouns",
@@ -1062,7 +1062,7 @@
   {
     "id": "bg_014",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Род и число на съществителни",
     "title_translations": {
       "en": "Gender and number of nouns",
@@ -1134,7 +1134,7 @@
   {
     "id": "bg_015",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Прилагателни и съгласуване по род",
     "title_translations": {
       "en": "Adjectives and gender agreement",
@@ -1200,7 +1200,7 @@
   {
     "id": "bg_016",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Наречия (прости)",
     "title_translations": {
       "en": "Adverbs (simple)",
@@ -1266,7 +1266,7 @@
   {
     "id": "bg_017",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Прост словоред",
     "title_translations": {
       "en": "Basic word order",
@@ -1331,7 +1331,7 @@
   {
     "id": "bg_018",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Прости предлози (в, на, под)",
     "title_translations": {
       "en": "Basic prepositions (в, на, под)",
@@ -1402,7 +1402,7 @@
   {
     "id": "bg_019",
     "language": "bg",
-    "cerf_level": "A1",
+    "cefr_level": "A1",
     "title": "Формули за поздрав и сбогуване",
     "title_translations": {
       "en": "Greetings and farewells",

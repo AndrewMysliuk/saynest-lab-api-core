@@ -19,6 +19,8 @@ export interface IConversationWhisper {
 }
 
 export interface IConversationPayload {
+  organization_id: string
+  user_id: string
   whisper: IConversationWhisper
   gpt_model: IGPTPayload
   tts: ITTSPayload
@@ -33,4 +35,9 @@ export interface IConversationResponse {
   conversation_history: IConversationHistory[]
   last_model_response: ITextAnalysisResponse
   error_analyser_response: IErrorAnalysisEntity | null
+}
+
+export interface IConversationDialogRequest {
+  organization_id: string
+  user_id: string
 }
