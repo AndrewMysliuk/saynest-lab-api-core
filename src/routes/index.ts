@@ -12,6 +12,8 @@ import { createSessionRouter } from "../internal/session/router"
 import { SessionRepository } from "../internal/session/storage/mongo/repository"
 import { SpeachToTextService } from "../internal/speach_to_text/impl"
 import { createSpeachToTextRouter } from "../internal/speach_to_text/router"
+import { TaskGeneratorService } from "../internal/task_generator/impl"
+import { createTaskGeneratorRouter } from "../internal/task_generator/router"
 import { TextAnalysisService } from "../internal/text_analysis/impl"
 import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
@@ -32,12 +34,14 @@ const sessionService = new SessionService(sessionRepo)
 const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
+const taskGeneratorService = new TaskGeneratorService()
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, errorAnalysisService, textToSpeachService)
 
 const router = Router()
 
 router.use("/session", createSessionRouter(sessionService))
+router.use("/task-generator", createTaskGeneratorRouter(taskGeneratorService))
 router.use("/error-analysis", createErrorAnalysisRouter(errorAnalysisService))
 router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))
 router.use("/text-analysis", createTextAnalysisRouter(textAnalysisService))

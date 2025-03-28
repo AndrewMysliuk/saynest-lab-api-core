@@ -1,3 +1,4 @@
+import { IGPTPayload } from "./IGPT"
 import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export enum TaskTypeEnum {
@@ -21,6 +22,7 @@ export enum TaskModeEnum {
 export interface ITaskGeneratorRequest {
   user_id: string
   organization_id: string
+  gpt_payload: IGPTPayload
   type: TaskTypeEnum // например: "fill_blank", "multiple_choice" и т.д.
   topic_ids?: string[] // id тем из библиотеки (можно 1 или несколько)
   topic_titles?: string[] // title тем из библиотеки (можно 1 или несколько)
@@ -32,7 +34,6 @@ export interface ITaskGeneratorRequest {
   blank_count?: number // Опционально: сколько пропусков сгенерировать (если не указано — автоматически)
   language: string // Язык, который изучается
   native_language: string // Родной язык для перевода, если нужно
-  limit?: number // Кол-во заданий (по умолчанию 1)
 }
 
 export interface ITaskSentence {
@@ -123,11 +124,15 @@ export interface ITaskGeneratorResponse {
   id: string // Уникальный ID задания
   type: TaskTypeEnum // Тип задания (fill_blank, multiple_choice, и т.д.)
   language: string // Язык задания
-  level_cefr: VocabularyFrequencyLevelEnum
-  topic_ids?: string[] // Темы, к которым относится задание
-  context?: string // Жизненная ситуация, если указана
   native_language: string // Родной язык пользователя (если использован для перевода)
-  prompt: string // Общая инструкция к заданию
+  level_cefr?: VocabularyFrequencyLevelEnum[]
+  topic_ids?: string[] // Темы, к которым относится задание
+  topic_titles?: string[]
+  context?: string // Жизненная ситуация, если указана
+  sandbox_prompt?: string // Общая инструкция к заданию
+  sentence_count?: number
+  mode: TaskModeEnum
+  blank_count?: number
   metadata?: Record<string, any> // Любая служебная инфа (для отладки, генерации, кеша)
-  data: IFillBlankTask | IMatchTranslationTask | IReorderWordsTask | IMultipleChoiceTask | ICorrectSentenceTask | IFreeAnswerTask | IListenAndTypeTask
+  data: IFillBlankTask[] | IMatchTranslationTask[] | IReorderWordsTask[] | IMultipleChoiceTask[] | ICorrectSentenceTask[] | IFreeAnswerTask[] | IListenAndTypeTask[]
 }
