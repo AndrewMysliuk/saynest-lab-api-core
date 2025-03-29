@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose"
 import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
-import { IConversationDialogRequest, IConversationHistory, IConversationPayload, IConversationResponse, SessionTypeEnum } from "../../../types"
+import { IConversationHistory, IConversationPayload, IConversationResponse, ISimulationStartResponse, IStartSimulationRequest, SessionTypeEnum } from "../../../types"
 import { trimConversationHistory } from "../../../utils"
 import logger from "../../../utils/logger"
 import { IErrorAnalysis } from "../../error_analysis"
@@ -161,9 +161,5 @@ export class ConversationService implements IConversationService {
     }
 
     return this.startNewSession(organization_id, user_id, system_prompt)
-  }
-
-  async startDialogSimulation(payload: IConversationDialogRequest): Promise<void> {
-    return
   }
 }

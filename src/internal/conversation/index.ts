@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose"
 
-import { IConversationDialogRequest, IConversationHistory, IConversationPayload, IConversationResponse } from "../../types"
+import { IConversationHistory, IConversationPayload, IConversationResponse } from "../../types"
 
 export interface IConversationService {
   processConversation(payload: IConversationPayload, onData: (role: string, content: string, audio_url?: string, audio_chunk?: Buffer) => void): Promise<IConversationResponse>
@@ -23,5 +23,4 @@ export interface IConversationService {
     session_directory: string
     conversation_history: IConversationHistory[]
   }>
-  startDialogSimulation(payload: IConversationDialogRequest): Promise<void>
 }

@@ -7,7 +7,10 @@ import { ErrorAnalysisService } from "../internal/error_analysis/impl"
 import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
 import { LanguageTheoryService } from "../internal/language_theory/impl"
+import { createLanguageTheoryRouter } from "../internal/language_theory/router"
 import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
+import { ScenarioSimulationService } from "../internal/scenario_simulation/impl"
+import { createScenarioSimulationRouter } from "../internal/scenario_simulation/router"
 import { SessionService } from "../internal/session/impl"
 import { createSessionRouter } from "../internal/session/router"
 import { SessionRepository } from "../internal/session/storage/mongo/repository"
@@ -38,11 +41,14 @@ const textAnalysisService = new TextAnalysisService()
 const languageTheoryService = new LanguageTheoryService()
 const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository)
+const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, errorAnalysisService, textToSpeachService)
 
 const router = Router()
 
 router.use("/session", createSessionRouter(sessionService))
+router.use("/scenario-simulation", createScenarioSimulationRouter(scenarioSimulationService))
+router.use("/language-theory", createLanguageTheoryRouter(languageTheoryService))
 router.use("/task-generator", createTaskGeneratorRouter(taskGeneratorService))
 router.use("/error-analysis", createErrorAnalysisRouter(errorAnalysisService))
 router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))

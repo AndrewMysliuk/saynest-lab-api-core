@@ -36,8 +36,3 @@ export interface IConversationResponse {
   last_model_response: ITextAnalysisResponse
   error_analyser_response: IErrorAnalysisEntity | null
 }
-
-export interface IConversationDialogRequest {
-  organization_id: string
-  user_id: string
-}

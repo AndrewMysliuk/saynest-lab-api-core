@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISimulationDialogResponse",
+  "type": "object",
+  "required": ["dialogue_preview", "grammar_topics_ids", "vocabulary_highlight"],
+  "properties": {
+    "dialogue_preview": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "original", "translation"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "original": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role", "text"],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "enum": ["AI", "USER"]
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "translation": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role", "text"],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "enum": ["AI", "USER"]
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "audio_url": {
+            "type": "string"
+          },
+          "sentence_count": {
+            "type": "number"
+          },
+          "complexity_level": {
+            "type": "string",
+            "enum": ["SIMPLE", "MEDIUM", "ADVANCED"]
+          },
+          "ai_role_hint": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "grammar_topics_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "vocabulary_highlight": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["word", "translation", "meaning"],
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "translation": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

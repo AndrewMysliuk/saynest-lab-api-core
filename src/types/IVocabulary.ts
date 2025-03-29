@@ -23,6 +23,7 @@ export interface IVocabularyEntity {
   language: string
   word: string
   translation: string
+  meaning: string
   part_of_speech: string
   frequency_level: VocabularyFrequencyLevelEnum
   source: VocabularySourceEnum
