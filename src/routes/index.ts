@@ -6,6 +6,7 @@ import { HistoryRepository } from "../internal/conversation/storage/mongo/reposi
 import { ErrorAnalysisService } from "../internal/error_analysis/impl"
 import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
+import { LanguageTheoryService } from "../internal/language_theory/impl"
 import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
 import { SessionService } from "../internal/session/impl"
 import { createSessionRouter } from "../internal/session/router"
@@ -34,7 +35,8 @@ const sessionService = new SessionService(sessionRepo)
 const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
-const taskGeneratorService = new TaskGeneratorService()
+const languageTheoryService = new LanguageTheoryService()
+const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, errorAnalysisService, textToSpeachService)
 

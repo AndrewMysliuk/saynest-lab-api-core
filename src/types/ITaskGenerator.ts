@@ -134,5 +134,5 @@ export interface ITaskGeneratorResponse {
   mode: TaskModeEnum
   blank_count?: number
   metadata?: Record<string, any> // Любая служебная инфа (для отладки, генерации, кеша)
-  data: IFillBlankTask[] | IMatchTranslationTask[] | IReorderWordsTask[] | IMultipleChoiceTask[] | ICorrectSentenceTask[] | IFreeAnswerTask[] | IListenAndTypeTask[]
+  data: IFillBlankTask | IMatchTranslationTask | IReorderWordsTask | IMultipleChoiceTask | ICorrectSentenceTask | IFreeAnswerTask | IListenAndTypeTask
 }

@@ -17,31 +17,31 @@ import type reorderWordsSchema from "../json_schema/reorder_words_task.schema.js
 type TaskTypeMap = {
   [TaskTypeEnum.FILL_BLANK]: {
     request_schema: typeof fillBlankSchema
-    response_type: IFillBlankTask[]
+    response_type: IFillBlankTask
   }
   [TaskTypeEnum.MATCH_TRANSLATION]: {
     request_schema: typeof matchTranslationSchema
-    response_type: IMatchTranslationTask[]
+    response_type: IMatchTranslationTask
   }
   [TaskTypeEnum.REORDER_WORDS]: {
     request_schema: typeof reorderWordsSchema
-    response_type: IReorderWordsTask[]
+    response_type: IReorderWordsTask
   }
   [TaskTypeEnum.MULTIPLE_CHOICE]: {
     request_schema: typeof multipleChoiceSchema
-    response_type: IMultipleChoiceTask[]
+    response_type: IMultipleChoiceTask
   }
   [TaskTypeEnum.CORRECT_SENTENCE]: {
     request_schema: typeof correctSentenceSchema
-    response_type: ICorrectSentenceTask[]
+    response_type: ICorrectSentenceTask
   }
   [TaskTypeEnum.FREE_ANSWER]: {
     request_schema: typeof freeAnswerSchema
-    response_type: IFreeAnswerTask[]
+    response_type: IFreeAnswerTask
   }
   [TaskTypeEnum.LISTEN_AND_TYPE]: {
     request_schema: typeof listenAndTypeSchema
-    response_type: IListenAndTypeTask[]
+    response_type: IListenAndTypeTask
   }
 }
 
@@ -53,37 +53,37 @@ const taskDefinitions: {
   {
     type: TaskTypeEnum.FILL_BLANK,
     schema: fillBlankTask,
-    parseResponse: (data) => data as IFillBlankTask[],
+    parseResponse: (data) => data as IFillBlankTask,
   },
   {
     type: TaskTypeEnum.MATCH_TRANSLATION,
     schema: matchTranslationTask,
-    parseResponse: (data) => data as IMatchTranslationTask[],
+    parseResponse: (data) => data as IMatchTranslationTask,
   },
   {
     type: TaskTypeEnum.REORDER_WORDS,
     schema: reorderWordsTask,
-    parseResponse: (data) => data as IReorderWordsTask[],
+    parseResponse: (data) => data as IReorderWordsTask,
   },
   {
     type: TaskTypeEnum.MULTIPLE_CHOICE,
     schema: multipleChoiseTask,
-    parseResponse: (data) => data as IMultipleChoiceTask[],
+    parseResponse: (data) => data as IMultipleChoiceTask,
   },
   {
     type: TaskTypeEnum.CORRECT_SENTENCE,
     schema: correctSentenceTask,
-    parseResponse: (data) => data as ICorrectSentenceTask[],
+    parseResponse: (data) => data as ICorrectSentenceTask,
   },
   {
     type: TaskTypeEnum.FREE_ANSWER,
     schema: freeAnswerTask,
-    parseResponse: (data) => data as IFreeAnswerTask[],
+    parseResponse: (data) => data as IFreeAnswerTask,
   },
   {
     type: TaskTypeEnum.LISTEN_AND_TYPE,
     schema: listenAndTypeTask,
-    parseResponse: (data) => data as IListenAndTypeTask[],
+    parseResponse: (data) => data as IListenAndTypeTask,
   },
 ]
 

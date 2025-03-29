@@ -37,3 +37,10 @@ export interface ILanguageTopic {
   description: Record<string, string> // ключ — язык пользователя: { "en": "...", "uk": "..." }
   explanation: TopicContentBlockType[] // ключ — язык пользователя
 }
+
+export interface ILanguageTopicShort {
+  id: string // например: "bg_001"
+  language: string // язык, который изучается (например: "bg")
+  cefr_level: VocabularyFrequencyLevelEnum
+  title: string // название ТОЛЬКО на изучаемом языке
+}

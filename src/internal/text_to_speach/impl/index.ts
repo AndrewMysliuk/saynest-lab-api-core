@@ -1,8 +1,9 @@
 import fs from "fs"
 import * as path from "path"
+import { buffer } from "stream/consumers"
 
 import { openaiREST } from "../../../config"
-import { ITTSPayload } from "../../../types"
+import { IListenAndTypeItem, ITTSPayload } from "../../../types"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
@@ -21,7 +22,7 @@ export class TextToSpeachService implements ITextToSpeach {
         model: payload.model,
         voice: payload.voice,
         input: payload.input ?? "",
-        response_format: payload?.response_format ?? "wav",
+        response_format: fileExtension,
       })
 
       const readableStream = response.body as unknown as NodeJS.ReadableStream
@@ -54,6 +55,43 @@ export class TextToSpeachService implements ITextToSpeach {
       return filePath
     } catch (error: unknown) {
       logger.error("textToSpeechService | error in ttsTextToSpeech: ", error)
+      throw error
+    }
+  }
+
+  async ttsTextToSpeechListeningTask(payload: ITTSPayload, items: IListenAndTypeItem[]): Promise<IListenAndTypeItem[]> {
+    const userSessionsDir = path.join(process.cwd(), "user_sessions", "listening_tasks")
+    const fileExtension = payload?.response_format || "wav"
+    const results: IListenAndTypeItem[] = []
+
+    try {
+      if (!fs.existsSync(userSessionsDir)) {
+        await fs.promises.mkdir(userSessionsDir, { recursive: true })
+      }
+
+      for (const item of items) {
+        const audioFilePath = path.join(userSessionsDir, `${Date.now()}-${Math.random()}-listening-task.${fileExtension}`)
+
+        const response = await openaiREST.audio.speech.create({
+          model: payload.model,
+          voice: payload.voice,
+          input: item.correct_transcript,
+          response_format: fileExtension,
+        })
+
+        const audioBuffer = await buffer(response.body as NodeJS.ReadableStream)
+
+        await fs.promises.writeFile(audioFilePath, audioBuffer)
+
+        results.push({
+          audio_url: `/user_sessions/listening_tasks/${path.basename(audioFilePath)}`,
+          correct_transcript: item.correct_transcript,
+        })
+      }
+
+      return results
+    } catch (error: unknown) {
+      logger.error("textToSpeechService | error in ttsTextToSpeechListeningTask: ", error)
       throw error
     }
   }

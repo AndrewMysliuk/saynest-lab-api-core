@@ -2,15 +2,31 @@ import { v4 as uuidv4 } from "uuid"
 
 import { ITaskGenerator } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, ITaskGeneratorRequest, ITaskGeneratorResponse } from "../../../types"
+import { GPTRoleType, IListenAndTypeTask, ITaskGeneratorRequest, ITaskGeneratorResponse, TaskModeEnum, TaskTypeEnum } from "../../../types"
 import logger from "../../../utils/logger"
+import { ILanguageTheory } from "../../language_theory"
+import { ITextToSpeach } from "../../text_to_speach"
 import { getTaskDefinition } from "./helpers"
 import { buildSystemPrompt, buildUserPrompt } from "./prompt"
 
 export class TaskGeneratorService implements ITaskGenerator {
+  private readonly languageTheoryService: ILanguageTheory
+  private readonly textToSpeachService: ITextToSpeach
+
+  constructor(languageTheoryService: ILanguageTheory, textToSpeachService: ITextToSpeach) {
+    this.languageTheoryService = languageTheoryService
+    this.textToSpeachService = textToSpeachService
+  }
+
   async generateTask(request: ITaskGeneratorRequest): Promise<ITaskGeneratorResponse> {
     try {
-      const systemPrompt = buildSystemPrompt(request)
+      const topics = await this.languageTheoryService.filteredShortListByLanguage(request.language, {
+        topic_ids: request.topic_ids,
+        topic_titles: request.topic_titles,
+        level_cefr: request.level_cefr,
+      })
+
+      const systemPrompt = buildSystemPrompt(request, topics)
       const userPrompt = buildUserPrompt(request)
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: systemPrompt },
@@ -52,6 +68,19 @@ export class TaskGeneratorService implements ITaskGenerator {
       }
 
       const data = JSON.parse(toolCall.function.arguments)
+      const formattedData = parseResponse(data)
+
+      if (request.type === TaskTypeEnum.LISTEN_AND_TYPE && request.mode === TaskModeEnum.LISTEN_AND_WRITE) {
+        const records = await this.textToSpeachService.ttsTextToSpeechListeningTask(
+          {
+            model: "tts-1",
+            voice: "alloy",
+          },
+          (formattedData as IListenAndTypeTask).items,
+        )
+
+        ;(formattedData as IListenAndTypeTask).items = records
+      }
 
       return {
         id: uuidv4(),
@@ -67,7 +96,7 @@ export class TaskGeneratorService implements ITaskGenerator {
         mode: request.mode,
         blank_count: request.blank_count,
         metadata: {},
-        data: parseResponse(data),
+        data: formattedData,
       }
     } catch (error: unknown) {
       logger.error(`generateTask | error: ${error}`)

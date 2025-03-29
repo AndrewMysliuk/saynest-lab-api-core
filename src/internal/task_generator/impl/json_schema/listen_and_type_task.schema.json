@@ -10,8 +10,7 @@
         "required": ["audio_url", "correct_transcript"],
         "properties": {
           "audio_url": {
-            "type": "string",
-            "format": "uri"
+            "type": ["string", "null"]
           },
           "correct_transcript": {
             "type": "string"

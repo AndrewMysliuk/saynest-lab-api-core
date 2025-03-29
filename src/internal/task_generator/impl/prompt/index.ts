@@ -1,4 +1,4 @@
-import { ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
+import { ILanguageTopicShort, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
 
 const taskTypeReadable: Record<TaskTypeEnum, string> = {
   FILL_BLANK: "Fill in the blanks",
@@ -10,14 +10,21 @@ const taskTypeReadable: Record<TaskTypeEnum, string> = {
   LISTEN_AND_TYPE: "Listen and type",
 }
 
-export function buildSystemPrompt(request: ITaskGeneratorRequest): string {
-  const { type, topic_titles, context, sandbox_prompt, sentence_count = 1, blank_count = 1, language, native_language } = request
+export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILanguageTopicShort[]): string {
+  const { type, context, sandbox_prompt, sentence_count = 1, blank_count = 1, language, native_language, level_cefr } = request
 
   const readableType = taskTypeReadable[type]
-  const titlePart = topic_titles?.length ? `The task must relate to the following topics: ${topic_titles.join(", ")}.` : ""
   const contextPart = context ? `This task should be set in the context of: "${context}".` : ""
   const sandboxPart = sandbox_prompt ? `The user provided this as their learning intention: "${sandbox_prompt}".` : ""
   const blankCountPart = type === TaskTypeEnum.FILL_BLANK ? `Generate exactly ${blank_count} blank(s) per sentence.` : ""
+  const difficultyPart = level_cefr?.length
+    ? `The task must match the following CEFR level(s): ${level_cefr.join(", ")}. Use grammar, vocabulary, and sentence structure appropriate for these levels.`
+    : ""
+
+  const availableTopicsPart =
+    topics.length > 0
+      ? `When appropriate, try to include one or more of the following grammar topics in the task: ${topics.map((t) => `"${t.title}"`).join(", ")}.`
+      : `No specific grammar topics were selected. Feel free to choose any topics that fit the specified CEFR level.`
 
   return `
 You are an AI language assistant generating language learning tasks of type: ${readableType}.
@@ -25,8 +32,9 @@ You are an AI language assistant generating language learning tasks of type: ${r
 Target language: ${language}.
 User’s native language: ${native_language}.
 
-You must generate task, each containing ${sentence_count} ${readableType.toLowerCase()} sentence(s).
-${titlePart}
+${difficultyPart}
+You must generate a task, each containing ${sentence_count} ${readableType.toLowerCase()} sentence(s).
+${availableTopicsPart}
 ${contextPart}
 ${sandboxPart}
 ${blankCountPart}
