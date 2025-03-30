@@ -5,59 +5,49 @@
   "required": ["dialogue_preview", "grammar_topics_ids", "vocabulary_highlight"],
   "properties": {
     "dialogue_preview": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["id", "original", "translation"],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "original": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["role", "text"],
-              "properties": {
-                "role": {
-                  "type": "string",
-                  "enum": ["AI", "USER"]
-                },
-                "text": {
-                  "type": "string"
-                }
+      "type": "object",
+      "required": ["id", "original", "translation", "ai_role_name"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "original": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["role", "text"],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": ["AI", "USER"]
+              },
+              "text": {
+                "type": "string"
               }
             }
-          },
-          "translation": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["role", "text"],
-              "properties": {
-                "role": {
-                  "type": "string",
-                  "enum": ["AI", "USER"]
-                },
-                "text": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "audio_url": {
-            "type": "string"
-          },
-          "sentence_count": {
-            "type": "number"
-          },
-          "complexity_level": {
-            "type": "string",
-            "enum": ["SIMPLE", "MEDIUM", "ADVANCED"]
-          },
-          "ai_role_hint": {
-            "type": "string"
           }
+        },
+        "translation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["role", "text"],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": ["AI", "USER"]
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "audio_url": {
+          "type": ["string", "null"]
+        },
+        "ai_role_name": {
+          "type": "string"
         }
       }
     },
