@@ -147,12 +147,6 @@
   dependencies:
     sparse-bitfield "^3.0.3"
 
-"@openai/realtime-api-beta@openai/openai-realtime-api-beta":
-  version "0.0.0"
-  resolved "https://codeload.github.com/openai/openai-realtime-api-beta/tar.gz/de01e1083834c4c3bc495d190e2f6f5b5785e264"
-  dependencies:
-    ws "^8.18.0"
-
 "@trivago/prettier-plugin-sort-imports@^5.2.2":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-5.2.2.tgz#38983f0b83490a0a7d974a6f1e409fb4bf678d02"
