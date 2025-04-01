@@ -6,7 +6,7 @@ import logger from "../../../utils/logger"
 export const getTheoryByLanguageHandler = (languageTheoryService: ILanguageTheory): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const language = req.params.session_id
+      const language = req.params.language
 
       if (!language) {
         res.status(400).json({
