@@ -1,8 +1,8 @@
 {
   "type": "object",
-  "required": ["pairs", "mode"],
+  "required": ["sentences"],
   "properties": {
-    "pairs": {
+    "sentences": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -18,16 +18,12 @@
           "distractors": {
             "type": "array",
             "items": { "type": "string" }
+          },
+          "explanation": {
+            "type": "string"
           }
         }
       }
-    },
-    "mode": {
-      "type": "string",
-      "enum": ["SELECT", "DRAG_AND_DROP"]
-    },
-    "hint": {
-      "type": "string"
     }
   }
 }

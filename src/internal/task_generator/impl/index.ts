@@ -76,10 +76,10 @@ export class TaskGeneratorService implements ITaskGenerator {
             model: "tts-1",
             voice: "alloy",
           },
-          (formattedData as IListenAndTypeTask).items,
+          (formattedData as IListenAndTypeTask).sentences,
         )
 
-        ;(formattedData as IListenAndTypeTask).items = records
+        ;(formattedData as IListenAndTypeTask).sentences = records
       }
 
       return {
@@ -89,7 +89,7 @@ export class TaskGeneratorService implements ITaskGenerator {
         native_language: request.native_language,
         level_cefr: request.level_cefr,
         topic_ids: request.topic_ids,
-        topic_titles: request.topic_ids,
+        topic_titles: request.topic_titles,
         context: request.context,
         sandbox_prompt: request.sandbox_prompt,
         sentence_count: request.sentence_count,

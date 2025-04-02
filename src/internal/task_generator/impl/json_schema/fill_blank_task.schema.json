@@ -1,42 +1,40 @@
 {
   "type": "object",
-  "required": ["sentences", "mode"],
+  "description": "This object represents a fill-in-the-blank exercise where each sentence contains one or more blanks. Each blank must be filled in using one correct word chosen from multiple options. The main field is 'sentences', a list of tasks.",
+  "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 5,
       "items": {
         "type": "object",
-        "required": ["sentence_with_blanks", "correct_answers"],
+        "required": ["sentence_with_blanks", "correct_answers", "options"],
         "properties": {
           "sentence_with_blanks": {
-            "type": "string"
+            "type": "string",
+            "description": "A sentence with one or more missing words represented by underscores (___). Each blank should match a correct answer."
           },
           "correct_answers": {
             "type": "array",
             "items": { "type": "string" },
-            "minItems": 1
+            "minItems": 1,
+            "description": "An array of correct words that fill in the blanks, in the order they appear in the sentence."
           },
           "options": {
             "type": "array",
             "items": {
               "type": "array",
               "items": { "type": "string" },
-              "minItems": 1
-            }
+              "minItems": 3
+            },
+            "minItems": 1,
+            "description": "An array of arrays. Each inner array contains multiple choices for one blank (including the correct answer). Do not create a separate array for each individual option — each blank should have exactly one array with at least three choices."
+          },
+          "explanation": {
+            "type": "string"
           }
         }
       }
-    },
-    "mode": {
-      "type": "string",
-      "enum": ["WRITE", "SELECT"]
-    },
-    "blank_count": {
-      "type": "number"
-    },
-    "hint": {
-      "type": "string"
     }
   }
 }

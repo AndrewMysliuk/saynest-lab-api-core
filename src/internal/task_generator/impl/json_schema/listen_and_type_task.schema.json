@@ -1,8 +1,8 @@
 {
   "type": "object",
-  "required": ["items", "mode"],
+  "required": ["sentences"],
   "properties": {
-    "items": {
+    "sentences": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -14,16 +14,12 @@
           },
           "correct_transcript": {
             "type": "string"
+          },
+          "explanation": {
+            "type": "string"
           }
         }
       }
-    },
-    "mode": {
-      "type": "string",
-      "enum": ["LISTEN_AND_WRITE"]
-    },
-    "hint": {
-      "type": "string"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "required": ["sentences", "mode"],
+  "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
@@ -20,13 +20,6 @@
           }
         }
       }
-    },
-    "mode": {
-      "type": "string",
-      "enum": ["WRITE"]
-    },
-    "hint": {
-      "type": "string"
     }
   }
 }

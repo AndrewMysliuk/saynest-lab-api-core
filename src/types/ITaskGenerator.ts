@@ -39,25 +39,28 @@ export interface ITaskGeneratorRequest {
 export interface ITaskSentence {
   sentence_with_blanks: string // Например: "Аз ___ студент и ___ в София."
   correct_answers: string[] // ["съм", "живея"]
-  options?: string[][]
+  options: string[][]
+  explanation?: string
 }
 
 export interface ITranslationPair {
   source: string // Фраза на изучаемом языке
   correct_target: string // Верный перевод
   distractors?: string[] // Дополнительные, неправильные переводы
+  explanation?: string
 }
 
 export interface IReorderSentence {
   correct_order: string[] // ["Аз", "съм", "студент"]
   shuffled: string[] // ["съм", "студент", "Аз"]
+  explanation?: string
 }
 
 export interface IMultipleChoiceQuestion {
   question: string // Формулировка задания
   options: string[] // Варианты ответа
   correct_option_indexes: number[] // Индексы правильных ответов
-  explanation?: string // Объяснение (опционально)
+  explanation?: string
 }
 
 export interface ICorrectSentenceItem {
@@ -70,54 +73,41 @@ export interface IFreeAnswerItem {
   question: string
   reference_answer?: string // пример хорошего ответа
   expected_keywords?: string[] // для оценки — ключевые слова
+  explanation?: string
 }
 
 export interface IListenAndTypeItem {
   audio_url: string
   correct_transcript: string
+  explanation?: string
 }
 
 export interface IFillBlankTask {
   sentences: ITaskSentence[]
-  mode: TaskModeEnum.WRITE | TaskModeEnum.SELECT
-  blank_count?: number
-  hint?: string
 }
 
 export interface IMatchTranslationTask {
-  pairs: ITranslationPair[]
-  mode: TaskModeEnum.SELECT | TaskModeEnum.DRAG_AND_DROP
-  hint?: string
+  sentences: ITranslationPair[]
 }
 
 export interface IReorderWordsTask {
   sentences: IReorderSentence[]
-  mode: TaskModeEnum.DRAG_AND_DROP | TaskModeEnum.SELECT
-  hint?: string
 }
 
 export interface IMultipleChoiceTask {
-  questions: IMultipleChoiceQuestion[]
-  mode: TaskModeEnum.CHECKBOX_MULTIPLE
-  hint?: string
+  sentences: IMultipleChoiceQuestion[]
 }
 
 export interface ICorrectSentenceTask {
   sentences: ICorrectSentenceItem[]
-  mode: TaskModeEnum.WRITE
-  hint?: string
 }
 
 export interface IFreeAnswerTask {
-  questions: IFreeAnswerItem[]
-  mode: TaskModeEnum.WRITE
-  hint?: string
+  sentences: IFreeAnswerItem[]
 }
 
 export interface IListenAndTypeTask {
-  items: IListenAndTypeItem[]
-  mode: TaskModeEnum.LISTEN_AND_WRITE
-  hint?: string
+  sentences: IListenAndTypeItem[]
 }
 
 export interface ITaskGeneratorResponse {

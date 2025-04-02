@@ -10,41 +10,63 @@ const taskTypeReadable: Record<TaskTypeEnum, string> = {
   LISTEN_AND_TYPE: "Listen and type",
 }
 
+function getSchemaInstructionByType(type: TaskTypeEnum, sentenceCount: number): string {
+  switch (type) {
+    case TaskTypeEnum.FILL_BLANK:
+      return `
+You MUST return exactly ${sentenceCount} separate sentence objects inside the "sentences" array.
+
+Each object in "sentences" must contain:
+• "sentence_with_blanks": the sentence with one or more '___' as blanks.
+• "correct_answers": an array of correct words, in left-to-right order.
+• "options": an array of arrays. Each inner array must contain 3 or more answer choices for the corresponding blank, including the correct one.
+• "explanation": optional explanation for the sentence.
+
+⚠️ Do not add extra fields.
+⚠️ Do not return fewer than ${sentenceCount} sentences — this is critical.`
+    default:
+      return ""
+  }
+}
+
 export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILanguageTopicShort[]): string {
-  const { type, context, sandbox_prompt, sentence_count = 1, blank_count = 1, language, native_language, level_cefr } = request
+  const { type, context, sandbox_prompt, sentence_count = 5, blank_count = 1, language, native_language, level_cefr } = request
 
   const readableType = taskTypeReadable[type]
-  const contextPart = context ? `This task should be set in the context of: "${context}".` : ""
-  const sandboxPart = sandbox_prompt ? `The user provided this as their learning intention: "${sandbox_prompt}".` : ""
-  const blankCountPart = type === TaskTypeEnum.FILL_BLANK ? `Generate exactly ${blank_count} blank(s) per sentence.` : ""
-  const difficultyPart = level_cefr?.length
-    ? `The task must match the following CEFR level(s): ${level_cefr.join(", ")}. Use grammar, vocabulary, and sentence structure appropriate for these levels.`
-    : ""
+  const contextPart = context ? `This task MUST be set in the context of: "${context}".` : ""
+  const sandboxPart = sandbox_prompt ? `The user provided this learning goal: "${sandbox_prompt}".` : ""
+  const blankCountPart = type === TaskTypeEnum.FILL_BLANK ? `Each sentence MUST contain exactly ${blank_count} blank(s), represented as '___'.` : ""
+  const difficultyPart = level_cefr?.length ? `You MUST follow these CEFR level(s): ${level_cefr.join(", ")}. Use grammar, vocabulary, and sentence structures appropriate for these levels.` : ""
 
   const availableTopicsPart =
     topics.length > 0
-      ? `When appropriate, try to include one or more of the following grammar topics in the task: ${topics.map((t) => `"${t.title}"`).join(", ")}.`
-      : `No specific grammar topics were selected. Feel free to choose any topics that fit the specified CEFR level.`
+      ? `If suitable, include grammar topics from: ${topics.map((t) => `"${t.title}"`).join(", ")}.`
+      : `No specific grammar topics were selected, so you may choose appropriate ones for the level.`
+
+  const schemaInstruction = getSchemaInstructionByType(type, sentence_count)
 
   return `
-You are an AI language assistant generating language learning tasks of type: ${readableType}.
+You are a task generator for language learners. Your job is to produce a list of "${readableType}" tasks as JSON that EXACTLY matches the schema provided.
 
-Target language: ${language}.
-User’s native language: ${native_language}.
+Target language: ${language}
+User’s native language: ${native_language}
 
 ${difficultyPart}
-You must generate a task, each containing ${sentence_count} ${readableType.toLowerCase()} sentence(s).
+You MUST return exactly ${sentence_count} separate sentences as a JSON array.
+Each sentence must follow the "${readableType}" format.
+${blankCountPart}
+
 ${availableTopicsPart}
 ${contextPart}
 ${sandboxPart}
-${blankCountPart}
 
-The response must be a valid JSON array of objects that match the provided JSON Schema. Do not include any explanations, formatting, or extra text. No comments. No additional fields. Only raw JSON.
+${schemaInstruction}
 
-Always respect the schema structure exactly — this is important for programmatic parsing.
-
-Make the task relevant, educational, and level-appropriate.
-`
+The ONLY output must be a valid JSON object that strictly follows the schema.
+❗ NO extra text, NO comments, NO explanations.
+❗ Do NOT wrap the JSON in markdown or code blocks.
+❗ If fewer than ${sentence_count} sentences are returned — the task is considered invalid.
+`.trim()
 }
 
 export function buildUserPrompt(request: ITaskGeneratorRequest): string {

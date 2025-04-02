@@ -1,8 +1,8 @@
 {
   "type": "object",
-  "required": ["questions", "mode"],
+  "required": ["sentences"],
   "properties": {
-    "questions": {
+    "sentences": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -27,13 +27,6 @@
           }
         }
       }
-    },
-    "mode": {
-      "type": "string",
-      "enum": ["CHECKBOX_MULTIPLE"]
-    },
-    "hint": {
-      "type": "string"
     }
   }
 }
