@@ -6,7 +6,6 @@ const taskTypeReadable: Record<TaskTypeEnum, string> = {
   REORDER_WORDS: "Reorder words",
   MULTIPLE_CHOICE: "Multiple choice",
   CORRECT_SENTENCE: "Correct the sentence",
-  FREE_ANSWER: "Free answer",
   LISTEN_AND_TYPE: "Listen and type",
 }
 

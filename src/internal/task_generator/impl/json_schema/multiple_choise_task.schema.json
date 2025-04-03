@@ -1,29 +1,40 @@
 {
+  "title": "Multiple Choice Question Task",
+  "description": "A task containing multiple choice questions. Each question includes a prompt, several answer options, one or more correct answers (by index), and an optional explanation.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
+      "description": "An array of multiple choice questions. Each item includes a question string, answer options, indexes of the correct options, and optionally an explanation.",
       "items": {
         "type": "object",
         "required": ["question", "options", "correct_option_indexes"],
         "properties": {
           "question": {
-            "type": "string"
+            "type": "string",
+            "description": "The text of the question being asked."
           },
           "options": {
             "type": "array",
-            "items": { "type": "string" },
-            "minItems": 2
+            "description": "An array of possible answers to choose from. Must contain at least two options.",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
           },
           "correct_option_indexes": {
             "type": "array",
-            "items": { "type": "number" },
-            "minItems": 1
+            "description": "An array of integers representing the indexes of the correct options in the 'options' array.",
+            "minItems": 1,
+            "items": {
+              "type": "number"
+            }
           },
           "explanation": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional explanation for why the selected answer(s) is correct. Useful for educational feedback."
           }
         }
       }

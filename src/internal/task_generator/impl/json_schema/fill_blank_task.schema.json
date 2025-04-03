@@ -1,6 +1,7 @@
 {
-  "type": "object",
+  "title": "Fill Blank Task",
   "description": "This object represents a fill-in-the-blank exercise where each sentence contains one or more blanks. Each blank must be filled in using one correct word chosen from multiple options. The main field is 'sentences', a list of tasks.",
+  "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {

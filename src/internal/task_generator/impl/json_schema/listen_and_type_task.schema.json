@@ -1,22 +1,28 @@
 {
+  "title": "Listen and Type Task",
+  "description": "A task where users listen to an audio clip and type what they hear. Each item contains the audio URL, the correct transcript, and optionally, an explanation.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
+      "description": "An array of listening comprehension items. Each item includes an audio URL and the expected transcription.",
       "items": {
         "type": "object",
         "required": ["audio_url", "correct_transcript"],
         "properties": {
           "audio_url": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "description": "The URL of the audio clip the user should listen to. Can be null if the audio is missing or not yet available, but that's depressing."
           },
           "correct_transcript": {
-            "type": "string"
+            "type": "string",
+            "description": "The correct transcription of the audio. Used to evaluate the user's typed response."
           },
           "explanation": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional explanation or feedback. Can clarify pronunciation, vocabulary, or provide encouragement to cry less after failing the task."
           }
         }
       }

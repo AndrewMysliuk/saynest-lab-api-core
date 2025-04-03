@@ -7,7 +7,6 @@ export enum TaskTypeEnum {
   REORDER_WORDS = "REORDER_WORDS",
   MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
   CORRECT_SENTENCE = "CORRECT_SENTENCE",
-  FREE_ANSWER = "FREE_ANSWER",
   LISTEN_AND_TYPE = "LISTEN_AND_TYPE",
 }
 
@@ -69,13 +68,6 @@ export interface ICorrectSentenceItem {
   explanation?: string
 }
 
-export interface IFreeAnswerItem {
-  question: string
-  reference_answer?: string // пример хорошего ответа
-  expected_keywords?: string[] // для оценки — ключевые слова
-  explanation?: string
-}
-
 export interface IListenAndTypeItem {
   audio_url: string
   correct_transcript: string
@@ -102,10 +94,6 @@ export interface ICorrectSentenceTask {
   sentences: ICorrectSentenceItem[]
 }
 
-export interface IFreeAnswerTask {
-  sentences: IFreeAnswerItem[]
-}
-
 export interface IListenAndTypeTask {
   sentences: IListenAndTypeItem[]
 }
@@ -124,5 +112,5 @@ export interface ITaskGeneratorResponse {
   mode: TaskModeEnum
   blank_count?: number
   metadata?: Record<string, any> // Любая служебная инфа (для отладки, генерации, кеша)
-  data: IFillBlankTask | IMatchTranslationTask | IReorderWordsTask | IMultipleChoiceTask | ICorrectSentenceTask | IFreeAnswerTask | IListenAndTypeTask
+  data: IFillBlankTask | IMatchTranslationTask | IReorderWordsTask | IMultipleChoiceTask | ICorrectSentenceTask | IListenAndTypeTask
 }

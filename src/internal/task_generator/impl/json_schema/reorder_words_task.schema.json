@@ -1,26 +1,36 @@
 {
+  "title": "Reorder Sentence Task",
+  "description": "A sentence reordering task. Each item contains a shuffled version of a sentence and the correct word order. An optional explanation can be provided to clarify grammar or word order logic.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
+      "description": "An array of sentence reordering items. Each item provides the correct word order and a shuffled version of the sentence.",
       "items": {
         "type": "object",
         "required": ["correct_order", "shuffled"],
         "properties": {
           "correct_order": {
             "type": "array",
-            "items": { "type": "string" },
-            "minItems": 2
+            "description": "An array of words in their correct order, forming a grammatically valid sentence.",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
           },
           "shuffled": {
             "type": "array",
-            "items": { "type": "string" },
-            "minItems": 2
+            "description": "The same words from 'correct_order', but shuffled randomly.",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
           },
           "explanation": {
-            "type": "string"
+            "type": "string",
+            "description": "An optional explanation of why the correct order is correct. Useful for grammar instruction or feedback."
           }
         }
       }

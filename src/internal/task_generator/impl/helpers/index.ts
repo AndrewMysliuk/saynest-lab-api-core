@@ -1,10 +1,8 @@
-import { ICorrectSentenceTask, IFillBlankTask, IFreeAnswerTask, IListenAndTypeTask, IMatchTranslationTask, IMultipleChoiceTask, IReorderWordsTask, TaskTypeEnum } from "../../../../types"
+import { ICorrectSentenceTask, IFillBlankTask, IListenAndTypeTask, IMatchTranslationTask, IMultipleChoiceTask, IReorderWordsTask, TaskTypeEnum } from "../../../../types"
 import correctSentenceTask from "../json_schema/correct_sentence_task.schema.json"
 import type correctSentenceSchema from "../json_schema/correct_sentence_task.schema.json"
 import fillBlankTask from "../json_schema/fill_blank_task.schema.json"
 import type fillBlankSchema from "../json_schema/fill_blank_task.schema.json"
-import freeAnswerTask from "../json_schema/free_answer_task.schema.json"
-import type freeAnswerSchema from "../json_schema/free_answer_task.schema.json"
 import listenAndTypeTask from "../json_schema/listen_and_type_task.schema.json"
 import type listenAndTypeSchema from "../json_schema/listen_and_type_task.schema.json"
 import matchTranslationTask from "../json_schema/match_translation_task.schema.json"
@@ -34,10 +32,6 @@ type TaskTypeMap = {
   [TaskTypeEnum.CORRECT_SENTENCE]: {
     request_schema: typeof correctSentenceSchema
     response_type: ICorrectSentenceTask
-  }
-  [TaskTypeEnum.FREE_ANSWER]: {
-    request_schema: typeof freeAnswerSchema
-    response_type: IFreeAnswerTask
   }
   [TaskTypeEnum.LISTEN_AND_TYPE]: {
     request_schema: typeof listenAndTypeSchema
@@ -74,11 +68,6 @@ const taskDefinitions: {
     type: TaskTypeEnum.CORRECT_SENTENCE,
     schema: correctSentenceTask,
     parseResponse: (data) => data as ICorrectSentenceTask,
-  },
-  {
-    type: TaskTypeEnum.FREE_ANSWER,
-    schema: freeAnswerTask,
-    parseResponse: (data) => data as IFreeAnswerTask,
   },
   {
     type: TaskTypeEnum.LISTEN_AND_TYPE,

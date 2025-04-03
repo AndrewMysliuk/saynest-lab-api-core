@@ -1,26 +1,35 @@
 {
+  "title": "Match Translation Task",
+  "description": "A task for matching translations. It contains a list of sentence pairs where each pair includes a source phrase in the learning language and its correct translation. Optional distractors (incorrect translations) and an explanation can be provided for each pair.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
+      "description": "An array of translation pairs. Each pair contains the original sentence, its correct translation, and optionally, a list of incorrect alternatives and an explanation.",
       "items": {
         "type": "object",
         "required": ["source", "correct_target"],
         "properties": {
           "source": {
-            "type": "string"
+            "type": "string",
+            "description": "The sentence in the learning language that needs to be translated."
           },
           "correct_target": {
-            "type": "string"
+            "type": "string",
+            "description": "The correct translation of the source sentence."
           },
           "distractors": {
             "type": "array",
-            "items": { "type": "string" }
+            "description": "A list of incorrect translations intended to serve as distractors.",
+            "items": {
+              "type": "string"
+            }
           },
           "explanation": {
-            "type": "string"
+            "type": "string",
+            "description": "An optional explanation for why the translation is correct. Useful for educational purposes."
           }
         }
       }

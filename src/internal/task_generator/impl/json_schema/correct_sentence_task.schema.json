@@ -1,22 +1,28 @@
 {
+  "title": "Correct Sentence Task",
+  "description": "A grammar correction task where users are shown a sentence containing an error and must identify or provide the corrected version. An optional explanation can be included to support learning.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
+      "description": "An array of sentence correction items. Each item includes a sentence with an error, the corrected version, and optionally, an explanation.",
       "items": {
         "type": "object",
         "required": ["sentence_with_error", "corrected_sentence"],
         "properties": {
           "sentence_with_error": {
-            "type": "string"
+            "type": "string",
+            "description": "The original sentence that contains a grammatical or usage error."
           },
           "corrected_sentence": {
-            "type": "string"
+            "type": "string",
+            "description": "The corrected version of the sentence with the error fixed."
           },
           "explanation": {
-            "type": "string"
+            "type": "string",
+            "description": "An optional explanation of the correction, often describing the grammar rule or mistake that was fixed."
           }
         }
       }
