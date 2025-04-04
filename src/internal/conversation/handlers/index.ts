@@ -1,5 +1,8 @@
 import { Request, RequestHandler, Response } from "express"
 
+import { Types } from "mongoose"
+
+import { IConversationResponse, StreamEventEnum } from "../../../types"
 import logger from "../../../utils/logger"
 import { IConversationService } from "../index"
 import { conversationSchema } from "./validation"
@@ -7,12 +10,15 @@ import { conversationSchema } from "./validation"
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { organization_id, user_id }: { organization_id: string; user_id: string } = req.body
+      const organization_id = new Types.ObjectId().toHexString()
+      const user_id = new Types.ObjectId().toHexString()
 
-      if (!organization_id || !user_id) {
-        res.status(400).json({ error: "Missing required fields" })
-        return
-      }
+      // const { organization_id, user_id }: { organization_id: string; user_id: string } = req.body
+
+      // if (!organization_id || !user_id) {
+      //   res.status(400).json({ error: "Missing required fields" })
+      //   return
+      // }
 
       const parsedBody = conversationSchema.parse({
         whisper: {
@@ -29,48 +35,51 @@ export const createConversationHandler = (conversationService: IConversationServ
         return
       }
 
-      let streamEnded = false
+      res.setHeader("Content-Type", "application/json; charset=utf-8")
+      res.setHeader("Transfer-Encoding", "chunked")
+      res.setHeader("Cache-Control", "no-cache")
 
+      let streamEnded = false
       res.on("close", () => {
         streamEnded = true
       })
 
-      const { whisper, gpt_model, tts, system } = parsedBody
+      const output: { finalData?: IConversationResponse } = {}
 
-      const { session_id, conversation_history, last_model_response, error_analyser_response } = await conversationService.processConversation(
-        { organization_id, user_id, whisper, gpt_model, tts, system },
-        (role, content, audio_url, audio_chunk) => {
-          if (streamEnded) return
-
-          const data: {
-            role: string
-            content?: string
-            audio_url?: string
-            audio_chunk?: string
-          } = { role }
-          if (content) data.content = content
-          if (audio_url) data.audio_url = audio_url
-          if (audio_chunk) data.audio_chunk = audio_chunk.toString("base64")
-
-          try {
-            res.write(`${JSON.stringify(data)}\n`)
-          } catch (error) {
-            logger.error("createConversationHandler | Error writing to stream:", error)
-          }
+      const generator = conversationService.streamConversation(
+        {
+          organization_id,
+          user_id,
+          whisper: parsedBody.whisper,
+          gpt_model: parsedBody.gpt_model,
+          tts: parsedBody.tts,
+          system: parsedBody.system,
         },
+        output,
       )
 
-      if (!streamEnded) {
-        res.write(
-          JSON.stringify({
-            session_id,
-            conversation_history,
-            last_model_response,
-            error_analyser_response,
-          }),
-        )
-        res.end()
+      for await (const event of generator) {
+        if (streamEnded) break
+
+        if (event.type === StreamEventEnum.TTS_CHUNK) {
+          res.write(
+            `${JSON.stringify({
+              ...event,
+              audioChunk: event.audioChunk.toString("base64"),
+            })}\n`,
+          )
+        } else {
+          res.write(`${JSON.stringify(event)}\n`)
+        }
       }
+
+      const finalData = output.finalData
+
+      if (!streamEnded && finalData) {
+        res.write(`${JSON.stringify({ type: StreamEventEnum.COMPLETE, ...finalData })}\n`)
+      }
+
+      res.end()
     } catch (error: unknown) {
       logger.error("createConversationHandler | error:", error)
       res.status(500).json({ error: "Internal Server Error" })

@@ -1,9 +1,9 @@
 import { ObjectId } from "mongoose"
 
-import { IConversationHistory, IConversationPayload, IConversationResponse } from "../../types"
+import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse } from "../../types"
 
 export interface IConversationService {
-  processConversation(payload: IConversationPayload, onData: (role: string, content: string, audio_url?: string, audio_chunk?: Buffer) => void): Promise<IConversationResponse>
+  streamConversation(payload: IConversationPayload, outputConversation?: { finalData?: IConversationResponse }): AsyncGenerator<ConversationStreamEvent>
   startNewSession(
     organization_id: string,
     user_id: string,

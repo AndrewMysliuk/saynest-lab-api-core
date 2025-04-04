@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose"
 import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
-import { IConversationHistory, IConversationPayload, IConversationResponse, ISimulationStartResponse, IStartSimulationRequest, SessionTypeEnum } from "../../../types"
+import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IErrorAnalysisEntity, SessionTypeEnum, StreamEventEnum } from "../../../types"
 import { trimConversationHistory } from "../../../utils"
 import logger from "../../../utils/logger"
 import { IErrorAnalysis } from "../../error_analysis"
@@ -40,11 +40,10 @@ export class ConversationService implements IConversationService {
     this.textToSpeachService = textToSpeachService
   }
 
-  async processConversation(
-    { organization_id, user_id, whisper, gpt_model, tts, system }: IConversationPayload,
-    onData: (role: string, content: string, audio_url?: string, audio_chunk?: Buffer) => void,
-  ): Promise<IConversationResponse> {
+  async *streamConversation(payload: IConversationPayload, outputConversation?: { finalData?: IConversationResponse }): AsyncGenerator<ConversationStreamEvent> {
     try {
+      const { organization_id, user_id, whisper, gpt_model, tts, system } = payload
+
       const sessionData = await this.getSessionData(organization_id, user_id, system.session_id, system.global_prompt)
       const { session_id: activeSessionId, session_directory: sessionDir, conversation_history: initialHistory } = sessionData
 
@@ -53,20 +52,26 @@ export class ConversationService implements IConversationService {
 
       const { transcription, user_audio_path } = await this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
 
-      onData("user", transcription, `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`)
-
       const pair_id = uuidv4()
 
-      const savedUserData = await this.historyRepo.saveHistory({
+      yield {
+        type: StreamEventEnum.TRANSCRIPTION,
+        role: "user",
+        content: transcription,
+        audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
+      }
+
+      const savedUserMessage = await this.historyRepo.saveHistory({
         session_id: activeSessionId,
         pair_id,
         role: "user",
         content: transcription,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
       })
-      conversationHistory.push(savedUserData)
 
-      const trimmedHistory = await trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
+      conversationHistory.push(savedUserMessage)
+
+      const trimmedHistory = trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
 
       const [gptResponse, errorResponse] = await Promise.all([
         this.textAnalysisService.gptConversation({
@@ -79,33 +84,53 @@ export class ConversationService implements IConversationService {
         }),
       ])
 
-      onData("assistant", gptResponse.reply_to_user)
+      yield {
+        type: StreamEventEnum.GPT_RESPONSE,
+        role: "assistant",
+        content: gptResponse.reply_to_user,
+      }
 
-      const audioFilePath = await this.textToSpeachService.ttsTextToSpeech(
-        { ...tts, input: gptResponse.reply_to_user },
-        (audio_chunk) => {
-          onData("assistant", "", "", audio_chunk)
-        },
-        sessionDir,
-      )
+      const output: { filePath?: string } = {}
 
-      const savedAssistantData = await this.historyRepo.saveHistory({
+      const ttsGenerator = this.textToSpeachService.ttsTextToSpeechStream({ ...tts, input: gptResponse.reply_to_user }, sessionDir, output)
+
+      for await (const chunk of ttsGenerator) {
+        yield {
+          type: StreamEventEnum.TTS_CHUNK,
+          role: "assistant",
+          audioChunk: chunk,
+        }
+      }
+
+      const audioFilePath = output.filePath as string
+
+      const savedModelMessage = await this.historyRepo.saveHistory({
         session_id: activeSessionId,
         pair_id,
         role: "assistant",
         content: gptResponse.reply_to_user,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
       })
-      conversationHistory.push(savedAssistantData)
 
-      return {
+      conversationHistory.push(savedModelMessage)
+
+      const final: IConversationResponse = {
         session_id: activeSessionId.toString(),
         conversation_history: conversationHistory,
         last_model_response: gptResponse,
         error_analyser_response: errorResponse,
       }
+
+      if (outputConversation) outputConversation.finalData = final
     } catch (error: unknown) {
       logger.error(`ConversationService | error in processConversation: ${error}`)
+
+      yield {
+        type: StreamEventEnum.ERROR,
+        role: "system",
+        content: "Conversation unexpectedly terminated",
+      }
+
       throw error
     }
   }

@@ -13,12 +13,12 @@ import { ITextToSpeach } from "../index"
 ffmpeg.setFfmpegPath(ffmpegPath || "")
 
 export class TextToSpeachService implements ITextToSpeach {
-  async ttsTextToSpeech(payload: ITTSPayload, onData: (data: Buffer) => void, session_folder?: string): Promise<string> {
-    const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
-    const fileExtension = payload?.response_format || "wav"
-    const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
-
+  async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
     try {
+      const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
+      const fileExtension = payload?.response_format || "wav"
+      const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
+
       if (!fs.existsSync(userSessionsDir)) {
         await fs.promises.mkdir(userSessionsDir, { recursive: true })
       }
@@ -30,34 +30,18 @@ export class TextToSpeachService implements ITextToSpeach {
         response_format: fileExtension,
       })
 
-      const readableStream = response.body as unknown as NodeJS.ReadableStream
+      const readableStream = response.body as NodeJS.ReadableStream
 
-      let bufferStore = Buffer.from([])
-      let streamEnded = false
+      const chunks: Buffer[] = []
 
-      readableStream.on("data", (chunk: Buffer) => {
-        if (streamEnded) return
-        bufferStore = Buffer.concat([bufferStore, chunk])
-        onData(chunk)
-      })
+      for await (const chunk of readableStream as AsyncIterable<Buffer>) {
+        chunks.push(chunk)
+        yield chunk
+      }
 
-      readableStream.on("end", async () => {
-        streamEnded = true
-        await fs.promises.writeFile(filePath, bufferStore)
-      })
-
-      readableStream.on("error", (error) => {
-        streamEnded = true
-        logger.error("textToSpeechService | Stream error in ttsTextToSpeech:", error)
-        throw error
-      })
-
-      await new Promise((resolve, reject) => {
-        readableStream.on("end", resolve)
-        readableStream.on("error", reject)
-      })
-
-      return filePath
+      await fs.promises.writeFile(filePath, Buffer.concat(chunks))
+      output && (output.filePath = filePath)
+      return
     } catch (error: unknown) {
       logger.error("textToSpeechService | error in ttsTextToSpeech: ", error)
       throw error
