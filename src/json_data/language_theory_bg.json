@@ -1461,5 +1461,2991 @@
         }
       }
     ]
+  },
+  {
+    "id": "bg_020",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Бъдеще време с „ще“",
+    "title_translations": {
+      "en": "Future tense with 'ще'",
+      "uk": "Майбутній час з «ще»"
+    },
+    "tags": {
+      "en": ["future tense", "grammar", "verbs"],
+      "uk": ["майбутній час", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to form and use the Bulgarian future tense with the particle 'ще'.",
+      "uk": "Дізнайтеся, як утворювати та використовувати майбутній час у болгарській мові за допомогою частки «ще»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език бъдеще време се образува с помощта на частицата „ще“ и формата на глагола в сегашно време.",
+        "content_translation": {
+          "en": "In Bulgarian, the future tense is formed using the particle 'ще' followed by the present tense form of the verb.",
+          "uk": "У болгарській мові майбутній час утворюється за допомогою частки «ще» та дієслова в теперішньому часі."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Form", "Translation"],
+          "uk": ["Особа", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "ще уча", "I will study / Я буду вчитися"],
+          ["Ти", "ще учиш", "You will study / Ти будеш вчитися"],
+          ["Той/Тя/То", "ще учи", "He/She/It will study / Він/Вона буде вчитися"],
+          ["Ние", "ще учим", "We will study / Ми будемо вчитися"],
+          ["Вие", "ще учите", "You (pl.) will study / Ви будете вчитися"],
+          ["Те", "ще учат", "They will study / Вони будуть вчитися"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Частицата „ще“ не се променя по лице или число, но глаголът след нея трябва да е в сегашно време.",
+        "content_translation": {
+          "en": "The particle 'ще' does not change by person or number, but the verb following it must be in the present tense.",
+          "uk": "Частка «ще» не змінюється за особами чи числами, але дієслово після неї повинно бути в теперішньому часі."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Утре ще отидем на кино. — Ще уча български всеки ден.",
+        "content_translation": {
+          "en": "Tomorrow we will go to the cinema. — I will study Bulgarian every day.",
+          "uk": "Завтра ми підемо в кіно. — Я буду вивчати болгарську щодня."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_021",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Минало време (аорист)",
+    "title_translations": {
+      "en": "Past tense (aorist)",
+      "uk": "Минулий час (аорист)"
+    },
+    "tags": {
+      "en": ["past tense", "aorist", "verbs", "grammar"],
+      "uk": ["минулий час", "аорист", "дієслова", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to form and use the aorist tense in Bulgarian to describe completed past actions.",
+      "uk": "Дізнайтеся, як утворюється і використовується аорист у болгарській мові для опису завершених дій у минулому."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Аорист в български език се използва за действия, които са се случили и завършили в миналото. Образува се от глаголната основа и специфични окончания.",
+        "content_translation": {
+          "en": "The aorist in Bulgarian is used for actions that happened and were completed in the past. It is formed from the verb stem and specific endings.",
+          "uk": "Аорист у болгарській мові використовується для позначення дій, які відбулися і завершилися в минулому. Він утворюється від основи дієслова та спеціальних закінчень."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма (напр. 'говоря')", "Аорист", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Present (e.g. 'говоря')", "Aorist", "Translation"],
+          "uk": ["Особа", "Теп. час (напр. 'говоря')", "Аорист", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "говоря", "говорих", "I spoke / Я говорив"],
+          ["Ти", "говориш", "говори", "You spoke / Ти говорив"],
+          ["Той/Тя/То", "говори", "говори", "He/She spoke / Він / Вона говорив(ла)"],
+          ["Ние", "говорим", "говорихме", "We spoke / Ми говорили"],
+          ["Вие", "говорите", "говорихте", "You spoke / Ви говорили"],
+          ["Те", "говорят", "говориха", "They spoke / Вони говорили"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Аорист се използва основно в писмената реч, разкази, новини и официален стил. В ежедневната реч често се използва минало свършено време.",
+        "content_translation": {
+          "en": "Aorist is mainly used in written language, stories, news, and formal style. In everyday speech, the perfect past tense is more common.",
+          "uk": "Аорист здебільшого вживається в письмовій мові, розповідях, новинах і офіційному стилі. У розмовній мові частіше використовується минулий доконаний час."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Вчера прочетох книгата. — Излязохме и отидохме на ресторант.",
+        "content_translation": {
+          "en": "Yesterday I read the book. — We went out and went to a restaurant.",
+          "uk": "Вчора я прочитав книгу. — Ми вийшли і пішли в ресторан."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_022",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Перфект (минало неопределено време)",
+    "title_translations": {
+      "en": "Perfect tense (indefinite past)",
+      "uk": "Перфект (минулий неозначений час)"
+    },
+    "tags": {
+      "en": ["perfect tense", "past", "grammar", "verbs"],
+      "uk": ["перфект", "минулий час", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to form and use the Bulgarian perfect tense to express past actions connected to the present.",
+      "uk": "Дізнайтеся, як утворюється і використовується перфект у болгарській мові для вираження минулих дій, пов’язаних із теперішнім."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Минало неопределено време (перфект) се използва за действия, които са се случили в миналото, но имат връзка с настоящето. Образува се със спрегнати форми на глагола 'съм' и минало причастие на основния глагол.",
+        "content_translation": {
+          "en": "The indefinite past (perfect) is used for actions that happened in the past but are related to the present. It is formed with the conjugated forms of the verb 'to be' (съм) and the past participle of the main verb.",
+          "uk": "Минулий неозначений час (перфект) використовується для дій, які сталися в минулому, але мають зв’язок із теперішнім. Утворюється за допомогою дієслова 'бути' (съм) у відповідній формі та дієприкметника минулого часу основного дієслова."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Form", "Translation"],
+          "uk": ["Особа", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "съм говорил", "I have spoken / Я говорив"],
+          ["Ти", "си говорил", "You have spoken / Ти говорив"],
+          ["Той/Тя", "е говорил/говорила", "He/She has spoken / Він / Вона говорив(ла)"],
+          ["Ние", "сме говорили", "We have spoken / Ми говорили"],
+          ["Вие", "сте говорили", "You have spoken / Ви говорили"],
+          ["Те", "са говорили", "They have spoken / Вони говорили"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Минало неопределено време често се използва в разговорната реч, когато резултатът от действието е важен в настоящето.",
+        "content_translation": {
+          "en": "The perfect tense is often used in spoken language when the result of the action is relevant to the present.",
+          "uk": "Перфект часто вживається в розмовній мові, коли результат дії має значення для теперішнього."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Събрал съм всички документи. — Те са яли вече.",
+        "content_translation": {
+          "en": "I have collected all the documents. — They have already eaten.",
+          "uk": "Я зібрав усі документи. — Вони вже поїли."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_023",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Повелително наклонение (императив)",
+    "title_translations": {
+      "en": "Imperative mood",
+      "uk": "Наказовий спосіб"
+    },
+    "tags": {
+      "en": ["imperative", "commands", "grammar", "verbs"],
+      "uk": ["наказовий спосіб", "команди", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to use the imperative mood in Bulgarian to give commands, requests, and instructions.",
+      "uk": "Дізнайтеся, як використовувати наказовий спосіб у болгарській мові для вираження команд, прохань та інструкцій."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Повелителното наклонение в български език се използва за заповеди, молби или съвети. Най-често се образува от глаголната основа без лични окончания.",
+        "content_translation": {
+          "en": "The imperative mood in Bulgarian is used to give orders, requests, or advice. It is usually formed from the verb stem without personal endings.",
+          "uk": "Наказовий спосіб у болгарській мові використовується для вираження наказів, прохань або порад. Найчастіше утворюється від основи дієслова без особових закінчень."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма (напр. 'говоря')", "Императив", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Verb (e.g. 'говоря')", "Imperative", "Translation"],
+          "uk": ["Особа", "Дієслово (напр. 'говоря')", "Наказовий спосіб", "Переклад"]
+        },
+        "rows": [
+          ["(ти)", "говоря", "говори!", "Speak! / Говори!"],
+          ["(вие)", "говоря", "говорете!", "Speak! (plural/polite) / Говоріть!"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Повелителното наклонение няма форми за 'аз', 'той/тя/то' и 'те'. Използват се само форми за 'ти' и 'вие'.",
+        "content_translation": {
+          "en": "The imperative mood has no forms for 'I', 'he/she/it', or 'they'. Only forms for 'you' (singular and plural) are used.",
+          "uk": "Наказовий спосіб не має форм для 'я', 'він/вона/воно' чи 'вони'. Використовуються лише форми для 'ти' та 'ви'."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Слушай внимателно! — Говорете по-бавно, моля. — Яж си супата!",
+        "content_translation": {
+          "en": "Listen carefully! — Speak more slowly, please. — Eat your soup!",
+          "uk": "Слухай уважно! — Говоріть повільніше, будь ласка. — Їж свій суп!"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_024",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Сравнителна и превъзходна степен",
+    "title_translations": {
+      "en": "Comparative and superlative degree",
+      "uk": "Вищий і найвищий ступінь порівняння"
+    },
+    "tags": {
+      "en": ["comparative", "superlative", "adjectives", "grammar"],
+      "uk": ["вищий ступінь", "найвищий ступінь", "прикметники", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to form and use the comparative and superlative degrees of adjectives in Bulgarian.",
+      "uk": "Дізнайтеся, як утворюються і використовуються вищий та найвищий ступені прикметників у болгарській мові."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език прилагателните имена имат три степени: положителна (основна), сравнителна (по-...) и превъзходна (най-...).",
+        "content_translation": {
+          "en": "In Bulgarian, adjectives have three degrees: positive (base form), comparative (po-...), and superlative (nai-...).",
+          "uk": "У болгарській мові прикметники мають три ступені: позитивний (основа), вищий (по-...) та найвищий (най-...)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Степен", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Degree", "Form", "Translation"],
+          "uk": ["Ступінь", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Положителна", "умен", "smart / розумний"],
+          ["Сравнителна", "по-умен", "smarter / розумніший"],
+          ["Превъзходна", "най-умен", "the smartest / найрозумніший"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "„По-“ и „най-“ се добавят пред прилагателното, без промяна на основната форма. Ако прилагателното вече има степен, не се добавят допълнителни думи като 'по-вече'.",
+        "content_translation": {
+          "en": "'Po-' and 'nai-' are added before the adjective without changing its form. Avoid adding extra words like 'more' with already modified adjectives.",
+          "uk": "«По-» та «най-» додаються перед прикметником без зміни його форми. Не слід додавати додаткові слова типу «більш» до вже змінених прикметників."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Този тест е по-лесен. — Най-добрият ресторант е до парка.",
+        "content_translation": {
+          "en": "This test is easier. — The best restaurant is next to the park.",
+          "uk": "Цей тест легший. — Найкращий ресторан поруч із парком."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_025",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Възвратни глаголи с „се“",
+    "title_translations": {
+      "en": "Reflexive verbs with 'се'",
+      "uk": "Зворотні дієслова з «се»"
+    },
+    "tags": {
+      "en": ["reflexive verbs", "grammar", "verbs"],
+      "uk": ["зворотні дієслова", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to use reflexive verbs in Bulgarian that include the particle 'се' to indicate actions done by the subject to itself.",
+      "uk": "Дізнайтеся, як використовуються зворотні дієслова в болгарській мові з часткою «се» для позначення дій, спрямованих на себе."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Възвратните глаголи в български език се образуват с помощта на частицата „се“. Те показват, че действието се извършва от и върху същия субект.",
+        "content_translation": {
+          "en": "Reflexive verbs in Bulgarian are formed using the particle 'се'. They show that the subject performs the action on itself.",
+          "uk": "Зворотні дієслова в болгарській мові утворюються за допомогою частки «се». Вони показують, що дія виконується суб’єктом над собою."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Глагол", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Verb", "Form", "Translation"],
+          "uk": ["Дієслово", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["будя се", "Аз се будя", "I wake up / Я прокидаюся"],
+          ["мия се", "Ти се миеш", "You wash yourself / Ти вмиваєшся"],
+          ["обличам се", "Той се облича", "He gets dressed / Він одягається"],
+          ["чувствам се", "Ние се чувстваме добре", "We feel good / Ми добре почуваємося"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Частицата „се“ може да стои пред или след глагола, в зависимост от формата и словореда. Тя е неделима част от възвратния глагол.",
+        "content_translation": {
+          "en": "The particle 'се' may appear before or after the verb depending on the sentence structure, but it's an inseparable part of the reflexive verb.",
+          "uk": "Частка «се» може стояти перед або після дієслова залежно від структури речення, але вона є невід’ємною частиною зворотного дієслова."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Сутрин се събуждам в 7 часа. — Той се подготвя за изпита. — Чувствам се щастлив.",
+        "content_translation": {
+          "en": "In the morning I wake up at 7. — He is preparing for the exam. — I feel happy.",
+          "uk": "Вранці я прокидаюся о 7. — Він готується до іспиту. — Я почуваюся щасливим."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_026",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Наречия за място и време",
+    "title_translations": {
+      "en": "Adverbs of place and time",
+      "uk": "Прислівники місця і часу"
+    },
+    "tags": {
+      "en": ["adverbs", "place", "time", "grammar"],
+      "uk": ["прислівники", "місце", "час", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use adverbs of place and time in Bulgarian to describe where and when actions happen.",
+      "uk": "Дізнайтеся, як використовуються прислівники місця і часу в болгарській мові для опису, де і коли відбуваються дії."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Наречията за място и време отговарят на въпросите „къде?“ и „кога?“. Те описват мястото и времето на действието.",
+        "content_translation": {
+          "en": "Adverbs of place and time answer the questions 'where?' and 'when?'. They describe the location and time of the action.",
+          "uk": "Прислівники місця і часу відповідають на питання «де?» і «коли?». Вони описують місце і час дії."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Наречие", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Adverb", "Translation"],
+          "uk": ["Тип", "Прислівник", "Переклад"]
+        },
+        "rows": [
+          ["Място", "тук", "here / тут"],
+          ["Място", "там", "there / там"],
+          ["Място", "горе", "up / нагорі"],
+          ["Място", "долу", "down / унизу"],
+          ["Време", "сега", "now / зараз"],
+          ["Време", "днес", "today / сьогодні"],
+          ["Време", "утре", "tomorrow / завтра"],
+          ["Време", "вчера", "yesterday / вчора"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Наречията не се променят по род, число или лице. Те обикновено стоят близо до глагола или в началото/края на изречението.",
+        "content_translation": {
+          "en": "Adverbs do not change by gender, number, or person. They usually appear near the verb or at the beginning/end of the sentence.",
+          "uk": "Прислівники не змінюються за родом, числом або особою. Зазвичай вони стоять біля дієслова або на початку/кінці речення."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Сега съм вкъщи. — Той беше там вчера. — Утре ще дойда тук.",
+        "content_translation": {
+          "en": "I am at home now. — He was there yesterday. — I will come here tomorrow.",
+          "uk": "Я зараз удома. — Він був там учора. — Завтра я прийду сюди."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_027",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Сложни числителни (дати, час)",
+    "title_translations": {
+      "en": "Compound numerals (dates, time)",
+      "uk": "Складні числівники (дати, час)"
+    },
+    "tags": {
+      "en": ["numbers", "dates", "time", "grammar"],
+      "uk": ["числівники", "дати", "час", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to read and say compound numerals in Bulgarian, including dates and telling time.",
+      "uk": "Дізнайтеся, як читати й вимовляти складні числівники в болгарській мові, включно з датами та часом."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Сложните числителни в български език се използват за обозначаване на дати, време и по-големи количества. Те се образуват чрез съчетаване на няколко прости числителни.",
+        "content_translation": {
+          "en": "Compound numerals in Bulgarian are used to express dates, time, and larger numbers. They are formed by combining several simple numerals.",
+          "uk": "Складні числівники в болгарській мові використовуються для позначення дат, часу та більших чисел. Вони утворюються шляхом поєднання кількох простих числівників."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Example", "Translation"],
+          "uk": ["Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Дата", "1 януари 2024 година", "1st January 2024 / 1 січня 2024 року"],
+          ["Дата", "15 август", "15th August / 15 серпня"],
+          ["Час", "Точно три часа", "Exactly 3 o’clock / Рівно третя година"],
+          ["Час", "Пет и половина", "Half past five / Пів на шосту"],
+          ["Час", "Девет без десет", "Ten to nine / Без десять дев’ята"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "При посочване на дата, месецът се изписва с малка буква. Годината често се добавя след думата 'година'.",
+        "content_translation": {
+          "en": "When writing dates, the month is written in lowercase. The year is often added after the word 'година' (year).",
+          "uk": "При написанні дати назва місяця пишеться з малої літери. Рік часто вказується після слова «година» (рік)."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Днес е 2 март 2024 година. — Събранието започва в шест и петнайсет. — Роден съм на 30 юни.",
+        "content_translation": {
+          "en": "Today is 2nd March 2024. — The meeting starts at 6:15. — I was born on June 30.",
+          "uk": "Сьогодні 2 березня 2024 року. — Збори починаються о 6:15. — Я народився 30 червня."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_028",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Склонение на съществителни в множествено число",
+    "title_translations": {
+      "en": "Declension of nouns in plural",
+      "uk": "Відмінювання іменників у множині"
+    },
+    "tags": {
+      "en": ["nouns", "plural", "grammar", "cases"],
+      "uk": ["іменники", "множина", "граматика", "відмінювання"]
+    },
+    "description": {
+      "en": "Learn how Bulgarian nouns change in the plural form depending on gender and case-like endings.",
+      "uk": "Дізнайтеся, як змінюються болгарські іменники в множині залежно від роду та закінчень."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език съществителните имена имат различни форми в множествено число в зависимост от рода и окончанието в единствено число.",
+        "content_translation": {
+          "en": "In Bulgarian, nouns have different plural forms depending on their gender and singular ending.",
+          "uk": "У болгарській мові іменники мають різні форми множини залежно від роду та закінчення в однині."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често срещаните окончания за множествено число са: -и, -а, -ове, -е. Изборът на окончание зависи от модела на склонение.",
+        "content_translation": {
+          "en": "The most common plural endings are: -и, -а, -ове, -е. The choice of ending depends on the declension pattern.",
+          "uk": "Найпоширеніші закінчення множини: -и, -а, -ове, -е. Вибір залежить від типу відмінювання."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Единствено число", "Множествено число", "Превод"],
+        "headers_translation": {
+          "en": ["Singular", "Plural", "Translation"],
+          "uk": ["Однина", "Множина", "Переклад"]
+        },
+        "rows": [
+          ["ученик", "ученици", "student / студент — студенти"],
+          ["маса", "маси", "table / стіл — столи"],
+          ["прозорец", "прозорци", "window / вікно — вікна"],
+          ["крак", "крака", "leg / нога — ноги"],
+          ["учител", "учители", "teacher / вчитель — вчителі"],
+          ["дете", "деца", "child / дитина — діти"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Някои съществителни имена образуват неправилна множествена форма и трябва да се запомнят. Например: човек → хора.",
+        "content_translation": {
+          "en": "Some nouns form irregular plurals and must be memorized. For example: човек → хора (person → people).",
+          "uk": "Деякі іменники мають неправильну форму множини і їх потрібно запам’ятати. Наприклад: човек → хора (людина → люди)."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Имам три книги на масата. — В класната стая има прозорци. — Децата играят в парка.",
+        "content_translation": {
+          "en": "I have three books on the table. — There are windows in the classroom. — The children are playing in the park.",
+          "uk": "У мене на столі три книги. — У класі є вікна. — Діти граються в парку."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Вчера говорих с двама учители. — Купих нови обувки и чорапи.",
+        "content_translation": {
+          "en": "Yesterday I spoke with two teachers. — I bought new shoes and socks.",
+          "uk": "Учора я говорив із двома вчителями. — Я купив нове взуття та шкарпетки."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_029",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Въпросителни и съобщителни форми на глаголи",
+    "title_translations": {
+      "en": "Interrogative and declarative verb forms",
+      "uk": "Питальні й розповідні форми дієслів"
+    },
+    "tags": {
+      "en": ["verbs", "questions", "statements", "grammar", "word order"],
+      "uk": ["дієслова", "питання", "ствердження", "граматика", "порядок слів"]
+    },
+    "description": {
+      "en": "Learn how to form questions and statements in Bulgarian using correct word order and verb forms.",
+      "uk": "Дізнайтеся, як утворювати питання та ствердження в болгарській мові з правильним порядком слів і формами дієслів."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език съобщителните изречения изразяват твърдение и обикновено следват реда: подлог + сказуемо.",
+        "content_translation": {
+          "en": "In Bulgarian, declarative sentences express a statement and usually follow the order: subject + verb.",
+          "uk": "У болгарській мові розповідні речення виражають твердження і зазвичай мають порядок: підмет + присудок."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Въпросителните изречения се образуват чрез промяна на интонацията или с въпросителна дума. Понякога се разменя редът: сказуемо + подлог.",
+        "content_translation": {
+          "en": "Interrogative sentences are formed either by changing intonation or by using a question word. Sometimes, the word order changes to: verb + subject.",
+          "uk": "Питальні речення утворюються або інтонацією, або за допомогою питального слова. Іноді змінюється порядок слів: присудок + підмет."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Изречение", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Sentence", "Translation"],
+          "uk": ["Тип", "Речення", "Переклад"]
+        },
+        "rows": [
+          ["Съобщително", "Той чете книга.", "He is reading a book. / Він читає книжку."],
+          ["Въпросително (интонация)", "Той чете книга?", "Is he reading a book? / Він читає книжку?"],
+          ["Въпросително (с дума)", "Какво чете той?", "What is he reading? / Що він читає?"],
+          ["Въпросително (обръщане)", "Чете ли той книга?", "Does he read a book? / Чи читає він книжку?"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Частицата 'ли' се използва за създаване на общи въпроси. Тя стои след глагола.",
+        "content_translation": {
+          "en": "The particle 'ли' is used to form yes/no questions. It comes after the verb.",
+          "uk": "Частка 'ли' використовується для утворення загальних запитань. Вона ставиться після дієслова."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ти разбираш български. — Разбираш ли български? — Кога започва урокът?",
+        "content_translation": {
+          "en": "You understand Bulgarian. — Do you understand Bulgarian? — When does the lesson start?",
+          "uk": "Ти розумієш болгарську. — Ти розумієш болгарську? — Коли починається урок?"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Мария живее в София. — Живее ли Мария в София? — Къде живее Мария?",
+        "content_translation": {
+          "en": "Maria lives in Sofia. — Does Maria live in Sofia? — Where does Maria live?",
+          "uk": "Марія живе в Софії. — Чи живе Марія в Софії? — Де живе Марія?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_030",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Частици „ли“, „нека“, „дали“",
+    "title_translations": {
+      "en": "Particles 'ли', 'нека', 'дали'",
+      "uk": "Частки «ли», «нека», «дали»"
+    },
+    "tags": {
+      "en": ["particles", "questions", "suggestions", "grammar"],
+      "uk": ["частки", "питання", "пропозиції", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use the Bulgarian particles 'ли', 'нека', and 'дали' to form questions, suggestions, and indirect speech.",
+      "uk": "Дізнайтеся, як використовуються болгарські частки «ли», «нека» та «дали» для утворення питань, пропозицій і непрямої мови."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Частицата „ли“ се използва за образуване на въпроси. Поставя се веднага след глагола.",
+        "content_translation": {
+          "en": "The particle 'ли' is used to form yes/no questions. It is placed immediately after the verb.",
+          "uk": "Частка «ли» використовується для утворення загальних запитань. Ставиться одразу після дієслова."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "„Нека“ се използва за предложения, покани или позволение. Обикновено се следва от глагол в сегашно време.",
+        "content_translation": {
+          "en": "'Нека' is used for suggestions, invitations, or permission. It is usually followed by a verb in the present tense.",
+          "uk": "«Нека» використовується для пропозицій, запрошень або дозволу. Зазвичай передує дієслову в теперішньому часі."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "„Дали“ се използва в непряка реч и въпроси, когато не сме сигурни за нещо. Обикновено отговаря на „дали да…“ или „дали е…“.",
+        "content_translation": {
+          "en": "'Дали' is used in indirect speech and questions when we are uncertain. It often translates as 'whether' or 'if'.",
+          "uk": "«Дали» використовується в непрямій мові та запитаннях, коли ми не впевнені. Часто перекладається як «чи»."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Частица", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Particle", "Example", "Translation"],
+          "uk": ["Частка", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["ли", "Ходиш ли на работа?", "Do you go to work? / Ти ходиш на роботу?"],
+          ["нека", "Нека отидем на разходка!", "Let's go for a walk! / Ходімо на прогулянку!"],
+          ["дали", "Чудя се дали ще вали.", "I wonder if it will rain. / Цікаво, чи буде дощ."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "„Ли“ не стои в началото на изречението. „Нека“ се използва и с първо и с трето лице. „Дали“ често се среща с глаголи като „знам“, „питам“, „чудя се“.",
+        "content_translation": {
+          "en": "'Ли' never comes at the beginning of a sentence. 'Нека' can be used with both first and third person. 'Дали' often appears with verbs like 'know', 'ask', 'wonder'.",
+          "uk": "«Ли» ніколи не стоїть на початку речення. «Нека» можна використовувати як з першою, так і з третьою особою. «Дали» часто вживається з дієсловами «знати», «питати», «цікавитися»."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ще дойдеш ли? — Нека започнем! — Питах го дали е готов.",
+        "content_translation": {
+          "en": "Will you come? — Let's begin! — I asked him if he is ready.",
+          "uk": "Ти прийдеш? — Почнімо! — Я спитав його, чи він готовий."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Нека Мария реши. — Не знам дали ще имаме време. — Виждаш ли това?",
+        "content_translation": {
+          "en": "Let Maria decide. — I don’t know if we still have time. — Do you see this?",
+          "uk": "Нехай Марія вирішить. — Я не знаю, чи в нас ще є час. — Ти це бачиш?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_031",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Прости причастия",
+    "title_translations": {
+      "en": "Simple participles",
+      "uk": "Прості дієприкметники"
+    },
+    "tags": {
+      "en": ["participles", "grammar", "verb forms"],
+      "uk": ["дієприкметники", "граматика", "дієслівні форми"]
+    },
+    "description": {
+      "en": "Learn how to form and use simple participles in Bulgarian, such as active and past participles.",
+      "uk": "Дізнайтеся, як утворюються й використовуються прості дієприкметники в болгарській мові: активні та минулі."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Простите причастия са неизменяеми форми на глагола, които имат признаци както на глагол, така и на прилагателно име. Те се използват за описание на действия или състояния.",
+        "content_translation": {
+          "en": "Simple participles are non-finite verb forms that have features of both verbs and adjectives. They are used to describe actions or states.",
+          "uk": "Прості дієприкметники — це неозначені форми дієслова, які мають риси як дієслова, так і прикметника. Використовуються для опису дій або станів."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често срещани са миналите причастия за свършеност: казал, видял, направил и сегашните деепричастия: четейки, гледайки.",
+        "content_translation": {
+          "en": "The most common are the past participles of completed actions: 'казал', 'видял', 'направил', and present gerunds like 'четейки', 'гледайки'.",
+          "uk": "Найпоширеніші — це минулі дієприкметники доконаного виду: «казал», «побачив», «зробив» і теперішні дієприслівники: «читаючи», «дивлячись»."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Form", "Translation"],
+          "uk": ["Тип", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Минало свършено деятелно", "казал", "said / сказав"],
+          ["Минало свършено деятелно", "видял", "seen / побачив"],
+          ["Минало страдателно", "написан", "written / написаний"],
+          ["Сегашно деепричастие", "чета → четейки", "reading / читаючи"],
+          ["Сегашно деепричастие", "гледам → гледайки", "watching / дивлячись"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Миналите причастия често се използват в сложни глаголни времена и при преизказна форма. Сегашните деепричастия показват паралелни действия.",
+        "content_translation": {
+          "en": "Past participles are often used in compound tenses and indirect speech. Present gerunds express simultaneous actions.",
+          "uk": "Минулий дієприкметник часто використовується у складених часах і непрямій мові. Теперішній дієприслівник виражає одночасні дії."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Той е написал писмото. — Казал ми, че ще дойде.",
+        "content_translation": {
+          "en": "He has written the letter. — He told me he would come.",
+          "uk": "Він написав листа. — Він сказав мені, що прийде."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Четейки книгата, той си отбелязва важните моменти. — Видял го на спирката, но не го поздравил.",
+        "content_translation": {
+          "en": "While reading the book, he marks important parts. — He saw him at the bus stop but didn’t greet him.",
+          "uk": "Читаючи книжку, він позначає важливі моменти. — Він побачив його на зупинці, але не привітався."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_032",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Често използвани въвеждащи конструкции",
+    "title_translations": {
+      "en": "Common introductory phrases",
+      "uk": "Поширені вступні конструкції"
+    },
+    "tags": {
+      "en": ["introductory phrases", "conversation", "linking words", "grammar"],
+      "uk": ["вступні фрази", "розмова", "зв’язки", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use common introductory phrases in Bulgarian to start a sentence, express opinion, or connect ideas.",
+      "uk": "Дізнайтеся, як використовуються поширені вступні фрази в болгарській мові для початку речення, вираження думки або зв’язку між ідеями."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Въвеждащите конструкции помагат да започнем мисъл, да свържем изречения или да покажем отношение. Те често стоят в началото на изречението и се отделят със запетая.",
+        "content_translation": {
+          "en": "Introductory phrases help start a thought, connect sentences, or show attitude. They often appear at the beginning of a sentence and are followed by a comma.",
+          "uk": "Вступні конструкції допомагають почати думку, з’єднати речення або показати ставлення. Зазвичай вони стоять на початку речення й відокремлюються комою."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Български", "Значение", "Превод"],
+        "headers_translation": {
+          "en": ["Bulgarian", "Meaning", "Translation"],
+          "uk": ["Болгарською", "Значення", "Переклад"]
+        },
+        "rows": [
+          ["Според мен", "изразяване на мнение", "In my opinion / На мою думку"],
+          ["На първо място", "въведение на аргумент", "Firstly / По-перше"],
+          ["Освен това", "добавяне на информация", "Moreover / Крім того"],
+          ["Въпреки това", "противопоставяне", "However / Проте"],
+          ["Накрая", "завършване", "Finally / Нарешті"],
+          ["С други думи", "уточнение", "In other words / Іншими словами"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Тези конструкции не са част от основното изречение и трябва да се отделят със запетая. Използват се често в устна и писмена реч.",
+        "content_translation": {
+          "en": "These phrases are not part of the main sentence and should be separated with a comma. They are common in both spoken and written language.",
+          "uk": "Ці конструкції не є частиною основного речення і повинні відокремлюватися комою. Часто вживаються як у розмовній, так і в письмовій мові."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Според мен, това е добра идея. — На първо място, трябва да се подготвим добре.",
+        "content_translation": {
+          "en": "In my opinion, this is a good idea. — Firstly, we need to prepare well.",
+          "uk": "На мою думку, це гарна ідея. — По-перше, ми маємо добре підготуватися."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Освен това, цените са разумни. — Въпреки това, решихме да продължим.",
+        "content_translation": {
+          "en": "Moreover, the prices are reasonable. — However, we decided to continue.",
+          "uk": "Крім того, ціни прийнятні. — Проте ми вирішили продовжити."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_033",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Словоред при отрицание и въпрос",
+    "title_translations": {
+      "en": "Word order in negation and questions",
+      "uk": "Порядок слів при запереченні й питанні"
+    },
+    "tags": {
+      "en": ["word order", "negation", "questions", "grammar"],
+      "uk": ["порядок слів", "заперечення", "питання", "граматика"]
+    },
+    "description": {
+      "en": "Learn how word order changes in Bulgarian when forming negative and interrogative sentences.",
+      "uk": "Дізнайтеся, як змінюється порядок слів у болгарській мові при побудові заперечень і питань."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език словоредът в съобщителни изречения е обикновено: подлог + сказуемо + допълнение.",
+        "content_translation": {
+          "en": "In Bulgarian, the usual word order in statements is: subject + verb + object.",
+          "uk": "У болгарській мові типовий порядок слів у стверджувальних реченнях: підмет + присудок + додаток."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "При отрицание, частицата „не“ стои непосредствено преди глагола. При въпрос с „ли“, тази частица се поставя след глагола, а подлогът може да се премести.",
+        "content_translation": {
+          "en": "In negative sentences, the particle 'не' stands right before the verb. In questions using 'ли', this particle comes after the verb and the subject may shift position.",
+          "uk": "У запереченнях частка «не» ставиться безпосередньо перед дієсловом. У запитаннях з «ли» ця частка йде після дієслова, і підмет може змінити позицію."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Example", "Translation"],
+          "uk": ["Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Съобщително", "Той говори български.", "He speaks Bulgarian. / Він говорить болгарською."],
+          ["Отрицание", "Той не говори български.", "He does not speak Bulgarian. / Він не говорить болгарською."],
+          ["Въпрос с ли", "Говори ли той български?", "Does he speak Bulgarian? / Чи говорить він болгарською?"],
+          ["Въпрос с не", "Не говори ли той български?", "Doesn't he speak Bulgarian? / Хіба він не говорить болгарською?"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Въпросителната частица „ли“ не стои в началото на изречението. Тя винаги е след глагола.",
+        "content_translation": {
+          "en": "The question particle 'ли' never starts a sentence. It always follows the verb.",
+          "uk": "Питальна частка «ли» ніколи не стоїть на початку речення. Вона завжди йде після дієслова."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Аз не разбирам. — Разбираш ли английски? — Не разбираш ли английски?",
+        "content_translation": {
+          "en": "I don’t understand. — Do you understand English? — Don’t you understand English?",
+          "uk": "Я не розумію. — Ти розумієш англійську? — Хіба ти не розумієш англійську?"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Те не живеят тук. — Живеят ли те в този квартал?",
+        "content_translation": {
+          "en": "They don’t live here. — Do they live in this neighborhood?",
+          "uk": "Вони не живуть тут. — Вони живуть у цьому районі?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_034",
+    "language": "Bulgarian",
+    "cefr_level": "A2",
+    "title": "Предлози за причина и цел (заради, за да)",
+    "title_translations": {
+      "en": "Prepositions for cause and purpose (заради, за да)",
+      "uk": "Прийменники причини й мети («заради», «за да»)"
+    },
+    "tags": {
+      "en": ["prepositions", "cause", "purpose", "grammar"],
+      "uk": ["прийменники", "причина", "мета", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to express cause and purpose in Bulgarian using prepositions and conjunctions like 'заради' and 'за да'.",
+      "uk": "Дізнайтеся, як виражати причину й мету в болгарській мові за допомогою прийменників і сполучників, таких як «заради» і «за да»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език съществуват различни средства за изразяване на причина и цел. Най-често използвани са предлогът „заради“ и съюзът „за да“.",
+        "content_translation": {
+          "en": "In Bulgarian, there are various ways to express cause and purpose. The most common are the preposition 'заради' and the conjunction 'за да'.",
+          "uk": "У болгарській мові є різні способи вираження причини й мети. Найчастіше використовуються прийменник «заради» та сполучник «за да»."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "„Заради“ и „поради“ се използват за обозначаване на причина. След тях обикновено следва съществително или местоимение.",
+        "content_translation": {
+          "en": "'Заради' and 'поради' are used to indicate cause. They are usually followed by a noun or pronoun.",
+          "uk": "«Заради» і «поради» вживаються для вираження причини. Після них зазвичай іде іменник або займенник."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "„За да“ се използва за изразяване на цел и е последвано от глагол в изречение.",
+        "content_translation": {
+          "en": "'За да' is used to express purpose and is followed by a verb in a clause.",
+          "uk": "«За да» використовується для вираження мети й передує дієслову в підрядному реченні."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Израз", "Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Expression", "Type", "Example", "Translation"],
+          "uk": ["Вираз", "Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["заради", "причина", "Не отидох, заради дъжда.", "I didn’t go because of the rain. / Я не пішов через дощ."],
+          ["поради", "причина", "Отсъства поради здравословни причини.", "He is absent due to health reasons. / Він відсутній через проблеми зі здоров’ям."],
+          ["за да", "цел", "Учи, за да вземе изпита.", "He studies in order to pass the exam. / Він вчиться, щоб скласти іспит."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "„Заради“ е по-неформален от „поради“. „За да“ никога не се използва с имена — винаги е с глагол.",
+        "content_translation": {
+          "en": "'Заради' is more informal than 'поради'. 'За да' is never followed by a noun — always by a verb.",
+          "uk": "«Заради» більш неформальне, ніж «поради». «За да» ніколи не вживається з іменниками — лише з дієсловами."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Заради теб останах вкъщи. — Поради авария метрото не работи. — Тренирам всеки ден, за да бъда здрав.",
+        "content_translation": {
+          "en": "Because of you, I stayed home. — Due to an accident, the metro isn’t working. — I train every day in order to be healthy.",
+          "uk": "Через тебе я залишився вдома. — Через аварію метро не працює. — Я тренуюсь щодня, щоб бути здоровим."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_035",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Сложносъчинени изречения (и, но, или)",
+    "title_translations": {
+      "en": "Compound sentences (и, но, или)",
+      "uk": "Складносурядні речення («і», «але», «або»)"
+    },
+    "tags": {
+      "en": ["compound sentences", "conjunctions", "grammar"],
+      "uk": ["складносурядні речення", "сполучники", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to connect two or more independent clauses in Bulgarian using coordinating conjunctions such as 'и', 'но', and 'или'.",
+      "uk": "Дізнайтеся, як поєднувати два або більше самостійних речень у болгарській мові за допомогою сурядних сполучників, таких як «і», «але», «або»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Сложносъчинените изречения са съставени от две или повече прости изречения, свързани със съчинителен съюз. Всяко изречение има свое подлежащо и сказуемо.",
+        "content_translation": {
+          "en": "Compound sentences consist of two or more simple sentences joined by a coordinating conjunction. Each clause has its own subject and verb.",
+          "uk": "Складносурядні речення складаються з двох або більше простих речень, з'єднаних сурядним сполучником. Кожне має свій підмет і присудок."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често използвани съчинителни съюзи са: „и“ (добавяне), „но“ (противопоставяне), „или“ (избор).",
+        "content_translation": {
+          "en": "The most commonly used coordinating conjunctions are: 'и' (addition), 'но' (contrast), 'или' (choice).",
+          "uk": "Найчастіше вживані сурядні сполучники: «і» (додавання), «але» (протиставлення), «або» (вибір)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Съюз", "Функция", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Conjunction", "Function", "Example", "Translation"],
+          "uk": ["Сполучник", "Функція", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["и", "добавяне", "Аз чета книга и слушам музика.", "I read a book and listen to music. / Я читаю книжку і слухаю музику."],
+          ["но", "противопоставяне", "Исках да изляза, но заваля дъжд.", "I wanted to go out, but it started raining. / Я хотів вийти, але пішов дощ."],
+          ["или", "избор", "Ще пътуваме с кола или с влак.", "We will travel by car or by train. / Ми поїдемо машиною або потягом."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Не слагайте запетая пред съюза „и“, когато свързва две кратки изречения с общо подчинено. При съюзите „но“ и „или“ запетая обикновено се пише.",
+        "content_translation": {
+          "en": "Do not place a comma before 'и' when joining two short clauses with a shared element. A comma is usually placed before 'но' and 'или'.",
+          "uk": "Кома перед «і» не ставиться, якщо речення короткі й мають спільний елемент. Перед «але» та «або» зазвичай ставиться кома."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Той учи за изпита и пише домашното. — Обичам кафе, но сега пия чай. — Ще останеш тук или ще тръгнеш с нас?",
+        "content_translation": {
+          "en": "He is studying for the exam and writing his homework. — I love coffee, but now I'm drinking tea. — Will you stay here or leave with us?",
+          "uk": "Він готується до іспиту і пише домашнє. — Я люблю каву, але зараз п’ю чай. — Ти залишишся тут чи підеш із нами?"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_036",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Сложноподчинени изречения (че, защото, когато)",
+    "title_translations": {
+      "en": "Complex sentences (че, защото, когато)",
+      "uk": "Складнопідрядні речення («що», «тому що», «коли»)"
+    },
+    "tags": {
+      "en": ["complex sentences", "subordinate clauses", "grammar", "conjunctions"],
+      "uk": ["складнопідрядні речення", "підрядні частини", "граматика", "сполучники"]
+    },
+    "description": {
+      "en": "Learn how to build complex sentences in Bulgarian using conjunctions like 'че', 'защото', and 'когато'.",
+      "uk": "Дізнайтеся, як будувати складнопідрядні речення в болгарській мові за допомогою сполучників, таких як «що», «тому що» і «коли»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Сложноподчинените изречения се състоят от главно и подчинено изречение. Двете части са свързани чрез подчинителен съюз.",
+        "content_translation": {
+          "en": "Complex sentences consist of a main clause and a subordinate clause. They are connected by a subordinating conjunction.",
+          "uk": "Складнопідрядні речення складаються з головного та підрядного речення. Вони з’єднуються за допомогою підрядного сполучника."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често използваните съюзи са: „че“ (въвежда мисъл или изказване), „защото“ (дава причина), „когато“ (показва време).",
+        "content_translation": {
+          "en": "The most common conjunctions are: 'че' (introduces a thought or statement), 'защото' (gives a reason), 'когато' (shows time).",
+          "uk": "Найчастіше використовуються сполучники: «що» (вводить думку або висловлювання), «тому що» (вказує причину), «коли» (вказує час)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Съюз", "Функция", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Conjunction", "Function", "Example", "Translation"],
+          "uk": ["Сполучник", "Функція", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["че", "изказване, мисъл", "Знам, че той идва.", "I know that he is coming. / Я знаю, що він приходить."],
+          ["защото", "причина", "Оставам вкъщи, защото съм болен.", "I'm staying home because I'm sick. / Я залишаюсь вдома, тому що хворий."],
+          ["когато", "време", "Ще изляза, когато свърша работа.", "I will go out when I finish work. / Я вийду, коли закінчу роботу."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Подчиненото изречение може да бъде преди или след главното. Запетая се поставя между двете части, особено ако подчиненото е преди главното.",
+        "content_translation": {
+          "en": "The subordinate clause can come before or after the main clause. A comma is placed between them, especially if the subordinate clause comes first.",
+          "uk": "Підрядне речення може стояти до або після головного. Кома ставиться між частинами, особливо якщо підрядне йде першим."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Мисля, че той е прав. — Защото беше късно, не отидохме. — Когато пристигнеш, ми се обади.",
+        "content_translation": {
+          "en": "I think that he is right. — Because it was late, we didn’t go. — When you arrive, call me.",
+          "uk": "Я думаю, що він має рацію. — Тому що було пізно, ми не пішли. — Коли приїдеш, подзвони мені."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_037",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Условни конструкции (ако)",
+    "title_translations": {
+      "en": "Conditional constructions (ако)",
+      "uk": "Умовні конструкції («ако»)"
+    },
+    "tags": {
+      "en": ["conditional", "if", "grammar", "verb tenses"],
+      "uk": ["умова", "якщо", "граматика", "часи"]
+    },
+    "description": {
+      "en": "Learn how to express conditions in Bulgarian using the word 'ако' (if) in different types of conditional sentences.",
+      "uk": "Дізнайтеся, як виражати умову в болгарській мові за допомогою слова «ако» у різних типах умовних речень."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Съюзът „ако“ въвежда условие. Условните изречения в български език могат да изразяват реална, хипотетична или невъзможна ситуация.",
+        "content_translation": {
+          "en": "The conjunction 'ако' introduces a condition. Conditional sentences in Bulgarian can express real, hypothetical, or impossible situations.",
+          "uk": "Сполучник «ако» вводить умову. Умовні речення в болгарській мові можуть виражати реальні, гіпотетичні або неможливі ситуації."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често се използват сегашно или бъдеще време в главното и подчиненото изречение. Миналите форми се използват при хипотетични ситуации.",
+        "content_translation": {
+          "en": "The present or future tense is most often used in both the main and subordinate clause. Past tenses appear in hypothetical cases.",
+          "uk": "У більшості випадків використовуються теперішній або майбутній час у головному й підрядному реченні. Минулий час — для гіпотетичних умов."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Форма", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Form", "Example", "Translation"],
+          "uk": ["Тип", "Форма", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Реално условие", "ако + сегашно време", "Ако имам време, ще дойда.", "If I have time, I will come. / Якщо матиму час, прийду."],
+          ["Хипотетично", "ако + минало време", "Ако бях свободен, щях да пътувам.", "If I were free, I would travel. / Якби я був вільний, я б поїхав."],
+          ["Невъзможно (минало)", "ако + минало свършено", "Ако бях учил, щях да взема изпита.", "If I had studied, I would have passed the exam. / Якби я вчився, склав би іспит."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "При хипотетични конструкции често се използва „бих / щях да + инфинитив“. Не се използва „ще“ в подчиненото изречение при минали условия.",
+        "content_translation": {
+          "en": "In hypothetical sentences, 'бих / щях да + verb' is often used. Do not use 'ще' in the subordinate clause when the condition is in the past.",
+          "uk": "У гіпотетичних реченнях часто використовується «бих / щях да + дієслово». Частку «ще» не вживають у підрядному реченні з минулим часом."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ако вали, ще останем вкъщи. — Ако бяхте дошли по-рано, щяхме да ви видим. — Ако учиш редовно, ще се справиш лесно.",
+        "content_translation": {
+          "en": "If it rains, we will stay home. — If you had come earlier, we would have seen you. — If you study regularly, you will manage easily.",
+          "uk": "Якщо буде дощ, ми залишимось вдома. — Якби ви прийшли раніше, ми б вас побачили. — Якщо ти вчитимешся регулярно, тобі буде легко."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_038",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Косвена реч",
+    "title_translations": {
+      "en": "Indirect speech",
+      "uk": "Непряма мова"
+    },
+    "tags": {
+      "en": ["indirect speech", "reported speech", "grammar", "tense shift"],
+      "uk": ["непряма мова", "переведення мови", "граматика", "зміна часу"]
+    },
+    "description": {
+      "en": "Learn how to use indirect (reported) speech in Bulgarian and how verb tenses change when reporting what someone said.",
+      "uk": "Дізнайтеся, як утворюється непряма мова в болгарській мові та як змінюються дієслівні часи під час передачі сказаного."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Косвената реч предава думите на някого без директен цитат. Обикновено се използват глаголи като 'казвам', 'питам', 'отговарям' и съюзът 'че'.",
+        "content_translation": {
+          "en": "Indirect speech conveys what someone said without quoting directly. It usually uses verbs like 'казвам' (say), 'питам' (ask), 'отговарям' (answer) and the conjunction 'че' (that).",
+          "uk": "Непряма мова передає чиїсь слова без прямої цитати. Зазвичай вживаються дієслова типу «казвам» (казати), «питам» (питати), «отговарям» (відповідати) та сполучник «че» (що)."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "При преминаване от пряка към косвена реч често се променя времето на глагола и личните местоимения.",
+        "content_translation": {
+          "en": "When switching from direct to indirect speech, verb tenses and personal pronouns often change.",
+          "uk": "При переході від прямої до непрямої мови часто змінюються час дієслова та особові займенники."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Пряка реч", "Косвена реч", "Превод"],
+        "headers_translation": {
+          "en": ["Direct speech", "Indirect speech", "Translation"],
+          "uk": ["Пряма мова", "Непряма мова", "Переклад"]
+        },
+        "rows": [
+          ["„Идвам веднага.“", "Той каза, че идва веднага.", "\"I’m coming right away.\" → He said that he was coming right away."],
+          ["„Ще уча.“", "Тя каза, че ще учи.", "\"I will study.\" → She said that she would study."],
+          ["„Обичам музика.“", "Той каза, че обича музика.", "\"I love music.\" → He said that he loves music."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Времето на глагола може да не се променя, ако изказването остава актуално. Например: Тя каза, че живее в София.",
+        "content_translation": {
+          "en": "Verb tense may remain unchanged if the statement is still true. Example: She said that she lives in Sofia.",
+          "uk": "Час дієслова може не змінюватися, якщо висловлювання досі актуальне. Наприклад: Вона сказала, що живе в Софії."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Майка ми каза: „Закъсняваш!“ → Майка ми каза, че закъснявам. — Той каза: „Не съм гладен.“ → Той каза, че не е гладен.",
+        "content_translation": {
+          "en": "My mom said: “You’re late!” → My mom said that I was late. — He said: “I’m not hungry.” → He said that he wasn’t hungry.",
+          "uk": "Мама сказала: «Ти запізнюєшся!» → Мама сказала, що я запізнююсь. — Він сказав: «Я не голодний.» → Він сказав, що не голодний."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_039",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Бъдеще в миналото („щях да“)",
+    "title_translations": {
+      "en": "Future in the past ('щях да')",
+      "uk": "Майбутнє в минулому («щях да»)"
+    },
+    "tags": {
+      "en": ["future in the past", "tense", "grammar", "modals"],
+      "uk": ["майбутнє в минулому", "часи", "граматика", "модальність"]
+    },
+    "description": {
+      "en": "Learn how to express an intended or planned action in the past using 'щях да' in Bulgarian.",
+      "uk": "Дізнайтеся, як виразити заплановану або очікувану дію в минулому за допомогою конструкції «щях да» в болгарській мові."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Бъдеще в миналото се използва, когато говорим за нещо, което е трябвало да се случи след даден момент в миналото, но не е ясно дали се е случило.",
+        "content_translation": {
+          "en": "Future in the past is used to describe something that was supposed to happen after a point in the past, but it's not always clear whether it happened.",
+          "uk": "Майбутнє в минулому використовується, коли говоримо про щось, що мало відбутися після певного моменту в минулому, але невідомо, чи справді відбулося."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често се използва конструкцията „щях да + глагол“ или „бих + мин. форма“, когато говорим за намерения, обещания или очаквания в миналото.",
+        "content_translation": {
+          "en": "The construction 'щях да + verb' or 'бих + past form' is often used to talk about intentions, promises, or expectations in the past.",
+          "uk": "Найчастіше використовується конструкція «щях да + дієслово» або «бих + минула форма», коли йдеться про наміри, обіцянки чи очікування в минулому."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Лице", "Форма", "Превод"],
+        "headers_translation": {
+          "en": ["Person", "Form", "Translation"],
+          "uk": ["Особа", "Форма", "Переклад"]
+        },
+        "rows": [
+          ["Аз", "щях да уча", "I was going to study / Я збирався вчитися"],
+          ["Ти", "щеше да дойдеш", "You were going to come / Ти мав прийти"],
+          ["Той/Тя", "щеше да замине", "He/She was going to leave / Він / Вона мав(ла) поїхати"],
+          ["Ние", "щяхме да работим", "We were going to work / Ми мали працювати"],
+          ["Вие", "щяхте да говорите", "You were going to speak / Ви мали говорити"],
+          ["Те", "щяха да започнат", "They were going to start / Вони мали почати"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "„Щях да“ се използва с инфинитив (неспрегната форма). Може да се среща и с подчинено изречение: „Каза, че щял да дойде.“",
+        "content_translation": {
+          "en": "'Щях да' is followed by the infinitive. It can also appear in reported speech: 'He said that he was going to come.'",
+          "uk": "«Щях да» вживається з інфінітивом. Також може зустрічатися в непрямій мові: «Він сказав, що мав прийти.»"
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Щях да ти се обадя, но забравих. — Той каза, че щял да замине. — Ако бях свободен, щях да дойда.",
+        "content_translation": {
+          "en": "I was going to call you, but I forgot. — He said he was going to leave. — If I were free, I would come.",
+          "uk": "Я збирався тобі подзвонити, але забув. — Він сказав, що мав поїхати. — Якби я був вільний, я б прийшов."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_040",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Инфинитивни конструкции (искам да, мога да)",
+    "title_translations": {
+      "en": "Infinitive constructions (искам да, мога да)",
+      "uk": "Інфінітивні конструкції («хочу», «можу» + інфінітив)"
+    },
+    "tags": {
+      "en": ["infinitive constructions", "modal verbs", "grammar"],
+      "uk": ["інфінітивні конструкції", "модальні дієслова", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use verbs followed by 'да' + verb (the infinitive form) in Bulgarian, such as 'искам да', 'мога да', 'трябва да'.",
+      "uk": "Дізнайтеся, як використовуються дієслова, після яких іде «да» + дієслово (інфінітив) у болгарській мові: «искам да», «мога да», «трябва да»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език няма истински инфинитив. Вместо това се използва конструкцията „да + глагол“ след определени глаголи като „искам“, „мога“, „трябва“, „харесвам“, „обичам“ и др.",
+        "content_translation": {
+          "en": "Bulgarian has no real infinitive. Instead, it uses the structure 'да + verb' after certain verbs like 'искам' (want), 'мога' (can), 'трябва' (must), 'харесвам' (like), 'обичам' (love), etc.",
+          "uk": "У болгарській мові немає справжнього інфінітива. Натомість використовується конструкція «да + дієслово» після певних дієслів: «хочу», «можу», «маю», «люблю», «подобається» тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Глагол", "Инфинитивна конструкция", "Превод"],
+        "headers_translation": {
+          "en": ["Verb", "Infinitive construction", "Translation"],
+          "uk": ["Дієслово", "Інфінітивна конструкція", "Переклад"]
+        },
+        "rows": [
+          ["искам", "Искам да спя.", "I want to sleep. / Я хочу спати."],
+          ["мога", "Мога да помогна.", "I can help. / Я можу допомогти."],
+          ["трябва", "Трябва да уча.", "I have to study. / Я маю вчитися."],
+          ["обичам", "Обичам да готвя.", "I love to cook. / Я люблю готувати."],
+          ["харесвам", "Харесвам да пътувам.", "I like to travel. / Мені подобається подорожувати."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Глаголите, които изискват „да + глагол“, се спрежат, а вторият глагол остава в сегашно време (без „ще“).",
+        "content_translation": {
+          "en": "Verbs requiring 'да + verb' are conjugated, but the second verb stays in present tense (no 'ще').",
+          "uk": "Дієслова, після яких іде «да + дієслово», відмінюються, але друге дієслово залишається в теперішньому часі (без «ще»)."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Искаш ли да излезем? — Той може да плува добре. — Трябва да говорим с нея.",
+        "content_translation": {
+          "en": "Do you want us to go out? — He can swim well. — We need to talk to her.",
+          "uk": "Хочеш піти погуляти? — Він добре плаває. — Нам треба з нею поговорити."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Обичам да чета вечер. — Харесвам да слушам музика, докато работя.",
+        "content_translation": {
+          "en": "I love to read in the evening. — I like to listen to music while I work.",
+          "uk": "Я люблю читати ввечері. — Мені подобається слухати музику, коли я працюю."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_041",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Причастни изрази",
+    "title_translations": {
+      "en": "Participial phrases",
+      "uk": "Дієприкметникові звороти"
+    },
+    "tags": {
+      "en": ["participles", "participial phrases", "grammar", "conciseness"],
+      "uk": ["дієприкметники", "звороти", "граматика", "стислість"]
+    },
+    "description": {
+      "en": "Learn how to use participial phrases in Bulgarian to add detail or describe actions more concisely.",
+      "uk": "Дізнайтеся, як використовувати дієприкметникові звороти в болгарській мові для уточнення або короткого опису дій."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Причастните изрази съдържат причастие и свързана с него дума (допълнение или обстоятелствено пояснение). Те дават допълнителна информация за подлога и често стоят в началото или средата на изречението.",
+        "content_translation": {
+          "en": "Participial phrases include a participle and words related to it (an object or adverbial modifier). They give extra information about the subject and often appear at the beginning or middle of the sentence.",
+          "uk": "Дієприкметникові звороти містять дієприкметник і пов’язані з ним слова (додаток або обставину). Вони додають інформацію про підмет і часто стоять на початку або в середині речення."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често използвани са минали причастия и деепричастия: направил, казал, гледайки, мислейки и др.",
+        "content_translation": {
+          "en": "The most commonly used are past participles and gerunds: 'направил', 'казал', 'гледайки', 'мислейки', etc.",
+          "uk": "Найчастіше використовуються минулі дієприкметники і дієприслівники: «зробивши», «сказавши», «дивлячись», «думаючи» тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Example", "Translation"],
+          "uk": ["Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Минало деятелно причастие", "Изморен от работа, той легна рано.", "Tired from work, he went to bed early. / Втомлений від роботи, він рано ліг спати."],
+          [
+            "Сегашно деепричастие",
+            "Мислейки за бъдещето, тя започна да учи икономика.",
+            "Thinking about the future, she started studying economics. / Думаючи про майбутнє, вона почала вивчати економіку."
+          ]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Причастният израз трябва да се отнася до подлога в главното изречение. Иначе се получава смислова грешка.",
+        "content_translation": {
+          "en": "The participial phrase must refer to the subject of the main sentence. Otherwise, it creates a logical error.",
+          "uk": "Дієприкметниковий зворот має стосуватися підмета головного речення. Інакше виникає логічна помилка."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Получил писмото, той веднага отговори. — Четейки книгата, тя си водеше записки.",
+        "content_translation": {
+          "en": "Having received the letter, he replied immediately. — While reading the book, she took notes.",
+          "uk": "Отримавши листа, він одразу відповів. — Читаючи книжку, вона робила нотатки."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Направена с внимание, задачата беше решена правилно. — Казаното от него ме впечатли.",
+        "content_translation": {
+          "en": "Done with care, the task was solved correctly. — What he said impressed me.",
+          "uk": "Зроблене з увагою, завдання було виконане правильно. — Сказане ним мене вразило."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_042",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Глаголи за движение и посока",
+    "title_translations": {
+      "en": "Verbs of motion and direction",
+      "uk": "Дієслова руху і напрямку"
+    },
+    "tags": {
+      "en": ["motion verbs", "direction", "grammar", "verbs"],
+      "uk": ["рух", "напрямок", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to use verbs of motion in Bulgarian to describe direction, movement, and travel.",
+      "uk": "Дізнайтеся, як вживати дієслова руху в болгарській мові для опису напрямку, пересування та подорожей."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Глаголите за движение показват придвижване от едно място към друго. Те често се комбинират с предлози за посока: към, от, до, през, в, на и др.",
+        "content_translation": {
+          "en": "Verbs of motion show movement from one place to another. They are often combined with directional prepositions: към (towards), от (from), до (to), през (through), в (into), на (onto), etc.",
+          "uk": "Дієслова руху виражають переміщення з одного місця до іншого. Вони часто поєднуються з прийменниками напрямку: до, від, через, у, на тощо."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Някои глаголи се използват и за посока (отивам, идвам), а други — за начин на движение (бягам, пълзя, плувам).",
+        "content_translation": {
+          "en": "Some verbs are used for direction (отивам – go, идвам – come), others for the manner of movement (бягам – run, пълзя – crawl, плувам – swim).",
+          "uk": "Деякі дієслова використовуються для напрямку (йти, приходити), інші — для способу пересування (бігти, повзти, плавати)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Глагол", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Verb", "Example", "Translation"],
+          "uk": ["Дієслово", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["отивам", "Отивам на училище.", "I’m going to school. / Я йду до школи."],
+          ["идвам", "Идвам от работа.", "I’m coming from work. / Я повертаюсь з роботи."],
+          ["влизам", "Влизам в стаята.", "I’m entering the room. / Я заходжу в кімнату."],
+          ["излизам", "Излизам от къщата.", "I’m leaving the house. / Я виходжу з дому."],
+          ["качвам се", "Качвам се по стълбите.", "I’m going up the stairs. / Я підіймаюся сходами."],
+          ["слизам", "Слизам от автобуса.", "I’m getting off the bus. / Я виходжу з автобуса."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Глаголите за движение често изискват конкретен предлог и посока. Глаголи с „се“ (като „качвам се“) показват движение със себе си.",
+        "content_translation": {
+          "en": "Motion verbs often require specific prepositions and directions. Reflexive verbs (like 'качвам се') indicate movement involving the subject itself.",
+          "uk": "Дієслова руху часто потребують конкретного прийменника і напрямку. Зворотні дієслова (як-от «піднімаюся») вказують на рух суб'єкта самого."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Влизам в магазина и купувам хляб. — Той се качва в колата и тръгва. — Минах през парка, за да стигна по-бързо.",
+        "content_translation": {
+          "en": "I enter the store and buy bread. — He gets into the car and leaves. — I went through the park to get there faster.",
+          "uk": "Я заходжу до магазину і купую хліб. — Він сідає в машину і їде. — Я пройшов через парк, щоб дістатися швидше."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_043",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Двойно отрицание с „не“",
+    "title_translations": {
+      "en": "Double negation with 'не'",
+      "uk": "Подвійне заперечення з «не»"
+    },
+    "tags": {
+      "en": ["negation", "double negation", "grammar"],
+      "uk": ["заперечення", "подвійне заперечення", "граматика"]
+    },
+    "description": {
+      "en": "Learn how double negation works in Bulgarian, where negative words are combined with 'не' to reinforce the negation.",
+      "uk": "Дізнайтеся, як працює подвійне заперечення в болгарській мові, де заперечні слова поєднуються з «не» для підсилення заперечення."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език двойното отрицание е задължително. Ако в изречението има отрицателна дума (като „никой“, „никъде“, „нищо“), глаголът също трябва да бъде с „не“. Това засилва отрицанието.",
+        "content_translation": {
+          "en": "In Bulgarian, double negation is required. If a sentence contains a negative word (like 'никой', 'никъде', 'нищо'), the verb must also be negated with 'не'. This reinforces the negation.",
+          "uk": "У болгарській мові подвійне заперечення є обов’язковим. Якщо в реченні є заперечне слово (таке як «ніхто», «ніде», «ніщо»), дієслово також має бути з «не». Це підсилює заперечення."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Това е различно от английски или украински, където двойното отрицание се избягва. В български език то е граматично правилно и необходимо.",
+        "content_translation": {
+          "en": "This is different from English or Ukrainian, where double negation is avoided. In Bulgarian, it is grammatically correct and necessary.",
+          "uk": "Це відрізняється від англійської або української, де подвійне заперечення уникається. У болгарській мові воно є граматично правильним і необхідним."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Example", "Translation"],
+          "uk": ["Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["никой + не", "Никой не дойде.", "No one came. / Ніхто не прийшов."],
+          ["нищо + не", "Нищо не разбирам.", "I don’t understand anything. / Я нічого не розумію."],
+          ["никъде + не", "Никъде не отивам.", "I’m not going anywhere. / Я нікуди не йду."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Ако се пропусне „не“ пред глагола, изречението става неразбираемо или грешно. Винаги използвайте „не“ с отрицателни думи.",
+        "content_translation": {
+          "en": "If 'не' before the verb is omitted, the sentence becomes incorrect or unclear. Always use 'не' with negative words.",
+          "uk": "Якщо опустити «не» перед дієсловом, речення стане незрозумілим або неправильним. Завжди використовуйте «не» з заперечними словами."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Никой не каза нищо. — Тя никога не идва навреме. — Не виждам никого тук.",
+        "content_translation": {
+          "en": "No one said anything. — She never comes on time. — I don’t see anyone here.",
+          "uk": "Ніхто нічого не сказав. — Вона ніколи не приходить вчасно. — Я нікого тут не бачу."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_044",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Модални конструкции (би трябвало, може да)",
+    "title_translations": {
+      "en": "Modal constructions (би трябвало, може да)",
+      "uk": "Модальні конструкції («мав би», «може»)"
+    },
+    "tags": {
+      "en": ["modal verbs", "possibility", "obligation", "grammar"],
+      "uk": ["модальні дієслова", "ймовірність", "обов’язок", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to express probability, obligation, or possibility in Bulgarian using modal constructions such as 'би трябвало' and 'може да'.",
+      "uk": "Дізнайтеся, як виражати ймовірність, обов’язок або можливість у болгарській мові за допомогою модальних конструкцій, таких як «би трябвало» і «може да»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Модалните конструкции изразяват отношение към действието — вероятност, необходимост, възможност или съвет. Те се състоят от модален глагол + „да“ + глагол.",
+        "content_translation": {
+          "en": "Modal constructions express attitude toward an action — probability, necessity, possibility, or advice. They consist of a modal verb + 'да' + verb.",
+          "uk": "Модальні конструкції виражають ставлення до дії — ймовірність, необхідність, можливість або пораду. Складаються з модального дієслова + «да» + дієслово."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Форма", "Употреба", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Form", "Usage", "Example", "Translation"],
+          "uk": ["Форма", "Вживання", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["може да", "възможност", "Може да завали.", "It might rain. / Може піде дощ."],
+          ["трябва да", "задължение", "Трябва да уча.", "I must study. / Я маю вчитися."],
+          ["би трябвало да", "препоръка, съвет", "Би трябвало да си починеш.", "You should rest. / Тобі варто відпочити."],
+          ["не бива да", "забрана", "Не бива да закъсняваш.", "You shouldn't be late. / Тобі не слід запізнюватися."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "„Би трябвало“ и „може да“ не изразяват сигурност, а само предположение или съвет. „Трябва да“ е по-категорично.",
+        "content_translation": {
+          "en": "'Би трябвало' and 'може да' do not express certainty, only assumption or recommendation. 'Трябва да' is more firm or mandatory.",
+          "uk": "«Би трябвало» і «може да» не виражають впевненості — лише припущення або пораду. «Трябва да» — це суворіше, обов’язкове твердження."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Може да е зает сега. — Би трябвало да го попиташ. — Не бива да говориш така. — Трябва да отида на работа.",
+        "content_translation": {
+          "en": "He might be busy now. — You should ask him. — You shouldn't talk like that. — I have to go to work.",
+          "uk": "Можливо, він зараз зайнятий. — Тобі варто його запитати. — Тобі не слід так говорити. — Я маю йти на роботу."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_045",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Страдателен залог (пасив)",
+    "title_translations": {
+      "en": "Passive voice",
+      "uk": "Пасивний стан (страдальний)"
+    },
+    "tags": {
+      "en": ["passive voice", "grammar", "verbs"],
+      "uk": ["пасив", "граматика", "дієслова"]
+    },
+    "description": {
+      "en": "Learn how to form and use the passive voice in Bulgarian to focus on the action rather than the doer.",
+      "uk": "Дізнайтеся, як утворюється й використовується пасив у болгарській мові, щоб зосередити увагу на дії, а не на тому, хто її виконує."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Страдателният залог се използва, когато е важно действието, а не кой го извършва. Образува се с формата на глагола „съм“ + страдателно причастие на основния глагол.",
+        "content_translation": {
+          "en": "The passive voice is used when the action is more important than the doer. It is formed with the verb 'съм' (to be) + the passive participle of the main verb.",
+          "uk": "Пасив використовується, коли важливіша сама дія, ніж її виконавець. Утворюється за допомогою дієслова «съм» (бути) + пасивного дієприкметника основного дієслова."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Може да се използва и формата с -“се“ за т.нар. възвратен пасив, когато изпълнителят е неизвестен или не е важен.",
+        "content_translation": {
+          "en": "The passive can also be formed using the reflexive particle 'се' when the agent is unknown or irrelevant.",
+          "uk": "Також пасив може утворюватися за допомогою частки «се», коли виконавець дії невідомий або не має значення."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Форма", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Form", "Example", "Translation"],
+          "uk": ["Форма", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["съм + причастие", "Писмото е написано от Мария.", "The letter is written by Maria. / Листа написаний Марією."],
+          ["беше + причастие", "Документът беше подписан вчера.", "The document was signed yesterday. / Документ був підписаний учора."],
+          ["се + глагол", "Книгата се чете бързо.", "The book reads quickly. / Книжка читається швидко."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Пасивният залог е по-често използван в писмена и формална реч. При нужда се добавя „от кого“ (напр. от Мария).",
+        "content_translation": {
+          "en": "The passive voice is more common in written and formal language. Use 'от' + person if the doer must be mentioned.",
+          "uk": "Пасив частіше використовується в письмовій та офіційній мові. При потребі додається «від» + особа (напр. від Марії)."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Изпитът беше отменен. — Програмата се използва от всички ученици. — Урокът е обяснен много добре.",
+        "content_translation": {
+          "en": "The exam was canceled. — The program is used by all students. — The lesson is explained very well.",
+          "uk": "Іспит було скасовано. — Програму використовують усі учні. — Урок дуже добре пояснено."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_046",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Сравнителни конструкции („по-… от“)",
+    "title_translations": {
+      "en": "Comparative constructions ('по-… от')",
+      "uk": "Порівняльні конструкції («по-… от»)"
+    },
+    "tags": {
+      "en": ["comparatives", "comparison", "grammar", "adjectives", "adverbs"],
+      "uk": ["порівняння", "граматика", "прикметники", "прислівники"]
+    },
+    "description": {
+      "en": "Learn how to form comparative constructions in Bulgarian using 'по-… от' to compare qualities or actions.",
+      "uk": "Дізнайтеся, як утворювати порівняльні конструкції в болгарській мові за допомогою «по-… от» для порівняння якостей або дій."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език сравнителната степен се образува с частицата „по-“ пред прилагателното или наречието, а след това следва „от + съществително“.",
+        "content_translation": {
+          "en": "In Bulgarian, the comparative degree is formed by adding the prefix 'по-' to the adjective or adverb, followed by 'от + noun'.",
+          "uk": "У болгарській мові ступінь порівняння утворюється за допомогою частки «по-» перед прикметником або прислівником, а далі йде «от + іменник»."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Когато няма обект за сравнение, използваме само формата с „по-“ или „по-“ + „най-“ за изразяване на превъзходна степен.",
+        "content_translation": {
+          "en": "When there is no comparison object, we use only 'по-' or 'най-' for expressing superiority.",
+          "uk": "Коли немає об’єкта для порівняння, використовується лише «по-» або «най-» для вираження вищого ступеня."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Форма", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Form", "Example", "Translation"],
+          "uk": ["Форма", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["по- + прилагателно", "Той е по-висок от мен.", "He is taller than me. / Він вищий за мене."],
+          ["по- + наречие", "Работи по-бързо от колегата си.", "He works faster than his colleague. / Він працює швидше за свого колегу."],
+          ["по- без сравнение", "Тя е по-умна.", "She is smarter. / Вона розумніша."],
+          ["най- форма", "Това е най-добрият филм.", "This is the best movie. / Це найкращий фільм."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Не добавяйте окончания като „-er“ или „more“ както в английския. Винаги използвайте „по-“ и „от“ за сравнение.",
+        "content_translation": {
+          "en": "Do not add endings like '-er' or use 'more' as in English. Always use 'по-' and 'от' for comparison.",
+          "uk": "Не додавайте закінчень типу «-er» або слова «more», як в англійській. Завжди використовуйте «по-» і «от» для порівняння."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Моята кола е по-нова от твоята. — Той чете по-бавно от мен. — Това упражнение е най-лесното.",
+        "content_translation": {
+          "en": "My car is newer than yours. — He reads slower than me. — This exercise is the easiest.",
+          "uk": "Моя машина новіша за твою. — Він читає повільніше за мене. — Ця вправа — найпростіша."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_047",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Относителни местоимения („който“)",
+    "title_translations": {
+      "en": "Relative pronouns ('който')",
+      "uk": "Відносні займенники («який»)"
+    },
+    "tags": {
+      "en": ["relative pronouns", "subordinate clauses", "grammar"],
+      "uk": ["відносні займенники", "підрядні речення", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use relative pronouns like 'който' in Bulgarian to connect clauses and provide additional information about a noun.",
+      "uk": "Дізнайтеся, як використовувати відносні займенники на кшталт «който» у болгарській мові для з’єднання речень і надання додаткової інформації про іменник."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Относителните местоимения свързват две части на изречението и заместват съществителното, за което се отнасят. Най-често се използва „който“, който се променя по род и число.",
+        "content_translation": {
+          "en": "Relative pronouns connect two parts of a sentence and replace the noun they refer to. The most common is 'който', which changes according to gender and number.",
+          "uk": "Відносні займенники з’єднують частини речення і замінюють іменник, до якого вони відносяться. Найуживаніший — «който», який змінюється за родом і числом."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Формата на „който“ зависи от рода и числото на думата, която заменя: който (м.р.), която (ж.р.), което (ср.р.), които (мн.ч.).",
+        "content_translation": {
+          "en": "The form of 'който' depends on the gender and number of the noun it replaces: който (masc.), която (fem.), което (neut.), които (pl.).",
+          "uk": "Форма «който» залежить від роду й числа іменника, який вона замінює: «който» (чол.р.), «която» (жін.р.), «което» (сер.р.), «които» (множ.)."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Форма", "Употреба", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Form", "Usage", "Example", "Translation"],
+          "uk": ["Форма", "Вживання", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["който", "мъжки род", "Това е човекът, който ми помогна.", "This is the man who helped me. / Це чоловік, який мені допоміг."],
+          ["която", "женски род", "Виждам жената, която познаваш.", "I see the woman whom you know. / Я бачу жінку, яку ти знаєш."],
+          ["което", "среден род", "Имам куче, което лае силно.", "I have a dog that barks loudly. / У мене є собака, який голосно гавкає."],
+          ["които", "множествено число", "Децата, които играят навън, са весели.", "The children who are playing outside are happy. / Діти, які грають надворі, веселі."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Относителното местоимение винаги се съгласува по род и число с думата, която замества, а не с тази в подчиненото изречение.",
+        "content_translation": {
+          "en": "The relative pronoun always agrees in gender and number with the noun it replaces, not with the words in the subordinate clause.",
+          "uk": "Відносний займенник узгоджується за родом і числом із іменником, який він замінює, а не з елементами підрядного речення."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Това е филмът, който харесвам. — Познавам момичето, което стои там. — Това са ученици, които учат добре.",
+        "content_translation": {
+          "en": "This is the movie that I like. — I know the girl who is standing there. — These are students who study well.",
+          "uk": "Це фільм, який мені подобається. — Я знаю дівчину, яка там стоїть. — Це учні, які добре навчаються."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_048",
+    "language": "Bulgarian",
+    "cefr_level": "B1",
+    "title": "Неопределени местоимения и наречия („някой“, „нещо“, „където“)",
+    "title_translations": {
+      "en": "Indefinite pronouns and adverbs ('някой', 'нещо', 'където')",
+      "uk": "Неозначені займенники й прислівники («хтось», «щось», «деінде»)"
+    },
+    "tags": {
+      "en": ["indefinite pronouns", "indefinite adverbs", "grammar", "reference"],
+      "uk": ["неозначені займенники", "прислівники", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use indefinite pronouns and adverbs in Bulgarian to refer to unknown or non-specific people, things, places, or reasons.",
+      "uk": "Дізнайтеся, як використовувати неозначені займенники й прислівники в болгарській мові для позначення невідомих або не конкретних осіб, предметів, місць чи причин."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Неопределените местоимения и наречия се използват, когато не говорим за конкретен човек, предмет, място или начин. Те обикновено съдържат частици като „ня-“, „нещо“, „някъде“ и др.",
+        "content_translation": {
+          "en": "Indefinite pronouns and adverbs are used when we are not talking about a specific person, thing, place, or manner. They usually include elements like 'ня-', 'нещо', 'някъде', etc.",
+          "uk": "Неозначені займенники та прислівники використовуються, коли ми не говоримо про конкретну особу, предмет, місце чи спосіб. Вони зазвичай містять частки типу «ня-», «щось», «десь» тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Форма", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Form", "Example", "Translation"],
+          "uk": ["Тип", "Форма", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Местоимение (човек)", "някой", "Някой чука на вратата.", "Someone is knocking on the door. / Хтось стукає у двері."],
+          ["Местоимение (предмет)", "нещо", "Чух нещо странно.", "I heard something strange. / Я почув щось дивне."],
+          ["Наречие (място)", "някъде", "Оставих ключовете някъде тук.", "I left the keys somewhere here. / Я десь тут залишив ключі."],
+          ["Наречие (време)", "някога", "Някога ще отидем в Париж.", "Someday we’ll go to Paris. / Колись ми поїдемо до Парижа."],
+          ["Наречие (начин)", "някак", "Някак ще го направим.", "We’ll do it somehow. / Ми якось це зробимо."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Неопределените думи могат да се използват и в отрицателни изречения, но внимателно — те не се съчетават с двойно отрицание.",
+        "content_translation": {
+          "en": "Indefinite words can also be used in negative sentences, but be careful — they are not combined with double negation.",
+          "uk": "Неозначені слова можуть уживатися і в запереченнях, але обережно — вони не поєднуються з подвійним запереченням."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Някой ми се обади, но не каза името си. — Нещо не е наред. — Ще се срещнем някъде в града.",
+        "content_translation": {
+          "en": "Someone called me but didn’t say their name. — Something’s not right. — We’ll meet somewhere in the city.",
+          "uk": "Хтось мені подзвонив, але не назвався. — Щось не так. — Зустрінемось десь у місті."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_049",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Сложни подчинени конструкции („въпреки че“, „преди да“, „в случай че“)",
+    "title_translations": {
+      "en": "Complex subordinate constructions ('въпреки че', 'преди да', 'в случай че')",
+      "uk": "Складні підрядні конструкції («незважаючи на те, що», «перед тим як», «у разі якщо»)"
+    },
+    "tags": {
+      "en": ["subordinate clauses", "conjunctions", "complex grammar", "B2"],
+      "uk": ["підрядні речення", "сполучники", "складна граматика", "B2"]
+    },
+    "description": {
+      "en": "Learn how to use complex subordinate clauses with conjunctions such as 'въпреки че', 'преди да', and 'в случай че' to express contrast, time, and condition.",
+      "uk": "Дізнайтеся, як будувати складні підрядні речення зі сполучниками «въпреки че», «преди да» і «в случай че» для вираження протиставлення, часу і умови."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Сложните подчинени конструкции свързват главното с подчинено изречение чрез сложни съюзи. Те изразяват различни значения като противопоставяне („въпреки че“), време („преди да“), условие („в случай че“).",
+        "content_translation": {
+          "en": "Complex subordinate constructions connect the main and subordinate clause using compound conjunctions. They express contrast ('въпреки че'), time ('преди да'), condition ('в случай че'), etc.",
+          "uk": "Складні підрядні конструкції з'єднують головне і підрядне речення за допомогою складених сполучників. Вони виражають протиставлення («въпреки че»), час («преди да»), умову («в случай че») тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Съюз", "Значение", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Conjunction", "Meaning", "Example", "Translation"],
+          "uk": ["Сполучник", "Значення", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["въпреки че", "противопоставяне", "Въпреки че вали, излязохме.", "Although it’s raining, we went out. / Незважаючи на дощ, ми вийшли."],
+          ["преди да", "време (преди действие)", "Измий си ръцете, преди да вечеряш.", "Wash your hands before you have dinner. / Помий руки перед вечерею."],
+          ["в случай че", "условие", "Вземи чадър, в случай че завали.", "Take an umbrella in case it rains. / Візьми парасольку на випадок дощу."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В тези конструкции глаголът в подчиненото изречение обикновено е в сегашно време, дори когато говорим за бъдещи действия.",
+        "content_translation": {
+          "en": "In these constructions, the verb in the subordinate clause is usually in present tense, even when referring to future events.",
+          "uk": "У цих конструкціях дієслово в підрядному реченні зазвичай стоїть у теперішньому часі, навіть якщо йдеться про майбутнє."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ще изляза, въпреки че съм уморен. — Приготви се, преди да тръгнем. — Ще се обадя, в случай че има промяна.",
+        "content_translation": {
+          "en": "I’ll go out, although I’m tired. — Get ready before we leave. — I’ll call in case there’s a change.",
+          "uk": "Я вийду, хоча втомився. — Підготуйся перед тим як ми підемо. — Я подзвоню, якщо щось зміниться."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_050",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Преходни конструкции („казва се, че…“)",
+    "title_translations": {
+      "en": "Impersonal and introductory constructions ('казва се, че…')",
+      "uk": "Безособові й вступні конструкції («кажуть, що…»)"
+    },
+    "tags": {
+      "en": ["impersonal constructions", "introductory phrases", "formal language", "reported speech"],
+      "uk": ["безособові конструкції", "вступні фрази", "офіційна мова", "непряма мова"]
+    },
+    "description": {
+      "en": "Learn how to use impersonal constructions like 'казва се, че…' to introduce information or general statements in a formal or neutral style.",
+      "uk": "Дізнайтеся, як використовувати безособові конструкції на кшталт «кажуть, що…» для введення інформації або загальних тверджень у формальному чи нейтральному стилі."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Преходните конструкции се използват за въвеждане на информация, която не е свързана с конкретен говорител. Те често се използват в новини, статии, официална и научна реч.",
+        "content_translation": {
+          "en": "Introductory constructions are used to present information not tied to a specific speaker. They are common in news, articles, official and academic language.",
+          "uk": "Вступні конструкції використовуються для подачі інформації, не прив’язаної до конкретного мовця. Вони поширені в новинах, статтях, офіційній і науковій мові."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често срещани форми: „казва се, че…“, „счита се, че…“, „смята се, че…“, „предполага се, че…“, „известно е, че…“",
+        "content_translation": {
+          "en": "Most common forms include: 'казва се, че…' (it is said that), 'счита се, че…' (it is considered that), 'смята се, че…' (it is believed that), 'предполага се, че…' (it is assumed that), 'известно е, че…' (it is known that).",
+          "uk": "Найуживаніші форми: «кажуть, що…», «вважається, що…», «припускається, що…», «відомо, що…»"
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Фраза", "Употреба", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Phrase", "Usage", "Example", "Translation"],
+          "uk": ["Фраза", "Вживання", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["казва се, че", "общо мнение", "Казва се, че този филм е отличен.", "It is said that this movie is excellent. / Кажуть, що цей фільм чудовий."],
+          ["счита се, че", "оценка", "Счита се, че новият закон ще помогне.", "It is considered that the new law will help. / Вважається, що новий закон допоможе."],
+          ["смята се, че", "убеждение", "Смята се, че той е експерт в тази област.", "It is believed that he is an expert in this field. / Вважають, що він — експерт у цій сфері."],
+          ["предполага се, че", "предположение", "Предполага се, че резултатите ще са положителни.", "It is assumed that the results will be positive. / Припускають, що результати будуть позитивні."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Глаголът е в 3 л. ед. ч. и се съгласува с думата „се“, следван от „че + изречение“. Не се използва конкретен подлог.",
+        "content_translation": {
+          "en": "The verb is in 3rd person singular with 'се', followed by 'че + clause'. No specific subject is used.",
+          "uk": "Дієслово вживається в 3-й особі однини з «се», далі йде «що + речення». Підмет не вказується."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Казва се, че проектът е успешен. — Смята се, че учените ще открият решение. — Известно е, че той говори няколко езика.",
+        "content_translation": {
+          "en": "It is said that the project is successful. — It is believed that scientists will find a solution. — It is known that he speaks several languages.",
+          "uk": "Кажуть, що проєкт успішний. — Вважається, що вчені знайдуть рішення. — Відомо, що він говорить кількома мовами."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_051",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Формални конструкции („бих искал да…“, „необходимо е да…“)",
+    "title_translations": {
+      "en": "Formal constructions ('бих искал да…', 'необходимо е да…')",
+      "uk": "Формальні конструкції («я хотів би…», «необхідно…»)"
+    },
+    "tags": {
+      "en": ["formal speech", "formal writing", "modal verbs", "politeness", "grammar"],
+      "uk": ["офіційна мова", "модальні дієслова", "ввічливість", "граматика"]
+    },
+    "description": {
+      "en": "Learn how to use formal constructions in Bulgarian such as 'бих искал да…' or 'необходимо е да…' in written or polite contexts.",
+      "uk": "Дізнайтеся, як використовувати формальні конструкції болгарською мовою, наприклад «бих искал да…» або «необходимо е да…», у письмовій чи ввічливій комунікації."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Формалните конструкции се използват за изразяване на желания, препоръки, нужди или изисквания по вежлив и неутрален начин. Те често започват с „бих + мин. форма“ или с безлични изрази като „необходимо е да…“.",
+        "content_translation": {
+          "en": "Formal constructions are used to express wishes, recommendations, needs, or requirements in a polite and neutral way. They often begin with 'бих + verb' or impersonal phrases like 'необходимо е да…'.",
+          "uk": "Формальні конструкції використовуються для вираження бажань, рекомендацій, потреб чи вимог у ввічливій і нейтральній формі. Вони часто починаються з «бих + дієслово» або безособових виразів типу «необходимо е да…»."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Конструкция", "Употреба", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Construction", "Usage", "Example", "Translation"],
+          "uk": ["Конструкція", "Вживання", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["бих искал да", "вежливо желание", "Бих искал да получа информация.", "I would like to receive information. / Я хотів би отримати інформацію."],
+          ["необходимо е да", "задължение/изискване", "Необходимо е да се представят документи.", "It is necessary to submit documents. / Необхідно подати документи."],
+          ["бих предпочел да", "учтива предпочитание", "Бих предпочел да говорим утре.", "I would prefer to talk tomorrow. / Я б вважав за краще поговорити завтра."],
+          ["препоръчително е да", "съвет", "Препоръчително е да се регистрирате предварително.", "It is recommended to register in advance. / Рекомендується зареєструватися заздалегідь."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В официална комуникация се избягват директни глаголи като „искам“. Вместо това се използват „бих искал“, „необходимо е“, „следва да“ и др.",
+        "content_translation": {
+          "en": "In formal communication, direct verbs like 'искам' (I want) are avoided. Instead, 'бих искал', 'необходимо е', 'следва да' are used.",
+          "uk": "В офіційній мові уникають прямих дієслів типу «хочу». Замість цього використовують «я хотів би», «необхідно», «слід» тощо."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Бих искал да изразя благодарността си. — Необходимо е да носите лична карта. — Бих предпочел да получа потвърждение по имейл.",
+        "content_translation": {
+          "en": "I would like to express my gratitude. — It is necessary to carry an ID. — I would prefer to receive confirmation by email.",
+          "uk": "Я хотів би висловити вдячність. — Необхідно мати з собою посвідчення. — Я б волів отримати підтвердження електронною поштою."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_052",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Глаголни конструкции с оттенък на вероятност („може би“, „навярно“)",
+    "title_translations": {
+      "en": "Verbal constructions with probability ('може би', 'навярно')",
+      "uk": "Дієслівні конструкції з відтінком ймовірності («можливо», «ймовірно»)"
+    },
+    "tags": {
+      "en": ["probability", "speculation", "modality", "grammar", "B2"],
+      "uk": ["ймовірність", "припущення", "модальність", "граматика", "B2"]
+    },
+    "description": {
+      "en": "Learn how to express uncertainty, probability, or assumptions using verbal constructions such as 'може би', 'навярно', or 'вероятно'.",
+      "uk": "Дізнайтеся, як виражати невпевненість, імовірність або припущення за допомогою конструкцій «може би», «ймовірно», «напевно»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език има различни наречия и изрази, които показват, че не сме напълно сигурни в дадено твърдение. Те изразяват предположение, вероятност или неувереност.",
+        "content_translation": {
+          "en": "In Bulgarian, there are various adverbs and expressions that show we are not completely sure about a statement. They express assumption, probability, or uncertainty.",
+          "uk": "У болгарській мові існують різні прислівники й вирази, що показують невпевненість у твердженні. Вони виражають припущення або ймовірність."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Най-често използвани думи са: „може би“, „навярно“, „вероятно“, „предполагам, че…“, „изглежда, че…“ и др.",
+        "content_translation": {
+          "en": "The most commonly used words are: 'може би' (maybe), 'навярно' (probably), 'вероятно' (likely), 'предполагам, че...' (I suppose that...), 'изглежда, че...' (it seems that...), etc.",
+          "uk": "Найуживаніші слова: «може би» (можливо), «навярно» (ймовірно), «вероятно» (скоріш за все), «припускаю, що...», «здається, що...» тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Конструкция", "Употреба", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Construction", "Usage", "Example", "Translation"],
+          "uk": ["Конструкція", "Вживання", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["може би", "несигурност", "Може би ще завали по-късно.", "Maybe it will rain later. / Можливо, пізніше буде дощ."],
+          ["навярно", "вероятност", "Навярно е зает в момента.", "He’s probably busy right now. / Ймовірно, він зараз зайнятий."],
+          ["вероятно", "предположение", "Вероятно няма да дойде.", "He likely won’t come. / Скоріше за все, він не прийде."],
+          ["предполагам, че", "лично мнение", "Предполагам, че вече е тръгнал.", "I suppose he already left. / Припускаю, що він уже пішов."],
+          ["изглежда, че", "външно наблюдение", "Изглежда, че те се познават.", "It seems that they know each other. / Здається, вони знайомі."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Такива конструкции обикновено стоят в началото или преди сказуемото. Те не променят глаголното време, а само нюансират изказването.",
+        "content_translation": {
+          "en": "Such constructions usually appear at the beginning or before the verb. They do not change the verb tense, only the nuance of the statement.",
+          "uk": "Такі конструкції зазвичай стоять на початку речення або перед присудком. Вони не змінюють час дієслова, а лише додають відтінок."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Може би тя не е чула. — Навярно утре ще е студено. — Предполагам, че ще закъснее. — Изглежда, че всичко е наред.",
+        "content_translation": {
+          "en": "Maybe she didn’t hear. — It will probably still be cold tomorrow. — I suppose he’ll be late. — It seems everything is fine.",
+          "uk": "Можливо, вона не чула. — Ймовірно, завтра ще буде холодно. — Припускаю, що він запізниться. — Здається, все гаразд."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_053",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Емоционални частици („нали“, „ама“, „бе“)",
+    "title_translations": {
+      "en": "Emotional particles ('нали', 'ама', 'бе')",
+      "uk": "Емоційні частки («нали», «ама», «бе»)"
+    },
+    "tags": {
+      "en": ["emotional particles", "colloquial speech", "intonation", "discourse"],
+      "uk": ["емоційні частки", "розмовна мова", "інтонація", "дискурс"]
+    },
+    "description": {
+      "en": "Learn how emotional particles like 'нали', 'ама', and 'бе' are used in Bulgarian to add feeling, emphasis, or tone in spoken language.",
+      "uk": "Дізнайтеся, як емоційні частки «нали», «ама», «бе» вживаються в болгарській мові для вираження почуттів, акцентів або тону в усному мовленні."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Емоционалните частици не носят самостоятелно значение, но променят тона и изразяват отношение, изненада, недоволство, настояване, съмнение или очакване.",
+        "content_translation": {
+          "en": "Emotional particles don’t carry standalone meaning, but they change the tone and express attitude, surprise, insistence, doubt, or expectation.",
+          "uk": "Емоційні частки не мають власного значення, але змінюють тон і виражають ставлення, подив, наполягання, сумнів або очікування."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Те са често срещани в разговорната реч и неформални ситуации. Употребата им изисква езиков усет.",
+        "content_translation": {
+          "en": "They are commonly used in colloquial speech and informal settings. Using them correctly requires a feel for the language.",
+          "uk": "Їх часто використовують у розмовному мовленні та неформальному спілкуванні. Правильне вживання вимагає мовного чуття."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Частица", "Функция", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Particle", "Function", "Example", "Translation"],
+          "uk": ["Частка", "Функція", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["нали", "очакване на съгласие", "Нали ще дойдеш утре?", "You’re coming tomorrow, right? / Ти ж прийдеш завтра?"],
+          ["ама", "контраст, изненада", "Ама ти си бил тук!", "But you were here! / Та ти ж був тут!"],
+          ["бе", "емоционално подчертаване", "Къде беше, бе?", "Where were you, man? / Де ти був, га?"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Частици като „бе“ и „ама“ могат да звучат фамилиарно или грубо в зависимост от интонацията. Използвай внимателно в официален контекст.",
+        "content_translation": {
+          "en": "Particles like 'бе' and 'ама' can sound familiar or rude depending on intonation. Use them carefully in formal contexts.",
+          "uk": "Частки типу «бе» або «ама» можуть звучати фамільярно або навіть грубо — залежно від інтонації. Обережно в офіційному контексті."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Нали ти казах! — Ама защо така реагираш? — Ела тук, бе!",
+        "content_translation": {
+          "en": "I told you, didn’t I! — But why are you reacting like that? — Come here, man!",
+          "uk": "Я ж тобі казав! — Але чого ти так реагуєш? — Іди сюди, га!"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_054",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Стилистика на речта (официален/разговорен стил)",
+    "title_translations": {
+      "en": "Speech style (formal/informal)",
+      "uk": "Стил мовлення (офіційний/розмовний)"
+    },
+    "tags": {
+      "en": ["style", "formal", "informal", "speech register", "pragmatics"],
+      "uk": ["стиль", "офіційна мова", "розмовна мова", "прагматика"]
+    },
+    "description": {
+      "en": "Learn to distinguish between formal and informal speech styles in Bulgarian and use appropriate language depending on context.",
+      "uk": "Навчіться розрізняти офіційний і розмовний стилі мовлення болгарською та правильно використовувати їх залежно від ситуації."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език има различни стилове на изразяване. Изборът на стил зависи от ситуацията, аудиторията и целта на комуникацията. Най-общо се различават официален и разговорен стил.",
+        "content_translation": {
+          "en": "Bulgarian uses different styles of expression. The choice of style depends on the situation, audience, and purpose. Generally, we distinguish between formal and informal styles.",
+          "uk": "У болгарській мові існують різні стилі мовлення. Вибір стилю залежить від ситуації, аудиторії та мети. Зазвичай розрізняють офіційний і розмовний стилі."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Официалният стил използва книжовни думи, сложни конструкции, безлични форми и избягва емоционалност. Разговорният стил е по-свободен, с кратки, често непълни изречения, частици и емоции.",
+        "content_translation": {
+          "en": "Formal style uses literary words, complex constructions, impersonal forms, and avoids emotion. Informal style is freer, with short, often incomplete sentences, particles, and emotions.",
+          "uk": "Офіційний стиль використовує книжні слова, складні конструкції, безособові форми і уникає емоційності. Розмовний стиль більш вільний, із короткими, часто неповними реченнями, частками та емоціями."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Стил", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Style", "Example", "Translation"],
+          "uk": ["Стиль", "Приклад", "Переклад"]
+        },
+        "rows": [
+          [
+            "Официален",
+            "Бих желал да получа допълнителна информация относно офертата.",
+            "I would like to receive more information regarding the offer. / Я хотів би отримати більше інформації щодо пропозиції."
+          ],
+          ["Разговорен", "Може ли малко инфо за офертата?", "Can I get some info about the offer? / Можна трохи інфи про пропозицію?"],
+          ["Официален", "Срещата ще се проведе на 15 май от 10:00 ч.", "The meeting will take place on May 15 at 10:00 AM. / Зустріч відбудеться 15 травня о 10:00."],
+          ["Разговорен", "Събираме се на 15-ти, ок?", "We're getting together on the 15th, OK? / Збираємось 15-го, окей?"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Разговорният стил не е подходящ за официална комуникация (писма, интервюта, институции). Официалният стил може да звучи твърде дистанцирано в ежедневен разговор.",
+        "content_translation": {
+          "en": "Informal style is not suitable for official communication (letters, interviews, institutions). Formal style may sound too distant in everyday speech.",
+          "uk": "Розмовний стиль не підходить для офіційного спілкування (листи, інтерв’ю, установи). Офіційний стиль може звучати надто відсторонено в побуті."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Разговорен: „К'во става?“ — Официален: „Как сте днес?“ — Разговорен: „Нямам идея.“ — Официален: „Не разполагам с информация по този въпрос.“",
+        "content_translation": {
+          "en": "Informal: 'What’s up?' — Formal: 'How are you today?' — Informal: 'No idea.' — Formal: 'I don’t have information on this matter.'",
+          "uk": "Розмовне: «Що нового?» — Офіційне: «Як ви сьогодні?» — Розмовне: «Без поняття.» — Офіційне: «У мене немає інформації з цього приводу.»"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_055",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Нюанси на миналите времена",
+    "title_translations": {
+      "en": "Nuances of past tenses",
+      "uk": "Нюанси минулих часів"
+    },
+    "tags": {
+      "en": ["past tenses", "tense usage", "nuance", "grammar", "B2"],
+      "uk": ["минулий час", "часові форми", "відтінки", "граматика", "B2"]
+    },
+    "description": {
+      "en": "Understand the subtle differences between past tenses in Bulgarian, such as the use of perfect, aorist, and imperfect.",
+      "uk": "Зрозумійте відтінки вживання минулих часів у болгарській мові, зокрема перфекта, аориста та імперфекта."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "В български език съществуват няколко минали времена, всяко със свой собствен нюанс. Основните са минало свършено (аорист), минало несвършено (имперфект) и минало неопределено (перфект).",
+        "content_translation": {
+          "en": "Bulgarian has several past tenses, each with its own nuance. The main ones are aorist (completed past), imperfect (ongoing past), and perfect (unspecified past).",
+          "uk": "У болгарській мові є кілька минулих часів, кожен із яких має свої відтінки. Основні — аорист (закінчена дія), імперфект (тривала дія в минулому), перфект (невизначене минуле)."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Изборът на време зависи от контекста: дали действието е приключено, дали е многократно, дали е важно за настоящето и т.н.",
+        "content_translation": {
+          "en": "The choice of tense depends on context: whether the action is completed, repeated, or important for the present.",
+          "uk": "Вибір часу залежить від контексту: дія завершена, повторювана чи важлива для теперішнього."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Време", "Характеристика", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Tense", "Characteristic", "Example", "Translation"],
+          "uk": ["Час", "Опис", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["аорист", "еднократна, завършена в миналото", "Той изяде вечерята и си легна.", "He ate dinner and went to bed. / Він повечеряв і ліг спати."],
+          ["имперфект", "повтаряща се или продължителна", "Когато бях дете, играех всеки ден.", "When I was a child, I used to play every day. / Коли я був дитиною, я щодня грався."],
+          ["перфект", "неясно кога, важен резултатът", "Съм виждал този филм преди.", "I’ve seen this movie before. / Я бачив цей фільм раніше."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Перфект често се използва в разговорен стил, докато аористът е типичен за писмена и художествена реч. Имперфект изразява фон или навик.",
+        "content_translation": {
+          "en": "Perfect is common in spoken language, aorist in written or literary texts, and imperfect describes background or habits.",
+          "uk": "Перфект часто використовується в розмовній мові, аорист — у письмовій та художній, а імперфект передає фон чи звичку."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ходих на море (аорист). — Ходех на море всяко лято (имперфект). — Съм ходил на море много пъти (перфект).",
+        "content_translation": {
+          "en": "I went to the sea (aorist). — I used to go to the sea every summer (imperfect). — I’ve been to the sea many times (perfect).",
+          "uk": "Я їздив на море (аорист). — Я їздив на море щоліта (імперфект). — Я бував на морі багато разів (перфект)."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_056",
+    "language": "Bulgarian",
+    "cefr_level": "B2",
+    "title": "Разширен синтаксис: вметнати конструкции",
+    "title_translations": {
+      "en": "Extended syntax: parenthetical constructions",
+      "uk": "Розширений синтаксис: вставні конструкції"
+    },
+    "tags": {
+      "en": ["syntax", "parenthesis", "discourse", "style", "B2"],
+      "uk": ["синтаксис", "вставні конструкції", "дискурс", "B2"]
+    },
+    "description": {
+      "en": "Learn how to use parenthetical constructions in Bulgarian to add comments, emotions, or clarifications without interrupting the main sentence.",
+      "uk": "Навчіться використовувати вставні конструкції в болгарській мові, щоб додати коментарі, емоції або уточнення без порушення основної структури речення."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Вметнатите конструкции са изрази, които добавят странична информация, емоция или отношение. Те не влияят на граматиката на основното изречение и обикновено се отделят със запетаи, скоби или тирета.",
+        "content_translation": {
+          "en": "Parenthetical constructions add side information, emotion, or attitude. They do not affect the grammar of the main sentence and are usually separated by commas, brackets, or dashes.",
+          "uk": "Вставні конструкції додають побічну інформацію, емоції або ставлення. Вони не впливають на граматику основного речення й зазвичай відокремлюються комами, дужками або тире."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Често използвани изрази: „разбира се“, „според мен“, „честно казано“, „може би“, „ако трябва да съм честен“ и др.",
+        "content_translation": {
+          "en": "Common expressions: 'of course', 'in my opinion', 'honestly', 'maybe', 'to be honest', etc.",
+          "uk": "Поширені вирази: «звичайно», «на мою думку», «чесно кажучи», «можливо», «якщо чесно» тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Израз", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Expression", "Example", "Translation"],
+          "uk": ["Тип", "Вираз", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["мнение", "според мен", "Според мен, това не е добра идея.", "In my opinion, this is not a good idea. / На мою думку, це не дуже хороша ідея."],
+          ["емоция", "честно казано", "Честно казано, не ми се ходи.", "Honestly, I don’t feel like going. / Чесно кажучи, не хочеться йти."],
+          ["вметнат глагол", "предполагам", "Той, предполагам, вече е заминал.", "He has probably already left. / Він, припускаю, уже поїхав."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Вметнатите конструкции не променят подлога или сказуемото. Ако ги махнем, изречението трябва да остане граматично правилно.",
+        "content_translation": {
+          "en": "Parenthetical phrases do not change the subject or predicate. If removed, the sentence must remain grammatically correct.",
+          "uk": "Вставні конструкції не змінюють підмет або присудок. Якщо їх прибрати, речення має залишитися граматично правильним."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Тя, разбира се, прие поканата. — Ще дойда, ако трябва да съм честен, но не с удоволствие. — Иван, както винаги, закъсня.",
+        "content_translation": {
+          "en": "She, of course, accepted the invitation. — I’ll come, to be honest, but not gladly. — Ivan, as always, was late.",
+          "uk": "Вона, звичайно, прийняла запрошення. — Я прийду, якщо чесно, але без задоволення. — Іван, як завжди, запізнився."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_057",
+    "language": "Bulgarian",
+    "cefr_level": "C1",
+    "title": "Конструкции с условни и отстъпителни съюзи",
+    "title_translations": {
+      "en": "Constructions with conditional and concessive conjunctions",
+      "uk": "Конструкції з умовними та допустовими сполучниками"
+    },
+    "tags": {
+      "en": ["conjunctions", "condition", "concession", "complex syntax", "C1"],
+      "uk": ["сполучники", "умова", "допущення", "складний синтаксис", "C1"]
+    },
+    "description": {
+      "en": "Master the use of complex conditional and concessive conjunctions like 'ако и да', 'дори и да', 'макар че', 'въпреки че', and 'независимо дали'.",
+      "uk": "Оволодійте складними умовними та допустовими конструкціями, такими як «ако и да», «дори и да», «макар че», «въпреки че», «независимо дали»."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Условните и отстъпителните съюзи въвеждат подчинени изречения, които изразяват хипотетични ситуации или противопоставяне на очакван резултат. Те се използват главно в по-официален и писмен стил.",
+        "content_translation": {
+          "en": "Conditional and concessive conjunctions introduce subordinate clauses that express hypothetical situations or contrast with an expected result. They are mainly used in formal and written style.",
+          "uk": "Умовні та допустові сполучники вводять підрядні речення, що виражають гіпотетичні ситуації або протиставлення очікуваному результату. Вони зазвичай вживаються в офіційній та письмовій мові."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Съюз", "Тип", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Conjunction", "Type", "Example", "Translation"],
+          "uk": ["Сполучник", "Тип", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["ако и да", "условие + допускане", "Ако и да знаеше отговора, той мълчеше.", "Even if he knew the answer, he stayed silent. / Навіть якщо він знав відповідь, він мовчав."],
+          ["дори и да", "условие", "Дори и да вали, ще отидем.", "Even if it rains, we’ll go. / Навіть якщо буде дощ, ми підемо."],
+          ["макар че", "отстъпка", "Макар че бях уморен, останах до края.", "Although I was tired, I stayed till the end. / Хоч я і був втомлений, залишився до кінця."],
+          ["въпреки че", "отстъпка", "Въпреки че закъсняхме, влязохме.", "Even though we were late, we got in. / Попри те, що ми запізнились, ми зайшли."],
+          [
+            "независимо дали",
+            "без значение от условието",
+            "Ще участвам, независимо дали ме одобрят.",
+            "I’ll participate regardless of whether they approve me. / Я візьму участь, незалежно від того, чи мене затвердять."
+          ]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "След съюзи като „дори и да“, „ако и да“ и „независимо дали“ често се използва сегашно време за изразяване на бъдещи или хипотетични действия.",
+        "content_translation": {
+          "en": "After conjunctions like 'дори и да', 'ако и да', and 'независимо дали', present tense is often used to express future or hypothetical actions.",
+          "uk": "Після сполучників типу «навіть якщо», «хоч і», «незалежно від того, чи» часто вживається теперішній час, щоб виразити майбутню або гіпотетичну дію."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Дори и да имам време, няма да отида. — Ако и да опитваш, няма да стане. — Независимо дали ще дойде, срещата ще се проведе.",
+        "content_translation": {
+          "en": "Even if I have time, I won’t go. — Even if you try, it won’t work. — Regardless of whether he comes, the meeting will happen.",
+          "uk": "Навіть якщо в мене буде час, я не піду. — Хоч би як ти намагався, нічого не вийде. — Незалежно від того, чи він прийде, зустріч відбудеться."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_058",
+    "language": "Bulgarian",
+    "cefr_level": "C1",
+    "title": "Преходи между стилове (разговорен → академичен)",
+    "title_translations": {
+      "en": "Transitions between styles (informal → academic)",
+      "uk": "Перехід між стилями (розмовний → академічний)"
+    },
+    "tags": {
+      "en": ["style", "formal language", "academic writing", "register", "C1"],
+      "uk": ["стиль", "академічне мовлення", "офіційний стиль", "C1"]
+    },
+    "description": {
+      "en": "Learn how to shift from informal or spoken language to formal or academic style depending on context.",
+      "uk": "Дізнайтеся, як переходити від розмовної до формальної або академічної мови залежно від ситуації."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "На по-високо ниво се очаква владеене на различни регистри на езика. Умението да се преминава от разговорен към академичен стил е важно за писмена работа, презентации и дискусии.",
+        "content_translation": {
+          "en": "At higher levels, it is expected to master different language registers. The ability to shift from informal to academic style is important for writing, presentations, and discussions.",
+          "uk": "На вищому рівні очікується володіння різними мовними регістрами. Уміння переходити від розмовного до академічного стилю важливе для письма, презентацій і дискусій."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Разговорно", "Академично", "Превод"],
+        "headers_translation": {
+          "en": ["Informal", "Academic", "Translation"],
+          "uk": ["Розмовне", "Академічне", "Переклад"]
+        },
+        "rows": [
+          ["казах", "заявих / изразих мнение", "I said → I stated / expressed an opinion"],
+          ["нещо като", "подобие на / сходно с", "something like → similar to"],
+          ["много важно", "от съществено значение", "very important → of crucial significance"],
+          ["не знам", "не разполагам с информация / не мога да посоча", "I don’t know → I have no data / cannot state"],
+          ["трябва", "необходимо е / изисква се", "must → it is necessary / required"]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "В академичния стил се избягват лични форми (аз мисля, според мен) и разговорни думи. Използват се безлични конструкции и точна терминология.",
+        "content_translation": {
+          "en": "In academic style, personal expressions ('I think', 'in my opinion') and colloquialisms are avoided. Impersonal constructions and precise terms are preferred.",
+          "uk": "В академічному стилі уникають особистих фраз («я думаю», «на мою думку») та розмовних слів. Використовуються безособові конструкції й точна термінологія."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Разговорно: Не мисля, че това е добра идея. — Академично: Възможно е предложението да не е ефективно в текущия контекст.",
+        "content_translation": {
+          "en": "Informal: I don’t think this is a good idea. — Academic: It is possible that the proposal may not be effective in the current context.",
+          "uk": "Розмовне: Я не думаю, що це гарна ідея. — Академічне: Ймовірно, ця пропозиція не буде ефективною в поточному контексті."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_059",
+    "language": "Bulgarian",
+    "cefr_level": "C1",
+    "title": "Сложни съставни сказуеми",
+    "title_translations": {
+      "en": "Complex compound predicates",
+      "uk": "Складні складені присудки"
+    },
+    "tags": {
+      "en": ["predicate", "compound verb", "modal expressions", "grammar", "C1"],
+      "uk": ["присудок", "складене дієслівне присудок", "модальні конструкції", "граматика", "C1"]
+    },
+    "description": {
+      "en": "Understand how to use complex compound predicates in Bulgarian to express modality, intention, obligation, and more.",
+      "uk": "Зрозумійте, як використовувати складні складені присудки болгарською мовою для вираження модальності, наміру, зобов’язання тощо."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Сложните съставни сказуеми се състоят от спомагателен или модален глагол + инфинитив (или друга глаголна форма) и изразяват отношение към действието: желание, възможност, необходимост, началност и др.",
+        "content_translation": {
+          "en": "Complex compound predicates consist of an auxiliary or modal verb + infinitive (or another verb form) and express attitude toward the action: desire, possibility, necessity, initiation, etc.",
+          "uk": "Складні складені присудки складаються з допоміжного або модального дієслова + інфінітива (або іншої форми) й виражають ставлення до дії: бажання, можливість, необхідність, початок тощо."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Конструкция", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Construction", "Example", "Translation"],
+          "uk": ["Тип", "Конструкція", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Модалност", "мога да", "Мога да помогна, ако искаш.", "I can help if you want. / Я можу допомогти, якщо хочеш."],
+          ["Задължение", "трябва да", "Трябва да завършиш проекта до утре.", "You must finish the project by tomorrow. / Треба закінчити проєкт до завтра."],
+          ["Желание", "искам да", "Искам да участвам в семинара.", "I want to participate in the seminar. / Я хочу взяти участь у семінарі."],
+          ["Начало", "започвам да", "Започвам да разбирам темата.", "I’m starting to understand the topic. / Починаю розуміти тему."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "След модални и фазови глаголи инфинитивът се използва с частицата „да“. Няма пълен инфинитив като в други езици.",
+        "content_translation": {
+          "en": "After modal and phase verbs, the infinitive is used with the particle 'да'. There is no full infinitive form like in some other languages.",
+          "uk": "Після модальних і фазових дієслів інфінітив вживається з часткою «да». У болгарській мові немає повного інфінітива як в англійській."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Ще трябва да работим повече. — Тя започна да пише статията. — Не искам да те притеснявам.",
+        "content_translation": {
+          "en": "We will have to work more. — She started writing the article. — I don’t want to bother you.",
+          "uk": "Нам доведеться більше працювати. — Вона почала писати статтю. — Я не хочу тебе турбувати."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_060",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Литературни и риторични конструкции",
+    "title_translations": {
+      "en": "Literary and rhetorical constructions",
+      "uk": "Літературні та риторичні конструкції"
+    },
+    "tags": {
+      "en": ["rhetoric", "literary devices", "stylistics", "C2", "advanced writing"],
+      "uk": ["риторика", "літературні засоби", "стилістика", "C2"]
+    },
+    "description": {
+      "en": "Learn how to recognize and use literary and rhetorical constructions such as repetition, parallelism, metaphors, and rhetorical questions.",
+      "uk": "Навчіться розпізнавати й використовувати літературні та риторичні конструкції, такі як повтори, паралелізм, метафори й риторичні запитання."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Литературните и риторичните конструкции засилват емоционалното и изразително въздействие на текста. Те се използват в речта, литературата, публицистиката и ораторството.",
+        "content_translation": {
+          "en": "Literary and rhetorical constructions enhance the emotional and expressive impact of a text. They are used in speech, literature, journalism, and public speaking.",
+          "uk": "Літературні та риторичні конструкції посилюють емоційний та виразний ефект тексту. Вони використовуються в мові, літературі, публіцистиці та ораторському мистецтві."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Конструкция", "Описание", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Construction", "Description", "Example", "Translation"],
+          "uk": ["Конструкція", "Опис", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Реторичен въпрос", "въпрос без очакван отговор", "Нима това е справедливо?", "Is this fair? / Хіба це справедливо?"],
+          ["Анафора", "повторение в началото на изречения", "Той беше тук. Той беше смел. Той беше герой.", "He was here. He was brave. He was a hero."],
+          ["Паралелизъм", "еднаква структура на изрази", "Да мечтаеш, да търсиш, да намираш.", "To dream, to seek, to find."],
+          ["Метафора", "преносно значение", "Сърцето му беше лед.", "His heart was ice. / Його серце було кригою."],
+          ["Хипербола", "преувеличение", "Чаках цяла вечност.", "I waited for an eternity. / Я чекав цілу вічність."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Използвайте тези конструкции умерено и съобразено със стила. Прекомерната употреба може да направи текста неясен или претенциозен.",
+        "content_translation": {
+          "en": "Use these constructions moderately and in line with the style. Overuse may make the text unclear or pretentious.",
+          "uk": "Використовуйте ці засоби помірно та відповідно до стилю. Надмірне вживання може зробити текст незрозумілим або манірним."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Светът гори, хората мълчат — нима това не е трагедия? — Той дишаше с всяка дума, той говореше със сърцето си.",
+        "content_translation": {
+          "en": "The world burns, people are silent — isn’t that a tragedy? — He breathed every word, he spoke with his heart.",
+          "uk": "Світ горить, люди мовчать — хіба це не трагедія? — Він дихав кожним словом, він говорив серцем."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_061",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Формални въвеждащи думи и изрази",
+    "title_translations": {
+      "en": "Formal introductory words and expressions",
+      "uk": "Формальні вступні слова та вирази"
+    },
+    "tags": {
+      "en": ["formal expressions", "cohesion", "academic writing", "C2"],
+      "uk": ["офіційні вирази", "зв’язність", "академічне письмо", "C2"]
+    },
+    "description": {
+      "en": "Learn to use formal introductory expressions in Bulgarian to start, organize, and structure texts and arguments clearly.",
+      "uk": "Навчіться використовувати формальні вступні конструкції болгарською для початку, структурування й аргументації в текстах."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Формалните въвеждащи думи и изрази улесняват структурирането на текст и осигуряват логическа свързаност между частите му. Те са особено важни в академична, официална и делова комуникация.",
+        "content_translation": {
+          "en": "Formal introductory expressions help structure a text and ensure logical connection between its parts. They are especially important in academic, official, and business communication.",
+          "uk": "Формальні вступні вирази допомагають структурувати текст і забезпечують логічний зв’язок між його частинами. Вони особливо важливі в академічній, офіційній та діловій комунікації."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Функция", "Израз", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Function", "Expression", "Example", "Translation"],
+          "uk": ["Функція", "Вираз", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["Въведение", "На първо място", "На първо място, трябва да се уточни терминологията.", "First of all, the terminology must be clarified."],
+          ["Допълване", "Освен това", "Освен това, темата има социална значимост.", "Moreover, the topic is socially significant."],
+          ["Противопоставяне", "От друга страна", "От друга страна, съществуват и рискове.", "On the other hand, there are also risks."],
+          ["Пример", "Например", "Например, в много страни се прилагат подобни мерки.", "For example, similar measures are applied in many countries."],
+          ["Заключение", "В заключение", "В заключение, резултатите потвърждават хипотезата.", "In conclusion, the results confirm the hypothesis."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Тези изрази често се поставят в началото на изречение и се отделят със запетая. Внимавай с повтарянето на едни и същи фрази – използвай синоними.",
+        "content_translation": {
+          "en": "These expressions are often placed at the beginning of a sentence and set off by commas. Avoid repeating the same phrases – use synonyms.",
+          "uk": "Ці вирази зазвичай стоять на початку речення і виділяються комами. Уникай повторення одних і тих самих фраз – використовуй синоніми."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "На първо място, ще разгледаме контекста. — Освен това, проблемът не е нов. — В заключение, препоръчваме допълнителни изследвания.",
+        "content_translation": {
+          "en": "First of all, we will examine the context. — Moreover, the issue is not new. — In conclusion, we recommend further research.",
+          "uk": "Передусім ми розглянемо контекст. — Крім того, проблема не нова. — На завершення ми рекомендуємо подальші дослідження."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_062",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Контекстуални съкращения и обобщения",
+    "title_translations": {
+      "en": "Contextual reductions and summarizations",
+      "uk": "Контекстуальні скорочення та узагальнення"
+    },
+    "tags": {
+      "en": ["summarizing", "paraphrasing", "cohesion", "C2", "advanced reading"],
+      "uk": ["узагальнення", "скорочення", "переказ", "зв’язність", "C2"]
+    },
+    "description": {
+      "en": "Learn how to reduce or summarize parts of a text based on context, preserving meaning, clarity, and structure.",
+      "uk": "Дізнайтеся, як скорочувати або узагальнювати частини тексту відповідно до контексту, зберігаючи зміст, ясність і структуру."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Контекстуалното съкращаване включва премахване на излишни повторения и съкращаване на фрази, които вече са ясни от контекста. Обобщаването представя основната идея на по-дълъг текст с по-малко думи.",
+        "content_translation": {
+          "en": "Contextual reduction involves removing unnecessary repetitions and shortening phrases that are already clear from the context. Summarizing presents the main idea of a longer text in fewer words.",
+          "uk": "Контекстуальне скорочення передбачає усунення зайвих повторів і скорочення фраз, які вже зрозумілі з контексту. Узагальнення подає основну ідею довшого тексту стисло."
+        }
+      },
+      {
+        "type": "TEXT",
+        "content": "Това умение е важно за академично писане, писане на резюмета, преразказ и водене на бележки. То показва напреднало владеене на езика.",
+        "content_translation": {
+          "en": "This skill is essential for academic writing, summarizing, paraphrasing, and note-taking. It demonstrates advanced language proficiency.",
+          "uk": "Це вміння важливе для академічного письма, переказів, конспектів. Воно демонструє високий рівень володіння мовою."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Тип", "Пълна форма", "Съкратена / обобщена форма", "Превод"],
+        "headers_translation": {
+          "en": ["Type", "Full form", "Reduced / summarized", "Translation"],
+          "uk": ["Тип", "Повна форма", "Скорочена / узагальнена", "Переклад"]
+        },
+        "rows": [
+          ["Съкращаване", "Тя каза, че ще дойде в 8 часа вечерта, но може и да закъснее.", "Тя каза, че ще дойде, но може да закъснее.", "She said she’d come at 8 p.m., but might be late."],
+          [
+            "Обобщение",
+            "Много хора обсъждаха проблема, изказаха различни мнения и накрая стигнаха до решение.",
+            "Хората обсъдиха проблема и взеха решение.",
+            "People discussed the issue and made a decision."
+          ],
+          ["Премахване на контекстуално ясно", "Петър каза на Мария, че Петър ще се обади по-късно.", "Петър каза на Мария, че ще се обади по-късно.", "Petar told Maria he would call later."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Не съкращавай прекалено много — при загуба на логика или двусмислие, читателят може да не разбере правилно текста.",
+        "content_translation": {
+          "en": "Don’t shorten too much — if logic or clarity is lost, the reader may misunderstand the message.",
+          "uk": "Не скорочуй надто — якщо втрачається логіка або зрозумілість, читач може неправильно витлумачити думку."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Оригинал: След дълго проучване и анализ на всички фактори, екипът реши да приложи новия модел. — Обобщено: След анализ екипът прие нов модел.",
+        "content_translation": {
+          "en": "Original: After a long study and analysis of all factors, the team decided to implement the new model. — Summary: After analysis, the team adopted a new model.",
+          "uk": "Оригінал: Після тривалого дослідження та аналізу всіх факторів команда вирішила впровадити нову модель. — Узагальнено: Після аналізу команда прийняла нову модель."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_063",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Метафори и устойчиви изрази",
+    "title_translations": {
+      "en": "Metaphors and fixed expressions",
+      "uk": "Метафори та сталі вирази"
+    },
+    "tags": {
+      "en": ["metaphors", "idioms", "fixed expressions", "figurative speech", "C2"],
+      "uk": ["метафори", "ідіоми", "сталий вислів", "образна мова", "C2"]
+    },
+    "description": {
+      "en": "Understand and use metaphorical and idiomatic expressions in Bulgarian to enrich your speech and sound natural at a native level.",
+      "uk": "Навчіться розуміти й використовувати метафоричні та сталi вирази болгарською мовою, щоб зробити мовлення багатшим і природним."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Метафорите и устойчивите изрази често не могат да се преведат буквално. Те се използват за по-ярко, емоционално или образно изразяване и са характерни за разговорната и литературна реч.",
+        "content_translation": {
+          "en": "Metaphors and fixed expressions often cannot be translated literally. They are used for more vivid, emotional or figurative expression and are typical of spoken and literary language.",
+          "uk": "Метафори та сталі вирази часто не мають буквального перекладу. Вони використовуються для емоційного, образного та яскравого мовлення і характерні для розмовної та художньої мови."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Израз", "Значение", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Expression", "Meaning", "Example", "Translation"],
+          "uk": ["Вираз", "Значення", "Приклад", "Переклад"]
+        },
+        "rows": [
+          [
+            "изпускам парата",
+            "освобождавам напрежение",
+            "След работа отидох на фитнес да изпусна парата.",
+            "After work I went to the gym to blow off some steam. / Щоб розслабитися після роботи, я пішов у спортзал."
+          ],
+          ["влизам под кожата на някого", "харесвам се много на някого", "Тя бързо влиза под кожата на хората.", "She quickly gets under people’s skin. / Вона швидко всім подобається."],
+          [
+            "златна среда",
+            "балансирано решение",
+            "Търсим златната среда между качество и цена.",
+            "We’re looking for the golden mean between quality and price. / Ми шукаємо золоту середину між якістю та ціною."
+          ],
+          [
+            "на едно ухо влизам, на друго излизам",
+            "не обръщам внимание",
+            "Всичко му казах, но на едно ухо влиза, на друго излиза.",
+            "I told him everything, but it goes in one ear and out the other. / Як у воду кануло."
+          ],
+          ["стъпвам на тънък лед", "поемам риск", "С тази идея стъпваме на тънък лед.", "We’re walking on thin ice with this idea. / Ми ризикуємо з цією ідеєю."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Устойчивите изрази често имат културен оттенък. Преди да ги използваш активно, увери се, че разбираш значението и контекста им.",
+        "content_translation": {
+          "en": "Fixed expressions often have cultural nuances. Before using them actively, make sure you understand their meaning and context.",
+          "uk": "Сталі вирази часто мають культурний підтекст. Перед тим як активно їх вживати, переконайся, що розумієш їхній зміст і контекст."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Той винаги казва нещата направо, без да увърта. — В тази ситуация трябва да действаме с ръкавици. — Изглежда спокоен, но отвътре кипи.",
+        "content_translation": {
+          "en": "He always speaks directly, without beating around the bush. — In this situation, we must act with caution. — He looks calm, but he’s boiling inside.",
+          "uk": "Він завжди говорить прямо, не викручується. — У цій ситуації треба діяти обережно. — Зовні спокійний, але всередині закипає."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_064",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Управление на глаголи и падежни конструкции",
+    "title_translations": {
+      "en": "Verb government and case constructions",
+      "uk": "Керування дієслів і відмінкові конструкції"
+    },
+    "tags": {
+      "en": ["verb government", "cases", "prepositions", "syntax", "C2"],
+      "uk": ["керування", "відмінки", "прийменники", "синтаксис", "C2"]
+    },
+    "description": {
+      "en": "Master complex verb-preposition structures and case-based constructions used in formal and advanced Bulgarian.",
+      "uk": "Опануйте складні конструкції дієслів із прийменниками та відмінками, що використовуються у формальній та складній болгарській мові."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Управлението на глаголи включва използването на определени предлози или форми след тях. В български език няма падежи като в славянските езици, но съществуват конструкции, които изискват определени форми и съгласуване.",
+        "content_translation": {
+          "en": "Verb government refers to the use of specific prepositions or forms following verbs. Bulgarian lacks cases like other Slavic languages, but some constructions require specific forms and agreement.",
+          "uk": "Керування дієслів — це вживання певних прийменників або форм після них. У болгарській немає відмінків у класичному значенні, але є конструкції, які потребують певного узгодження."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Глагол", "Управление / Конструкция", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Verb", "Construction", "Example", "Translation"],
+          "uk": ["Дієслово", "Керування / конструкція", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["влияя", "върху + същ.", "Това решение влияе върху всички нас.", "This decision affects all of us. / Це рішення впливає на всіх нас."],
+          ["състои се", "от + същ.", "Конференцията се състои от три модула.", "The conference consists of three modules. / Конференція складається з трьох модулів."],
+          ["призовавам", "към + същ.", "Призоваваме към диалог и сътрудничество.", "We call for dialogue and cooperation. / Ми закликаємо до діалогу та співпраці."],
+          ["отказвам се", "от + същ.", "Отказвам се от кандидатурата си.", "I withdraw my candidacy. / Відмовляюся від своєї кандидатури."],
+          ["нуждая се", "от + същ.", "Нуждая се от помощ.", "I need help. / Мені потрібна допомога."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Някои глаголи в български изискват различно управление от еквивалентите си в други езици. Не винаги можеш да преведеш директно по структура.",
+        "content_translation": {
+          "en": "Some Bulgarian verbs require different constructions than their equivalents in other languages. You can’t always translate structure directly.",
+          "uk": "Деякі болгарські дієслова вимагають іншого керування, ніж у відповідних дієслів в інших мовах. Не завжди можливо перекласти дослівно за структурою."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Свикнах на новата работа. — Зависим от външни фактори. — Съпротивлявам се на промяната.",
+        "content_translation": {
+          "en": "I got used to the new job. — We depend on external factors. — I resist the change.",
+          "uk": "Я звик до нової роботи. — Ми залежимо від зовнішніх факторів. — Я чиню опір змінам."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bg_065",
+    "language": "Bulgarian",
+    "cefr_level": "C2",
+    "title": "Контекстуална омонимия и смислови нюанси",
+    "title_translations": {
+      "en": "Contextual homonymy and semantic nuances",
+      "uk": "Контекстуальна омонімія та смислові відтінки"
+    },
+    "tags": {
+      "en": ["homonyms", "semantics", "nuance", "polysemy", "C2"],
+      "uk": ["омоніми", "семантика", "відтінки значення", "багатозначність", "C2"]
+    },
+    "description": {
+      "en": "Learn how to distinguish between different meanings of homonyms and identify subtle semantic nuances depending on context.",
+      "uk": "Навчіться розрізняти значення омонімів і визначати смислові відтінки залежно від контексту."
+    },
+    "explanation": [
+      {
+        "type": "TEXT",
+        "content": "Контекстуалната омонимия възниква, когато една дума има няколко значения и значението ѝ се определя от контекста. Различаването на смисловите нюанси е ключово за напреднало владеене на езика.",
+        "content_translation": {
+          "en": "Contextual homonymy occurs when a word has multiple meanings, and its meaning is determined by the context. Distinguishing between subtle meanings is essential for advanced language mastery.",
+          "uk": "Контекстуальна омонімія виникає, коли слово має кілька значень, і значення визначається контекстом. Вміння розрізняти смислові відтінки — ключ до високого рівня володіння мовою."
+        }
+      },
+      {
+        "type": "TABLE",
+        "headers": ["Дума", "Значение", "Пример", "Превод"],
+        "headers_translation": {
+          "en": ["Word", "Meaning", "Example", "Translation"],
+          "uk": ["Слово", "Значення", "Приклад", "Переклад"]
+        },
+        "rows": [
+          ["ключ", "устройство за заключване", "Забравих ключа вкъщи.", "I forgot the key at home. / Я забув ключ вдома."],
+          ["ключ", "нещо важно / решаващо", "Това е ключът към успеха.", "This is the key to success. / Це ключ до успіху."],
+          ["вълна", "животно", "На полето имаше много вълни.", "There were many wolves in the field. / На полі було багато вовків."],
+          ["вълна", "вода / движение", "Вълните се разбиваха в скалите.", "The waves crashed on the rocks. / Хвилі билися об скелі."],
+          ["светлина", "осветление", "В стаята имаше силна светлина.", "There was bright light in the room. / У кімнаті було яскраве світло."],
+          ["светлина", "прозрение / разбиране", "Това хвърля нова светлина върху случая.", "This sheds new light on the case. / Це проливає нове світло на справу."]
+        ]
+      },
+      {
+        "type": "ATTENTION",
+        "content": "Не всички значения на една дума са равностойни по честота. Някои се използват само в преносен или професионален контекст.",
+        "content_translation": {
+          "en": "Not all meanings of a word are equally common. Some are used only figuratively or in specific professional contexts.",
+          "uk": "Не всі значення слова однаково вживані. Деякі використовуються лише в переносному або професійному контексті."
+        }
+      },
+      {
+        "type": "EXAMPLE",
+        "content": "Той има тежка ръка. (силен удар) — Той има тежка ръка. (строг човек) — Това беше удар под кръста. (буквално или метафорично).",
+        "content_translation": {
+          "en": "He has a heavy hand. (strong hit) — He has a heavy hand. (strict person) — That was a blow below the belt. (literal or metaphorical).",
+          "uk": "У нього важка рука. (сильний удар) — У нього важка рука. (строга людина) — Це був удар нижче пояса. (буквально чи образно)."
+        }
+      }
+    ]
   }
 ]

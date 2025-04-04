@@ -47,8 +47,8 @@ export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILangu
   return `
 You are a task generator for language learners. Your job is to produce a list of "${readableType}" tasks as JSON that EXACTLY matches the schema provided.
 
-Target language: ${language}
-User’s native language: ${native_language}
+Target language: ${language} — All tasks MUST be written **in this language**.
+User’s native language: ${native_language} — Use **this language** for translations, explanations, or instructions intended for the user.
 
 ${difficultyPart}
 You MUST return exactly ${sentence_count} separate sentences as a JSON array.
