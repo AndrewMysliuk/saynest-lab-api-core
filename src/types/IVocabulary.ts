@@ -36,3 +36,31 @@ export interface IVocabularyEntity {
   //   synonyms?: string[]
   //   examples?: string[]
 }
+
+export enum PartOfSpeechEnum {
+  noun = "noun",
+  verb = "verb",
+  adjective = "adjective",
+}
+
+export interface IMeaningJSONEntry {
+  part_of_speech: PartOfSpeechEnum
+  translation: string
+  meaning: string
+  synonyms: string[]
+}
+
+export interface IVocabularyJSONEntry {
+  language: string
+  translation_language: string
+  word: string
+  frequency_level: VocabularyFrequencyLevelEnum
+  meanings: IMeaningJSONEntry[]
+  audio_base64: string | null
+}
+
+export interface IWordExplanationRequest {
+  language: string
+  translation_language: string
+  word: string
+}

@@ -160,4 +160,24 @@ export class TextToSpeachService implements ITextToSpeach {
       throw error
     }
   }
+
+  async ttsTextToSpeechBase64(payload: ITTSPayload, word: string): Promise<string> {
+    try {
+      const response = await openaiREST.audio.speech.create({
+        model: payload.model,
+        voice: payload.voice,
+        input: word,
+        response_format: "wav",
+      })
+
+      const arrayBuffer = await response.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
+      const base64 = buffer.toString("base64")
+
+      return `data:audio/wav;base64,${base64}`
+    } catch (error) {
+      console.error("ttsTextToSpeechWordAudio | error: ", error)
+      throw error
+    }
+  }
 }

@@ -23,6 +23,8 @@ import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
 import { UserRepository } from "../internal/user/storage/mongo/repository"
+import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
+import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
 import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
 
 // Repositories
@@ -39,6 +41,7 @@ const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
 const languageTheoryService = new LanguageTheoryService()
+const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
 const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService)
 const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
@@ -49,6 +52,7 @@ const router = Router()
 router.use("/session", createSessionRouter(sessionService))
 router.use("/scenario-simulation", createScenarioSimulationRouter(scenarioSimulationService))
 router.use("/language-theory", createLanguageTheoryRouter(languageTheoryService))
+router.use("/vocabulary-tracker", createVocabularyTrackerRouter(vocabularyTrackerService))
 router.use("/task-generator", createTaskGeneratorRouter(taskGeneratorService))
 router.use("/error-analysis", createErrorAnalysisRouter(errorAnalysisService))
 router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))
