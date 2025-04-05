@@ -40,9 +40,9 @@ const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
 const languageTheoryService = new LanguageTheoryService()
 const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
-const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository)
+const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService)
 const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
-const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, errorAnalysisService, textToSpeachService)
+const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
 
 const router = Router()
 

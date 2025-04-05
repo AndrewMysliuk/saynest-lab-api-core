@@ -69,5 +69,4 @@ export interface IConversationResponse {
   session_id: string
   conversation_history: IConversationHistory[]
   last_model_response: ITextAnalysisResponse
-  error_analyser_response: IErrorAnalysisEntity | null
 }

@@ -1,5 +1,6 @@
 import { ILanguageTheory } from ".."
 import language_theory_bg_json from "../../../json_data/language_theory_bg.json"
+import language_theory_en_json from "../../../json_data/language_theory_en.json"
 import { ILanguageTopic, ILanguageTopicShort, VocabularyFrequencyLevelEnum } from "../../../types"
 import logger from "../../../utils/logger"
 
@@ -15,7 +16,18 @@ export class LanguageTheoryService implements ILanguageTheory {
 
   async listByLanguage(language: string): Promise<ILanguageTopic[]> {
     try {
-      const records = language_theory_bg_json as ILanguageTopic[]
+      let records: ILanguageTopic[] = []
+
+      switch (language) {
+        case "en":
+          records = language_theory_en_json as ILanguageTopic[]
+          break
+        case "bg":
+          records = language_theory_bg_json as ILanguageTopic[]
+          break
+        default:
+          throw new Error()
+      }
 
       return records.filter((item) => item.language.toLowerCase() === language.toLowerCase())
     } catch (error: unknown) {

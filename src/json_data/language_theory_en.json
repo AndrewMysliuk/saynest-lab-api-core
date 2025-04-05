@@ -1,0 +1,386 @@
+[
+  {
+    "id": "en_001",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "English alphabet and pronunciation"
+  },
+  {
+    "id": "en_002",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Personal pronouns (I, you, he, etc.)"
+  },
+  {
+    "id": "en_003",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Verb \"to be\" in present simple"
+  },
+  {
+    "id": "en_004",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Present simple tense (regular verbs)"
+  },
+  {
+    "id": "en_005",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Basic irregular verbs (go, have, do)"
+  },
+  {
+    "id": "en_006",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Question words (who, what, where…)"
+  },
+  {
+    "id": "en_007",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Simple affirmative and negative sentences"
+  },
+  {
+    "id": "en_008",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Basic negation with \"not\""
+  },
+  {
+    "id": "en_009",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Numbers 0–100"
+  },
+  {
+    "id": "en_010",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Definite and indefinite articles (a, an, the)"
+  },
+  {
+    "id": "en_011",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Demonstrative pronouns (this, that…)"
+  },
+  {
+    "id": "en_012",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Possessive adjectives (my, your, his…)"
+  },
+  {
+    "id": "en_013",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Gender and singular/plural of nouns"
+  },
+  {
+    "id": "en_014",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Basic adjectives and agreement"
+  },
+  {
+    "id": "en_015",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Basic adverbs (slowly, very, well)"
+  },
+  {
+    "id": "en_016",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Simple word order: Subject-Verb-Object"
+  },
+  {
+    "id": "en_017",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Basic prepositions (in, on, under)"
+  },
+  {
+    "id": "en_018",
+    "language": "en",
+    "cefr_level": "A1",
+    "title": "Greetings and farewells"
+  },
+  {
+    "id": "en_019",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Future with \"will\" and \"going to\""
+  },
+  {
+    "id": "en_020",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Past simple tense (regular and irregular verbs)"
+  },
+  {
+    "id": "en_021",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Present perfect (basic use, e.g. \"I have eaten\")"
+  },
+  {
+    "id": "en_022",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Imperatives (open the door, please)"
+  },
+  {
+    "id": "en_023",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Comparative and superlative adjectives (bigger, the biggest)"
+  },
+  {
+    "id": "en_024",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Reflexive pronouns (myself, yourself…)"
+  },
+  {
+    "id": "en_025",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Adverbs of time and place (yesterday, here)"
+  },
+  {
+    "id": "en_026",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Complex numbers, telling time, dates"
+  },
+  {
+    "id": "en_027",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Plural forms of irregular nouns (children, mice)"
+  },
+  {
+    "id": "en_028",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Question and statement forms in all basic tenses"
+  },
+  {
+    "id": "en_029",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Particles like \"do\", \"let’s\", \"shall\""
+  },
+  {
+    "id": "en_030",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Common participles (boring vs. bored)"
+  },
+  {
+    "id": "en_031",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Frequently used introductory phrases (I think…, In my opinion…)"
+  },
+  {
+    "id": "en_032",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Word order in questions and negatives"
+  },
+  {
+    "id": "en_033",
+    "language": "en",
+    "cefr_level": "A2",
+    "title": "Prepositions for reason and purpose (because of, in order to)"
+  },
+  {
+    "id": "en_034",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Compound sentences (and, but, or)"
+  },
+  {
+    "id": "en_035",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Complex sentences with \"because\", \"when\", \"if\""
+  },
+  {
+    "id": "en_036",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Conditional sentences (zero, first, second)"
+  },
+  {
+    "id": "en_037",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Reported speech (He said that…)"
+  },
+  {
+    "id": "en_038",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Future in the past (was going to, would)"
+  },
+  {
+    "id": "en_039",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Infinitive structures (want to do, need to go)"
+  },
+  {
+    "id": "en_040",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Participle clauses (used as modifiers)"
+  },
+  {
+    "id": "en_041",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Verbs of motion and direction (go, come, return)"
+  },
+  {
+    "id": "en_042",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Double negation (actually incorrect, but you’ll hear it)"
+  },
+  {
+    "id": "en_043",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Modal verbs (should, must, might)"
+  },
+  {
+    "id": "en_044",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Passive voice (The cake was eaten)"
+  },
+  {
+    "id": "en_045",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Comparisons (as… as, more than…)"
+  },
+  {
+    "id": "en_046",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Relative pronouns (who, which, that)"
+  },
+  {
+    "id": "en_047",
+    "language": "en",
+    "cefr_level": "B1",
+    "title": "Indefinite pronouns and adverbs (someone, something, somewhere)"
+  },
+  {
+    "id": "en_048",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Complex subordinate clauses (although, before, in case)"
+  },
+  {
+    "id": "en_049",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Transitional expressions (it is said that…, as a result)"
+  },
+  {
+    "id": "en_050",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Formal requests and suggestions (I would like to…, it is necessary to…)"
+  },
+  {
+    "id": "en_051",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Modals of possibility and probability (might have, must be)"
+  },
+  {
+    "id": "en_052",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Discourse markers (you know, I mean, well)"
+  },
+  {
+    "id": "en_053",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Stylistic variation (formal vs informal register)"
+  },
+  {
+    "id": "en_054",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Nuances of past tenses (past perfect, continuous forms)"
+  },
+  {
+    "id": "en_055",
+    "language": "en",
+    "cefr_level": "B2",
+    "title": "Extended syntax: embedded clauses, parenthetical phrases"
+  },
+  {
+    "id": "en_056",
+    "language": "en",
+    "cefr_level": "C1",
+    "title": "Hypothetical and concessive clause constructions (even if, as though, unless)"
+  },
+  {
+    "id": "en_057",
+    "language": "en",
+    "cefr_level": "C1",
+    "title": "Style-shifting (informal to academic tone)"
+  },
+  {
+    "id": "en_058",
+    "language": "en",
+    "cefr_level": "C1",
+    "title": "Complex verb phrases (phrasal constructions, modal perfects)"
+  },
+  {
+    "id": "en_059",
+    "language": "en",
+    "cefr_level": "C1",
+    "title": "Literary and rhetorical devices (metaphor, irony, hyperbole)"
+  },
+  {
+    "id": "en_060",
+    "language": "en",
+    "cefr_level": "C1",
+    "title": "Formal linking and introductory phrases (on the one hand, it is widely believed…)"
+  },
+  {
+    "id": "en_061",
+    "language": "en",
+    "cefr_level": "C2",
+    "title": "Contextual ellipsis and summarization"
+  },
+  {
+    "id": "en_062",
+    "language": "en",
+    "cefr_level": "C2",
+    "title": "Idioms and fixed expressions"
+  },
+  {
+    "id": "en_063",
+    "language": "en",
+    "cefr_level": "C2",
+    "title": "Verb-preposition collocations (depend on, succeed in)"
+  },
+  {
+    "id": "en_064",
+    "language": "en",
+    "cefr_level": "C2",
+    "title": "Contextual homonyms and meaning shifts (e.g., “run” = 40 different things. Have fun.)"
+  }
+]

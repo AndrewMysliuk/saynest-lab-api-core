@@ -21,68 +21,55 @@ export class ConversationService implements IConversationService {
   private readonly sessionService: ISessionService
   private readonly speachToTextService: ISpeachToText
   private readonly textAnalysisService: ITextAnalysis
-  private readonly errorAnalysisService: IErrorAnalysis
   private readonly textToSpeachService: ITextToSpeach
 
-  constructor(
-    historyRepo: IRepository,
-    sessionService: ISessionService,
-    speachToTextService: ISpeachToText,
-    textAnalysisService: ITextAnalysis,
-    errorAnalysisService: IErrorAnalysis,
-    textToSpeachService: ITextToSpeach,
-  ) {
+  constructor(historyRepo: IRepository, sessionService: ISessionService, speachToTextService: ISpeachToText, textAnalysisService: ITextAnalysis, textToSpeachService: ITextToSpeach) {
     this.historyRepo = historyRepo
     this.sessionService = sessionService
     this.speachToTextService = speachToTextService
     this.textAnalysisService = textAnalysisService
-    this.errorAnalysisService = errorAnalysisService
     this.textToSpeachService = textToSpeachService
   }
 
   async *streamConversation(payload: IConversationPayload, outputConversation?: { finalData?: IConversationResponse }): AsyncGenerator<ConversationStreamEvent> {
     try {
       const { organization_id, user_id, whisper, gpt_model, tts, system } = payload
+      const pair_id = uuidv4()
 
       const sessionData = await this.getSessionData(organization_id, user_id, system.session_id, system.global_prompt)
       const { session_id: activeSessionId, session_directory: sessionDir, conversation_history: initialHistory } = sessionData
 
-      const historyArray = Array.isArray(initialHistory) ? initialHistory : [initialHistory]
-      const conversationHistory = [...historyArray]
+      const conversationHistory = [...initialHistory]
 
       const { transcription, user_audio_path } = await this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
 
-      const pair_id = uuidv4()
-
-      yield {
-        type: StreamEventEnum.TRANSCRIPTION,
-        role: "user",
-        content: transcription,
-        audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
-      }
-
-      const savedUserMessage = await this.historyRepo.saveHistory({
+      const userMessage = {
         session_id: activeSessionId,
         pair_id,
         role: "user",
         content: transcription,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
-      })
+      } as IConversationHistory
 
-      conversationHistory.push(savedUserMessage)
+      yield {
+        type: StreamEventEnum.TRANSCRIPTION,
+        role: "user",
+        content: userMessage.content,
+        audio_url: userMessage.audio_url as string,
+      }
+
+      // Save user data
+      this.historyRepo.saveHistory(userMessage).catch((error) => logger.warn("Failed to save user history", error))
+
+      // Push to history
+      conversationHistory.push(userMessage)
 
       const trimmedHistory = trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
 
-      const [gptResponse, errorResponse] = await Promise.all([
-        this.textAnalysisService.gptConversation({
-          ...gpt_model,
-          messages: trimmedHistory,
-        }),
-        this.errorAnalysisService.conversationErrorAnalysis(activeSessionId.toString(), {
-          ...gpt_model,
-          messages: trimmedHistory,
-        }),
-      ])
+      const gptResponse = await this.textAnalysisService.gptConversation({
+        ...gpt_model,
+        messages: trimmedHistory,
+      })
 
       yield {
         type: StreamEventEnum.GPT_RESPONSE,
@@ -104,26 +91,29 @@ export class ConversationService implements IConversationService {
 
       const audioFilePath = output.filePath as string
 
-      const savedModelMessage = await this.historyRepo.saveHistory({
+      const modelMessage = {
         session_id: activeSessionId,
         pair_id,
         role: "assistant",
         content: gptResponse.reply_to_user,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
-      })
+      } as IConversationHistory
 
-      conversationHistory.push(savedModelMessage)
+      // Save model data
+      this.historyRepo.saveHistory(modelMessage).catch((error) => logger.warn("Failed to save model history", error))
+
+      // push to history
+      conversationHistory.push(modelMessage)
 
       const final: IConversationResponse = {
         session_id: activeSessionId.toString(),
         conversation_history: conversationHistory,
         last_model_response: gptResponse,
-        error_analyser_response: errorResponse,
       }
 
       if (outputConversation) outputConversation.finalData = final
     } catch (error: unknown) {
-      logger.error(`ConversationService | error in processConversation: ${error}`)
+      logger.error(`ConversationService | error in processConversation: ${JSON.stringify(error)}`)
 
       yield {
         type: StreamEventEnum.ERROR,

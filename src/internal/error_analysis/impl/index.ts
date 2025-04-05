@@ -3,15 +3,18 @@ import { openaiREST } from "../../../config"
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IGPTPayload } from "../../../types"
 import { trimmedMessageHistoryForErrorAnalyser } from "../../../utils"
 import logger from "../../../utils/logger"
+import { ILanguageTheory } from "../../language_theory"
 import { IRepository } from "../storage"
 import ConversationErrorAnalyserSchema from "./json_schema/conversation_error_analysis.schema.json"
-import { CONVERSATION_ERROR_ANALYSIS_RESPONSE_SYSTEM_PROMPT } from "./prompt"
+import { buildSystemPrompt } from "./prompt"
 
 export class ErrorAnalysisService implements IErrorAnalysis {
   private readonly errorAnalysisRepo: IRepository
+  private readonly languageTheoryService: ILanguageTheory
 
-  constructor(errorAnalysisRepo: IRepository) {
+  constructor(errorAnalysisRepo: IRepository, languageTheoryService: ILanguageTheory) {
     this.errorAnalysisRepo = errorAnalysisRepo
+    this.languageTheoryService = languageTheoryService
   }
 
   async conversationErrorAnalysis(session_id: string, payload: IGPTPayload): Promise<IErrorAnalysisEntity | null> {
@@ -36,7 +39,15 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         throw new Error("no user content provided in last message.")
       }
 
-      messages[0].content = CONVERSATION_ERROR_ANALYSIS_RESPONSE_SYSTEM_PROMPT + "\n\n" + messages[0].content
+      const topics = await this.languageTheoryService.filteredShortListByLanguage("en", {
+        topic_ids: [],
+        topic_titles: [],
+        level_cefr: [],
+      })
+
+      const systemPrompt = buildSystemPrompt(topics, messages[0].content)
+
+      messages[0].content = systemPrompt
       messages = trimmedMessageHistoryForErrorAnalyser(messages)
 
       const response = await openaiREST.chat.completions.create({

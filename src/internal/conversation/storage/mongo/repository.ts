@@ -10,7 +10,7 @@ export class HistoryRepository implements IRepository {
 
   async getHistoryBySession(session_id: string): Promise<IConversationHistory[]> {
     return await ConversationHistoryModel.find({ session_id }).sort({
-      createdAt: 1,
+      created_at: 1,
     })
   }
 

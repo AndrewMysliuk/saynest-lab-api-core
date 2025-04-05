@@ -1,3 +1,5 @@
+import { IGPTPayload } from "./IGPT"
+
 export interface IWord {
   id: string
   value: string
@@ -25,4 +27,9 @@ export interface IErrorAnalysisEntity {
   summary_comment?: string
   has_errors: boolean
   created_at: Date
+}
+
+export interface IErrorAnalysisRequest {
+  gpt_payload: IGPTPayload
+  session_id: string
 }
