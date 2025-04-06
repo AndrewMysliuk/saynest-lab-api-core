@@ -1,5 +1,7 @@
 import { ObjectId } from "mongoose"
 
+import { IGPTPayload } from "./IGPT"
+
 export enum VocabularyFrequencyLevelEnum {
   A1 = "A1",
   A2 = "A2",
@@ -59,8 +61,18 @@ export interface IVocabularyJSONEntry {
   audio_base64: string | null
 }
 
+export interface IVocabularyJSONEntryWrapper {
+  entries: IVocabularyJSONEntry[]
+}
+
 export interface IWordExplanationRequest {
   language: string
   translation_language: string
   word: string
+}
+
+export interface ISearchSynonymsRequest {
+  payload: IGPTPayload
+  language: string
+  translation_language: string
 }

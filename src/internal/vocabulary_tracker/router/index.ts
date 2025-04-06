@@ -1,6 +1,6 @@
 import { Router } from "express"
 
-import { getWordAudioHandler, getWordExplanationHandler, getWordsListHandler } from "../handlers"
+import { getWordAudioHandler, getWordExplanationHandler, getWordsListHandler, searchWordsSynonymsHandler } from "../handlers"
 import { IVocabularyTracker } from "../index"
 
 const router = Router()
@@ -12,6 +12,7 @@ export const createVocabularyTrackerRouter = (vocabularyTrackerService: IVocabul
 
   router.post("/explanation", getWordExplanationHandler(vocabularyTrackerService))
   router.post("/audio", getWordAudioHandler(vocabularyTrackerService))
+  router.post("/search-synonyms", searchWordsSynonymsHandler(vocabularyTrackerService))
   router.get("/", getWordsListHandler(vocabularyTrackerService))
 
   return router
