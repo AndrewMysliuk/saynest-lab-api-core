@@ -59,6 +59,7 @@ export interface IVocabularyJSONEntry {
   frequency_level: VocabularyFrequencyLevelEnum
   meanings: IMeaningJSONEntry[]
   audio_base64: string | null
+  repeated_count?: number
 }
 
 export interface IVocabularyJSONEntryWrapper {
