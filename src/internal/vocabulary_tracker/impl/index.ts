@@ -1,9 +1,8 @@
-import fs from "fs/promises"
-import path from "path"
+import { ObjectId, Types } from "mongoose"
 
 import { IVocabularyTracker } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, ISearchSynonymsRequest, IVocabularyJSONEntry, IVocabularyJSONEntryWrapper, IWordExplanationRequest } from "../../../types"
+import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyEntityWrapper, IWordExplanationRequest } from "../../../types"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../../text_to_speach"
 import { IRepository } from "../storage"
@@ -12,28 +11,27 @@ import WordExplanationSchema from "./json_schema/word_explanation.schema.json"
 import { buildSynonymsSystemPrompt, buildVocabularySystemPrompt } from "./prompt"
 
 export class VocabularyTrackerService implements IVocabularyTracker {
-  private readonly dataFilePath: string
   private readonly vocabularyTrackerRepo: IRepository
   private readonly textToSpeachService: ITextToSpeach
 
   constructor(vocabularyTrackerRepo: IRepository, textToSpeachService: ITextToSpeach) {
-    this.dataFilePath = path.join(process.cwd(), "user_dictionary", "words.json")
     this.vocabularyTrackerRepo = vocabularyTrackerRepo
     this.textToSpeachService = textToSpeachService
   }
 
-  async getWordExplanation(dto: IWordExplanationRequest): Promise<IVocabularyJSONEntry> {
+  async getWordExplanation(dto: IWordExplanationRequest): Promise<IVocabularyEntity> {
     try {
-      const allEntries = await this.readLocalData()
+      const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
 
-      const existing = allEntries.find((entry) => entry.word.toLowerCase() === dto.word.toLowerCase() && entry.language === dto.language && entry.translation_language === dto.translation_language)
+      const existingWord = await this.vocabularyTrackerRepo.getByWord(dto)
 
-      if (existing) {
-        logger.info(`Cache hit for word: ${dto.word}`)
-        return existing
+      if (existingWord) {
+        logger.info(`Cache hit for word: ${existingWord.word}`)
+        return existingWord
       }
 
       logger.info(`Cache miss — querying GPT for word: ${dto.word}`)
+
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         {
           role: "system",
@@ -77,10 +75,15 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         throw new Error("No tool response returned by model.")
       }
 
-      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyJSONEntry
+      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyEntity
 
-      allEntries.push(parsed)
-      await this.writeLocalData(allEntries)
+      if (isSessionIdValid) {
+        const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
+        await this.vocabularyTrackerRepo.create({
+          ...parsed,
+          session_id: sessionId,
+        })
+      }
 
       return parsed
     } catch (error: unknown) {
@@ -91,20 +94,14 @@ export class VocabularyTrackerService implements IVocabularyTracker {
 
   async getWordAudio(dto: IWordExplanationRequest): Promise<string> {
     try {
-      const allEntries = await this.readLocalData()
+      const existingWord = await this.vocabularyTrackerRepo.getByWord(dto)
 
-      const existingIndex = allEntries.findIndex(
-        (entry) => entry.word.toLowerCase() === dto.word.toLowerCase() && entry.language === dto.language && entry.translation_language === dto.translation_language,
-      )
-
-      if (existingIndex === -1) {
+      if (!existingWord) {
         throw new Error("word entity not found")
       }
 
-      const existing = allEntries[existingIndex]
-
-      if (existing.audio_base64) {
-        return existing.audio_base64
+      if (existingWord.audio_base64) {
+        return existingWord.audio_base64
       }
 
       const response = await this.textToSpeachService.ttsTextToSpeechBase64(
@@ -115,48 +112,28 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         dto.word,
       )
 
-      existing.audio_base64 = response
+      await this.vocabularyTrackerRepo.patchAudio(String(existingWord._id), response)
 
-      allEntries[existingIndex] = existing
-
-      await this.writeLocalData(allEntries)
-
-      return existing.audio_base64
+      return response
     } catch (error: unknown) {
       logger.error("VocabularyTrackerService | error in getWordAudio: ", error)
       throw error
     }
   }
 
-  async wordsList(): Promise<IVocabularyJSONEntry[]> {
+  async wordsList(): Promise<IVocabularyEntity[]> {
     try {
-      const file = await fs.readFile(this.dataFilePath, "utf-8")
-
-      if (!file.trim()) {
-        logger.warn("VocabularyTrackerService | JSON file is empty")
-        return []
-      }
-
-      const data = JSON.parse(file)
-      if (!Array.isArray(data)) {
-        logger.warn("VocabularyTrackerService | JSON file does not contain an array")
-        return []
-      }
-
-      return data as IVocabularyJSONEntry[]
+      return this.vocabularyTrackerRepo.list()
     } catch (error: unknown) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-        logger.warn("VocabularyTrackerService | JSON file not found")
-        return []
-      }
-
       logger.error("VocabularyTrackerService | error in wordsList:", error)
       throw error
     }
   }
 
-  async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyJSONEntry[]> {
+  async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyEntity[]> {
     try {
+      const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
+
       const userMessagesOnly = dto.payload.messages?.filter((msg) => msg.role !== "system" && msg.role !== "assistant")
 
       if (!Array.isArray(userMessagesOnly)) {
@@ -210,53 +187,32 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         throw new Error("No tool response returned by model.")
       }
 
-      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyJSONEntryWrapper
+      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyEntityWrapper
 
-      let existingEntries = await this.readLocalData()
+      const existingEntries = await this.vocabularyTrackerRepo.list()
 
       const newWords = parsed.entries.filter(
-        (item) => !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === dto.language && entry.translation_language === dto.translation_language),
+        (item) =>
+          !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === item.language && entry.translation_language === item.translation_language),
       )
 
       const limitedWords = newWords.slice(0, 3)
 
-      if (limitedWords.length > 0) {
-        await this.writeLocalData([...existingEntries, ...limitedWords])
+      if (isSessionIdValid) {
+        const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
+        for (const word of limitedWords) {
+          await this.vocabularyTrackerRepo.create({
+            ...word,
+            session_id: sessionId,
+            created_at: new Date(),
+            updated_at: new Date(),
+          })
+        }
       }
 
       return limitedWords
     } catch (error: unknown) {
       logger.error("VocabularyTrackerService | error in searchSynonymsByHistory:", error)
-      throw error
-    }
-  }
-
-  private async readLocalData(): Promise<IVocabularyJSONEntry[]> {
-    try {
-      await fs.mkdir(path.dirname(this.dataFilePath), { recursive: true })
-      const file = await fs.readFile(this.dataFilePath, "utf-8")
-
-      if (!file.trim()) return []
-
-      const parsed = JSON.parse(file)
-
-      return Array.isArray(parsed) ? parsed : []
-    } catch (error: unknown) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-        logger.warn("VocabularyTrackerService | JSON file not found")
-        return []
-      }
-
-      logger.warn("Error reading local JSON cache: ", error)
-      return []
-    }
-  }
-
-  private async writeLocalData(data: IVocabularyJSONEntry[]): Promise<void> {
-    try {
-      await fs.writeFile(this.dataFilePath, JSON.stringify(data, null, 2), "utf-8")
-    } catch (error: unknown) {
-      logger.error("Error writing to JSON file: ", error)
       throw error
     }
   }

@@ -13,6 +13,7 @@ export class UserRepository implements IRepository {
       last_name: data.last_name,
       country: data.country,
       role: data.role || "user",
+      updated_at: new Date(),
       created_at: new Date(),
     })
 

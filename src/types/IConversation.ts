@@ -1,6 +1,5 @@
 import { ObjectId } from "mongoose"
 
-import { IErrorAnalysisEntity } from "./IErrorAnalysis"
 import { IGPTPayload, ITextAnalysisResponse } from "./IGPT"
 import { ITTSPayload } from "./ITTS"
 
@@ -10,6 +9,7 @@ export interface IConversationHistory {
   role: "system" | "user" | "assistant"
   content: string
   audio_url?: string
+  updated_at: Date
   created_at: Date
 }
 

@@ -1,6 +1,6 @@
 import { IConversationHistory } from "./IConversation"
 import { IErrorAnalysisEntity } from "./IErrorAnalysis"
-import { IVocabularyJSONEntry, VocabularyFrequencyLevelEnum } from "./IVocabulary"
+import { IVocabularyEntity, VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export interface IStatisticsHistory {
   start_time: Date // Время начала сессии
@@ -11,8 +11,8 @@ export interface IStatisticsHistory {
 }
 
 export interface IStatisticsVocabulary {
-  new_words: IVocabularyJSONEntry[]
-  repeated_words: IVocabularyJSONEntry[]
+  new_words: IVocabularyEntity[]
+  repeated_words: IVocabularyEntity[]
 }
 
 export interface IStatistics {
@@ -20,11 +20,12 @@ export interface IStatistics {
   topic_title: string
   language: string
   user_language: string
-  created_at: string
   history: IStatisticsHistory
   error_analysis: IErrorAnalysisEntity[]
   vocabulary: IStatisticsVocabulary
   suggestion: string
   conclusion: string
   user_cefr_level: VocabularyFrequencyLevelEnum
+  updated_at: Date
+  created_at: Date
 }

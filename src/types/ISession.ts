@@ -21,6 +21,7 @@ export interface ISessionEntity {
   status: SessionStatusEnum
   system_prompt: string
   session_directory: string
+  updated_at: Date
   created_at: Date
   ended_at: Date
 }

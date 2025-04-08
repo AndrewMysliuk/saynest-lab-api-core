@@ -21,6 +21,7 @@ export class SessionRepository implements IRepository {
       system_prompt,
       session_directory,
       status: SessionStatusEnum.ACTIVE,
+      updated_at: new Date(),
       created_at: new Date(),
     })
 

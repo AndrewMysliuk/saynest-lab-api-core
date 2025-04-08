@@ -11,62 +11,47 @@ export enum VocabularyFrequencyLevelEnum {
   C2 = "C2",
 }
 
-export enum VocabularySourceEnum {
-  CLICK = "CLICK",
-  REPEATED = "REPEATED",
-  THEMATIC = "THEMATIC",
-  MANUAL = "MANUAL",
-}
-
-export interface IVocabularyEntity {
-  _id: ObjectId
-  user_id: ObjectId
-  session_id: ObjectId
-  language: string
-  word: string
-  translation: string
-  meaning: string
-  part_of_speech: string
-  frequency_level: VocabularyFrequencyLevelEnum
-  source: VocabularySourceEnum
-  usage_count: number
-  first_used_at: Date
-  last_used_at: Date
-  is_archived: boolean
-  //   is_favorite?: boolean
-  //   context_message?: string
-  //   synonyms?: string[]
-  //   examples?: string[]
-}
-
 export enum PartOfSpeechEnum {
-  noun = "noun",
-  verb = "verb",
-  adjective = "adjective",
+  noun = "noun", // существительное
+  pronoun = "pronoun", // местоимение
+  verb = "verb", // глагол
+  adjective = "adjective", // прилагательное
+  adverb = "adverb", // наречие
+  preposition = "preposition", // предлог
+  conjunction = "conjunction", // союз
+  interjection = "interjection", // междометие
+  article = "article", // артикль (в английском)
+  numeral = "numeral", // числительное
+  particle = "particle", // частица (в некоторых языках, напр. в русском)
+  determiner = "determiner", // определяющее слово (например, this, those)
 }
 
-export interface IMeaningJSONEntry {
+export interface IMeaningEntity {
   part_of_speech: PartOfSpeechEnum
   translation: string
   meaning: string
   synonyms: string[]
 }
 
-export interface IVocabularyJSONEntry {
+export interface IVocabularyEntity {
+  _id: ObjectId
+  session_id: ObjectId
   language: string
   translation_language: string
   word: string
   frequency_level: VocabularyFrequencyLevelEnum
-  meanings: IMeaningJSONEntry[]
+  meanings: IMeaningEntity[]
   audio_base64: string | null
-  repeated_count?: number
+  updated_at: Date
+  created_at: Date
 }
 
-export interface IVocabularyJSONEntryWrapper {
-  entries: IVocabularyJSONEntry[]
+export interface IVocabularyEntityWrapper {
+  entries: IVocabularyEntity[]
 }
 
 export interface IWordExplanationRequest {
+  session_id: string
   language: string
   translation_language: string
   word: string
@@ -74,6 +59,7 @@ export interface IWordExplanationRequest {
 
 export interface ISearchSynonymsRequest {
   payload: IGPTPayload
+  session_id: string
   language: string
   translation_language: string
 }

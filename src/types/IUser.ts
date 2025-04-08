@@ -14,5 +14,6 @@ export interface IUserEntity {
   last_name: string
   country: string
   role: UserRoleEnum
+  updated_at: Date
   created_at: Date
 }

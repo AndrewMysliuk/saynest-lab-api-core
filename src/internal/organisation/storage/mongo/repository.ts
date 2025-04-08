@@ -9,6 +9,7 @@ export class OrganisationRepository implements IRepository {
     const organization = await OrganizationModel.create({
       name: data.name,
       owner_id: data.owner_id,
+      updated_at: new Date(),
       created_at: new Date(),
     })
 

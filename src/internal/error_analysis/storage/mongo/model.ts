@@ -26,13 +26,20 @@ const IssueSchema = new Schema<IssueItem>(
   { _id: false },
 )
 
-const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>({
-  session_id: { type: String, required: true },
-  message: { type: String, required: true },
-  issues: { type: [IssueSchema], default: [] },
-  summary_comment: String,
-  has_errors: { type: Boolean, required: true },
-  created_at: { type: Date, default: Date.now },
-})
+const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>(
+  {
+    session_id: { type: String, required: true },
+    message: { type: String, required: true },
+    issues: { type: [IssueSchema], default: [] },
+    summary_comment: String,
+    has_errors: { type: Boolean, required: true },
+  },
+  {
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
+  },
+)
 
 export const ErrorAnalysisModel = mongoose.model<IErrorAnalysisDocument>(MODEL_NAME, ErrorAnalysisSchema)

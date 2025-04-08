@@ -1,57 +1,49 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IVocabularyEntity } from "../../../../types"
+import { IVocabularyEntity, IWordExplanationRequest } from "../../../../types"
 import { VocabularyModel } from "../mongo/model"
 
 export class VocabularyRepository implements IRepository {
-  async list(user_id: string): Promise<IVocabularyEntity[]> {
-    return VocabularyModel.find({ user_id: new Types.ObjectId(user_id), is_archived: false }).sort({ last_used_at: -1 })
+  async list(): Promise<IVocabularyEntity[]> {
+    return VocabularyModel.find()
   }
 
-  async getByUserId(user_id: string, word: string): Promise<IVocabularyEntity | null> {
-    return VocabularyModel.findOne({
-      user_id: new Types.ObjectId(user_id),
-      word: word.toLowerCase(),
-      is_archived: false,
-    })
-  }
+  async getBySessionId(session_id: string): Promise<IVocabularyEntity[] | null> {
+    if (!Types.ObjectId.isValid(session_id)) return null
 
-  async getBySessionId(session_id: string, word: string): Promise<IVocabularyEntity | null> {
-    return VocabularyModel.findOne({
+    return VocabularyModel.find({
       session_id: new Types.ObjectId(session_id),
-      word: word.toLowerCase(),
-      is_archived: false,
     })
   }
 
-  async set(data: Partial<IVocabularyEntity>): Promise<IVocabularyEntity> {
-    if (!data.user_id || !data.word || !data.session_id) {
-      throw new Error("Missing required fields: user_id, session_id, word")
+  async getByWord({ word, language, translation_language }: IWordExplanationRequest): Promise<IVocabularyEntity | null> {
+    return VocabularyModel.findOne({ word, language, translation_language })
+  }
+
+  async create(data: IVocabularyEntity): Promise<IVocabularyEntity> {
+    return VocabularyModel.create(data)
+  }
+
+  async patchAudio(id: string, audio_base64: string | null): Promise<IVocabularyEntity> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid ID")
     }
 
-    const existing = await VocabularyModel.findOne({
-      user_id: data.user_id,
-      word: data.word.toLowerCase(),
-    })
+    const updated = await VocabularyModel.findByIdAndUpdate(id, { audio_base64 }, { new: true })
 
-    if (existing) {
-      existing.usage_count += 1
-      existing.last_used_at = new Date()
-      return await existing.save()
+    if (!updated) {
+      throw new Error("Vocabulary entry not found")
     }
 
-    const now = new Date()
+    return updated.toObject()
+  }
 
-    const created = await VocabularyModel.create({
-      ...data,
-      word: data.word?.toLowerCase(),
-      usage_count: 1,
-      first_used_at: now,
-      last_used_at: now,
-      is_archived: false,
-    })
+  async delete(id: string): Promise<void> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid ID")
+    }
 
-    return created.toObject()
+    await VocabularyModel.findByIdAndDelete(id)
   }
 }

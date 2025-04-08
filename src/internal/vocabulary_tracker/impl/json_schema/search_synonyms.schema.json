@@ -1,57 +1,65 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VocabularyEntityWrapper",
   "type": "object",
+  "required": ["entries"],
   "properties": {
     "entries": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          },
-          "translation_language": {
-            "type": "string"
-          },
-          "word": {
-            "type": "string"
-          },
-          "frequency_level": {
-            "type": "string",
-            "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
-          },
-          "meanings": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "part_of_speech": {
-                  "type": "string",
-                  "enum": ["noun", "verb", "adjective"]
-                },
-                "translation": {
-                  "type": "string"
-                },
-                "meaning": {
-                  "type": "string"
-                },
-                "synonyms": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": ["part_of_speech", "translation", "meaning", "synonyms"]
-            }
-          },
-          "audio_base64": {
-            "type": ["string", "null"]
-          }
-        },
-        "required": ["language", "translation_language", "word", "frequency_level", "meanings", "audio_base64"]
+        "$ref": "#/definitions/IVocabularyEntity"
       }
     }
   },
-  "required": ["entries"]
+  "definitions": {
+    "IVocabularyEntity": {
+      "type": "object",
+      "required": ["language", "translation_language", "word", "frequency_level", "meanings", "created_at", "updated_at"],
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "translation_language": {
+          "type": "string"
+        },
+        "word": {
+          "type": "string"
+        },
+        "frequency_level": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
+        },
+        "meanings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["part_of_speech", "translation", "meaning", "synonyms"],
+            "properties": {
+              "part_of_speech": {
+                "type": "string",
+                "enum": ["noun", "pronoun", "verb", "adjective", "adverb", "preposition", "conjunction", "interjection", "article", "numeral", "particle", "determiner"]
+              },
+              "translation": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": "string"
+              },
+              "synonyms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "audio_base64": {
+          "type": ["string", "null"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
 }

@@ -14,7 +14,7 @@ export function buildVocabularySystemPrompt(language: string, translation_langua
     "audio_base64": string | null,       // base64-encoded pronunciation audio for the word (ignore and set null by default)
     "meanings": [
       {
-        "part_of_speech": string,       // part of speech: one of "noun", "verb", or "adjective"
+        "part_of_speech": string,       // part of speech: one of "noun", "verb", "pronoun", "adverb", "preposition", "conjunction", "interjection", "article", "numeral", "particle", "determiner" or "adjective"
         "translation": string,          // translation of the word in the target language
         "meaning": string,              // a concise definition in the target language
         "synonyms": string[]            // list of synonyms in the target language

@@ -26,6 +26,7 @@ export interface IErrorAnalysisEntity {
   issues: IssueItem[]
   summary_comment?: string
   has_errors: boolean
+  updated_at: Date
   created_at: Date
 }
 

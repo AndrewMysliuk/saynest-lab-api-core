@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "IVocabularyJSONEntry",
+  "title": "VocabularyEntity",
   "type": "object",
-  "required": ["language", "translation_language", "word", "frequency_level", "meanings", "audio_base64"],
+  "required": ["language", "translation_language", "word", "frequency_level", "meanings", "created_at", "updated_at"],
   "properties": {
     "language": {
       "type": "string"
@@ -17,9 +17,6 @@
       "type": "string",
       "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
     },
-    "audio_base64": {
-      "type": ["string", "null"]
-    },
     "meanings": {
       "type": "array",
       "items": {
@@ -28,7 +25,7 @@
         "properties": {
           "part_of_speech": {
             "type": "string",
-            "enum": ["noun", "verb", "adjective"]
+            "enum": ["noun", "pronoun", "verb", "adjective", "adverb", "preposition", "conjunction", "interjection", "article", "numeral", "particle", "determiner"]
           },
           "translation": {
             "type": "string"
@@ -44,6 +41,10 @@
           }
         }
       }
+    },
+    "audio_base64": {
+      "type": ["string", "null"]
     }
-  }
+  },
+  "additionalProperties": false
 }
