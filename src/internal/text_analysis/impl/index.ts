@@ -1,6 +1,7 @@
 import { ITextAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { IGPTPayload, ISimulationDialogResponse, ITextAnalysisResponse } from "../../../types"
+import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import ConversationResponseSchema from "./json_schema/conversation_response.schema.json"
 import SimulationStartResponseSchema from "./json_schema/simulation_start_response.schema.json"
@@ -63,7 +64,10 @@ export class TextAnalysisService implements ITextAnalysis {
         throw new Error("no tool response returned by model.")
       }
 
-      return JSON.parse(toolCall.function.arguments) as ITextAnalysisResponse
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<ITextAnalysisResponse>(rawParsed, ConversationResponseSchema)
+
+      return modelResponse
     } catch (error: unknown) {
       logger.error(`gptConversation | error: ${error}`)
       throw error
@@ -119,7 +123,10 @@ export class TextAnalysisService implements ITextAnalysis {
         throw new Error("no tool response returned by model.")
       }
 
-      return JSON.parse(toolCall.function.arguments) as ISimulationDialogResponse
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<ISimulationDialogResponse>(rawParsed, SimulationStartResponseSchema)
+
+      return modelResponse
     } catch (error: unknown) {
       logger.error(`createScenarioDialog | error: ${error}`)
       throw error

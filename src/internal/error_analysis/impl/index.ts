@@ -2,6 +2,7 @@ import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IGPTPayload } from "../../../types"
 import { trimmedMessageHistoryForErrorAnalyser } from "../../../utils"
+import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ILanguageTheory } from "../../language_theory"
 import { IRepository } from "../storage"
@@ -82,7 +83,8 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         throw new Error("no tool response returned by model.")
       }
 
-      const modelResponse = JSON.parse(toolCall.function.arguments) as IErrorAnalysisModelEntity
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<IErrorAnalysisModelEntity>(rawParsed, ConversationErrorAnalyserSchema)
 
       return await this.errorAnalysisRepo.setErrorAnalysis(session_id, lastUserMessage.content, modelResponse)
     } catch (error: unknown) {

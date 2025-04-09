@@ -1,39 +1,45 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Reorder Sentence Task",
-  "description": "A sentence reordering task. Each item contains a shuffled version of a sentence and the correct word order. An optional explanation can be provided to clarify grammar or word order logic.",
+  "description": "A sentence reordering task. Each item contains a shuffled sentence and the correct word order.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
-      "description": "An array of sentence reordering items. Each item provides the correct word order and a shuffled version of the sentence.",
+      "description": "List of sentence reordering items.",
       "items": {
         "type": "object",
         "required": ["correct_order", "shuffled"],
         "properties": {
           "correct_order": {
             "type": "array",
-            "description": "An array of words in their correct order, forming a grammatically valid sentence.",
+            "description": "Correct order of words in the sentence.",
             "minItems": 2,
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "shuffled": {
             "type": "array",
-            "description": "The same words from 'correct_order', but shuffled randomly.",
+            "description": "Same words from correct_order, shuffled.",
             "minItems": 2,
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "explanation": {
             "type": "string",
-            "description": "An optional explanation of why the correct order is correct. Useful for grammar instruction or feedback."
+            "description": "Optional explanation.",
+            "minLength": 1
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
-  }
+  },
+  "additionalProperties": false
 }

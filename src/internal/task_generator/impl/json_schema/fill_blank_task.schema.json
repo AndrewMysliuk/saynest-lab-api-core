@@ -1,6 +1,7 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Fill Blank Task",
-  "description": "This object represents a fill-in-the-blank exercise where each sentence contains one or more blanks. Each blank must be filled in using one correct word chosen from multiple options. The main field is 'sentences', a list of tasks.",
+  "description": "A fill-in-the-blank task with multiple sentences and options.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
@@ -13,29 +14,38 @@
         "properties": {
           "sentence_with_blanks": {
             "type": "string",
-            "description": "A sentence with one or more missing words represented by underscores (___). Each blank should match a correct answer."
+            "minLength": 1,
+            "description": "Sentence with one or more blanks marked with underscores (___)."
           },
           "correct_answers": {
             "type": "array",
-            "items": { "type": "string" },
             "minItems": 1,
-            "description": "An array of correct words that fill in the blanks, in the order they appear in the sentence."
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Correct answers for the blanks, in order."
           },
           "options": {
             "type": "array",
+            "minItems": 1,
             "items": {
               "type": "array",
-              "items": { "type": "string" },
-              "minItems": 3
+              "minItems": 3,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
             },
-            "minItems": 1,
-            "description": "An array of arrays. Each inner array contains multiple choices for one blank (including the correct answer). Do not create a separate array for each individual option — each blank should have exactly one array with at least three choices."
+            "description": "Options per blank. Each inner array must include the correct answer."
           },
           "explanation": {
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
-  }
+  },
+  "additionalProperties": false
 }

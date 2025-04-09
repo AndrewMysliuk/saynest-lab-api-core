@@ -2,7 +2,8 @@ import { ObjectId, Types } from "mongoose"
 
 import { IVocabularyTracker } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyEntityWrapper, IWordExplanationRequest } from "../../../types"
+import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyEntityWrapper, IVocabularyJSONEntity, IWordExplanationRequest } from "../../../types"
+import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../../text_to_speach"
 import { IRepository } from "../storage"
@@ -19,7 +20,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     this.textToSpeachService = textToSpeachService
   }
 
-  async getWordExplanation(dto: IWordExplanationRequest): Promise<IVocabularyEntity> {
+  async getWordExplanation(dto: IWordExplanationRequest): Promise<IVocabularyJSONEntity> {
     try {
       const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
 
@@ -75,17 +76,18 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         throw new Error("No tool response returned by model.")
       }
 
-      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyEntity
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<IVocabularyJSONEntity>(rawParsed, WordExplanationSchema)
 
       if (isSessionIdValid) {
         const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
         await this.vocabularyTrackerRepo.create({
-          ...parsed,
+          ...modelResponse,
           session_id: sessionId,
         })
       }
 
-      return parsed
+      return modelResponse
     } catch (error: unknown) {
       logger.error("VocabularyTrackerService | error in getWordExplanation: ", error)
       throw error
@@ -130,7 +132,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     }
   }
 
-  async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyEntity[]> {
+  async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyJSONEntity[]> {
     try {
       const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
 
@@ -187,11 +189,12 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         throw new Error("No tool response returned by model.")
       }
 
-      const parsed = JSON.parse(toolCall.function.arguments) as IVocabularyEntityWrapper
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<IVocabularyEntityWrapper>(rawParsed, SearchSynonymsSchema)
 
       const existingEntries = await this.vocabularyTrackerRepo.list()
 
-      const newWords = parsed.entries.filter(
+      const newWords = modelResponse.entries.filter(
         (item) =>
           !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === item.language && entry.translation_language === item.translation_language),
       )

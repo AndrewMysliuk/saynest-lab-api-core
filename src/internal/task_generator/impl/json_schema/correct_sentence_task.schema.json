@@ -1,31 +1,36 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Correct Sentence Task",
-  "description": "A grammar correction task where users are shown a sentence containing an error and must identify or provide the corrected version. An optional explanation can be included to support learning.",
+  "description": "Grammar correction task: find and fix the mistake in the sentence.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
-      "description": "An array of sentence correction items. Each item includes a sentence with an error, the corrected version, and optionally, an explanation.",
       "items": {
         "type": "object",
         "required": ["sentence_with_error", "corrected_sentence"],
         "properties": {
           "sentence_with_error": {
             "type": "string",
-            "description": "The original sentence that contains a grammatical or usage error."
+            "minLength": 1,
+            "description": "The sentence with an error."
           },
           "corrected_sentence": {
             "type": "string",
-            "description": "The corrected version of the sentence with the error fixed."
+            "minLength": 1,
+            "description": "The corrected sentence."
           },
           "explanation": {
             "type": "string",
-            "description": "An optional explanation of the correction, often describing the grammar rule or mistake that was fixed."
+            "minLength": 1,
+            "description": "Optional explanation of the correction."
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
-  }
+  },
+  "additionalProperties": false
 }

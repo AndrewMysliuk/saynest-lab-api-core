@@ -6,17 +6,18 @@
       "items": {
         "type": "object",
         "properties": {
-          "original_text": { "type": "string" },
-          "corrected_text": { "type": "string" },
+          "original_text": { "type": "string", "minLength": 1 },
+          "corrected_text": { "type": "string", "minLength": 1 },
           "error_words": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "id": { "type": "string" },
-                "value": { "type": "string" }
+                "id": { "type": "string", "minLength": 1 },
+                "value": { "type": "string", "minLength": 1 }
               },
-              "required": ["id", "value"]
+              "required": ["id", "value"],
+              "additionalProperties": false
             }
           },
           "corrected_words": {
@@ -24,20 +25,23 @@
             "items": {
               "type": "object",
               "properties": {
-                "id": { "type": "string" },
-                "value": { "type": "string" }
+                "id": { "type": "string", "minLength": 1 },
+                "value": { "type": "string", "minLength": 1 }
               },
-              "required": ["id", "value"]
+              "required": ["id", "value"],
+              "additionalProperties": false
             }
           },
-          "explanation": { "type": "string" },
-          "topic_tag": { "type": "string" }
+          "explanation": { "type": "string", "minLength": 1 },
+          "topic_tag": { "type": "string", "minLength": 1 }
         },
-        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"]
+        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"],
+        "additionalProperties": false
       }
     },
     "summary_comment": { "type": "string" },
     "has_errors": { "type": "boolean" }
   },
-  "required": ["issues", "has_errors"]
+  "required": ["issues", "has_errors"],
+  "additionalProperties": false
 }

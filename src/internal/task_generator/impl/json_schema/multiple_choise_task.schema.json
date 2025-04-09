@@ -1,43 +1,49 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Multiple Choice Question Task",
-  "description": "A task containing multiple choice questions. Each question includes a prompt, several answer options, one or more correct answers (by index), and an optional explanation.",
+  "description": "Task with multiple choice questions and correct answer indexes.",
   "type": "object",
   "required": ["sentences"],
   "properties": {
     "sentences": {
       "type": "array",
       "minItems": 1,
-      "description": "An array of multiple choice questions. Each item includes a question string, answer options, indexes of the correct options, and optionally an explanation.",
       "items": {
         "type": "object",
         "required": ["question", "options", "correct_option_indexes"],
         "properties": {
           "question": {
             "type": "string",
-            "description": "The text of the question being asked."
+            "minLength": 1,
+            "description": "Question prompt"
           },
           "options": {
             "type": "array",
-            "description": "An array of possible answers to choose from. Must contain at least two options.",
             "minItems": 2,
             "items": {
-              "type": "string"
-            }
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Answer choices"
           },
           "correct_option_indexes": {
             "type": "array",
-            "description": "An array of integers representing the indexes of the correct options in the 'options' array.",
             "minItems": 1,
             "items": {
-              "type": "number"
-            }
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Indexes of correct answers"
           },
           "explanation": {
             "type": "string",
-            "description": "Optional explanation for why the selected answer(s) is correct. Useful for educational feedback."
+            "minLength": 1,
+            "description": "Why this is the right answer"
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
-  }
+  },
+  "additionalProperties": false
 }

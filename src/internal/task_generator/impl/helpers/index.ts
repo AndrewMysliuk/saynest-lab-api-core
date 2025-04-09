@@ -1,4 +1,5 @@
 import { ICorrectSentenceTask, IFillBlankTask, IListenAndTypeTask, IMatchTranslationTask, IMultipleChoiceTask, IReorderWordsTask, TaskTypeEnum } from "../../../../types"
+import { validateToolResponse } from "../../../../utils"
 import correctSentenceTask from "../json_schema/correct_sentence_task.schema.json"
 import type correctSentenceSchema from "../json_schema/correct_sentence_task.schema.json"
 import fillBlankTask from "../json_schema/fill_blank_task.schema.json"
@@ -88,8 +89,10 @@ export function getTaskDefinition<T extends TaskTypeEnum>(
     throw new Error(`Unsupported task type: ${type}`)
   }
 
+  const schema = def.schema as TaskTypeMap[T]["request_schema"]
+
   return {
-    schema: def.schema as TaskTypeMap[T]["request_schema"],
-    parseResponse: def.parseResponse as (data: unknown) => TaskTypeMap[T]["response_type"],
+    schema,
+    parseResponse: (data: unknown) => validateToolResponse<TaskTypeMap[T]["response_type"]>(data, schema),
   }
 }

@@ -1,31 +1,26 @@
 {
   "type": "object",
   "properties": {
-    "detected_language": { "type": "string" },
+    "detected_language": { "type": "string", "minLength": 1 },
     "is_target_language": { "type": "boolean" },
-    "topic": { "type": "string" },
+    "topic": { "type": "string", "minLength": 1 },
     "subtopics": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
     },
     "keywords": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
     },
     "sentence_structure": {
       "type": "string",
       "enum": ["simple", "compound", "complex"]
     },
     "comment_to_user": { "type": "string" },
-    "reply_to_user": { "type": "string" }
+    "reply_to_user": { "type": "string", "minLength": 1 }
   },
-  "required": [
-    "detected_language",
-    "is_target_language",
-    "topic",
-    "subtopics",
-    "keywords",
-    "sentence_structure",
-    "reply_to_user"
-  ]
+  "required": ["detected_language", "is_target_language", "topic", "subtopics", "keywords", "sentence_structure", "reply_to_user"],
+  "additionalProperties": false
 }

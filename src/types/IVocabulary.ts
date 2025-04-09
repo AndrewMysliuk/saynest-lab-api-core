@@ -46,8 +46,17 @@ export interface IVocabularyEntity {
   created_at: Date
 }
 
+export interface IVocabularyJSONEntity {
+  language: string
+  translation_language: string
+  word: string
+  frequency_level: VocabularyFrequencyLevelEnum
+  meanings: IMeaningEntity[]
+  audio_base64: string | null
+}
+
 export interface IVocabularyEntityWrapper {
-  entries: IVocabularyEntity[]
+  entries: IVocabularyJSONEntity[]
 }
 
 export interface IWordExplanationRequest {

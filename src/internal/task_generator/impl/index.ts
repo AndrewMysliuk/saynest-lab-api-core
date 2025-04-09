@@ -67,8 +67,8 @@ export class TaskGeneratorService implements ITaskGenerator {
         throw new Error("no tool response returned by model.")
       }
 
-      const data = JSON.parse(toolCall.function.arguments)
-      const formattedData = parseResponse(data)
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const formattedData = parseResponse(rawParsed)
 
       if (request.type === TaskTypeEnum.LISTEN_AND_TYPE && request.mode === TaskModeEnum.LISTEN_AND_WRITE) {
         const records = await this.textToSpeachService.ttsTextToSpeechListeningTask(
