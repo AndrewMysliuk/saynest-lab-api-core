@@ -1,6 +1,8 @@
-import { IStatistics } from "../../types"
+import { IStatistics, IStatisticsGenerateRequest } from "../../types"
 
-export interface ICommunicationReview {
-  generateConversationReview(session_id: string): Promise<IStatistics>
-  list(): Promise<IStatistics[]>
+export interface ICommunicationReviewService {
+  generateConversationReview(dto: IStatisticsGenerateRequest): Promise<IStatistics>
+  reviewsList(): Promise<IStatistics[]>
+  deleteReview(id: string): Promise<void>
+  getReview(id: string): Promise<IStatistics>
 }

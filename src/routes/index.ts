@@ -1,5 +1,8 @@
 import { Router } from "express"
 
+import { CommunicationReviewService } from "../internal/communication_review/impl"
+import { createCommunicationReviewRouter } from "../internal/communication_review/router"
+import { CommunicationReviewRepository } from "../internal/communication_review/storage/mongo/repository"
 import { ConversationService } from "../internal/conversation/impl"
 import { createConversationRouter } from "../internal/conversation/router"
 import { HistoryRepository } from "../internal/conversation/storage/mongo/repository"
@@ -34,6 +37,7 @@ const sessionRepo = new SessionRepository()
 const vocabularyRepo = new VocabularyRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
 const historyRepo = new HistoryRepository()
+const communicationReviewRepo = new CommunicationReviewRepository()
 
 // Services
 const sessionService = new SessionService(sessionRepo)
@@ -46,6 +50,7 @@ const taskGeneratorService = new TaskGeneratorService(languageTheoryService, tex
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService)
 const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
+const communicationReviewService = new CommunicationReviewService(communicationReviewRepo)
 
 const router = Router()
 
@@ -59,5 +64,6 @@ router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))
 router.use("/text-analysis", createTextAnalysisRouter(textAnalysisService))
 router.use("/text-to-speach", createTextToSpeachRouter(textToSpeachService))
 router.use("/conversation", createConversationRouter(conversationService))
+router.use("/communication-review", createCommunicationReviewRouter(communicationReviewService))
 
 export default router
