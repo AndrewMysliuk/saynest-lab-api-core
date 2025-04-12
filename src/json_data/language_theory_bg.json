@@ -1,7 +1,7 @@
 [
   {
     "id": "bg_001",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Българската азбука",
     "title_translations": {
@@ -117,7 +117,7 @@
   },
   {
     "id": "bg_002",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Лични местоимения",
     "title_translations": {
@@ -215,7 +215,7 @@
   },
   {
     "id": "bg_003",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Глаголът „съм“ в сегашно време",
     "title_translations": {
@@ -309,7 +309,7 @@
   },
   {
     "id": "bg_004",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Сегашно време на глаголи от първо и второ спрежение",
     "title_translations": {
@@ -393,7 +393,7 @@
   },
   {
     "id": "bg_005",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Сегашно време на неправилни глаголи",
     "title_translations": {
@@ -461,7 +461,7 @@
   },
   {
     "id": "bg_006",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Въпросителни думи",
     "title_translations": {
@@ -532,7 +532,7 @@
   },
   {
     "id": "bg_007",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Прости съобщителни изречения",
     "title_translations": {
@@ -597,7 +597,7 @@
   },
   {
     "id": "bg_008",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Отрицание с „не“",
     "title_translations": {
@@ -695,7 +695,7 @@
   },
   {
     "id": "bg_009",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Числителни 0–100",
     "title_translations": {
@@ -786,7 +786,7 @@
   },
   {
     "id": "bg_010",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Редни числителни имена",
     "title_translations": {
@@ -858,7 +858,7 @@
   },
   {
     "id": "bg_011",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Определителен член (постпозитивна форма)",
     "title_translations": {
@@ -925,7 +925,7 @@
   },
   {
     "id": "bg_012",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Показателни местоимения",
     "title_translations": {
@@ -991,7 +991,7 @@
   },
   {
     "id": "bg_013",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Притежателни местоимения",
     "title_translations": {
@@ -1061,7 +1061,7 @@
   },
   {
     "id": "bg_014",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Род и число на съществителни",
     "title_translations": {
@@ -1133,7 +1133,7 @@
   },
   {
     "id": "bg_015",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Прилагателни и съгласуване по род",
     "title_translations": {
@@ -1199,7 +1199,7 @@
   },
   {
     "id": "bg_016",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Наречия (прости)",
     "title_translations": {
@@ -1265,7 +1265,7 @@
   },
   {
     "id": "bg_017",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Прост словоред",
     "title_translations": {
@@ -1330,7 +1330,7 @@
   },
   {
     "id": "bg_018",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Прости предлози (в, на, под)",
     "title_translations": {
@@ -1401,7 +1401,7 @@
   },
   {
     "id": "bg_019",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A1",
     "title": "Формули за поздрав и сбогуване",
     "title_translations": {
@@ -1464,7 +1464,7 @@
   },
   {
     "id": "bg_020",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Бъдеще време с „ще“",
     "title_translations": {
@@ -1524,7 +1524,7 @@
   },
   {
     "id": "bg_021",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Минало време (аорист)",
     "title_translations": {
@@ -1584,7 +1584,7 @@
   },
   {
     "id": "bg_022",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Перфект (минало неопределено време)",
     "title_translations": {
@@ -1644,7 +1644,7 @@
   },
   {
     "id": "bg_023",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Повелително наклонение (императив)",
     "title_translations": {
@@ -1700,7 +1700,7 @@
   },
   {
     "id": "bg_024",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Сравнителна и превъзходна степен",
     "title_translations": {
@@ -1757,7 +1757,7 @@
   },
   {
     "id": "bg_025",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Възвратни глаголи с „се“",
     "title_translations": {
@@ -1815,7 +1815,7 @@
   },
   {
     "id": "bg_026",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Наречия за място и време",
     "title_translations": {
@@ -1877,7 +1877,7 @@
   },
   {
     "id": "bg_027",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Сложни числителни (дати, час)",
     "title_translations": {
@@ -1936,7 +1936,7 @@
   },
   {
     "id": "bg_028",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Склонение на съществителни в множествено число",
     "title_translations": {
@@ -2012,7 +2012,7 @@
   },
   {
     "id": "bg_029",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Въпросителни и съобщителни форми на глаголи",
     "title_translations": {
@@ -2086,7 +2086,7 @@
   },
   {
     "id": "bg_030",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Частици „ли“, „нека“, „дали“",
     "title_translations": {
@@ -2167,7 +2167,7 @@
   },
   {
     "id": "bg_031",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Прости причастия",
     "title_translations": {
@@ -2242,7 +2242,7 @@
   },
   {
     "id": "bg_032",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Често използвани въвеждащи конструкции",
     "title_translations": {
@@ -2310,7 +2310,7 @@
   },
   {
     "id": "bg_033",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Словоред при отрицание и въпрос",
     "title_translations": {
@@ -2384,7 +2384,7 @@
   },
   {
     "id": "bg_034",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "A2",
     "title": "Предлози за причина и цел (заради, за да)",
     "title_translations": {
@@ -2457,7 +2457,7 @@
   },
   {
     "id": "bg_035",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Сложносъчинени изречения (и, но, или)",
     "title_translations": {
@@ -2522,7 +2522,7 @@
   },
   {
     "id": "bg_036",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Сложноподчинени изречения (че, защото, когато)",
     "title_translations": {
@@ -2587,7 +2587,7 @@
   },
   {
     "id": "bg_037",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Условни конструкции (ако)",
     "title_translations": {
@@ -2652,7 +2652,7 @@
   },
   {
     "id": "bg_038",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Косвена реч",
     "title_translations": {
@@ -2717,7 +2717,7 @@
   },
   {
     "id": "bg_039",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Бъдеще в миналото („щях да“)",
     "title_translations": {
@@ -2785,7 +2785,7 @@
   },
   {
     "id": "bg_040",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Инфинитивни конструкции (искам да, мога да)",
     "title_translations": {
@@ -2852,7 +2852,7 @@
   },
   {
     "id": "bg_041",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Причастни изрази",
     "title_translations": {
@@ -2928,7 +2928,7 @@
   },
   {
     "id": "bg_042",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Глаголи за движение и посока",
     "title_translations": {
@@ -2996,7 +2996,7 @@
   },
   {
     "id": "bg_043",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Двойно отрицание с „не“",
     "title_translations": {
@@ -3061,7 +3061,7 @@
   },
   {
     "id": "bg_044",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Модални конструкции (би трябвало, може да)",
     "title_translations": {
@@ -3119,7 +3119,7 @@
   },
   {
     "id": "bg_045",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Страдателен залог (пасив)",
     "title_translations": {
@@ -3184,7 +3184,7 @@
   },
   {
     "id": "bg_046",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Сравнителни конструкции („по-… от“)",
     "title_translations": {
@@ -3250,7 +3250,7 @@
   },
   {
     "id": "bg_047",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Относителни местоимения („който“)",
     "title_translations": {
@@ -3316,7 +3316,7 @@
   },
   {
     "id": "bg_048",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B1",
     "title": "Неопределени местоимения и наречия („някой“, „нещо“, „където“)",
     "title_translations": {
@@ -3375,7 +3375,7 @@
   },
   {
     "id": "bg_049",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Сложни подчинени конструкции („въпреки че“, „преди да“, „в случай че“)",
     "title_translations": {
@@ -3432,7 +3432,7 @@
   },
   {
     "id": "bg_050",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Преходни конструкции („казва се, че…“)",
     "title_translations": {
@@ -3498,7 +3498,7 @@
   },
   {
     "id": "bg_051",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Формални конструкции („бих искал да…“, „необходимо е да…“)",
     "title_translations": {
@@ -3556,7 +3556,7 @@
   },
   {
     "id": "bg_052",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Глаголни конструкции с оттенък на вероятност („може би“, „навярно“)",
     "title_translations": {
@@ -3623,7 +3623,7 @@
   },
   {
     "id": "bg_053",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Емоционални частици („нали“, „ама“, „бе“)",
     "title_translations": {
@@ -3688,7 +3688,7 @@
   },
   {
     "id": "bg_054",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Стилистика на речта (официален/разговорен стил)",
     "title_translations": {
@@ -3758,7 +3758,7 @@
   },
   {
     "id": "bg_055",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Нюанси на миналите времена",
     "title_translations": {
@@ -3823,7 +3823,7 @@
   },
   {
     "id": "bg_056",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "B2",
     "title": "Разширен синтаксис: вметнати конструкции",
     "title_translations": {
@@ -3888,7 +3888,7 @@
   },
   {
     "id": "bg_057",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C1",
     "title": "Конструкции с условни и отстъпителни съюзи",
     "title_translations": {
@@ -3952,7 +3952,7 @@
   },
   {
     "id": "bg_058",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C1",
     "title": "Преходи между стилове (разговорен → академичен)",
     "title_translations": {
@@ -4011,7 +4011,7 @@
   },
   {
     "id": "bg_059",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C1",
     "title": "Сложни съставни сказуеми",
     "title_translations": {
@@ -4069,7 +4069,7 @@
   },
   {
     "id": "bg_060",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Литературни и риторични конструкции",
     "title_translations": {
@@ -4128,7 +4128,7 @@
   },
   {
     "id": "bg_061",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Формални въвеждащи думи и изрази",
     "title_translations": {
@@ -4187,7 +4187,7 @@
   },
   {
     "id": "bg_062",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Контекстуални съкращения и обобщения",
     "title_translations": {
@@ -4257,7 +4257,7 @@
   },
   {
     "id": "bg_063",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Метафори и устойчиви изрази",
     "title_translations": {
@@ -4331,7 +4331,7 @@
   },
   {
     "id": "bg_064",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Управление на глаголи и падежни конструкции",
     "title_translations": {
@@ -4390,7 +4390,7 @@
   },
   {
     "id": "bg_065",
-    "language": "Bulgarian",
+    "language": "bg",
     "cefr_level": "C2",
     "title": "Контекстуална омонимия и смислови нюанси",
     "title_translations": {
