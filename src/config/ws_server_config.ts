@@ -14,7 +14,7 @@ export const wsServerConfig = (server: HttpServer) => {
     })
 
     ws.on("error", (err) => {
-      logger.error(`WS | Error in client connection: ${err}`)
+      logger.error(`WS | Error in client connection: ${JSON.stringify(err)}`)
     })
   })
 

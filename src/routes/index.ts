@@ -50,7 +50,7 @@ const taskGeneratorService = new TaskGeneratorService(languageTheoryService, tex
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService)
 const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
-const communicationReviewService = new CommunicationReviewService(communicationReviewRepo)
+const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService)
 
 const router = Router()
 

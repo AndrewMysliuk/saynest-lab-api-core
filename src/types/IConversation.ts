@@ -19,8 +19,8 @@ export interface IConversationWhisper {
 }
 
 export interface IConversationPayload {
-  organization_id: string
-  user_id: string
+  // organization_id: string
+  // user_id: string
   whisper: IConversationWhisper
   gpt_model: IGPTPayload
   tts: ITTSPayload

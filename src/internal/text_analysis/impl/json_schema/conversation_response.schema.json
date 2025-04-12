@@ -6,13 +6,11 @@
     "topic": { "type": "string", "minLength": 1 },
     "subtopics": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 },
-      "minItems": 1
+      "items": { "type": "string" }
     },
     "keywords": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 },
-      "minItems": 1
+      "items": { "type": "string" }
     },
     "sentence_structure": {
       "type": "string",

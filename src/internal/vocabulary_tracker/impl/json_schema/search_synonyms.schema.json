@@ -15,7 +15,7 @@
   "definitions": {
     "IVocabularyJSONEntity": {
       "type": "object",
-      "required": ["language", "translation_language", "word", "frequency_level", "meanings", "audio_base64"],
+      "required": ["language", "translation_language", "word", "frequency_level", "meanings"],
       "properties": {
         "language": {
           "type": "string",

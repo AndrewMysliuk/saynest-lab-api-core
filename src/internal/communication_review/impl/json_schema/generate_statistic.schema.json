@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "suggestion": {
+      "type": "string"
+    },
+    "conclusion": {
+      "type": "string"
+    },
+    "user_cefr_level": {
+      "type": "string",
+      "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
+    }
+  },
+  "required": ["suggestion", "conclusion", "user_cefr_level"],
+  "additionalProperties": false
+}

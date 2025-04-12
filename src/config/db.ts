@@ -30,7 +30,7 @@ export const connectToDatabase = async () => {
       }
     }
   } catch (error: unknown) {
-    logger.error(`Failed to connect to MongoDB: ${error}`)
+    logger.error(`Failed to connect to MongoDB: ${JSON.stringify(error)}`)
     process.exit(1)
   }
 }

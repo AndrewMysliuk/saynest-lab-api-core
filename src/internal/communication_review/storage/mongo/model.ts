@@ -114,4 +114,6 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
   },
 )
 
+StatisticsSchema.index({ session_id: 1 }, { unique: true })
+
 export const StatisticsModel = mongoose.model<IStatisticsDocument>(MODEL_NAME, StatisticsSchema)

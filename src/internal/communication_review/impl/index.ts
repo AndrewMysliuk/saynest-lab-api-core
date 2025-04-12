@@ -1,20 +1,128 @@
+import mongoose, { ClientSession } from "mongoose"
+
 import { ICommunicationReviewService } from ".."
-import { IStatistics, IStatisticsGenerateRequest } from "../../../types"
+import { openaiREST } from "../../../config"
+import { GPTRoleType, IStatistics, IStatisticsGenerateRequest, IStatisticsModelResponse } from "../../../types"
+import { countHistoryData, validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
+import { IConversationService } from "../../conversation"
+import { IErrorAnalysis } from "../../error_analysis"
+import { ISessionService } from "../../session"
+import { IVocabularyTracker } from "../../vocabulary_tracker"
 import { IRepository } from "../storage"
+import GenerateStatisticSchema from "./json_schema/generate_statistic.schema.json"
+import { buildSystemPrompt, buildUserPrompt } from "./prompt"
 
 export class CommunicationReviewService implements ICommunicationReviewService {
   private readonly communicationReviewRepo: IRepository
+  private readonly errorAnalysisService: IErrorAnalysis
+  private readonly vocabularyTrackerService: IVocabularyTracker
+  private readonly conversationService: IConversationService
+  private readonly sessionService: ISessionService
 
-  constructor(communicationReviewRepo: IRepository) {
+  constructor(
+    communicationReviewRepo: IRepository,
+    errorAnalysisService: IErrorAnalysis,
+    vocabularyTrackerService: IVocabularyTracker,
+    conversationService: IConversationService,
+    sessionService: ISessionService,
+  ) {
     this.communicationReviewRepo = communicationReviewRepo
+    this.errorAnalysisService = errorAnalysisService
+    this.vocabularyTrackerService = vocabularyTrackerService
+    this.conversationService = conversationService
+    this.sessionService = sessionService
   }
 
   async generateConversationReview(dto: IStatisticsGenerateRequest): Promise<IStatistics> {
     try {
-      // TODO
+      const statisticReview = await this.communicationReviewRepo.getBySessionId(dto.session_id)
 
-      return {} as IStatistics
+      if (statisticReview && statisticReview.session_id === dto.session_id) {
+        return statisticReview
+      }
+
+      const [historyList, errorsList, vocabularyList] = await Promise.all([
+        this.conversationService.listConversationHistory(dto.session_id),
+        this.errorAnalysisService.listConversationErrors(dto.session_id),
+        this.vocabularyTrackerService.wordsListBySessionId(dto.session_id),
+      ])
+
+      const messages: Array<{ role: GPTRoleType; content: string }> = [
+        { role: "system", content: buildSystemPrompt(dto.language, dto.user_language) },
+        { role: "user", content: buildUserPrompt(historyList, errorsList, vocabularyList, dto.language, dto.user_language) },
+      ]
+
+      const response = await openaiREST.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages,
+        temperature: 0.7,
+        max_tokens: 3000,
+        tools: [
+          {
+            type: "function",
+            function: {
+              name: "structured_response_tool",
+              description: "Process user conversation and provide structured JSON response.",
+              parameters: GenerateStatisticSchema,
+            },
+          },
+        ],
+        tool_choice: {
+          type: "function",
+          function: { name: "structured_response_tool" },
+        },
+      })
+
+      const toolCall = response.choices?.[0]?.message?.tool_calls?.[0]
+      const choice = response.choices?.[0]
+
+      if (choice.finish_reason === "length") {
+        throw new Error("OpenAI response was cut off due to max_tokens limit.")
+      }
+
+      if (!toolCall?.function?.arguments) {
+        throw new Error("no tool response returned by model.")
+      }
+
+      const rawParsed = JSON.parse(toolCall.function.arguments)
+      const modelResponse = validateToolResponse<IStatisticsModelResponse>(rawParsed, GenerateStatisticSchema)
+
+      const historyReview = countHistoryData(historyList)
+
+      // Create DB Transaction
+      const session: ClientSession = await mongoose.startSession()
+      try {
+        session.startTransaction()
+
+        const reviewResponse = await this.communicationReviewRepo.add(
+          {
+            session_id: dto.session_id,
+            topic_title: dto.topic_title,
+            language: dto.language,
+            user_language: dto.user_language,
+            history: historyReview,
+            error_analysis: errorsList,
+            vocabulary: vocabularyList,
+            suggestion: modelResponse.suggestion,
+            conclusion: modelResponse.conclusion,
+            user_cefr_level: modelResponse.user_cefr_level,
+          },
+          {
+            session,
+          },
+        )
+
+        await this.sessionService.finishSession(dto.session_id, { session })
+        await session.commitTransaction()
+
+        return reviewResponse
+      } catch (error: unknown) {
+        await session.abortTransaction()
+        throw error
+      } finally {
+        session.endSession()
+      }
     } catch (error: unknown) {
       logger.error(`generateConversationReview | error: ${error}`)
       throw error

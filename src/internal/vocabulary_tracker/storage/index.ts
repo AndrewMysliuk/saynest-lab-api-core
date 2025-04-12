@@ -1,10 +1,10 @@
-import { IVocabularyEntity, IWordExplanationRequest } from "../../../types"
+import { IMongooseOptions, IVocabularyEntity, IWordExplanationRequest } from "../../../types"
 
 export interface IRepository {
-  list(): Promise<IVocabularyEntity[]>
-  getBySessionId(session_id: string): Promise<IVocabularyEntity[] | null>
-  getByWord(dto: IWordExplanationRequest): Promise<IVocabularyEntity | null>
-  create(data: Partial<IVocabularyEntity>): Promise<IVocabularyEntity>
-  patchAudio(id: string, audio_base64: string | null): Promise<IVocabularyEntity>
-  delete(id: string): Promise<void>
+  list(options?: IMongooseOptions): Promise<IVocabularyEntity[]>
+  listBySessionId(session_id: string, options?: IMongooseOptions): Promise<IVocabularyEntity[] | null>
+  getByWord(dto: IWordExplanationRequest, options?: IMongooseOptions): Promise<IVocabularyEntity | null>
+  create(data: Partial<IVocabularyEntity>, options?: IMongooseOptions): Promise<IVocabularyEntity>
+  patchAudio(id: string, audio_base64: string | null, options?: IMongooseOptions): Promise<IVocabularyEntity>
+  delete(id: string, options?: IMongooseOptions): Promise<void>
 }

@@ -1,8 +1,8 @@
-import { IOrganizationEntity } from "../../../types"
+import { IMongooseOptions, IOrganizationEntity } from "../../../types"
 
 export interface IRepository {
-  create(data: Partial<IOrganizationEntity>): Promise<IOrganizationEntity>
-  getById(id: string): Promise<IOrganizationEntity | null>
-  getByOwnerId(owner_id: string): Promise<IOrganizationEntity | null>
-  list(): Promise<IOrganizationEntity[]>
+  create(data: Partial<IOrganizationEntity>, options?: IMongooseOptions): Promise<IOrganizationEntity>
+  getById(id: string, options?: IMongooseOptions): Promise<IOrganizationEntity | null>
+  getByOwnerId(owner_id: string, options?: IMongooseOptions): Promise<IOrganizationEntity | null>
+  list(options?: IMongooseOptions): Promise<IOrganizationEntity[]>
 }

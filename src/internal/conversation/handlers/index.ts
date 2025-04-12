@@ -1,7 +1,5 @@
 import { Request, RequestHandler, Response } from "express"
 
-import { Types } from "mongoose"
-
 import { IConversationResponse, StreamEventEnum } from "../../../types"
 import logger from "../../../utils/logger"
 import { IConversationService } from "../index"
@@ -10,9 +8,6 @@ import { conversationSchema } from "./validation"
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const organization_id = new Types.ObjectId().toHexString()
-      const user_id = new Types.ObjectId().toHexString()
-
       // const { organization_id, user_id }: { organization_id: string; user_id: string } = req.body
 
       // if (!organization_id || !user_id) {
@@ -48,8 +43,8 @@ export const createConversationHandler = (conversationService: IConversationServ
 
       const generator = conversationService.streamConversation(
         {
-          organization_id,
-          user_id,
+          // organization_id,
+          // user_id,
           whisper: parsedBody.whisper,
           gpt_model: parsedBody.gpt_model,
           tts: parsedBody.tts,

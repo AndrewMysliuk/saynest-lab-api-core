@@ -19,8 +19,8 @@ export enum TaskModeEnum {
 }
 
 export interface ITaskGeneratorRequest {
-  user_id: string
-  organization_id: string
+  // user_id: string
+  // organization_id: string
   gpt_payload: IGPTPayload
   type: TaskTypeEnum // например: "fill_blank", "multiple_choice" и т.д.
   topic_ids?: string[] // id тем из библиотеки (можно 1 или несколько)

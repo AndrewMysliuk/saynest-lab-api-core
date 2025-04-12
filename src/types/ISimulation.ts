@@ -29,8 +29,8 @@ export interface ISimulationDialogue {
 }
 
 export interface IStartSimulationRequest {
-  user_id: string
-  organization_id: string
+  // user_id: string
+  // organization_id: string
   is_audio_needed: boolean
   language: string
   native_language: string

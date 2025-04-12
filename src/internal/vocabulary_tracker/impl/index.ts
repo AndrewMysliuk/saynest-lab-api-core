@@ -132,6 +132,19 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     }
   }
 
+  async wordsListBySessionId(session_id: string): Promise<IVocabularyEntity[]> {
+    try {
+      const vocabularySessionList = await this.vocabularyTrackerRepo.listBySessionId(session_id)
+
+      if (!vocabularySessionList) return []
+
+      return vocabularySessionList
+    } catch (error: unknown) {
+      logger.error("wordsListBySessionId | error in wordsList:", error)
+      throw error
+    }
+  }
+
   async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyJSONEntity[]> {
     try {
       const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
@@ -161,7 +174,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         model: "gpt-4o-mini",
         messages,
         temperature: 0.7,
-        max_tokens: 2000,
+        max_tokens: 5000,
         tools: [
           {
             type: "function",

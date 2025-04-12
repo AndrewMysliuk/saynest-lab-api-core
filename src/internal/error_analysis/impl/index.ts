@@ -92,4 +92,13 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       throw error
     }
   }
+
+  async listConversationErrors(session_id: string): Promise<IErrorAnalysisEntity[]> {
+    try {
+      return this.errorAnalysisRepo.listErrorAnalysisBySession(session_id)
+    } catch (error: unknown) {
+      logger.error(`getConversationErrors | error: ${error}`)
+      throw error
+    }
+  }
 }

@@ -28,6 +28,15 @@ export interface IStatistics {
   created_at: Date
 }
 
+export interface IStatisticsModelResponse {
+  suggestion: string
+  conclusion: string
+  user_cefr_level: VocabularyFrequencyLevelEnum
+}
+
 export interface IStatisticsGenerateRequest {
   session_id: string
+  topic_title: string
+  language: string
+  user_language: string
 }

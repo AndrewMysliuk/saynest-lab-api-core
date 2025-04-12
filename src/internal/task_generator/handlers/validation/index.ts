@@ -18,8 +18,8 @@ export const gptPayloadSchema: z.ZodType<IGPTPayload> = z.object({
 })
 
 export const taskGeneratorRequestSchema = z.object({
-  user_id: z.string(),
-  organization_id: z.string(),
+  // user_id: z.string(),
+  // organization_id: z.string(),
 
   gpt_payload: gptPayloadSchema,
 

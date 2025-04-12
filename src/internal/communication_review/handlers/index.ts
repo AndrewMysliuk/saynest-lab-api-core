@@ -1,15 +1,13 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ICommunicationReviewService } from ".."
-import { IStatisticsGenerateRequest } from "../../../types"
 import logger from "../../../utils/logger"
+import { StatisticsGenerateRequestSchema } from "./validation"
 
 export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const dto = req.body as IStatisticsGenerateRequest
-
-      //  TODO dto validation
+      const dto = StatisticsGenerateRequestSchema.parse(req.body)
 
       const response = await communicationReviewService.generateConversationReview(dto)
 

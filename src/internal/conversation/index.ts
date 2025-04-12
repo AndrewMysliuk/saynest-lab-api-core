@@ -5,8 +5,8 @@ import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IC
 export interface IConversationService {
   streamConversation(payload: IConversationPayload, outputConversation?: { finalData?: IConversationResponse }): AsyncGenerator<ConversationStreamEvent>
   startNewSession(
-    organization_id: string,
-    user_id: string,
+    // organization_id: string,
+    // user_id: string,
     system_prompt: string,
   ): Promise<{
     session_id: ObjectId
@@ -14,8 +14,8 @@ export interface IConversationService {
     conversation_history: IConversationHistory[]
   }>
   getSessionData(
-    organization_id: string,
-    user_id: string,
+    // organization_id: string,
+    // user_id: string,
     session_id: string | undefined,
     system_prompt: string,
   ): Promise<{
@@ -23,4 +23,5 @@ export interface IConversationService {
     session_directory: string
     conversation_history: IConversationHistory[]
   }>
+  listConversationHistory(session_id: string): Promise<IConversationHistory[]>
 }
