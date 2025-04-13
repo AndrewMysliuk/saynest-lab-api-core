@@ -36,10 +36,8 @@
             "type": "string",
             "description": "Optional explanation."
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }

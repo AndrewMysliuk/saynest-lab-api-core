@@ -42,11 +42,19 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         return statisticReview
       }
 
-      const [historyList, errorsList, vocabularyList] = await Promise.all([
-        this.conversationService.listConversationHistory(dto.session_id),
-        this.errorAnalysisService.listConversationErrors(dto.session_id),
-        this.vocabularyTrackerService.wordsListBySessionId(dto.session_id),
-      ])
+      const historyList = await this.conversationService.listConversationHistory(dto.session_id)
+
+      await this.vocabularyTrackerService.searchSynonymsByHistory({
+        session_id: dto.session_id,
+        language: dto.language,
+        translation_language: dto.user_language,
+        payload: {
+          model: "gpt-4o",
+          messages: historyList.map((item) => ({ role: item.role, content: item.content })),
+        },
+      })
+
+      const [errorsList, vocabularyList] = await Promise.all([this.errorAnalysisService.listConversationErrors(dto.session_id), this.vocabularyTrackerService.wordsListBySessionId(dto.session_id)])
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: buildSystemPrompt(dto.language, dto.user_language) },
@@ -54,7 +62,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       ]
 
       const response = await openaiREST.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         messages,
         temperature: 0.7,
         max_tokens: 3000,

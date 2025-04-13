@@ -1,4 +1,4 @@
-export type GPTModelType = "gpt-4-turbo" | "gpt-4" | "gpt-4o" | "gpt-4o-mini"
+export type GPTModelType = "gpt-4-turbo" | "gpt-4" | "gpt-4o"
 
 export type GPTRoleType = "user" | "system" | "assistant"
 

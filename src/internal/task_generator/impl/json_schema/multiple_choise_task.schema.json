@@ -40,10 +40,8 @@
             "minLength": 1,
             "description": "Why this is the right answer"
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }

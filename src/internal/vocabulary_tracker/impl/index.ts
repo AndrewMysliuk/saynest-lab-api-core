@@ -45,7 +45,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       ]
 
       const response = await openaiREST.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         messages,
         temperature: 0.7,
         max_tokens: 2000,
@@ -171,10 +171,10 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       ]
 
       const response = await openaiREST.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         messages,
         temperature: 0.7,
-        max_tokens: 5000,
+        max_tokens: 16000,
         tools: [
           {
             type: "function",
@@ -212,7 +212,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
           !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === item.language && entry.translation_language === item.translation_language),
       )
 
-      const limitedWords = newWords.slice(0, 3)
+      const limitedWords = newWords.slice(0, 10)
 
       if (isSessionIdValid) {
         const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId

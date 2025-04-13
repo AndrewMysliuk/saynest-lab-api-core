@@ -23,8 +23,7 @@
                 "type": "string",
                 "minLength": 1
               }
-            },
-            "additionalProperties": false
+            }
           }
         },
         "translation": {
@@ -41,8 +40,7 @@
                 "type": "string",
                 "minLength": 1
               }
-            },
-            "additionalProperties": false
+            }
           }
         },
         "audio_url": {
@@ -52,8 +50,7 @@
           "type": "string",
           "minLength": 1
         }
-      },
-      "additionalProperties": false
+      }
     },
     "grammar_topics_ids": {
       "type": "array",
@@ -69,11 +66,9 @@
           "word": { "type": "string", "minLength": 1 },
           "translation": { "type": "string", "minLength": 1 },
           "meaning": { "type": "string", "minLength": 1 }
-        },
-        "additionalProperties": false
+        }
       },
       "minItems": 1
     }
-  },
-  "additionalProperties": false
+  }
 }

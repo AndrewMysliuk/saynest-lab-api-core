@@ -16,8 +16,7 @@
                 "id": { "type": "string", "minLength": 1 },
                 "value": { "type": "string", "minLength": 1 }
               },
-              "required": ["id", "value"],
-              "additionalProperties": false
+              "required": ["id", "value"]
             }
           },
           "corrected_words": {
@@ -28,20 +27,17 @@
                 "id": { "type": "string", "minLength": 1 },
                 "value": { "type": "string", "minLength": 1 }
               },
-              "required": ["id", "value"],
-              "additionalProperties": false
+              "required": ["id", "value"]
             }
           },
           "explanation": { "type": "string", "minLength": 1 },
           "topic_tag": { "type": "string", "minLength": 1 }
         },
-        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"],
-        "additionalProperties": false
+        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"]
       }
     },
     "summary_comment": { "type": "string" },
     "has_errors": { "type": "boolean" }
   },
-  "required": ["issues", "has_errors"],
-  "additionalProperties": false
+  "required": ["issues", "has_errors"]
 }

@@ -47,13 +47,11 @@
             },
             "minItems": 0
           }
-        },
-        "additionalProperties": false
+        }
       }
     },
     "audio_base64": {
       "type": ["string", "null"]
     }
-  },
-  "additionalProperties": false
+  }
 }

@@ -19,6 +19,5 @@
     "comment_to_user": { "type": "string" },
     "reply_to_user": { "type": "string", "minLength": 1 }
   },
-  "required": ["detected_language", "is_target_language", "topic", "subtopics", "keywords", "sentence_structure", "reply_to_user"],
-  "additionalProperties": false
+  "required": ["detected_language", "is_target_language", "topic", "subtopics", "keywords", "sentence_structure", "reply_to_user"]
 }

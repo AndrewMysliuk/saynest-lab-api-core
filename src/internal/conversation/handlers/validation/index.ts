@@ -26,7 +26,7 @@ export const functionParametersSchema: z.ZodType<FunctionParameters> = z.object(
 })
 
 export const gptModelSchema = z.object({
-  model: z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4o-mini"]),
+  model: z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o"]),
   messages: z
     .array(
       z.object({

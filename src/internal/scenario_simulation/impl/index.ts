@@ -35,7 +35,7 @@ export class ScenarioSimulationService implements IScenarioSimulationService {
       ]
 
       const response = await this.textAnalysisService.createScenarioDialog({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         temperature: 0.7,
         max_tokens: 2500,
         stream: false,

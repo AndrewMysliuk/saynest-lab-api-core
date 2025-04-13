@@ -27,10 +27,8 @@
             "minLength": 1,
             "description": "Optional explanation of the correction."
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }

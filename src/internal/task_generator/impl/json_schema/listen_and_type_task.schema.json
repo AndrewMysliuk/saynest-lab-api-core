@@ -27,10 +27,8 @@
             "minLength": 1,
             "description": "Optional explanation or encouragement."
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }
