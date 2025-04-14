@@ -212,11 +212,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
           !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === item.language && entry.translation_language === item.translation_language),
       )
 
-      const limitedWords = newWords.slice(0, 10)
-
       if (isSessionIdValid) {
         const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
-        for (const word of limitedWords) {
+        for (const word of newWords) {
           await this.vocabularyTrackerRepo.create({
             ...word,
             session_id: sessionId,
@@ -226,7 +224,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         }
       }
 
-      return limitedWords
+      return newWords
     } catch (error: unknown) {
       logger.error("VocabularyTrackerService | error in searchSynonymsByHistory:", error)
       throw error
