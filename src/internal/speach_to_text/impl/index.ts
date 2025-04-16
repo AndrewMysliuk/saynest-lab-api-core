@@ -3,20 +3,17 @@ import { promises as fsPromises } from "fs"
 import * as path from "path"
 
 import { openaiREST } from "../../../config"
-import { IWhisperHandlerResponse } from "../../../types"
+import { IWhisperHandlerResponse, WhisperLocalModelEnum } from "../../../types"
+import { ensureStorageDirExists } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ISpeachToText } from "../index"
 
 export class SpeachToTextService implements ISpeachToText {
   async whisperSpeechToText(audioFile: Express.Multer.File, prompt?: string, session_folder?: string): Promise<IWhisperHandlerResponse> {
-    const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
-    const fileExtension = audioFile.originalname.split(".").pop()
-    const filePath = path.join(userSessionsDir, `${Date.now()}-user-request.${fileExtension}`)
-
     try {
-      if (!fs.existsSync(userSessionsDir)) {
-        await fsPromises.mkdir(userSessionsDir, { recursive: true })
-      }
+      const userSessionsDir = session_folder ? session_folder : await ensureStorageDirExists()
+      const fileExtension = audioFile.originalname.split(".").pop()
+      const filePath = path.join(userSessionsDir, `${Date.now()}-user-request.${fileExtension}`)
 
       await fsPromises.writeFile(filePath, audioFile.buffer)
 

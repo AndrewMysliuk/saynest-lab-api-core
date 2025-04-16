@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { openaiREST } from "../../../config"
 import { IListenAndTypeItem, ISimulationDialogue, ITTSPayload } from "../../../types"
+import { ensureStorageDirExists } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
@@ -15,13 +16,9 @@ ffmpeg.setFfmpegPath(ffmpegPath || "")
 export class TextToSpeachService implements ITextToSpeach {
   async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ? session_folder : path.join(process.cwd(), "user_sessions")
+      const userSessionsDir = session_folder ? session_folder : await ensureStorageDirExists()
       const fileExtension = payload?.response_format || "wav"
       const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
-
-      if (!fs.existsSync(userSessionsDir)) {
-        await fs.promises.mkdir(userSessionsDir, { recursive: true })
-      }
 
       const response = await openaiREST.audio.speech.create({
         model: payload.model,

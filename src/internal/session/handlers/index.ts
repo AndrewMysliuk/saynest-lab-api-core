@@ -2,6 +2,7 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ISessionService } from ".."
 import { SessionTypeEnum } from "../../../types"
+import { ensureStorageDirExists } from "../../../utils"
 import logger from "../../../utils/logger"
 
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
@@ -17,7 +18,9 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
         return
       }
 
-      const response = await sessionService.createSession(system_prompt, type)
+      const sessionDir = await ensureStorageDirExists()
+
+      const response = await sessionService.createSession(system_prompt, sessionDir, type)
 
       res.status(200).json(response)
     } catch (error: unknown) {

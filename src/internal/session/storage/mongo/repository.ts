@@ -7,14 +7,8 @@ import { IMongooseOptions, ISessionEntity, SessionStatusEnum, SessionTypeEnum } 
 import { SessionModel } from "./model"
 
 export class SessionRepository implements IRepository {
-  async createSession(system_prompt: string, type: SessionTypeEnum, options?: IMongooseOptions): Promise<ISessionEntity> {
-    const _id = new Types.ObjectId()
-
-    const session_directory = path.join(__dirname, "../../../../../user_sessions", _id.toString())
-    await fs.promises.mkdir(session_directory, { recursive: true })
-
+  async createSession(system_prompt: string, session_directory: string, type: SessionTypeEnum, options?: IMongooseOptions): Promise<ISessionEntity> {
     const session = new SessionModel({
-      _id,
       // organization_id: new Types.ObjectId(organization_id),
       // user_id: new Types.ObjectId(user_id),
       type,

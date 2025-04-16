@@ -8,47 +8,43 @@ export const trimConversationHistory = (conversationHistory: IConversationHistor
   const encoding = tiktoken.get_encoding("cl100k_base")
 
   const systemPrompt = conversationHistory[0]
-  let history = conversationHistory.slice(1)
+  const history = conversationHistory.slice(1)
 
-  let totalTokens = encoding.encode(systemPrompt.content).length
-  const preserved: IConversationHistory[] = []
-  const pairs: { user?: IConversationHistory; assistant?: IConversationHistory }[] = []
+  const currentPairMessages: IConversationHistory[] = []
+  const pairs: { user?: IConversationHistory; assistant?: IConversationHistory; tokens: number }[] = []
 
-  for (let i = 0; i < history.length; i++) {
-    const msg = history[i]
+  for (const msg of history) {
+    const tokens = encoding.encode(msg.content).length
+    ;(msg as any)._tokens = tokens
+
     if (msg.pair_id === currentPairId) {
-      preserved.push(msg)
+      currentPairMessages.push(msg)
       continue
     }
 
     const lastPair = pairs[pairs.length - 1]
+
     if (msg.role === "user") {
-      pairs.push({ user: msg })
+      pairs.push({ user: msg, tokens })
     } else if (msg.role === "assistant" && lastPair && !lastPair.assistant) {
       lastPair.assistant = msg
-    } else {
-      preserved.push(msg)
+      lastPair.tokens += tokens
     }
   }
 
   const result: IConversationHistory[] = []
+  let totalTokens = encoding.encode(systemPrompt.content).length
 
   for (let i = pairs.length - 1; i >= 0; i--) {
-    const pair = pairs[i]
-    const pairTokens = (pair.user ? encoding.encode(pair.user.content).length : 0) + (pair.assistant ? encoding.encode(pair.assistant.content).length : 0)
+    const { user, assistant, tokens } = pairs[i]
+    if (totalTokens + tokens > max_tokens - SAFETY_BUFFER) break
 
-    const softLimit = max_tokens - SAFETY_BUFFER
-
-    if (totalTokens + pairTokens > softLimit) break
-
-    if (pair.assistant) result.unshift(pair.assistant)
-    if (pair.user) result.unshift(pair.user)
-    totalTokens += pairTokens
+    if (assistant) result.unshift(assistant)
+    if (user) result.unshift(user)
+    totalTokens += tokens
   }
 
-  const finalHistory = [systemPrompt, ...result, ...preserved.filter((m) => m.pair_id === currentPairId)]
-
-  return finalHistory
+  return [systemPrompt, ...result, ...currentPairMessages]
 }
 
 export const trimmedMessageHistoryForErrorAnalyser = (messages: Array<{ role: GPTRoleType; content: string }>) => {
