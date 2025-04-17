@@ -64,7 +64,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       const response = await openaiREST.chat.completions.create({
         model: "gpt-4o",
         messages,
-        temperature: 0.7,
+        temperature: 0.6,
         max_tokens: 3000,
         tools: [
           {

@@ -31,7 +31,7 @@ export const buildUserPrompt = (historyList: IConversationHistory[], errorsList:
   const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
 
   const errorsSection = errorsList.length
-    ? errorsList.map((error, index) => `${index + 1}. Message: ${error.message}\n Issues: ${JSON.stringify(error.issues)}\n   Summary Comment: ${error.summary_comment}`).join("\n")
+    ? errorsList.map((error, index) => `${index + 1}. Message: ${error.last_user_message}\n Issues: ${JSON.stringify(error.issues)}\n   Summary Comment: ${error.suggestion_message}`).join("\n")
     : "No errors detected."
 
   const vocabularySection = vocabularyList.length

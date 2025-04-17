@@ -45,7 +45,7 @@ export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): Request
 export const textToSpeechElevenLabsHandler = (textToSpeachService: ITextToSpeach): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { input, voice, model, response_format = "mp3" } = req.body as ITTSElevenLabsPayload
+      const { input, voice } = req.body as ITTSElevenLabsPayload
 
       if (!input || !voice) {
         res.status(400).json({
@@ -55,9 +55,9 @@ export const textToSpeechElevenLabsHandler = (textToSpeachService: ITextToSpeach
       }
 
       res.writeHead(200, {
-        "Content-Type": `audio/${response_format}`,
+        "Content-Type": `audio/mp3`,
         "Transfer-Encoding": "chunked",
-        "Content-Disposition": `inline; filename="tts-output.${response_format}"`,
+        "Content-Disposition": `inline; filename="tts-output.mp3"`,
       })
 
       const output: { filePath?: string } = {}

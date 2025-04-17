@@ -47,7 +47,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const response = await openaiREST.chat.completions.create({
         model: "gpt-4o",
         messages,
-        temperature: 0.7,
+        temperature: 0.6,
         max_tokens: 2000,
         tools: [
           {
@@ -173,7 +173,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const response = await openaiREST.chat.completions.create({
         model: "gpt-4o",
         messages,
-        temperature: 0.7,
+        temperature: 0.6,
         max_tokens: 16000,
         tools: [
           {

@@ -4,24 +4,44 @@ import { ITextAnalysis } from ".."
 import { IGPTPayload } from "../../../types"
 import logger from "../../../utils/logger"
 
-export const textAnalysisHandler = (textAnalysisService: ITextAnalysis): RequestHandler => {
+export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const { model, messages } = req.body as IGPTPayload
 
       if (!model || !messages) {
         res.status(400).json({
-          error: "textAnalysisHandler | Missing required fields in payload",
+          error: "streamingTextAnalysisHandler | Missing required fields in payload",
         })
         return
       }
 
-      const response = await textAnalysisService.gptConversation(req.body)
+      res.writeHead(200, {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Cache-Control": "no-cache",
+      })
 
-      res.status(200).json(response)
+      let streamEnded = false
+      res.on("close", () => {
+        streamEnded = true
+      })
+
+      const generator = textAnalysisService.streamGptReplyOnly(req.body)
+
+      for await (const chunk of generator) {
+        if (streamEnded) break
+        res.write(chunk)
+      }
+
+      res.end()
     } catch (error: unknown) {
-      logger.error(`textAnalysisHandler | error: ${error}`)
-      res.status(500).json({ error: "Internal Server Error" })
+      logger.error(`streamingTextAnalysisHandler | error: ${error}`)
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Internal Server Error" })
+      } else {
+        res.end()
+      }
     }
   }
 }

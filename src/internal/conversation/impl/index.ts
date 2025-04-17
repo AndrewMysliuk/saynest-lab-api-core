@@ -14,6 +14,8 @@ import { IConversationService } from "../index"
 import { IRepository } from "../storage"
 
 const MAX_CONVERSATION_TOKENS = 128000
+const SENTENCE_END_REGEX = /[.!?…]/
+const MIN_CHARACTERS = 50
 
 export class ConversationService implements IConversationService {
   private readonly historyRepo: IRepository
@@ -68,26 +70,71 @@ export class ConversationService implements IConversationService {
 
       const trimmedHistory = trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
 
-      const gptResponse = await this.textAnalysisService.gptConversation({
+      const output: { filePath?: string } = {}
+      let replyText = ""
+
+      const gptStream = this.textAnalysisService.streamGptReplyOnly({
         ...gpt_model,
         messages: trimmedHistory,
       })
 
-      yield {
-        type: StreamEventEnum.GPT_RESPONSE,
-        role: "assistant",
-        content: gptResponse.reply_to_user,
+      let sentenceBuffer: string[] = []
+
+      for await (const chunk of gptStream) {
+        replyText += chunk
+        sentenceBuffer.push(chunk)
+
+        yield {
+          type: StreamEventEnum.GPT_RESPONSE,
+          role: "assistant",
+          content: chunk,
+        }
+
+        const combined = sentenceBuffer.join("")
+        if (combined.length > MIN_CHARACTERS && SENTENCE_END_REGEX.test(chunk)) {
+          const sentence = combined.trim()
+          sentenceBuffer.length = 0
+
+          // this.textToSpeachService.ttsTextToSpeechStreamElevenLabs
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+            {
+              ...tts,
+              input: sentence,
+            },
+            sessionDir,
+            output,
+          )
+
+          for await (const audioChunk of ttsGen) {
+            yield {
+              type: StreamEventEnum.TTS_CHUNK,
+              role: "assistant",
+              audioChunk,
+            }
+          }
+        }
       }
 
-      const output: { filePath?: string } = {}
+      if (sentenceBuffer.length > 0) {
+        const finalSentence = sentenceBuffer.join("").trim()
+        if (finalSentence.length > 0) {
+          // this.textToSpeachService.ttsTextToSpeechStreamElevenLabs
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+            {
+              ...tts,
+              input: finalSentence,
+            },
+            sessionDir,
+            output,
+          )
 
-      const ttsGenerator = this.textToSpeachService.ttsTextToSpeechStream({ ...tts, input: gptResponse.reply_to_user }, sessionDir, output)
-
-      for await (const chunk of ttsGenerator) {
-        yield {
-          type: StreamEventEnum.TTS_CHUNK,
-          role: "assistant",
-          audioChunk: chunk,
+          for await (const audioChunk of ttsGen) {
+            yield {
+              type: StreamEventEnum.TTS_CHUNK,
+              role: "assistant",
+              audioChunk,
+            }
+          }
         }
       }
 
@@ -97,7 +144,7 @@ export class ConversationService implements IConversationService {
         session_id: activeSessionId,
         pair_id,
         role: "assistant",
-        content: gptResponse.reply_to_user,
+        content: replyText,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
       } as IConversationHistory
 
@@ -108,7 +155,7 @@ export class ConversationService implements IConversationService {
       const final: IConversationResponse = {
         session_id: activeSessionId.toString(),
         conversation_history: conversationHistory,
-        last_model_response: gptResponse,
+        last_model_response: replyText,
       }
 
       if (outputConversation) outputConversation.finalData = final

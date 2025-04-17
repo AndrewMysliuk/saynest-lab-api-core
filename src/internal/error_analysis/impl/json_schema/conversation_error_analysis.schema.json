@@ -1,43 +1,52 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ErrorAnalysisModelEntity",
   "type": "object",
+  "required": ["issues", "has_errors", "suggestion_message", "detected_language", "is_target_language", "sentence_structure"],
   "properties": {
     "issues": {
       "type": "array",
       "items": {
         "type": "object",
+        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_titles"],
         "properties": {
-          "original_text": { "type": "string", "minLength": 1 },
-          "corrected_text": { "type": "string", "minLength": 1 },
+          "original_text": { "type": "string" },
+          "corrected_text": { "type": "string" },
           "error_words": {
             "type": "array",
             "items": {
               "type": "object",
+              "required": ["id", "value"],
               "properties": {
-                "id": { "type": "string", "minLength": 1 },
-                "value": { "type": "string", "minLength": 1 }
-              },
-              "required": ["id", "value"]
+                "id": { "type": "number" },
+                "value": { "type": "string" }
+              }
             }
           },
           "corrected_words": {
             "type": "array",
             "items": {
               "type": "object",
+              "required": ["id", "value"],
               "properties": {
-                "id": { "type": "string", "minLength": 1 },
-                "value": { "type": "string", "minLength": 1 }
-              },
-              "required": ["id", "value"]
+                "id": { "type": "number" },
+                "value": { "type": "string" }
+              }
             }
           },
-          "explanation": { "type": "string", "minLength": 1 },
-          "topic_tag": { "type": "string", "minLength": 1 }
-        },
-        "required": ["original_text", "corrected_text", "error_words", "corrected_words", "explanation", "topic_tag"]
+          "explanation": { "type": "string" },
+          "topic_titles": { "type": "string" }
+        }
       }
     },
-    "summary_comment": { "type": "string" },
-    "has_errors": { "type": "boolean" }
-  },
-  "required": ["issues", "has_errors"]
+    "has_errors": { "type": "boolean" },
+    "suggestion_message": { "type": "string" },
+    "detected_language": { "type": "string" },
+    "is_target_language": { "type": "boolean" },
+    "discussion_topic": { "type": "string" },
+    "sentence_structure": {
+      "type": "string",
+      "enum": ["SIMPLE", "COMPOUND", "COMPLEX"]
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose"
 
-import { IGPTPayload, ITextAnalysisResponse } from "./IGPT"
-import { ITTSPayload } from "./ITTS"
+import { IGPTPayload } from "./IGPT"
+import { ITTSElevenLabsPayload, ITTSPayload } from "./ITTS"
 
 export interface IConversationHistory {
   session_id: ObjectId
@@ -24,6 +24,7 @@ export interface IConversationPayload {
   whisper: IConversationWhisper
   gpt_model: IGPTPayload
   tts: ITTSPayload
+  // tts: ITTSElevenLabsPayload
   system: {
     session_id?: string
     global_prompt: string
@@ -68,5 +69,5 @@ export type ConversationStreamEvent = IHistoryStreamEvent | IGptResponseStreamEv
 export interface IConversationResponse {
   session_id: string
   conversation_history: IConversationHistory[]
-  last_model_response: ITextAnalysisResponse
+  last_model_response: string
 }

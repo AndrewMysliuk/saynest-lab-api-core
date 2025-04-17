@@ -3,14 +3,18 @@ import { IRepository } from "../index"
 import { ErrorAnalysisModel } from "./model"
 
 export class ErrorAnalysisRepository implements IRepository {
-  async setErrorAnalysis(session_id: string, message: string, dto: IErrorAnalysisModelEntity, options?: IMongooseOptions): Promise<IErrorAnalysisEntity | null> {
+  async setErrorAnalysis(session_id: string, last_user_message: string, dto: IErrorAnalysisModelEntity, options?: IMongooseOptions): Promise<IErrorAnalysisEntity | null> {
     if (!dto.has_errors) return null
 
     const record = new ErrorAnalysisModel({
       session_id,
-      message,
+      last_user_message,
+      suggestion_message: dto.suggestion_message,
+      detected_language: dto.detected_language,
+      is_target_language: dto.is_target_language,
+      discussion_topic: dto.discussion_topic,
+      sentence_structure: dto.sentence_structure,
       issues: dto.issues,
-      summary_comment: dto.summary_comment,
       has_errors: dto.has_errors,
     })
 

@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-import { IErrorAnalysisEntity, IWord, IssueItem } from "../../../../types"
+import { ErrorAnalysisSentenceStructureEnum, IErrorAnalysisEntity, IWord, IssueItem } from "../../../../types"
 
 export const MODEL_NAME = "error_analyses"
 
@@ -8,7 +8,7 @@ export type IErrorAnalysisDocument = IErrorAnalysisEntity & Document
 
 const WordSchema = new Schema<IWord>(
   {
-    id: { type: String, required: true },
+    id: { type: Number, required: true },
     value: { type: String, required: true },
   },
   { _id: false },
@@ -16,12 +16,12 @@ const WordSchema = new Schema<IWord>(
 
 const IssueSchema = new Schema<IssueItem>(
   {
-    original_text: String,
-    corrected_text: String,
-    error_words: [WordSchema],
-    corrected_words: [WordSchema],
-    explanation: String,
-    topic_tag: String,
+    original_text: { type: String, required: true },
+    corrected_text: { type: String, required: true },
+    error_words: { type: [WordSchema], required: true },
+    corrected_words: { type: [WordSchema], required: true },
+    explanation: { type: String, required: true },
+    topic_titles: { type: String, required: true },
   },
   { _id: false },
 )
@@ -29,9 +29,17 @@ const IssueSchema = new Schema<IssueItem>(
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>(
   {
     session_id: { type: String, required: true },
-    message: { type: String, required: true },
-    issues: { type: [IssueSchema], default: [] },
-    summary_comment: String,
+    last_user_message: { type: String, required: true },
+    suggestion_message: { type: String, required: true },
+    detected_language: { type: String, required: true },
+    is_target_language: { type: Boolean, required: true },
+    discussion_topic: { type: String },
+    sentence_structure: {
+      type: String,
+      enum: Object.values(ErrorAnalysisSentenceStructureEnum),
+      required: true,
+    },
+    issues: { type: [IssueSchema], required: true },
     has_errors: { type: Boolean, required: true },
   },
   {

@@ -46,14 +46,3 @@ export const trimConversationHistory = (conversationHistory: IConversationHistor
 
   return [systemPrompt, ...result, ...currentPairMessages]
 }
-
-export const trimmedMessageHistoryForErrorAnalyser = (messages: Array<{ role: GPTRoleType; content: string }>) => {
-  const first = messages[0]
-  const lastUser = [...messages].reverse().find((msg) => msg.role === "user")
-
-  if (first.role === "system" && lastUser) {
-    return [first, lastUser]
-  }
-
-  return []
-}

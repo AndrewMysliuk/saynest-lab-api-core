@@ -1,6 +1,6 @@
-import { IGPTPayload, ISimulationDialogResponse, ITextAnalysisResponse } from "../../types"
+import { IGPTPayload, ISimulationDialogResponse } from "../../types"
 
 export interface ITextAnalysis {
-  gptConversation(payload: IGPTPayload): Promise<ITextAnalysisResponse>
+  streamGptReplyOnly(payload: IGPTPayload): AsyncGenerator<string, void, unknown>
   createScenarioDialog(payload: IGPTPayload): Promise<ISimulationDialogResponse>
 }

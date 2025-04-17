@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import {
+  ErrorAnalysisSentenceStructureEnum,
   IConversationHistory,
   IErrorAnalysisEntity,
   IMeaningEntity,
@@ -63,7 +64,7 @@ const StatisticsHistorySchema = new Schema<IStatisticsHistory>(
 
 const WordSchema = new Schema<IWord>(
   {
-    id: { type: String, required: true },
+    id: { type: Number, required: true },
     value: { type: String, required: true },
   },
   { _id: false },
@@ -71,21 +72,30 @@ const WordSchema = new Schema<IWord>(
 
 const IssueSchema = new Schema<IssueItem>(
   {
-    original_text: String,
-    corrected_text: String,
-    error_words: [WordSchema],
-    corrected_words: [WordSchema],
-    explanation: String,
-    topic_tag: String,
+    original_text: { type: String, required: true },
+    corrected_text: { type: String, required: true },
+    error_words: { type: [WordSchema], required: true },
+    corrected_words: { type: [WordSchema], required: true },
+    explanation: { type: String, required: true },
+    topic_titles: { type: String, required: true },
   },
   { _id: false },
 )
 
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
   {
-    message: { type: String, required: true },
-    issues: { type: [IssueSchema], default: [] },
-    summary_comment: String,
+    session_id: { type: String, required: true },
+    last_user_message: { type: String, required: true },
+    suggestion_message: { type: String, required: true },
+    detected_language: { type: String, required: true },
+    is_target_language: { type: Boolean, required: true },
+    discussion_topic: { type: String },
+    sentence_structure: {
+      type: String,
+      enum: Object.values(ErrorAnalysisSentenceStructureEnum),
+      required: true,
+    },
+    issues: { type: [IssueSchema], required: true },
     has_errors: { type: Boolean, required: true },
   },
   { _id: false },

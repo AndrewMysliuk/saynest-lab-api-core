@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { openaiREST, serverConfig } from "../../../config"
 import { IListenAndTypeItem, ISimulationDialogue, ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import { ensureStorageDirExists } from "../../../utils"
+import { ensureStorageDirExists, normalizeAudioStream } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
@@ -50,19 +50,19 @@ export class TextToSpeachService implements ITextToSpeach {
   async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
     try {
       const userSessionsDir = session_folder ?? (await ensureStorageDirExists())
-      const fileExtension = payload.response_format || "mp3"
+      const fileExtension = "mp3"
       const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
 
-      const voiceId = payload.voice || "EXAVITQu4vr4xnSDxMaL"
-      const modelId = payload.model || "eleven_multilingual_v1"
-      const stability = payload.voice_settings?.stability ?? 0.5
-      const similarity_boost = payload.voice_settings?.similarity_boost ?? 0.5
+      const voice_id = payload.voice || "EXAVITQu4vr4xnSDxMaL"
+      const model_id = payload.model || "eleven_multilingual_v2"
+      const stability = payload.voice_settings?.stability ?? 0.3
+      const similarity_boost = payload.voice_settings?.similarity_boost ?? 0.6
 
       const response = await axios.post(
-        `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
+        `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}/stream`,
         {
           text: payload.input ?? "",
-          model_id: modelId,
+          model_id,
           voice_settings: {
             stability,
             similarity_boost,

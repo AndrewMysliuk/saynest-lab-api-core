@@ -19,9 +19,8 @@ export interface IVoiceSettings {
 }
 
 export interface ITTSElevenLabsPayload {
-  input: string
+  input?: string
   voice: string
   model?: string
-  response_format?: "mp3" | "wav" | "ogg"
   voice_settings?: IVoiceSettings
 }

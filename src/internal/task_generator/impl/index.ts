@@ -38,7 +38,7 @@ export class TaskGeneratorService implements ITaskGenerator {
       const response = await openaiREST.chat.completions.create({
         model: request.gpt_payload.model,
         messages,
-        temperature: request.gpt_payload.temperature || 0.7,
+        temperature: request.gpt_payload.temperature || 0.6,
         max_tokens: request.gpt_payload.max_tokens || 1500,
         tools: [
           {

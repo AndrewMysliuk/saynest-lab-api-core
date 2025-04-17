@@ -26,7 +26,7 @@ export const functionParametersSchema: z.ZodType<FunctionParameters> = z.object(
 })
 
 export const gptModelSchema = z.object({
-  model: z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o"]),
+  model: z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4.1"]),
   messages: z
     .array(
       z.object({
@@ -48,6 +48,19 @@ export const ttsSchema = z.object({
   speed: z.number().optional(),
   stream: z.boolean().optional(),
 })
+
+// export const ttsSchema = z.object({
+//   input: z.string().optional(),
+//   voice: z.string(),
+//   model: z.string().optional(),
+//   response_format: z.enum(["mp3", "wav", "ogg"]).optional(),
+//   voice_settings: z
+//     .object({
+//       stability: z.number().optional(),
+//       similarity_boost: z.number().optional(),
+//     })
+//     .optional(),
+// })
 
 export const systemSchema = z.object({
   session_id: z.string().optional(),

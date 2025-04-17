@@ -1,6 +1,6 @@
-import { IErrorAnalysisEntity, IGPTPayload } from "../../types"
+import { IErrorAnalysisEntity, IErrorAnalysisRequest } from "../../types"
 
 export interface IErrorAnalysis {
-  conversationErrorAnalysis(session_id: string, payload: IGPTPayload): Promise<IErrorAnalysisEntity | null>
+  conversationErrorAnalysis(dto: IErrorAnalysisRequest): Promise<IErrorAnalysisEntity | null>
   listConversationErrors(session_id: string): Promise<IErrorAnalysisEntity[]>
 }

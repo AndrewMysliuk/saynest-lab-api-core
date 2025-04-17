@@ -77,7 +77,12 @@ export const createConversationHandler = (conversationService: IConversationServ
       res.end()
     } catch (error: unknown) {
       logger.error("createConversationHandler | error:", error)
-      res.status(500).json({ error: "Internal Server Error" })
+
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Internal Server Error" })
+      } else {
+        res.end()
+      }
     }
   }
 }

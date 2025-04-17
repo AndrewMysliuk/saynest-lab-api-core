@@ -1,7 +1,6 @@
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
-import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IGPTPayload } from "../../../types"
-import { trimmedMessageHistoryForErrorAnalyser } from "../../../utils"
+import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest } from "../../../types"
 import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ILanguageTheory } from "../../language_theory"
@@ -18,18 +17,14 @@ export class ErrorAnalysisService implements IErrorAnalysis {
     this.languageTheoryService = languageTheoryService
   }
 
-  async conversationErrorAnalysis(session_id: string, payload: IGPTPayload): Promise<IErrorAnalysisEntity | null> {
+  async conversationErrorAnalysis(dto: IErrorAnalysisRequest): Promise<IErrorAnalysisEntity | null> {
     try {
-      let messages = payload.messages ?? []
-      const userMessages = messages.filter((item) => item.role === "user")
+      const history = dto.gpt_payload.messages ?? []
+      const userMessages = history.filter((item) => item.role === "user")
       const lastUserMessage = userMessages[userMessages.length - 1]
 
-      if (messages.length === 0) {
+      if (history.length === 0) {
         throw new Error("no messages provided in payload.")
-      }
-
-      if (messages[0].role !== "system") {
-        throw new Error("first message must be a system prompt.")
       }
 
       if (userMessages.length === 0) {
@@ -40,22 +35,30 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         throw new Error("no user content provided in last message.")
       }
 
-      const topics = await this.languageTheoryService.filteredShortListByLanguage("en", {
+      const topics = await this.languageTheoryService.filteredShortListByLanguage(dto.target_language, {
         topic_ids: [],
         topic_titles: [],
         level_cefr: [],
       })
 
-      const systemPrompt = buildSystemPrompt(topics, messages[0].content)
+      const systemPrompt = buildSystemPrompt(topics, dto)
 
-      messages[0].content = systemPrompt
-      messages = trimmedMessageHistoryForErrorAnalyser(messages)
+      const messages: Array<{ role: GPTRoleType; content: string }> = [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        {
+          role: "user",
+          content: lastUserMessage.content,
+        },
+      ]
 
       const response = await openaiREST.chat.completions.create({
-        model: payload.model,
+        model: dto.gpt_payload.model || "gpt-4o",
         messages,
-        temperature: payload.temperature || 0.7,
-        max_tokens: payload.max_tokens || 1500,
+        temperature: dto.gpt_payload.temperature || 0.6,
+        max_tokens: dto.gpt_payload.max_tokens || 1500,
         tools: [
           {
             type: "function",
@@ -86,7 +89,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       const rawParsed = JSON.parse(toolCall.function.arguments)
       const modelResponse = validateToolResponse<IErrorAnalysisModelEntity>(rawParsed, ConversationErrorAnalyserSchema)
 
-      return await this.errorAnalysisRepo.setErrorAnalysis(session_id, lastUserMessage.content, modelResponse)
+      return await this.errorAnalysisRepo.setErrorAnalysis(dto.session_id, lastUserMessage.content, modelResponse)
     } catch (error: unknown) {
       logger.error(`conversationErrorAnalysis | error: ${error}`)
       throw error
