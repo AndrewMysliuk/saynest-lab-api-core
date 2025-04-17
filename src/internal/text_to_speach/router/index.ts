@@ -1,6 +1,6 @@
 import { Router } from "express"
 
-import { textToSpeachHandler } from "../handlers"
+import { textToSpeachHandler, textToSpeechElevenLabsHandler } from "../handlers"
 import { ITextToSpeach } from "../index"
 
 const router = Router()
@@ -11,6 +11,7 @@ export const createTextToSpeachRouter = (textToSpeachService: ITextToSpeach): Ro
   const router = Router()
 
   router.post("/", textToSpeachHandler(textToSpeachService))
+  router.post("/eleven-labs", textToSpeechElevenLabsHandler(textToSpeachService))
 
   return router
 }

@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from "express"
 
-import { ITTSPayload } from "../../../types"
+import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
@@ -33,6 +33,44 @@ export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): Request
       res.end()
     } catch (error: unknown) {
       logger.error("textToSpeachController | error in ttsTextToSpeachHandler:", error)
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Internal Server Error" })
+      } else {
+        res.end()
+      }
+    }
+  }
+}
+
+export const textToSpeechElevenLabsHandler = (textToSpeachService: ITextToSpeach): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { input, voice, model, response_format = "mp3" } = req.body as ITTSElevenLabsPayload
+
+      if (!input || !voice) {
+        res.status(400).json({
+          error: "Missing required fields: input, voice",
+        })
+        return
+      }
+
+      res.writeHead(200, {
+        "Content-Type": `audio/${response_format}`,
+        "Transfer-Encoding": "chunked",
+        "Content-Disposition": `inline; filename="tts-output.${response_format}"`,
+      })
+
+      const output: { filePath?: string } = {}
+      const ttsStream = textToSpeachService.ttsTextToSpeechStreamElevenLabs(req.body, undefined, output)
+
+      for await (const chunk of ttsStream) {
+        res.write(chunk)
+      }
+
+      logger.debug("ElevenLabs TTS audio saved at:", output.filePath)
+      res.end()
+    } catch (error: unknown) {
+      logger.error("textToSpeechHandlerElevenLabs | error:", error)
       if (!res.headersSent) {
         res.status(500).json({ error: "Internal Server Error" })
       } else {

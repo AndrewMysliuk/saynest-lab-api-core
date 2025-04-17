@@ -1,12 +1,14 @@
+import axios from "axios"
 import ffmpegPath from "ffmpeg-static"
 import ffmpeg from "fluent-ffmpeg"
 import fs from "fs"
 import * as path from "path"
+import { Readable } from "stream"
 import { buffer } from "stream/consumers"
 import { v4 as uuidv4 } from "uuid"
 
-import { openaiREST } from "../../../config"
-import { IListenAndTypeItem, ISimulationDialogue, ITTSPayload } from "../../../types"
+import { openaiREST, serverConfig } from "../../../config"
+import { IListenAndTypeItem, ISimulationDialogue, ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
 import { ensureStorageDirExists } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
@@ -41,6 +43,54 @@ export class TextToSpeachService implements ITextToSpeach {
       return
     } catch (error: unknown) {
       logger.error("textToSpeechService | error in ttsTextToSpeech: ", error)
+      throw error
+    }
+  }
+
+  async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
+    try {
+      const userSessionsDir = session_folder ?? (await ensureStorageDirExists())
+      const fileExtension = payload.response_format || "mp3"
+      const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
+
+      const voiceId = payload.voice || "EXAVITQu4vr4xnSDxMaL"
+      const modelId = payload.model || "eleven_multilingual_v1"
+      const stability = payload.voice_settings?.stability ?? 0.5
+      const similarity_boost = payload.voice_settings?.similarity_boost ?? 0.5
+
+      const response = await axios.post(
+        `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
+        {
+          text: payload.input ?? "",
+          model_id: modelId,
+          voice_settings: {
+            stability,
+            similarity_boost,
+          },
+        },
+        {
+          headers: {
+            "xi-api-key": serverConfig.ELEVEN_API_KEY,
+            "Content-Type": "application/json",
+            Accept: "audio/mpeg",
+          },
+          responseType: "stream",
+        },
+      )
+
+      const stream = response.data as Readable
+      const chunks: Buffer[] = []
+
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+        yield chunk
+      }
+
+      await fs.promises.writeFile(filePath, Buffer.concat(chunks))
+
+      if (output) output.filePath = filePath
+    } catch (error: unknown) {
+      console.error("ttsTextToSpeechStreamElevenLabs | error:", error)
       throw error
     }
   }
