@@ -63,8 +63,9 @@ export const ttsSchema = z.object({
 // })
 
 export const systemSchema = z.object({
-  session_id: z.string().optional(),
+  session_id: z.string(),
   global_prompt: z.string(),
+  prompt_id: z.string(),
 })
 
 export const conversationSchema = z.object({

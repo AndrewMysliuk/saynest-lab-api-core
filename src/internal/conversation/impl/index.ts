@@ -43,7 +43,7 @@ export class ConversationService implements IConversationService {
       const sessionDir = await ensureStorageDirExists(system.session_id)
 
       const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
-      const sessionDataPromise = this.getSessionData(system.session_id, system.global_prompt, sessionDir)
+      const sessionDataPromise = this.getSessionData(system.prompt_id, system.session_id, system.global_prompt, sessionDir)
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
 
@@ -177,13 +177,14 @@ export class ConversationService implements IConversationService {
   async startNewSession(
     // organization_id: string,
     // user_id: string,
+    prompt_id: string,
     system_prompt: string,
     session_dir: string,
   ): Promise<{
     session_id: ObjectId
     conversation_history: IConversationHistory[]
   }> {
-    const session = await this.sessionService.createSession(system_prompt, session_dir, SessionTypeEnum.SPEACKING)
+    const session = await this.sessionService.createSession(prompt_id, system_prompt, session_dir, SessionTypeEnum.SPEACKING)
 
     const pair_id = uuidv4()
     const session_id = session._id
@@ -204,6 +205,7 @@ export class ConversationService implements IConversationService {
   async getSessionData(
     // organization_id: string,
     // user_id: string,
+    prompt_id: string,
     session_id: string | undefined,
     system_prompt: string,
     session_dir: string,
@@ -218,7 +220,7 @@ export class ConversationService implements IConversationService {
       return { session_id: session._id, conversation_history }
     }
 
-    return this.startNewSession(system_prompt, session_dir)
+    return this.startNewSession(prompt_id, system_prompt, session_dir)
   }
 
   async listConversationHistory(session_id: string): Promise<IConversationHistory[]> {

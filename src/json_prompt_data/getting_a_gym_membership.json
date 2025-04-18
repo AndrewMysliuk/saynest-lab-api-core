@@ -1,0 +1,105 @@
+{
+  "id": "getting_a_gym_membership",
+  "title": "Getting a Gym Membership",
+  "description": "You walk into a gym in a foreign country and want to get a membership. You need to ask about prices, plans, facilities, and make a decision.",
+  "level": "B2",
+  "goals": [
+    {
+      "phrase": "Find out what membership options are available and how much they cost",
+      "translation": "Узнать, какие есть варианты абонементов и сколько они стоят"
+    },
+    {
+      "phrase": "Understand what's actually included in the membership (like classes or sauna)",
+      "translation": "Понять, что вообще входит в абонемент (например, занятия или сауна)"
+    },
+    {
+      "phrase": "Ask if it’s possible to pause or cancel the membership later",
+      "translation": "Спросить, можно ли приостановить или отменить абонемент потом"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Fitness Center / Gym",
+    "situation": "User is a guest trying to buy a membership",
+    "goal": "Keep the user engaged and guide them through buying a membership, step by step, using natural conversation",
+    "steps": [
+      "Greet the user politely as they enter the gym",
+      "Ask if they’re interested in short- or long-term membership",
+      "Mention the available facilities and perks (e.g., pool, classes, sauna)",
+      "Guide them through choosing a membership plan",
+      "Offer to answer follow-up questions or schedule a tour",
+      "Politely wrap up the conversation using the defined closing sentence"
+    ]
+  },
+  "prompt": "You are a friendly gym receptionist. The user has just entered and wants to get information about gym memberships. Guide them through the options, ask questions to understand their needs, and explain the available services. Avoid sounding like a salesperson, but do be helpful and clear.",
+  "dictionary": [
+    {
+      "word": "membership",
+      "translation": "абонемент",
+      "meaning": "a paid plan that gives access to a gym"
+    },
+    {
+      "word": "facility",
+      "translation": "удобство / объект",
+      "meaning": "services or spaces provided by the gym, like a pool or sauna"
+    },
+    {
+      "word": "locker room",
+      "translation": "раздевалка",
+      "meaning": "a place to change clothes and store personal items"
+    },
+    {
+      "word": "personal trainer",
+      "translation": "персональный тренер",
+      "meaning": "a fitness coach who works with you individually"
+    },
+    {
+      "word": "contract",
+      "translation": "договор",
+      "meaning": "a formal agreement for the gym membership"
+    },
+    {
+      "word": "treadmill",
+      "translation": "беговая дорожка",
+      "meaning": "a cardio machine used for walking or running"
+    },
+    {
+      "word": "group classes",
+      "translation": "групповые занятия",
+      "meaning": "fitness sessions with an instructor and multiple participants"
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "I'm interested in joining the gym.",
+      "translation": "Я хотел бы записаться в спортзал.",
+      "meaning": "Opening statement when you want to sign up"
+    },
+    {
+      "phrase": "What kind of memberships do you offer?",
+      "translation": "Какие виды абонементов у вас есть?",
+      "meaning": "Used to ask about pricing and plans"
+    },
+    {
+      "phrase": "Are there any group classes included?",
+      "translation": "Групповые занятия входят в абонемент?",
+      "meaning": "Used to ask about included services"
+    },
+    {
+      "phrase": "Do I need to sign a contract?",
+      "translation": "Нужно ли подписывать договор?",
+      "meaning": "Used to ask about commitment requirements"
+    },
+    {
+      "phrase": "Is there a trial period?",
+      "translation": "Есть ли пробный период?",
+      "meaning": "Used to ask if you can test the gym before committing"
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 10,
+    "end_behavior": "This concludes our conversation. Thanks!"
+  }
+}

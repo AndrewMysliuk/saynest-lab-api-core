@@ -7,6 +7,7 @@ export interface IConversationService {
   startNewSession(
     // organization_id: string,
     // user_id: string,
+    prompt_id: string,
     system_prompt: string,
     session_dir: string,
   ): Promise<{
@@ -17,6 +18,7 @@ export interface IConversationService {
     // organization_id: string,
     // user_id: string,
     session_id: string | undefined,
+    prompt_id: string,
     system_prompt: string,
     session_dir: string,
   ): Promise<{

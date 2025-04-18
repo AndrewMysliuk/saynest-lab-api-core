@@ -24,12 +24,4 @@ export class HistoryRepository implements IRepository {
       })
       .session(options?.session || null)
   }
-
-  async deleteHistoryById(session_id: string, message_id: string, options?: IMongooseOptions): Promise<void> {
-    await ConversationHistoryModel.deleteOne({ session_id, _id: message_id }).session(options?.session || null)
-  }
-
-  async deleteHistoryByPairId(session_id: string, pair_id: string, options?: IMongooseOptions): Promise<void> {
-    await ConversationHistoryModel.deleteMany({ session_id, pair_id }).session(options?.session || null)
-  }
 }

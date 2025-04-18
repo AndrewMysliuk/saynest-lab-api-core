@@ -9,8 +9,8 @@ export class SessionService implements ISessionService {
     this.sessionRepo = sessionRepo
   }
 
-  async createSession(system_prompt: string, session_directory: string, type: SessionTypeEnum): Promise<ISessionEntity> {
-    return this.sessionRepo.createSession(system_prompt, session_directory, type)
+  async createSession(prompt_id: string, system_prompt: string, session_directory: string, type: SessionTypeEnum): Promise<ISessionEntity> {
+    return this.sessionRepo.createSession(prompt_id, system_prompt, session_directory, type)
   }
 
   async getSession(session_id: string): Promise<ISessionEntity> {

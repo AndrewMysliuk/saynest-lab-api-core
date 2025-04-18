@@ -14,6 +14,7 @@ const sessionSchema = new Schema<ISessionDocument>(
   {
     // user_id: { type: Schema.Types.ObjectId, required: true, ref: USER_TABLE },
     // organization_id: { type: Schema.Types.ObjectId, required: true, ref: ORGANISATION_TABLE },
+    prompt_id: { type: String, required: true },
     type: { type: String, enum: Object.values(SessionTypeEnum), required: true },
     status: { type: String, enum: Object.values(SessionStatusEnum), default: SessionStatusEnum.ACTIVE },
     system_prompt: { type: String, default: "" },

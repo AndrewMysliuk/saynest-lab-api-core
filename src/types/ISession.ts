@@ -15,6 +15,7 @@ export enum SessionStatusEnum {
 
 export interface ISessionEntity {
   _id: ObjectId
+  prompt_id: string
   // user_id: ObjectId
   // organization_id: ObjectId
   type: SessionTypeEnum

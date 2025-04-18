@@ -12,6 +12,8 @@ import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mong
 import { LanguageTheoryService } from "../internal/language_theory/impl"
 import { createLanguageTheoryRouter } from "../internal/language_theory/router"
 import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
+import { PromptService } from "../internal/prompts_library/impl"
+import { createPromptRouter } from "../internal/prompts_library/router"
 import { ScenarioSimulationService } from "../internal/scenario_simulation/impl"
 import { createScenarioSimulationRouter } from "../internal/scenario_simulation/router"
 import { SessionService } from "../internal/session/impl"
@@ -51,6 +53,7 @@ const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, l
 const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
 const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService)
+const promptService = new PromptService()
 
 const router = Router()
 
@@ -65,5 +68,6 @@ router.use("/text-analysis", createTextAnalysisRouter(textAnalysisService))
 router.use("/text-to-speach", createTextToSpeachRouter(textToSpeachService))
 router.use("/conversation", createConversationRouter(conversationService))
 router.use("/communication-review", createCommunicationReviewRouter(communicationReviewService))
+router.use("/prompts-library", createPromptRouter(promptService))
 
 export default router

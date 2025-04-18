@@ -7,10 +7,11 @@ import { IMongooseOptions, ISessionEntity, SessionStatusEnum, SessionTypeEnum } 
 import { SessionModel } from "./model"
 
 export class SessionRepository implements IRepository {
-  async createSession(system_prompt: string, session_directory: string, type: SessionTypeEnum, options?: IMongooseOptions): Promise<ISessionEntity> {
+  async createSession(prompt_id: string, system_prompt: string, session_directory: string, type: SessionTypeEnum, options?: IMongooseOptions): Promise<ISessionEntity> {
     const session = new SessionModel({
       // organization_id: new Types.ObjectId(organization_id),
       // user_id: new Types.ObjectId(user_id),
+      prompt_id,
       type,
       system_prompt,
       session_directory,
