@@ -20,8 +20,32 @@ export interface IStatisticsHistory {
   messages: IConversationHistory[] // Вся история сообщений с аудио
 }
 
+export interface ILevelDiagnosis {
+  level: VocabularyFrequencyLevelEnum
+  reasons: string // например: "used mostly B1-level vocabulary", "few complex sentence structures", "frequent errors with A2 grammar"
+}
+
+export interface IUserGoalEvaluation {
+  goal: string
+  is_covered: boolean
+  evidence?: string
+}
+
+export interface IVocabularyUsage {
+  word: string
+  is_used: boolean
+  usage_context?: string
+}
+
+export interface IExpressionUsage {
+  phrase: string
+  is_used: boolean
+  usage_context?: string
+}
+
 export interface IStatistics {
   _id: ObjectId
+  prompt_id: string
   session_id: string
   topic_title: string
   language: string
@@ -29,9 +53,13 @@ export interface IStatistics {
   history: IStatisticsHistory
   error_analysis: IErrorAnalysisEntity[]
   vocabulary: IVocabularyEntity[]
+  metrics: IStatisticsMetrics
   suggestion: string
   conclusion: string
-  user_cefr_level: VocabularyFrequencyLevelEnum
+  user_cefr_level: ILevelDiagnosis
+  goals_coverage: IUserGoalEvaluation[]
+  vocabulary_used: IVocabularyUsage[]
+  phrases_used: IExpressionUsage[]
   updated_at: Date
   created_at: Date
 }
@@ -39,11 +67,16 @@ export interface IStatistics {
 export interface IStatisticsModelResponse {
   suggestion: string
   conclusion: string
-  user_cefr_level: VocabularyFrequencyLevelEnum
+  metrics: IStatisticsMetrics
+  user_cefr_level: ILevelDiagnosis
+  goals_coverage: IUserGoalEvaluation[]
+  vocabulary_used: IVocabularyUsage[]
+  phrases_used: IExpressionUsage[]
 }
 
 export interface IStatisticsGenerateRequest {
   session_id: string
+  prompt_id: string
   topic_title: string
   language: string
   user_language: string

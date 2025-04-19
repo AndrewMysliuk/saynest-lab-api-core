@@ -3,15 +3,110 @@
   "type": "object",
   "properties": {
     "suggestion": {
-      "type": "string"
+      "type": "string",
+      "description": "Actionable advice for the user based on their session performance."
     },
     "conclusion": {
-      "type": "string"
+      "type": "string",
+      "description": "High-level summary of how the user performed overall."
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "lexical_density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "filler_word_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "filler_word": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coherence_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "vocabulary_range": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["lexical_density", "filler_word_count", "filler_word", "coherence_score"]
     },
     "user_cefr_level": {
-      "type": "string",
-      "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
+        },
+        "reasons": {
+          "type": "string"
+        }
+      },
+      "required": ["level", "reasons"]
+    },
+    "goals_coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "goal": {
+            "type": "string"
+          },
+          "is_covered": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": ["goal", "is_covered"]
+      }
+    },
+    "vocabulary_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "is_used": {
+            "type": "boolean"
+          },
+          "usage_context": {
+            "type": "string"
+          }
+        },
+        "required": ["word", "is_used"]
+      }
+    },
+    "phrases_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phrase": {
+            "type": "string"
+          },
+          "is_used": {
+            "type": "boolean"
+          },
+          "usage_context": {
+            "type": "string"
+          }
+        },
+        "required": ["phrase", "is_used"]
+      }
     }
   },
-  "required": ["suggestion", "conclusion", "user_cefr_level"]
+  "required": ["suggestion", "conclusion", "metrics", "user_cefr_level", "goals_coverage", "vocabulary_used", "phrases_used"]
 }

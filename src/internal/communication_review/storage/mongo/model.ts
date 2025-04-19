@@ -4,10 +4,15 @@ import {
   ErrorAnalysisSentenceStructureEnum,
   IConversationHistory,
   IErrorAnalysisEntity,
+  IExpressionUsage,
+  ILevelDiagnosis,
   IMeaningEntity,
   IStatistics,
   IStatisticsHistory,
+  IStatisticsMetrics,
+  IUserGoalEvaluation,
   IVocabularyEntity,
+  IVocabularyUsage,
   IWord,
   IssueItem,
   PartOfSpeechEnum,
@@ -102,9 +107,47 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
   { _id: false },
 )
 
+const MetricsSchema = new Schema<IStatisticsMetrics>(
+  {
+    lexical_density: { type: Number, required: true },
+    filler_word_count: { type: Number, required: true },
+    filler_word: { type: [String], required: true },
+    coherence_score: { type: Number, required: true },
+    vocabulary_range: { type: Number, required: false },
+  },
+  { _id: false },
+)
+
+const LevelDiagnosisSchema = new Schema<ILevelDiagnosis>(
+  {
+    level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
+    reasons: { type: String, required: true },
+  },
+  { _id: false },
+)
+
+const UserGoalEvaluationSchema = new Schema<IUserGoalEvaluation>({
+  goal: { type: String, required: true },
+  is_covered: { type: Boolean, required: true },
+  evidence: { type: String, required: false },
+})
+
+const VocabularyUsageSchema = new Schema<IVocabularyUsage>({
+  word: { type: String, required: true },
+  is_used: { type: Boolean, required: true },
+  usage_context: { type: String, required: false },
+})
+
+const ExpressionUsageSchema = new Schema<IExpressionUsage>({
+  phrase: { type: String, required: true },
+  is_used: { type: Boolean, required: true },
+  usage_context: { type: String, required: false },
+})
+
 const StatisticsSchema = new Schema<IStatisticsDocument>(
   {
     session_id: { type: String, required: true, ref: SESSION_TABLE },
+    prompt_id: { type: String, required: true },
     topic_title: { type: String, required: true },
     language: { type: String, required: true },
     user_language: { type: String, required: true },
@@ -113,7 +156,11 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
     vocabulary: { type: [VocabularySchema], default: [] },
     suggestion: { type: String, required: true },
     conclusion: { type: String, required: true },
-    user_cefr_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
+    metrics: { type: MetricsSchema, required: true },
+    user_cefr_level: { type: LevelDiagnosisSchema, required: true },
+    goals_coverage: { type: [UserGoalEvaluationSchema], required: true },
+    vocabulary_used: { type: [VocabularyUsageSchema], required: true },
+    phrases_used: { type: [ExpressionUsageSchema], required: true },
     updated_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now },
   },

@@ -47,6 +47,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         topic_titles: [],
         level_cefr: [],
       })
+
       const prompt = this.promptService.getById(dto.prompt_id)
 
       if (!prompt) {
