@@ -89,7 +89,7 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
     suggestion_message: { type: String, required: true },
     detected_language: { type: String, required: true },
     is_target_language: { type: Boolean, required: true },
-    discussion_topic: { type: String },
+    prompt_id: { type: String, required: true },
     sentence_structure: {
       type: String,
       enum: Object.values(ErrorAnalysisSentenceStructureEnum),
@@ -97,6 +97,7 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
     },
     issues: { type: [IssueSchema], required: true },
     has_errors: { type: Boolean, required: true },
+    is_end: { type: Boolean, required: true },
   },
   { _id: false },
 )

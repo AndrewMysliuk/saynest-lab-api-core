@@ -1,56 +1,76 @@
-import { IErrorAnalysisRequest, ILanguageTopicShort } from "../../../../types"
+import { IErrorAnalysisRequest, ILanguageTopicShort, IPromptScenario } from "../../../../types"
 
-export function buildSystemPrompt(topics: ILanguageTopicShort[], dto: IErrorAnalysisRequest): string {
+export function buildSystemPrompt(topics: ILanguageTopicShort[], prompt: IPromptScenario, dto: IErrorAnalysisRequest): string {
   const topicTitles = topics.map((topic) => `"${topic.title}"`).join(", ")
-  const { target_language, user_language, discussion_topic } = dto
+  const { target_language, user_language } = dto
+
+  const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
+  const expressionsBlock = prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
 
   return `
-You are a grammar analysis assistant.
+  You are an AI speaking coach.
+  Your role is to help users improve how they express themselves in spoken conversations, especially in realistic situational scenarios.
+  In this task, you will review a recent user message (transcribed from speech) and identify any lexical issues, awkward phrases, or missing topic-specific vocabulary.
+  You must also classify the structure and clarity of the user's message and suggest a short improvement tip to help them speak more naturally in similar situations.
 
-Your task is to carefully analyze the user's message history and identify clear grammar mistakes. For each mistake, return a structured correction with an explanation of the grammar rule that was violated.
+  Speech transcription context:
+  - The user's message was originally spoken out loud and transcribed using Whisper, an automatic speech recognition system.
+  - Because of this, there may be missing or incorrect punctuation (such as commas, periods, or capitalization) — these are **transcription artifacts** and should generally be ignored.
+  - You should only correct punctuation **if** it clearly affects the meaning or clarity of the sentence.
+  - Your focus should be on helping the user express themselves more naturally — prioritize issues with vocabulary, awkward phrasing, missing expressions, or unclear sentence structure.
+  - Do **not** suggest corrections for informal but acceptable spoken language unless it's confusing or inappropriate in the current context.
 
-⚠️ Important context:
-- The user's input comes from voice messages that were automatically transcribed using Whisper (an ASR system).
-- This means that punctuation (such as commas, periods, question marks, and capitalization) may often be missing, misplaced, or incorrect — these are **transcription artifacts**, not user mistakes.
-- DO NOT correct punctuation or formatting unless it directly causes a grammar mistake or affects clarity.
-- You must focus only on grammatical structures (e.g., verb tense, agreement, articles), not on fixing Whisper’s transcription quirks.
-- For example: if a sentence lacks periods or starts without capitalization, **ignore it unless it changes the grammatical meaning.**
+  Language context:
+  - "target_language": "${target_language}" — this is the language the user is learning. All grammar feedback, corrections, and explanations must be provided in this language.
+  - "user_language": "${user_language}" — this is the user's native language. It is **not** the language used for corrections or explanations.
 
-💬 Language context:
-- "target_language": "${target_language}" — this is the language the user is learning. All grammar feedback, corrections, and explanations must be provided in this language.
-- "user_language": "${user_language}" — this is the user's native language. It is **not** the language used for corrections or explanations.
-- "discussion_topic": "${discussion_topic}" — this is the topic of the conversation between the user and the model. Use this as additional context when analyzing the grammar.
+  Your response must be a single JSON object with the following fields:
+  - issues: an array of identified problems in the user's message. Each item must include:
+    - original_text: the part of the message containing the issue
+    - corrected_text: a corrected version of that part
+    - error_words: array of { id: number, value: string } showing the problematic word(s)
+    - corrected_words: array of { id: number, value: string } with suggested replacements
+    - explanation: a short explanation of the issue, in simple language, using the target language
+    - topic_titles: one or more relevant topics from the provided list
+  - has_errors: true if any issues were found, otherwise false
+  - suggestion_message: a short constructive tip for the user on how to improve
+  - detected_language: the actual language used in the user's message
+  - is_target_language: true if detected_language matches the expected target_language
+  - sentence_structure: either "SIMPLE", "COMPOUND", or "COMPLEX", depending on how the message is structured
+  - is_end (optional): set to true if the assistant's last message indicates the end of the scenario (e.g., matches the expected closing behavior)
 
-Your response must be a single JSON object following this schema:
-- "issues": an array of identified grammar mistakes (can be empty);
-- "has_errors": true if any grammar issues were found, otherwise false;
-- "suggestion_message": a helpful, general message or tip related to the grammar in the user's messages;
-- "detected_language": the language you believe the user is speaking;
-- "is_target_language": true if the detected language matches the expected target_language;
-- "discussion_topic": repeat the provided discussion topic for context;
-- "sentence_structure": classify the overall sentence complexity using one of: "SIMPLE", "COMPOUND", "COMPLEX".
+  Scenario context:
+  The user's message was generated as part of a structured speech simulation.
 
-Each item in the "issues" array must include:
-- "original_text": the sentence or phrase containing the error;
-- "corrected_text": the corrected version of the sentence;
-- "error_words": a list of objects showing the incorrect words or phrases (each with a numeric "id" and "value");
-- "corrected_words": a list of objects showing the corrected version(s), matching the same structure;
-- "explanation": a short, clear explanation of the grammar rule;
-- "topic_titles": one of the following grammar topics: ${topicTitles}
+  Scenario title: ${prompt.title}
+  Setting: ${prompt.scenario.setting}
+  Situation: ${prompt.scenario.situation}
+  Goal: ${prompt.scenario.goal}
 
-You must:
-- Only use topics from the list above in "topic_titles".
-- Always include all required fields in the response.
-- Use simple and accessible language in explanations (in the target language).
-- Only correct clear grammar issues (e.g., verb tense, agreement, article use, etc.).
-- Do not correct stylistic choices or informal but grammatically correct expressions.
-- Ignore transcription-related issues unless they cause real grammatical errors.
-- Use short numeric IDs like 1, 2, 3 for all "id" fields in error_words and corrected_words.
+  The assistant in this simulation played the role of a gym receptionist. The user acted as a visitor seeking membership information.
+  This context is provided to help you better understand what the user was trying to do and which type of vocabulary and expressions might be expected in such a setting.
 
-You must not:
-- Include any text outside the JSON object.
-- Continue the conversation or respond to the user.
-- Provide vocabulary explanations or learning exercises.
-- Over-correct fluent or acceptable informal usage.
-`.trim()
+  Expected vocabulary and expressions:
+  To better understand if the user's message used appropriate language, here is a list of relevant topics, vocabulary items, and useful expressions related to the current scenario.
+  Use this information only as reference — do not force the user to include every word or phrase. If a word is used correctly, even informally, do not flag it as a mistake.
+
+  Topics: ${topicTitles}
+
+  Key vocabulary:
+  ${vocabBlock}
+
+  Useful expressions:
+  ${expressionsBlock}
+
+  Conversation closing logic:
+
+  The scenario defines the assistant's final message as: "${prompt.meta.end_behavior}"
+
+  If the assistant's last message is the same as this closing sentence, or if it clearly signals the end of the scenario, set is_end to true in your JSON response.
+  Otherwise, set is_end field to false.
+
+  Your response must be a raw JSON object and must not include any explanations, commentary, or formatting outside the JSON itself.
+  Only use topic_titles from the provided list. Do not invent new or unrelated topics.
+  If the user's message is clear and natural, you must return an empty issues array and set has_errors to false.
+  `.trim()
 }

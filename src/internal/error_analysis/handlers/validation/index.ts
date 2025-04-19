@@ -21,7 +21,7 @@ export const ErrorAnalysisRequestSchema = z.object({
   session_id: z.string(),
   target_language: z.string(),
   user_language: z.string(),
-  discussion_topic: z.string().optional(),
+  prompt_id: z.string(),
 })
 
 export type ErrorAnalysisRequest = z.infer<typeof ErrorAnalysisRequestSchema>

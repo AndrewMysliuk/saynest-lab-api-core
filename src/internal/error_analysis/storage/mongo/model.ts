@@ -33,7 +33,8 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>(
     suggestion_message: { type: String, required: true },
     detected_language: { type: String, required: true },
     is_target_language: { type: Boolean, required: true },
-    discussion_topic: { type: String },
+    prompt_id: { type: String, required: true },
+    is_end: { type: Boolean, required: true },
     sentence_structure: {
       type: String,
       enum: Object.values(ErrorAnalysisSentenceStructureEnum),

@@ -23,10 +23,10 @@ export interface IssueItem {
 export interface IErrorAnalysisModelEntity {
   issues: IssueItem[]
   has_errors: boolean
+  is_end: boolean
   suggestion_message: string
   detected_language: string
   is_target_language: boolean
-  discussion_topic?: string
   sentence_structure: ErrorAnalysisSentenceStructureEnum
 }
 
@@ -36,10 +36,11 @@ export interface IErrorAnalysisEntity {
   suggestion_message: string
   detected_language: string
   is_target_language: boolean
-  discussion_topic?: string
+  prompt_id: string
   sentence_structure: ErrorAnalysisSentenceStructureEnum
   issues: IssueItem[]
   has_errors: boolean
+  is_end: boolean
   updated_at: Date
   created_at: Date
 }
@@ -49,5 +50,5 @@ export interface IErrorAnalysisRequest {
   session_id: string
   target_language: string
   user_language: string
-  discussion_topic?: string
+  prompt_id: string
 }

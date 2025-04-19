@@ -4,6 +4,7 @@ import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAna
 import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ILanguageTheory } from "../../language_theory"
+import { IPromptService } from "../../prompts_library"
 import { IRepository } from "../storage"
 import ConversationErrorAnalyserSchema from "./json_schema/conversation_error_analysis.schema.json"
 import { buildSystemPrompt } from "./prompt"
@@ -11,37 +12,48 @@ import { buildSystemPrompt } from "./prompt"
 export class ErrorAnalysisService implements IErrorAnalysis {
   private readonly errorAnalysisRepo: IRepository
   private readonly languageTheoryService: ILanguageTheory
+  private readonly promptService: IPromptService
 
-  constructor(errorAnalysisRepo: IRepository, languageTheoryService: ILanguageTheory) {
+  constructor(errorAnalysisRepo: IRepository, languageTheoryService: ILanguageTheory, promptService: IPromptService) {
     this.errorAnalysisRepo = errorAnalysisRepo
     this.languageTheoryService = languageTheoryService
+    this.promptService = promptService
   }
 
   async conversationErrorAnalysis(dto: IErrorAnalysisRequest): Promise<IErrorAnalysisEntity | null> {
     try {
       const history = dto.gpt_payload.messages ?? []
+
+      if (!history.length) {
+        throw new Error("No messages provided in payload.")
+      }
+
       const userMessages = history.filter((item) => item.role === "user")
+      const assistantMessages = history.filter((item) => item.role === "assistant")
+
+      if (!userMessages.length) {
+        throw new Error("No user messages provided in payload.")
+      }
+
+      if (!assistantMessages.length) {
+        throw new Error("No assistant messages provided in payload.")
+      }
+
       const lastUserMessage = userMessages[userMessages.length - 1]
-
-      if (history.length === 0) {
-        throw new Error("no messages provided in payload.")
-      }
-
-      if (userMessages.length === 0) {
-        throw new Error("no user messages provided in payload.")
-      }
-
-      if (lastUserMessage.content === "") {
-        throw new Error("no user content provided in last message.")
-      }
+      const lastAssistantMessage = assistantMessages[assistantMessages.length - 1]
 
       const topics = await this.languageTheoryService.filteredShortListByLanguage(dto.target_language, {
         topic_ids: [],
         topic_titles: [],
         level_cefr: [],
       })
+      const prompt = this.promptService.getById(dto.prompt_id)
 
-      const systemPrompt = buildSystemPrompt(topics, dto)
+      if (!prompt) {
+        throw new Error("Prompt not found.")
+      }
+
+      const systemPrompt = buildSystemPrompt(topics, prompt, dto)
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         {
@@ -50,7 +62,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         },
         {
           role: "user",
-          content: lastUserMessage.content,
+          content: `User Message: "${lastUserMessage.content}" \n Assistant Message: "${lastAssistantMessage.content}"`,
         },
       ]
 
@@ -89,7 +101,16 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       const rawParsed = JSON.parse(toolCall.function.arguments)
       const modelResponse = validateToolResponse<IErrorAnalysisModelEntity>(rawParsed, ConversationErrorAnalyserSchema)
 
-      return await this.errorAnalysisRepo.setErrorAnalysis(dto.session_id, lastUserMessage.content, modelResponse)
+      this.errorAnalysisRepo.setErrorAnalysis(dto.session_id, dto.prompt_id, lastUserMessage.content, modelResponse)
+
+      return {
+        ...modelResponse,
+        session_id: dto.session_id,
+        prompt_id: dto.prompt_id,
+        last_user_message: lastUserMessage.content,
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
     } catch (error: unknown) {
       logger.error(`conversationErrorAnalysis | error: ${error}`)
       throw error
