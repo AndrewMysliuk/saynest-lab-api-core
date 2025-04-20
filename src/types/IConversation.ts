@@ -35,6 +35,7 @@ export interface IConversationPayload {
 export enum StreamEventEnum {
   TRANSCRIPTION = "TRANSCRIPTION",
   GPT_RESPONSE = "GPT_RESPONSE",
+  GPT_FULL_RESPONSE = "GPT_FULL_RESPONSE",
   TTS_CHUNK = "TTS_CHUNK",
   ERROR = "ERROR",
   COMPLETE = "COMPLETE",
@@ -48,7 +49,7 @@ export interface IHistoryStreamEvent {
 }
 
 export interface IGptResponseStreamEvent {
-  type: StreamEventEnum.GPT_RESPONSE
+  type: StreamEventEnum.GPT_RESPONSE | StreamEventEnum.GPT_FULL_RESPONSE
   role: "assistant"
   content: string
 }

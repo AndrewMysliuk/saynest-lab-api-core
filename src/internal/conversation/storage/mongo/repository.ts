@@ -8,7 +8,7 @@ export class HistoryRepository implements IRepository {
 
     return await ConversationHistoryModel.insertMany(models, {
       session: options?.session,
-      ordered: false,
+      ordered: true,
     })
   }
 

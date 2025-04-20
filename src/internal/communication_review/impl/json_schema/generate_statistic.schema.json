@@ -3,8 +3,11 @@
   "type": "object",
   "properties": {
     "suggestion": {
-      "type": "string",
-      "description": "Actionable advice for the user based on their session performance."
+      "type": "array",
+      "description": "Actionable advice for the user based on their session performance. Each item should be a clear, helpful tip in the user's native language.",
+      "items": {
+        "type": "string"
+      }
     },
     "conclusion": {
       "type": "string",

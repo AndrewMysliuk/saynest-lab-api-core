@@ -23,7 +23,7 @@ export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): Request
       })
 
       const output: { filePath?: string } = {}
-      const ttsStream = textToSpeachService.ttsTextToSpeechStream(req.body, undefined, output)
+      const ttsStream = textToSpeachService.ttsTextToSpeechStream(req.body, undefined, output, true)
 
       for await (const chunk of ttsStream) {
         res.write(chunk)

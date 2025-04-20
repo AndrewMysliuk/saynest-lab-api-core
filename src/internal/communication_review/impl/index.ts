@@ -59,6 +59,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         language: dto.language,
         translation_language: dto.user_language,
         payload: {
+          // model: "gpt-4.1",
           model: "gpt-4o",
           messages: historyList.map((item) => ({ role: item.role, content: item.content })),
         },
@@ -72,6 +73,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       ]
 
       const response = await openaiREST.chat.completions.create({
+        // model: "gpt-4.1",
         model: "gpt-4o",
         messages,
         temperature: 0.6,

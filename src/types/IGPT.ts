@@ -9,3 +9,8 @@ export interface IGPTPayload {
   max_tokens?: number
   stream?: boolean
 }
+
+export interface IGPTConversationRequest {
+  gpt_payload: IGPTPayload
+  prompt_id: string
+}

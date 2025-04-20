@@ -16,9 +16,9 @@ import { ITextToSpeach } from "../index"
 ffmpeg.setFfmpegPath(ffmpegPath || "")
 
 export class TextToSpeachService implements ITextToSpeach {
-  async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
+  async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }, saveToFile: boolean = false): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ? session_folder : await ensureStorageDirExists()
+      const userSessionsDir = session_folder ?? (await ensureStorageDirExists())
       const fileExtension = payload?.response_format || "wav"
       const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
 
@@ -38,10 +38,13 @@ export class TextToSpeachService implements ITextToSpeach {
         yield chunk
       }
 
-      await fs.promises.writeFile(filePath, Buffer.concat(chunks))
-      output && (output.filePath = filePath)
+      if (saveToFile) {
+        await fs.promises.writeFile(filePath, Buffer.concat(chunks))
+        output && (output.filePath = filePath)
+      }
+
       return
-    } catch (error: unknown) {
+    } catch (error) {
       logger.error("textToSpeechService | error in ttsTextToSpeech: ", error)
       throw error
     }

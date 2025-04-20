@@ -1,6 +1,8 @@
 import { FunctionParameters } from "openai/src/resources/index.js"
 import { z } from "zod"
 
+const objectIdRegex = /^[a-f\d]{24}$/i
+
 export const whisperSchema = z.object({
   prompt: z.string().optional(),
   audio_file: z.any().refine((file): file is Express.Multer.File => file && typeof file === "object" && "originalname" in file && "buffer" in file, {
@@ -63,7 +65,9 @@ export const ttsSchema = z.object({
 // })
 
 export const systemSchema = z.object({
-  session_id: z.string(),
+  session_id: z.string().regex(objectIdRegex, {
+    message: "session_id mast have an ObjectId type",
+  }),
   global_prompt: z.string(),
   prompt_id: z.string(),
 })

@@ -26,3 +26,9 @@ export interface ISessionEntity {
   created_at: Date
   ended_at: Date
 }
+
+export interface ISessionCreateRequest {
+  type: SessionTypeEnum
+  system_prompt: string
+  prompt_id: string
+}

@@ -11,7 +11,7 @@ import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
 import { LanguageTheoryService } from "../internal/language_theory/impl"
 import { createLanguageTheoryRouter } from "../internal/language_theory/router"
-import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
+// import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
 import { PromptService } from "../internal/prompts_library/impl"
 import { createPromptRouter } from "../internal/prompts_library/router"
 import { ScenarioSimulationService } from "../internal/scenario_simulation/impl"
@@ -27,14 +27,14 @@ import { TextAnalysisService } from "../internal/text_analysis/impl"
 import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
-import { UserRepository } from "../internal/user/storage/mongo/repository"
+// import { UserRepository } from "../internal/user/storage/mongo/repository"
 import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
 import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
 import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
 
 // Repositories
-const organisationRepo = new OrganisationRepository()
-const userRepo = new UserRepository()
+// const organisationRepo = new OrganisationRepository()
+// const userRepo = new UserRepository()
 const sessionRepo = new SessionRepository()
 const vocabularyRepo = new VocabularyRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
@@ -42,12 +42,12 @@ const historyRepo = new HistoryRepository()
 const communicationReviewRepo = new CommunicationReviewRepository()
 
 // Services
-const sessionService = new SessionService(sessionRepo)
-const speachToTextService = new SpeachToTextService()
-const textToSpeachService = new TextToSpeachService()
-const textAnalysisService = new TextAnalysisService()
+const sessionService = new SessionService(sessionRepo, historyRepo)
 const languageTheoryService = new LanguageTheoryService()
 const promptService = new PromptService()
+const speachToTextService = new SpeachToTextService()
+const textToSpeachService = new TextToSpeachService()
+const textAnalysisService = new TextAnalysisService(promptService)
 const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
 const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService, promptService)

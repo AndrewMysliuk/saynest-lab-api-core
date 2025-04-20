@@ -48,10 +48,13 @@ const VocabularySchema = new Schema<IVocabularyEntity>(
 
 const ConversationHistorySchema = new Schema<IConversationHistory>(
   {
+    session_id: { type: String, required: true },
     pair_id: { type: String, required: true },
     role: { type: String, enum: ["system", "user", "assistant"], required: true },
     content: { type: String, required: true },
     audio_url: String,
+    updated_at: { type: Date, required: true },
+    created_at: { type: Date, required: true },
   },
   { _id: false },
 )
@@ -154,7 +157,7 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
     history: { type: StatisticsHistorySchema, required: true },
     error_analysis: { type: [ErrorAnalysisSchema], default: [] },
     vocabulary: { type: [VocabularySchema], default: [] },
-    suggestion: { type: String, required: true },
+    suggestion: { type: [String], required: true },
     conclusion: { type: String, required: true },
     metrics: { type: MetricsSchema, required: true },
     user_cefr_level: { type: LevelDiagnosisSchema, required: true },

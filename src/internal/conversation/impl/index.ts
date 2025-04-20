@@ -43,7 +43,7 @@ export class ConversationService implements IConversationService {
       const sessionDir = await ensureStorageDirExists(system.session_id)
 
       const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
-      const sessionDataPromise = this.getSessionData(system.prompt_id, system.session_id, system.global_prompt, sessionDir)
+      const sessionDataPromise = this.getSessionData(system.session_id)
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
 
@@ -70,13 +70,16 @@ export class ConversationService implements IConversationService {
 
       const trimmedHistory = trimConversationHistory(conversationHistory, MAX_CONVERSATION_TOKENS, pair_id)
 
-      const output: { filePath?: string } = {}
       let replyText = ""
+      const allAudioChunks: Buffer[] = []
 
-      const gptStream = this.textAnalysisService.streamGptReplyOnly({
-        ...gpt_model,
-        messages: trimmedHistory,
-      })
+      const gptStream = this.textAnalysisService.streamGptReplyOnly(
+        {
+          ...gpt_model,
+          messages: trimmedHistory,
+        },
+        system.prompt_id,
+      )
 
       let sentenceBuffer: string[] = []
 
@@ -101,11 +104,13 @@ export class ConversationService implements IConversationService {
               ...tts,
               input: sentence,
             },
-            sessionDir,
-            output,
+            undefined,
+            undefined,
+            false,
           )
 
           for await (const audioChunk of ttsGen) {
+            allAudioChunks.push(audioChunk)
             yield {
               type: StreamEventEnum.TTS_CHUNK,
               role: "assistant",
@@ -124,11 +129,13 @@ export class ConversationService implements IConversationService {
               ...tts,
               input: finalSentence,
             },
-            sessionDir,
-            output,
+            undefined,
+            undefined,
+            false,
           )
 
           for await (const audioChunk of ttsGen) {
+            allAudioChunks.push(audioChunk)
             yield {
               type: StreamEventEnum.TTS_CHUNK,
               role: "assistant",
@@ -138,14 +145,22 @@ export class ConversationService implements IConversationService {
         }
       }
 
-      const audioFilePath = output.filePath as string
+      const fileExtension = tts?.response_format || "wav"
+      const filePath = path.join(sessionDir, `${Date.now()}-model-response.${fileExtension}`)
+      await fs.promises.writeFile(filePath, Buffer.concat(allAudioChunks))
+
+      yield {
+        type: StreamEventEnum.GPT_FULL_RESPONSE,
+        role: "assistant",
+        content: replyText,
+      }
 
       const modelMessage = {
         session_id: activeSessionId,
         pair_id,
         role: "assistant",
         content: replyText,
-        audio_url: `/user_sessions/${activeSessionId}/${path.basename(audioFilePath)}`,
+        audio_url: `/user_sessions/${activeSessionId}/${path.basename(filePath)}`,
       } as IConversationHistory
 
       this.historyRepo.saveMany([userMessage, modelMessage]).catch((error) => logger.warn("Failed to save history", error))
@@ -174,53 +189,18 @@ export class ConversationService implements IConversationService {
     }
   }
 
-  async startNewSession(
-    // organization_id: string,
-    // user_id: string,
-    prompt_id: string,
-    system_prompt: string,
-    session_dir: string,
-  ): Promise<{
-    session_id: ObjectId
-    conversation_history: IConversationHistory[]
-  }> {
-    const session = await this.sessionService.createSession(prompt_id, system_prompt, session_dir, SessionTypeEnum.SPEACKING)
-
-    const pair_id = uuidv4()
-    const session_id = session._id
-
-    const conversation_history = await this.historyRepo.saveHistory({
-      session_id,
-      pair_id,
-      role: "system",
-      content: system_prompt,
-    })
-
-    return {
-      session_id,
-      conversation_history: [conversation_history],
-    }
-  }
-
   async getSessionData(
     // organization_id: string,
     // user_id: string,
-    prompt_id: string,
-    session_id: string | undefined,
-    system_prompt: string,
-    session_dir: string,
+    session_id: string,
   ): Promise<{
     session_id: ObjectId
     conversation_history: IConversationHistory[]
   }> {
-    if (session_id) {
-      const session = await this.sessionService.getSession(session_id)
-      const conversation_history = await this.historyRepo.getHistoryBySession(session_id)
+    const session = await this.sessionService.getSession(session_id)
+    const conversation_history = await this.historyRepo.getHistoryBySession(session_id)
 
-      return { session_id: session._id, conversation_history }
-    }
-
-    return this.startNewSession(prompt_id, system_prompt, session_dir)
+    return { session_id: session._id, conversation_history }
   }
 
   async listConversationHistory(session_id: string): Promise<IConversationHistory[]> {

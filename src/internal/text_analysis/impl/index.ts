@@ -3,33 +3,42 @@ import { openaiREST } from "../../../config"
 import { IGPTPayload, ISimulationDialogResponse } from "../../../types"
 import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
+import { IPromptService } from "../../prompts_library"
 import SimulationStartResponseSchema from "./json_schema/simulation_start_response.schema.json"
-import { CONVERSATION_RESPONSE_SYSTEM_PROMPT } from "./prompt"
+import { buildSystemPrompt } from "./prompt"
 
 export class TextAnalysisService implements ITextAnalysis {
-  async *streamGptReplyOnly(payload: IGPTPayload): AsyncGenerator<string, void, unknown> {
+  private readonly promptService: IPromptService
+
+  constructor(promptService: IPromptService) {
+    this.promptService = promptService
+  }
+
+  async *streamGptReplyOnly(payload: IGPTPayload, prompt_id: string): AsyncGenerator<string, void, unknown> {
     try {
       const messages = payload.messages ?? []
-      const userMessages = messages.filter((item) => item.role === "user")
-      const lastUserMessage = userMessages[userMessages.length - 1]
 
-      if (messages.length === 0) {
+      if (!messages.length) {
         throw new Error("no messages provided in payload.")
       }
+
+      const userMessages = messages.filter((item) => item.role === "user")
 
       if (messages[0].role !== "system") {
         throw new Error("first message must be a system prompt.")
       }
 
-      if (userMessages.length === 0) {
+      if (!userMessages.length) {
         throw new Error("no user messages provided in payload.")
       }
 
-      if (lastUserMessage.content === "") {
-        throw new Error("no user content provided in last message.")
+      const prompt = this.promptService.getById(prompt_id)
+
+      if (!prompt) {
+        throw new Error("Prompt not found.")
       }
 
-      messages[0].content = CONVERSATION_RESPONSE_SYSTEM_PROMPT + "\n\n" + messages[0].content
+      messages[0].content = buildSystemPrompt(prompt)
 
       const stream = await openaiREST.chat.completions.create({
         model: payload.model,

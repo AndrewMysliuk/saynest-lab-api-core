@@ -1,7 +1,7 @@
 import { IListenAndTypeItem, ISimulationDialogue, ITTSElevenLabsPayload, ITTSPayload } from "../../types"
 
 export interface ITextToSpeach {
-  ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void>
+  ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }, saveToFile?: boolean): AsyncGenerator<Buffer, void>
   ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void>
   ttsTextToSpeechListeningTask(payload: ITTSPayload, items: IListenAndTypeItem[]): Promise<IListenAndTypeItem[]>
   ttsTextToSpeechDialog(dialog: ISimulationDialogue): Promise<ISimulationDialogue>

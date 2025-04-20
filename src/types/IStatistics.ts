@@ -54,7 +54,7 @@ export interface IStatistics {
   error_analysis: IErrorAnalysisEntity[]
   vocabulary: IVocabularyEntity[]
   metrics: IStatisticsMetrics
-  suggestion: string
+  suggestion: string[]
   conclusion: string
   user_cefr_level: ILevelDiagnosis
   goals_coverage: IUserGoalEvaluation[]
@@ -65,7 +65,7 @@ export interface IStatistics {
 }
 
 export interface IStatisticsModelResponse {
-  suggestion: string
+  suggestion: string[]
   conclusion: string
   metrics: IStatisticsMetrics
   user_cefr_level: ILevelDiagnosis

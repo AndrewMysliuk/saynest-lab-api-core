@@ -1,15 +1,15 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ITextAnalysis } from ".."
-import { IGPTPayload } from "../../../types"
+import { IGPTConversationRequest, IGPTPayload } from "../../../types"
 import logger from "../../../utils/logger"
 
 export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { model, messages } = req.body as IGPTPayload
+      const { gpt_payload, prompt_id } = req.body as IGPTConversationRequest
 
-      if (!model || !messages) {
+      if (!gpt_payload.messages || !gpt_payload.model || !prompt_id) {
         res.status(400).json({
           error: "streamingTextAnalysisHandler | Missing required fields in payload",
         })
@@ -27,7 +27,7 @@ export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis)
         streamEnded = true
       })
 
-      const generator = textAnalysisService.streamGptReplyOnly(req.body)
+      const generator = textAnalysisService.streamGptReplyOnly(gpt_payload, prompt_id)
 
       for await (const chunk of generator) {
         if (streamEnded) break

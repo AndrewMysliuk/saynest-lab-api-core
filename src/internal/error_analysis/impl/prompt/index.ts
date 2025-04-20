@@ -19,7 +19,14 @@ Important context:
 
 Language context:
 - "target_language": ${target_language} — the language the user is learning.
-- "user_language": ${user_language} — the user's native language (not used for output).
+- "user_language": ${user_language} — the user's native language.
+
+**IMPORTANT:**
+- The entire output should use ${target_language}, **except** for the following fields:
+  - "suggestion_message"
+  - "explanation" (inside each issue)
+- These two fields must be written in the user's native language: ${user_language}.
+- All quotes or examples from the user's message must remain in the original target language (${target_language}) without translation.
 
 Return a single JSON object with the following fields:
 
@@ -28,11 +35,11 @@ Return a single JSON object with the following fields:
   - corrected_text: the corrected version
   - error_words: array of { id: number, value: string }
   - corrected_words: array of { id: number, value: string }
-  - explanation: short explanation in the target language
-  - topic_titles(must be string): one or more topics from the provided topics below that relate to this issue
+  - explanation: short explanation **in ${user_language}**
+  - topic_titles (must be string): one or more topics from the provided topics below that relate to this issue
 
 - has_errors: true if any issues were found, otherwise false
-- suggestion_message: short, encouraging tip on what the user could improve next
+- suggestion_message: short, encouraging tip on what the user could improve next, **written in ${user_language}**
 - detected_language: the language used by the user
 - is_target_language: true if the detected language matches the target_language
 - sentence_structure: classify as "SIMPLE", "COMPOUND", or "COMPLEX"

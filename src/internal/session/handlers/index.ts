@@ -1,14 +1,14 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ISessionService } from ".."
-import { SessionTypeEnum } from "../../../types"
+import { ISessionCreateRequest } from "../../../types"
 import { ensureStorageDirExists } from "../../../utils"
 import logger from "../../../utils/logger"
 
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { type, system_prompt, prompt_id }: { type: SessionTypeEnum; system_prompt: string; prompt_id: string } = req.body
+      const { type, system_prompt, prompt_id } = req.body as ISessionCreateRequest
       // organization_id, user_id
 
       if (!type || !system_prompt || !prompt_id) {
