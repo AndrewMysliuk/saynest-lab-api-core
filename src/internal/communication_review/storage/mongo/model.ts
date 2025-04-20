@@ -9,7 +9,6 @@ import {
   IMeaningEntity,
   IStatistics,
   IStatisticsHistory,
-  IStatisticsMetrics,
   IUserGoalEvaluation,
   IVocabularyEntity,
   IVocabularyUsage,
@@ -93,6 +92,7 @@ const IssueSchema = new Schema<IssueItem>(
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
   {
     session_id: { type: String, required: true },
+    improve_user_answer: { type: String, required: true },
     last_user_message: { type: String, required: true },
     suggestion_message: { type: String, required: true },
     detected_language: { type: String, required: true },
@@ -106,17 +106,6 @@ const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
     issues: { type: [IssueSchema], required: true },
     has_errors: { type: Boolean, required: true },
     is_end: { type: Boolean, required: true },
-  },
-  { _id: false },
-)
-
-const MetricsSchema = new Schema<IStatisticsMetrics>(
-  {
-    lexical_density: { type: Number, required: true },
-    filler_word_count: { type: Number, required: true },
-    filler_word: { type: [String], required: true },
-    coherence_score: { type: Number, required: true },
-    vocabulary_range: { type: Number, required: false },
   },
   { _id: false },
 )
@@ -159,7 +148,6 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
     vocabulary: { type: [VocabularySchema], default: [] },
     suggestion: { type: [String], required: true },
     conclusion: { type: String, required: true },
-    metrics: { type: MetricsSchema, required: true },
     user_cefr_level: { type: LevelDiagnosisSchema, required: true },
     goals_coverage: { type: [UserGoalEvaluationSchema], required: true },
     vocabulary_used: { type: [VocabularyUsageSchema], required: true },

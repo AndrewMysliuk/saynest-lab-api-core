@@ -77,4 +77,6 @@ export const conversationSchema = z.object({
   gpt_model: gptModelSchema,
   tts: ttsSchema,
   system: systemSchema,
+  target_language: z.string(),
+  user_native_language: z.string(),
 })

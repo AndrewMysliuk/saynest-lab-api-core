@@ -23,7 +23,9 @@ export const buildSystemPrompt = (prompt: IPromptScenario): string => {
   
   You should:
   - Stay completely in character.
-  - Use relevant vocabulary and phrases from the list below when natural.
+  - Use vocabulary and phrases *only when it helps create natural opportunities* for the user to speak.
+  - Do not say the phrases yourself unless it feels completely necessary to move the conversation forward.
+  - Instead, try to *prompt or guide* the user toward using them in their own responses.
   - Focus on the conversation steps below to guide interaction.
   - Adjust your responses to the user’s input, but always stay within the topic.
   - You may rephrase or gently redirect the conversation if the user goes off-topic.

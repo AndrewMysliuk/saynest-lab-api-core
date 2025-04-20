@@ -29,6 +29,7 @@ const IssueSchema = new Schema<IssueItem>(
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>(
   {
     session_id: { type: String, required: true },
+    improve_user_answer: { type: String, required: true },
     last_user_message: { type: String, required: true },
     suggestion_message: { type: String, required: true },
     detected_language: { type: String, required: true },

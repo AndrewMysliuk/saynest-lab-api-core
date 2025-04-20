@@ -128,7 +128,6 @@ export class CommunicationReviewService implements ICommunicationReviewService {
             suggestion: modelResponse.suggestion,
             conclusion: modelResponse.conclusion,
             user_cefr_level: modelResponse.user_cefr_level,
-            metrics: modelResponse.metrics,
             goals_coverage: modelResponse.goals_coverage,
             vocabulary_used: modelResponse.vocabulary_used,
             phrases_used: modelResponse.phrases_used,

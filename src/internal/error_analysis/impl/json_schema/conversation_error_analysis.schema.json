@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ErrorAnalysisModelEntity",
   "type": "object",
-  "required": ["issues", "has_errors", "is_end", "suggestion_message", "detected_language", "is_target_language", "sentence_structure"],
+  "required": ["issues", "has_errors", "is_end", "suggestion_message", "improve_user_answer", "detected_language", "is_target_language", "sentence_structure"],
   "properties": {
     "issues": {
       "type": "array",
@@ -41,6 +41,7 @@
     },
     "has_errors": { "type": "boolean" },
     "is_end": { "type": "boolean" },
+    "improve_user_answer": { "type": "string" },
     "suggestion_message": { "type": "string" },
     "detected_language": { "type": "string" },
     "is_target_language": { "type": "boolean" },

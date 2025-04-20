@@ -19,7 +19,6 @@ You will be provided with:
 - The full message history between the user and the assistant
 - A list of grammar and lexical issues identified during the session
 - A list of vocabulary items used
-- A set of communication quality metrics
 
 IMPORTANT: Your entire analysis (suggestions, summaries, explanations) must be written in the user's native language: **${user_language}**.
 
@@ -38,18 +37,10 @@ Your analysis should focus on:
 Return a single JSON object with the following fields:
 - "suggestion": (array of strings) Specific, helpful advices on how the user can improve.
 - "conclusion": A short summary of how the user performed overall.
-- "metrics": Quantitative indicators of communication quality.
 - "user_cefr_level": An estimated CEFR level (A1–C2), with reasons for the evaluation.
 - "goals_coverage": An array showing whether each scenario goal was covered.
 - "vocabulary_used": (optional) List of vocabulary words from the scenario that were used by the user.
 - "phrases_used": (optional) List of scenario-relevant expressions that were used by the user.
-
-Details for the "metrics" field:
-- lexical_density: a number from 0 to 1 showing the proportion of meaningful (content) words. Values around 0.5–0.7 are considered strong.
-- filler_word_count: number of filler expressions the user used (e.g., "uh", "like", "you know"). A higher count may indicate lower fluency.
-- filler_word: list of specific filler words used in the session.
-- coherence_score: number from 0 to 1 showing how logically and clearly the user expressed ideas. Values above 0.7 are considered strong.
-- vocabulary_range: (optional) ratio of unique words to total words used by the user. Higher is better.
 
 Details for the "user_cefr_level" field:
 - Estimate the user's CEFR level (A1–C2) based on their vocabulary, grammar, structure, and ability to interact naturally.

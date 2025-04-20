@@ -42,7 +42,7 @@ export class ConversationService implements IConversationService {
 
       const sessionDir = await ensureStorageDirExists(system.session_id)
 
-      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, sessionDir)
+      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, payload.target_language, sessionDir)
       const sessionDataPromise = this.getSessionData(system.session_id)
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
@@ -57,6 +57,7 @@ export class ConversationService implements IConversationService {
         role: "user",
         content: transcription,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
+        created_at: new Date(),
       } as IConversationHistory
 
       yield {
@@ -161,6 +162,7 @@ export class ConversationService implements IConversationService {
         role: "assistant",
         content: replyText,
         audio_url: `/user_sessions/${activeSessionId}/${path.basename(filePath)}`,
+        created_at: new Date(),
       } as IConversationHistory
 
       this.historyRepo.saveMany([userMessage, modelMessage]).catch((error) => logger.warn("Failed to save history", error))

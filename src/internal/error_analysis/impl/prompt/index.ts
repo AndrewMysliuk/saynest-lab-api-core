@@ -38,6 +38,12 @@ Return a single JSON object with the following fields:
   - explanation: short explanation **in ${user_language}**
   - topic_titles (must be string): one or more topics from the provided topics below that relate to this issue
 
+- improve_user_answer: rewrite the user's full message in ${target_language} to sound clearer, more fluent, and more natural — like something a confident native speaker would say.
+  - You are allowed to restructure the sentence, change phrasing, or simplify wording.
+  - The goal is not to correct grammar — the goal is to improve flow, clarity, and tone.
+  - Keep the original meaning, but make it more polished, confident, and easy to understand.
+  - Do not copy the user's message — actively rewrite it if it can be improved.
+
 - has_errors: true if any issues were found, otherwise false
 - suggestion_message: short, encouraging tip on what the user could improve next, **written in ${user_language}**
 - detected_language: the language used by the user

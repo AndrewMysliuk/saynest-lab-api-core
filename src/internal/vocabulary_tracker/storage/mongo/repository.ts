@@ -21,10 +21,19 @@ export class VocabularyRepository implements IRepository {
     return VocabularyModel.findOne({ word, language, translation_language }).session(options?.session || null)
   }
 
-  async create(data: IVocabularyEntity, options?: IMongooseOptions): Promise<IVocabularyEntity> {
-    const vocab = new VocabularyModel(data)
-    await vocab.save({ session: options?.session })
-    return vocab.toObject()
+  async create(data: Partial<IVocabularyEntity>, options?: IMongooseOptions): Promise<IVocabularyEntity | null> {
+    try {
+      const vocab = new VocabularyModel(data)
+      await vocab.save({ session: options?.session })
+      return vocab.toObject()
+    } catch (error: any) {
+      if (error && typeof error === "object" && (error as any).code === 11000) {
+        console.warn("Duplicate vocabulary entry skipped:", data)
+        return null
+      }
+
+      throw error
+    }
   }
 
   async patchAudio(id: string, audio_base64: string | null, options?: IMongooseOptions): Promise<IVocabularyEntity> {

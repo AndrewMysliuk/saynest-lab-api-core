@@ -224,7 +224,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         }
       }
 
-      return newWords
+      return modelResponse.entries
     } catch (error: unknown) {
       logger.error("VocabularyTrackerService | error in searchSynonymsByHistory:", error)
       throw error

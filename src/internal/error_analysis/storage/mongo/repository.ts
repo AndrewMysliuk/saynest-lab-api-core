@@ -9,6 +9,7 @@ export class ErrorAnalysisRepository implements IRepository {
     const record = new ErrorAnalysisModel({
       session_id,
       last_user_message,
+      improve_user_answer: dto.improve_user_answer,
       suggestion_message: dto.suggestion_message,
       detected_language: dto.detected_language,
       is_target_language: dto.is_target_language,

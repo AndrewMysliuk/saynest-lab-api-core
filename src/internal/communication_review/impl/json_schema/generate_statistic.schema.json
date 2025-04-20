@@ -13,36 +13,6 @@
       "type": "string",
       "description": "High-level summary of how the user performed overall."
     },
-    "metrics": {
-      "type": "object",
-      "properties": {
-        "lexical_density": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "filler_word_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "filler_word": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "coherence_score": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "vocabulary_range": {
-          "type": "number",
-          "minimum": 0
-        }
-      },
-      "required": ["lexical_density", "filler_word_count", "filler_word", "coherence_score"]
-    },
     "user_cefr_level": {
       "type": "object",
       "properties": {
@@ -111,5 +81,5 @@
       }
     }
   },
-  "required": ["suggestion", "conclusion", "metrics", "user_cefr_level", "goals_coverage", "vocabulary_used", "phrases_used"]
+  "required": ["suggestion", "conclusion", "user_cefr_level", "goals_coverage", "vocabulary_used", "phrases_used"]
 }
