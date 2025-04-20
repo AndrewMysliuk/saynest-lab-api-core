@@ -1,6 +1,6 @@
-import { IErrorAnalysisRequest, ILanguageTopicShort, IPromptScenario } from "../../../../types"
+import { IErrorAnalysisRequest, ILanguageTopic, IPromptScenario } from "../../../../types"
 
-export function buildSystemPrompt(topics: ILanguageTopicShort[], prompt: IPromptScenario, dto: IErrorAnalysisRequest): string {
+export function buildSystemPrompt(topics: ILanguageTopic[], prompt: IPromptScenario, dto: IErrorAnalysisRequest): string {
   const topicTitles = topics.map((topic) => `"${topic.title}"`).join(", ")
   const { target_language, user_language } = dto
 

@@ -1,4 +1,4 @@
-import { ILanguageTopicShort, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
+import { ILanguageTopic, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
 
 const taskTypeReadable: Record<TaskTypeEnum, string> = {
   FILL_BLANK: "Fill in the blanks",
@@ -28,7 +28,7 @@ Each object in "sentences" must contain:
   }
 }
 
-export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILanguageTopicShort[]): string {
+export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILanguageTopic[]): string {
   const { type, context, sandbox_prompt, sentence_count = 5, blank_count = 1, language, native_language, level_cefr } = request
 
   const readableType = taskTypeReadable[type]

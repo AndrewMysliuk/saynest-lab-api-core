@@ -1,6 +1,6 @@
-import { ComplexityLevelEnum, ILanguageTopicShort, IStartSimulationRequest } from "../../../../types"
+import { ComplexityLevelEnum, ILanguageTopic, IStartSimulationRequest } from "../../../../types"
 
-export function buildSystemPrompt(request: IStartSimulationRequest, grammarTopics: ILanguageTopicShort[]): string {
+export function buildSystemPrompt(request: IStartSimulationRequest, grammarTopics: ILanguageTopic[]): string {
   const { language, native_language, sentence_count, complexity_level = ComplexityLevelEnum.MEDIUM, scenario_prompt, level_cefr = [] } = request
 
   const topicsList = grammarTopics.length ? grammarTopics.map((t) => `- (${t.id}) ${t.title}`).join("\n") : "(none)"

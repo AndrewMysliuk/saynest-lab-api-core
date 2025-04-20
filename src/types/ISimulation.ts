@@ -1,4 +1,4 @@
-import { ILanguageTopicShort } from "./ILanguageTopic"
+import { ILanguageTopic } from "./ILanguageTopic"
 import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export type DialogueRoleType = "AI" | "USER"
@@ -43,7 +43,7 @@ export interface IStartSimulationRequest {
 export interface ISimulationStartResponse {
   simulation_id: string
   dialogue_preview: ISimulationDialogue
-  grammar_topics: ILanguageTopicShort[]
+  grammar_topics: ILanguageTopic[]
   vocabulary_highlight: IVocabularyEntry[]
 }
 
