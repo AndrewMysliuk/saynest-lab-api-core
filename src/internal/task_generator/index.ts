@@ -1,5 +1,6 @@
-import { ITaskGeneratorRequest, ITaskGeneratorResponse } from "../../types"
+import { IGenericTask, ITaskGeneratorRequest, TaskTypeEnum } from "../../types"
+import { TaskTypeMap } from "./impl/helpers"
 
 export interface ITaskGenerator {
-  generateTask(request: ITaskGeneratorRequest): Promise<ITaskGeneratorResponse>
+  generateTask<T extends TaskTypeEnum>(request: ITaskGeneratorRequest & { type: T }): Promise<IGenericTask<TaskTypeMap[T]["response_type"]>>
 }

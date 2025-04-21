@@ -37,11 +37,11 @@
           "is_covered": {
             "type": "boolean"
           },
-          "evidence": {
+          "quote_from_dialogue": {
             "type": "string"
           }
         },
-        "required": ["goal", "is_covered"]
+        "required": ["goal", "is_covered", "quote_from_dialogue"]
       }
     },
     "vocabulary_used": {
@@ -55,11 +55,11 @@
           "is_used": {
             "type": "boolean"
           },
-          "usage_context": {
+          "quote_from_dialogue": {
             "type": "string"
           }
         },
-        "required": ["word", "is_used"]
+        "required": ["word", "is_used", "quote_from_dialogue"]
       }
     },
     "phrases_used": {
@@ -73,11 +73,11 @@
           "is_used": {
             "type": "boolean"
           },
-          "usage_context": {
+          "quote_from_dialogue": {
             "type": "string"
           }
         },
-        "required": ["phrase", "is_used"]
+        "required": ["phrase", "is_used", "quote_from_dialogue"]
       }
     }
   },

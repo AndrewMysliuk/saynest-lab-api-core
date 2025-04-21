@@ -47,9 +47,23 @@ Details for the "user_cefr_level" field:
 - Include 1–3 brief reasons explaining your judgment.
 
 Details for the "goals_coverage" field:
-- Include one entry per user goal.
-- For each goal, determine whether the user addressed it (is_covered: true/false).
-- Add a short explanation or quote (evidence) if the goal was covered, showing how it was fulfilled.
+- For each goal listed below, return one object.
+- Determine if the user fulfilled the goal (is_covered: true or false).
+- If true, provide a short quote or summary from the user's speech showing that the goal was met. If false, leave quote_from_dialogue as an empty string.
+
+Details for the "vocabulary_used" field:
+- For each vocabulary word listed below, return one object.
+- Check if the user said this word or an obvious form of it (e.g. "manage" and "managing").
+- Set is_used: true if the word was clearly used in context.
+- If true, include a short quote from the dialogue that contains the word.
+- If not used, set is_used: false and leave quote_from_dialogue as an empty string.
+
+Details for the "phrases_used" field:
+- For each phrase listed below, return one object.
+- Check if the user said this phrase or something very close in meaning and form.
+- Set is_used: true only if the phrase was clearly spoken and relevant.
+- Provide a short quote from the dialogue if the phrase was used.
+- If the phrase was not used, set is_used: false and leave quote_from_dialogue as an empty string.
 
 Scenario goals:
 ${userGoals}

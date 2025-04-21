@@ -1,0 +1,92 @@
+{
+  "id": "explaining_tech_project_simple",
+  "title": "Describing a Complex Project to a Non-Technical Person",
+  "description": "You explain a technical or complex project you worked on to someone who doesn’t have a technical background. You’ll practice simplifying terms, structuring your answer clearly, and reacting to confusion or curiosity.",
+  "level": "C1",
+  "goals": [
+    {
+      "phrase": "Explain a project in simple terms",
+      "translation": "Объяснить проект простыми словами"
+    },
+    {
+      "phrase": "Avoid technical jargon or explain it clearly",
+      "translation": "Избегать жаргона или объяснять его"
+    },
+    {
+      "phrase": "Respond to questions or confusion politely",
+      "translation": "Вежливо реагировать на вопросы или непонимание"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Casual conversation or interview",
+    "situation": "User is asked to describe their past project or role to someone without a tech background",
+    "goal": "Train the user to speak clearly and confidently about technical topics, while being understood by a non-specialist",
+    "steps": [
+      "Greet the user and ask them to describe a project they've worked on recently.",
+      "Ask them to summarize what the project was and why it was important.",
+      "Ask follow-up questions to clarify the problem it solved and who used it.",
+      "Ask what the user’s role in the project was.",
+      "Encourage the user to explain how it worked in simple terms. Ask for clarification if needed.",
+      "React with mild confusion or curiosity to challenge their explanation in a friendly way.",
+      "Ask about the outcome or impact of the project.",
+      "Wrap up the conversation and thank the user for sharing."
+    ]
+  },
+  "prompt": "You are someone curious but not technical. Ask the user to describe one of their recent projects. Ask follow-up questions if something is unclear. Be polite, curious, and maybe a little confused at times.",
+  "dictionary": [
+    {
+      "word": "user interface",
+      "translation": "пользовательский интерфейс",
+      "meaning": "the part of the software that users interact with"
+    },
+    {
+      "word": "server",
+      "translation": "сервер",
+      "meaning": "a computer that provides services or data to other computers"
+    },
+    {
+      "word": "automate",
+      "translation": "автоматизировать",
+      "meaning": "to make a process work by itself with little human input"
+    },
+    {
+      "word": "feature",
+      "translation": "функция",
+      "meaning": "a part of a product that performs a specific task"
+    },
+    {
+      "word": "bug",
+      "translation": "ошибка (в коде)",
+      "meaning": "a flaw that causes something to work incorrectly"
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "It was basically a tool to help users manage their data more easily.",
+      "translation": "Это по сути был инструмент, помогающий пользователям легче управлять данными."
+    },
+    {
+      "phrase": "My job was to make sure everything worked smoothly on the backend.",
+      "translation": "Моя задача была — обеспечить стабильную работу на стороне сервера."
+    },
+    {
+      "phrase": "Imagine a digital assistant that organizes your tasks — it was a bit like that.",
+      "translation": "Представь цифрового помощника, который организует твои задачи — было что-то вроде этого."
+    },
+    {
+      "phrase": "Sorry, that was a bit technical — I mean it just made things faster.",
+      "translation": "Извини, это прозвучало слишком по-технически — я имею в виду, это просто ускоряло процесс."
+    },
+    {
+      "phrase": "Does that make sense?",
+      "translation": "Понятно, о чём я?"
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 7,
+    "max_turns": 12,
+    "end_behavior": "That sounds cool! I didn’t get all of it, but it seems like a big deal."
+  }
+}

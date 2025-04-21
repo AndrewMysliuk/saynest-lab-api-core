@@ -1,83 +1,147 @@
-import { ILanguageTopic, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
+import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
 
 const taskTypeReadable: Record<TaskTypeEnum, string> = {
   FILL_BLANK: "Fill in the blanks",
-  MATCH_TRANSLATION: "Match translation",
-  REORDER_WORDS: "Reorder words",
   MULTIPLE_CHOICE: "Multiple choice",
-  CORRECT_SENTENCE: "Correct the sentence",
-  LISTEN_AND_TYPE: "Listen and type",
 }
 
-function getSchemaInstructionByType(type: TaskTypeEnum, sentenceCount: number): string {
+export function getReadableSchemaInstructions(type: TaskTypeEnum, count: number): string {
+  const plural = count > 1 ? "sentences" : "sentence"
+
   switch (type) {
     case TaskTypeEnum.FILL_BLANK:
       return `
-You MUST return exactly ${sentenceCount} separate sentence objects inside the "sentences" array.
+You must return a JSON object with exactly ${count} ${plural} for a "fill in the blank" activity.
 
-Each object in "sentences" must contain:
-• "sentence_with_blanks": the sentence with one or more '___' as blanks.
-• "correct_answers": an array of correct words, in left-to-right order.
-• "options": an array of arrays. Each inner array must contain 3 or more answer choices for the corresponding blank, including the correct one.
-• "explanation": optional explanation for the sentence.
+Each sentence must follow this structure:
+- id (number): A unique number for the sentence (e.g., 1, 2).
+- prompt (string): A sentence with one missing word, represented by a blank (e.g., "___").
+  Example: "She ___ to the store every morning."
+- answer (string): The correct word that fits the blank naturally and grammatically.
+- explanation (string): A short explanation of why the word is correct.
+  You may write this in the user's native language.
 
-⚠️ Do not add extra fields.
-⚠️ Do not return fewer than ${sentenceCount} sentences — this is critical.`
+Only include one blank per sentence.
+The sentences must reflect grammar or vocabulary issues the user previously struggled with.
+`.trim()
+
+    case TaskTypeEnum.MULTIPLE_CHOICE:
+      return `
+You must return a JSON object with exactly ${count} ${plural} for a "multiple choice" language activity.
+
+Each sentence must follow this structure:
+
+- id (number): A unique number for the question (e.g., 1, 2).
+- prompt (string): A short sentence with one missing or incomplete word.
+  Example: "They ___ a movie last night."
+- options (array of strings): 3–4 possible answers. Include only one correct answer.
+  Example: ["watch", "watched", "watches"]
+- answer (string): The correct option (must match one of the items in "options").
+- explanation (string): A short explanation of why the answer is correct.
+  You may write this in the user's native language.
+
+Make sure all options are realistic and appropriate for the user's level.
+`.trim()
     default:
-      return ""
+      throw new Error(`Unsupported task type: ${type}`)
   }
 }
 
-export function buildSystemPrompt(request: ITaskGeneratorRequest, topics: ILanguageTopic[]): string {
-  const { type, context, sandbox_prompt, sentence_count = 5, blank_count = 1, language, native_language, level_cefr } = request
+export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_sentences_count: number }, prompt: IPromptScenario): string {
+  const readableType = taskTypeReadable[request.type]
+  const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 
-  const readableType = taskTypeReadable[type]
-  const contextPart = context ? `This task MUST be set in the context of: "${context}".` : ""
-  const sandboxPart = sandbox_prompt ? `The user provided this learning goal: "${sandbox_prompt}".` : ""
-  const blankCountPart = type === TaskTypeEnum.FILL_BLANK ? `Each sentence MUST contain exactly ${blank_count} blank(s), represented as '___'.` : ""
-  const difficultyPart = level_cefr?.length ? `You MUST follow these CEFR level(s): ${level_cefr.join(", ")}. Use grammar, vocabulary, and sentence structures appropriate for these levels.` : ""
+  const vocabBlock = prompt.dictionary.length ? prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
 
-  const availableTopicsPart =
-    topics.length > 0
-      ? `If suitable, include grammar topics from: ${topics.map((t) => `"${t.title}"`).join(", ")}.`
-      : `No specific grammar topics were selected, so you may choose appropriate ones for the level.`
+  const expressionsBlock = prompt.phrases.length ? prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
 
-  const schemaInstruction = getSchemaInstructionByType(type, sentence_count)
+  const goalsBlock = prompt.goals.length ? prompt.goals.map((entry) => `- ${entry.phrase}`).join("\n") : "None"
 
   return `
-You are a task generator for language learners. Your job is to produce a list of "${readableType}" tasks as JSON that EXACTLY matches the schema provided.
+You are an AI-powered language learning assistant.
+Your task is to generate a structured "${readableType}" practice task for a user, based on mistakes they made in a previous speaking session.
 
-Target language: ${language} — All tasks MUST be written **in this language**.
-User’s native language: ${native_language} — Use **this language** for translations, explanations, or instructions intended for the user.
+Language context:
+- Target language (used for all task content): ${request.target_language}
+- User's native language (used for explanations only): ${request.user_language}
 
-${difficultyPart}
-You MUST return exactly ${sentence_count} separate sentences as a JSON array.
-Each sentence must follow the "${readableType}" format.
-${blankCountPart}
+Scenario context:
+- Title: ${prompt.title}
+- Description: ${prompt.description}
+- Setting: ${prompt.scenario.setting}
+- Situation: ${prompt.scenario.situation}
+- Speaking goal: ${prompt.scenario.goal}
 
-${availableTopicsPart}
-${contextPart}
-${sandboxPart}
+User goals during the session:
+${goalsBlock}
 
-${schemaInstruction}
+Key vocabulary from the scenario:
+${vocabBlock}
 
-The ONLY output must be a valid JSON object that strictly follows the schema.
-❗ NO extra text, NO comments, NO explanations.
-❗ Do NOT wrap the JSON in markdown or code blocks.
-❗ If fewer than ${sentence_count} sentences are returned — the task is considered invalid.
+Useful expressions from the scenario:
+${expressionsBlock}
+
+Instructions:
+- Generate exactly ${request.task_sentences_count} task sentence(s).
+- The sentences should reflect natural, conversational usage in the target language.
+- All task content must be written in the target language (${request.target_language}).
+- Explanations may be written in the user's native language (${request.user_language}).
+- Use vocabulary or phrases from the scenario if they support the goal.
+
+Mistake-based topic focus:
+The user prompt includes structured error analysis.
+
+If any "Topic" values are provided:
+- Choose **only one topic** from the available ones
+- Create all ${request.task_sentences_count} sentences to target that single topic
+- Do not mix multiple topics across different sentences
+
+If no topics are present:
+- Choose one relevant grammar or vocabulary theme based on the scenario context (goal, situation, vocabulary)
+
+For each sentence:
+- If the user had grammar problems (e.g., verb tense, articles), make the blank or distractors reinforce correct structure
+- If the user had vocabulary issues, use the correct word naturally in context
+- In the "explanation" field, clearly refer to the topic you targeted
+  Example: "This sentence reinforces the user's confusion between 'do' and 'does' (Topic: Present Simple)."
+
+Response format:
+${schemaInstructions}
+
+IMPORTANT:
+- Return a **single valid JSON object**.
+- Do not include any extra commentary, formatting, or explanation — only the JSON object.
 `.trim()
 }
 
-export function buildUserPrompt(request: ITaskGeneratorRequest): string {
-  const { topic_titles, context, level_cefr, sandbox_prompt } = request
+export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], language: string, user_language: string): string => {
+  const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
 
-  if (sandbox_prompt) return sandbox_prompt
+  const errorsSection = errorsList.length
+    ? errorsList
+        .map((error, index) => {
+          const issuesFormatted = error.issues
+            .map((issue, i) => {
+              return `  Issue ${i + 1}:
+    Original: "${issue.original_text}"
+    Corrected: "${issue.corrected_text}"
+    Explanation: ${issue.explanation}
+    Topic: ${issue.topic_titles}`
+            })
+            .join("\n")
+          return `${index + 1}. Message: "${error.last_user_message}"\n${issuesFormatted}\n  Summary Comment: ${error.suggestion_message}`
+        })
+        .join("\n\n")
+    : "No errors detected."
 
-  const topics = topic_titles?.length ? `Generate a task that focuses on the topic(s): ${topic_titles.join(", ")}.` : ""
+  return `
+LANGUAGE: ${language}
+USER_NATIVE_LANGUAGE: ${user_language}
 
-  const lifeContext = context ? `The task should take place in the real-life context of: ${context}.` : ""
+=== CONVERSATION HISTORY ===
+${historySection}
 
-  const level = level_cefr?.length ? `The task should match CEFR level(s): ${level_cefr.join(", ")}.` : ""
-
-  return [topics, lifeContext, level].filter(Boolean).join(" ")
+=== USER LANGUAGE MISTAKES ===
+${errorsSection}
+`.trim()
 }

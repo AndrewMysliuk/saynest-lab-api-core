@@ -14,8 +14,6 @@ import { createLanguageTheoryRouter } from "../internal/language_theory/router"
 // import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
 import { PromptService } from "../internal/prompts_library/impl"
 import { createPromptRouter } from "../internal/prompts_library/router"
-import { ScenarioSimulationService } from "../internal/scenario_simulation/impl"
-import { createScenarioSimulationRouter } from "../internal/scenario_simulation/router"
 import { SessionService } from "../internal/session/impl"
 import { createSessionRouter } from "../internal/session/router"
 import { SessionRepository } from "../internal/session/storage/mongo/repository"
@@ -49,16 +47,14 @@ const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService(promptService)
 const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
-const taskGeneratorService = new TaskGeneratorService(languageTheoryService, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService, promptService)
-const scenarioSimulationService = new ScenarioSimulationService(textAnalysisService, textToSpeachService, languageTheoryService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
+const taskGeneratorService = new TaskGeneratorService(errorAnalysisService, conversationService, sessionService, promptService)
 const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService, promptService)
 
 const router = Router()
 
 router.use("/session", createSessionRouter(sessionService))
-router.use("/scenario-simulation", createScenarioSimulationRouter(scenarioSimulationService))
 router.use("/language-theory", createLanguageTheoryRouter(languageTheoryService))
 router.use("/vocabulary-tracker", createVocabularyTrackerRouter(vocabularyTrackerService))
 router.use("/task-generator", createTaskGeneratorRouter(taskGeneratorService))

@@ -1,43 +1,14 @@
 import { z } from "zod"
 
-import { GPTModelType, GPTRoleType, IGPTPayload, TaskModeEnum, TaskTypeEnum, VocabularyFrequencyLevelEnum } from "../../../../types"
+import { TaskModeEnum, TaskTypeEnum } from "../../../../types"
 
-export const gptPayloadSchema: z.ZodType<IGPTPayload> = z.object({
-  model: z.custom<GPTModelType>(),
-  messages: z
-    .array(
-      z.object({
-        role: z.custom<GPTRoleType>(),
-        content: z.string(),
-      }),
-    )
-    .optional(),
-  temperature: z.number().min(0).max(2).optional(),
-  max_tokens: z.number().optional(),
-  stream: z.boolean().optional(),
-})
-
-export const taskGeneratorRequestSchema = z.object({
-  // user_id: z.string(),
-  // organization_id: z.string(),
-
-  gpt_payload: gptPayloadSchema,
-
+export const TaskGeneratorRequestSchema = z.object({
+  session_id: z.string().min(1, "session_id is required"),
   type: z.nativeEnum(TaskTypeEnum),
   mode: z.nativeEnum(TaskModeEnum),
-
-  topic_ids: z.array(z.string()).optional(),
-  topic_titles: z.array(z.string()).optional(),
-
-  level_cefr: z.array(z.nativeEnum(VocabularyFrequencyLevelEnum)).optional(),
-
-  context: z.string().optional(),
-  sandbox_prompt: z.string().optional(),
-  sentence_count: z.number().min(1).optional(),
-  blank_count: z.number().min(1).optional(),
-
-  language: z.string(),
-  native_language: z.string(),
+  target_language: z.string().min(1, "target_language is required"),
+  user_language: z.string().min(1, "user_language is required"),
+  task_sentences_count: z.number().min(1),
 })
 
-export type ITaskGeneratorRequest = z.infer<typeof taskGeneratorRequestSchema>
+export type TaskGeneratorRequestType = z.infer<typeof TaskGeneratorRequestSchema>

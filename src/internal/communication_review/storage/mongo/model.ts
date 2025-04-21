@@ -121,19 +121,19 @@ const LevelDiagnosisSchema = new Schema<ILevelDiagnosis>(
 const UserGoalEvaluationSchema = new Schema<IUserGoalEvaluation>({
   goal: { type: String, required: true },
   is_covered: { type: Boolean, required: true },
-  evidence: { type: String, required: false },
+  quote_from_dialogue: { type: String, required: false },
 })
 
 const VocabularyUsageSchema = new Schema<IVocabularyUsage>({
   word: { type: String, required: true },
   is_used: { type: Boolean, required: true },
-  usage_context: { type: String, required: false },
+  quote_from_dialogue: { type: String, required: false },
 })
 
 const ExpressionUsageSchema = new Schema<IExpressionUsage>({
   phrase: { type: String, required: true },
   is_used: { type: Boolean, required: true },
-  usage_context: { type: String, required: false },
+  quote_from_dialogue: { type: String, required: false },
 })
 
 const StatisticsSchema = new Schema<IStatisticsDocument>(
