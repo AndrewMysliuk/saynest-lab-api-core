@@ -49,7 +49,7 @@ const textAnalysisService = new TextAnalysisService(promptService)
 const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService, promptService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
-const taskGeneratorService = new TaskGeneratorService(errorAnalysisService, conversationService, sessionService, promptService)
+const taskGeneratorService = new TaskGeneratorService(sessionService, promptService)
 const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService, promptService)
 
 const router = Router()

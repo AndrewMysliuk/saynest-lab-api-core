@@ -9,6 +9,7 @@ export const TaskGeneratorRequestSchema = z.object({
   target_language: z.string().min(1, "target_language is required"),
   user_language: z.string().min(1, "user_language is required"),
   task_sentences_count: z.number().min(1),
+  topic_title: z.string().min(3),
 })
 
 export type TaskGeneratorRequestType = z.infer<typeof TaskGeneratorRequestSchema>

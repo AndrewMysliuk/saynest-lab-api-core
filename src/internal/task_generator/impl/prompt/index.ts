@@ -1,4 +1,4 @@
-import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
+import { IPromptScenario, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
 
 const taskTypeReadable: Record<TaskTypeEnum, string> = {
   FILL_BLANK: "Fill in the blanks",
@@ -11,37 +11,42 @@ export function getReadableSchemaInstructions(type: TaskTypeEnum, count: number)
   switch (type) {
     case TaskTypeEnum.FILL_BLANK:
       return `
-You must return a JSON object with exactly ${count} ${plural} for a "fill in the blank" activity.
+You must return a JSON object with a top-level key "sentences", which maps to an array of exactly ${count} ${plural} for a "fill in the blank" activity.
 
-Each sentence must follow this structure:
-- id (number): A unique number for the sentence (e.g., 1, 2).
-- prompt (string): A sentence with one missing word, represented by a blank (e.g., "___").
-  Example: "She ___ to the store every morning."
-- answer (string): The correct word that fits the blank naturally and grammatically.
-- explanation (string): A short explanation of why the word is correct.
-  You may write this in the user's native language.
+Each item in the "sentences" array must be an object with the following structure:
+- id (number): A unique numeric identifier for the sentence (e.g., 1, 2).
+- prompt (string): A sentence with one missing word, represented by a blank. If the missing word is a verb that requires the user to apply a correct tense or form, include the base verb in brackets. Example: "He ___ (buy) a new phone recently."
+- answer (string): The correct word or verb form that completes the sentence naturally and grammatically.
+- explanation (string, optional): A short explanation of why the answer is correct. This may be written in the user's native language.
 
-Only include one blank per sentence.
-The sentences must reflect grammar or vocabulary issues the user previously struggled with.
+Important rules:
+- Only include **one blank** per sentence.
+- Make the sentences moderately challenging and realistic.
+- Include verbs in brackets where appropriate to focus on grammar, not guessing.
+
+Make sure the top-level object has only one key: "sentences".
 `.trim()
 
     case TaskTypeEnum.MULTIPLE_CHOICE:
       return `
-You must return a JSON object with exactly ${count} ${plural} for a "multiple choice" language activity.
+You must return a JSON object with a top-level key "sentences", which maps to an array of exactly ${count} ${plural} for a "multiple choice" language activity.
 
-Each sentence must follow this structure:
+Each item in the "sentences" array must be an object with the following structure:
 
-- id (number): A unique number for the question (e.g., 1, 2).
-- prompt (string): A short sentence with one missing or incomplete word.
-  Example: "They ___ a movie last night."
-- options (array of strings): 3–4 possible answers. Include only one correct answer.
-  Example: ["watch", "watched", "watches"]
-- answer (string): The correct option (must match one of the items in "options").
-- explanation (string): A short explanation of why the answer is correct.
-  You may write this in the user's native language.
+- id (number): A unique numeric identifier for the question (e.g., 1, 2).
+- prompt (string): A sentence with a missing word. If testing verb forms, you may include the base verb in brackets to clarify what transformation is expected. Example (verb form): "They ___ (watch) a movie last night." Example (word choice): "She ___ to go out in the rain."
+- options (array of strings): A list of 3–4 possible answers. Include **only one correct answer**. Example: ["watch", "watched", "watches"]
+- answer (string): The correct answer. Must exactly match one of the items in "options".
+- explanation (string, optional): A short explanation of why the answer is correct. You may write this in the user's native language.
 
-Make sure all options are realistic and appropriate for the user's level.
+Guidelines:
+- Options must be plausible and appropriate to the context and user's level.
+- Only include **one correct answer**.
+- Sentences should reflect real-life usage and moderate difficulty.
+
+Make sure the top-level object has only one key: "sentences".
 `.trim()
+
     default:
       throw new Error(`Unsupported task type: ${type}`)
   }
@@ -52,58 +57,39 @@ export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_senten
   const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 
   const vocabBlock = prompt.dictionary.length ? prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
-
   const expressionsBlock = prompt.phrases.length ? prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
 
-  const goalsBlock = prompt.goals.length ? prompt.goals.map((entry) => `- ${entry.phrase}`).join("\n") : "None"
-
   return `
-You are an AI-powered language learning assistant.
-Your task is to generate a structured "${readableType}" practice task for a user, based on mistakes they made in a previous speaking session.
+You are an AI language assistant.
 
-Language context:
-- Target language (used for all task content): ${request.target_language}
-- User's native language (used for explanations only): ${request.user_language}
+Generate a structured "${readableType}" practice task focused **exclusively** on the following topic:
+"${request.topic_title}"
+
+Task difficulty should be moderate — not suitable for absolute beginners, but also not too advanced. Aim for realistic and slightly challenging content that reinforces common patterns and promotes active recall.
+
+Language usage:
+- Write **all task content** in the target language: ${request.target_language}
+- Write **all explanations** (if applicable) in the user's native language: ${request.user_language}
+
+Use the following scenario information **only if relevant** to the topic:
 
 Scenario context:
 - Title: ${prompt.title}
-- Description: ${prompt.description}
 - Setting: ${prompt.scenario.setting}
-- Situation: ${prompt.scenario.situation}
-- Speaking goal: ${prompt.scenario.goal}
 
-User goals during the session:
-${goalsBlock}
-
-Key vocabulary from the scenario:
+Key vocabulary:
 ${vocabBlock}
 
-Useful expressions from the scenario:
+Useful expressions:
 ${expressionsBlock}
 
 Instructions:
-- Generate exactly ${request.task_sentences_count} task sentence(s).
-- The sentences should reflect natural, conversational usage in the target language.
-- All task content must be written in the target language (${request.target_language}).
-- Explanations may be written in the user's native language (${request.user_language}).
-- Use vocabulary or phrases from the scenario if they support the goal.
-
-Mistake-based topic focus:
-The user prompt includes structured error analysis.
-
-If any "Topic" values are provided:
-- Choose **only one topic** from the available ones
-- Create all ${request.task_sentences_count} sentences to target that single topic
-- Do not mix multiple topics across different sentences
-
-If no topics are present:
-- Choose one relevant grammar or vocabulary theme based on the scenario context (goal, situation, vocabulary)
-
-For each sentence:
-- If the user had grammar problems (e.g., verb tense, articles), make the blank or distractors reinforce correct structure
-- If the user had vocabulary issues, use the correct word naturally in context
-- In the "explanation" field, clearly refer to the topic you targeted
-  Example: "This sentence reinforces the user's confusion between 'do' and 'does' (Topic: Present Simple)."
+- Generate exactly ${request.task_sentences_count} sentence(s) for the activity type "${readableType}".
+- Focus on the topic: **"${request.topic_title}"**. All sentences must directly support this topic.
+- Sentences should reflect realistic, natural usage in ${request.target_language}, with **moderate difficulty** — avoid overly simple constructions.
+- If the task requires the user to transform a verb into the correct tense or form, include the base verb in brackets (e.g., "___ (go)").
+- Do not use brackets if the correct answer is simply a specific word (e.g., a modal, article, or preposition).
+- Use vocabulary and expressions from the scenario only if they are clearly relevant and helpful for the topic.
 
 Response format:
 ${schemaInstructions}
@@ -111,37 +97,5 @@ ${schemaInstructions}
 IMPORTANT:
 - Return a **single valid JSON object**.
 - Do not include any extra commentary, formatting, or explanation — only the JSON object.
-`.trim()
-}
-
-export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], language: string, user_language: string): string => {
-  const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
-
-  const errorsSection = errorsList.length
-    ? errorsList
-        .map((error, index) => {
-          const issuesFormatted = error.issues
-            .map((issue, i) => {
-              return `  Issue ${i + 1}:
-    Original: "${issue.original_text}"
-    Corrected: "${issue.corrected_text}"
-    Explanation: ${issue.explanation}
-    Topic: ${issue.topic_titles}`
-            })
-            .join("\n")
-          return `${index + 1}. Message: "${error.last_user_message}"\n${issuesFormatted}\n  Summary Comment: ${error.suggestion_message}`
-        })
-        .join("\n\n")
-    : "No errors detected."
-
-  return `
-LANGUAGE: ${language}
-USER_NATIVE_LANGUAGE: ${user_language}
-
-=== CONVERSATION HISTORY ===
-${historySection}
-
-=== USER LANGUAGE MISTAKES ===
-${errorsSection}
 `.trim()
 }

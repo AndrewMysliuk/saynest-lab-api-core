@@ -4,22 +4,16 @@ import { ITaskGenerator } from ".."
 import { openaiREST } from "../../../config"
 import { GPTRoleType, IGenericTask, ITaskGeneratorRequest, TaskTypeEnum } from "../../../types"
 import logger from "../../../utils/logger"
-import { IConversationService } from "../../conversation"
-import { IErrorAnalysis } from "../../error_analysis"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
 import { TaskTypeMap, getTaskDefinition } from "./helpers"
-import { buildSystemPrompt, buildUserPrompt } from "./prompt"
+import { buildSystemPrompt } from "./prompt"
 
 export class TaskGeneratorService implements ITaskGenerator {
-  private readonly errorAnalysisService: IErrorAnalysis
-  private readonly conversationService: IConversationService
   private readonly sessionService: ISessionService
   private readonly promptService: IPromptService
 
-  constructor(errorAnalysisService: IErrorAnalysis, conversationService: IConversationService, sessionService: ISessionService, promptService: IPromptService) {
-    this.errorAnalysisService = errorAnalysisService
-    this.conversationService = conversationService
+  constructor(sessionService: ISessionService, promptService: IPromptService) {
     this.sessionService = sessionService
     this.promptService = promptService
   }
@@ -33,10 +27,9 @@ export class TaskGeneratorService implements ITaskGenerator {
         throw new Error("Prompt not found.")
       }
 
-      const [errorsList, historyList] = await Promise.all([this.errorAnalysisService.listConversationErrors(request.session_id), this.conversationService.listConversationHistory(request.session_id)])
-
       const systemPrompt = buildSystemPrompt(request, prompt)
-      const userPrompt = buildUserPrompt(historyList, errorsList, request.target_language, request.user_language)
+      const userPrompt = "Start Task Generation"
+
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
@@ -83,6 +76,7 @@ export class TaskGeneratorService implements ITaskGenerator {
         id: uuidv4(),
         type: request.type,
         mode: request.mode,
+        topic_title: request.topic_title,
         target_language: request.target_language,
         user_language: request.user_language,
         task: formattedData,
