@@ -66,14 +66,14 @@ export const searchWordsSynonymsHandler = (vocabularyTrackerService: IVocabulary
     try {
       const dto = req.body as ISearchSynonymsRequest
 
-      if (!dto.payload.messages || !dto.language || !dto.translation_language) {
+      if (!dto.history?.length || !dto.language || !dto.translation_language) {
         res.status(400).json({
           error: "getWordExplanationHandler | Missing required fields in payload",
         })
         return
       }
 
-      const response = await vocabularyTrackerService.searchSynonymsByHistory(dto)
+      const response = await vocabularyTrackerService.searchFillersByHistory(dto)
 
       res.status(200).json(response)
     } catch (error: unknown) {

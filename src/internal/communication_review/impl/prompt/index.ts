@@ -1,4 +1,4 @@
-import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, IVocabularyEntity } from "../../../../types"
+import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, IVocabularyFillersEntity } from "../../../../types"
 
 export const buildSystemPrompt = (language: string, user_language: string, prompt: IPromptScenario): string => {
   const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
@@ -78,7 +78,7 @@ Your output must be only the JSON object. Do not include any additional commenta
 `.trim()
 }
 
-export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], vocabularyList: IVocabularyEntity[], language: string, user_language: string): string => {
+export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], vocabularyList: IVocabularyFillersEntity[], language: string, user_language: string): string => {
   const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
 
   const errorsSection = errorsList.length

@@ -54,18 +54,17 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       const historyList = await this.conversationService.listConversationHistory(dto.session_id)
 
-      await this.vocabularyTrackerService.searchSynonymsByHistory({
-        session_id: dto.session_id,
-        language: dto.language,
-        translation_language: dto.user_language,
-        payload: {
-          // model: "gpt-4.1",
-          model: "gpt-4o",
-          messages: historyList.map((item) => ({ role: item.role, content: item.content })),
-        },
-      })
-
-      const [errorsList, vocabularyList] = await Promise.all([this.errorAnalysisService.listConversationErrors(dto.session_id), this.vocabularyTrackerService.wordsListBySessionId(dto.session_id)])
+      const [errorsList, vocabularyList] = await Promise.all([
+        this.errorAnalysisService.listConversationErrors(dto.session_id),
+        this.vocabularyTrackerService.searchFillersByHistory({
+          language: dto.language,
+          translation_language: dto.user_language,
+          payload: {
+            model: "gpt-4o",
+          },
+          history: historyList,
+        }),
+      ])
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: buildSystemPrompt(dto.language, dto.user_language, prompt) },

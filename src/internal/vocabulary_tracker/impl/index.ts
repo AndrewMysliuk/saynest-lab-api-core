@@ -2,14 +2,14 @@ import { ObjectId, Types } from "mongoose"
 
 import { IVocabularyTracker } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyEntityWrapper, IVocabularyJSONEntity, IWordExplanationRequest } from "../../../types"
+import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyFillersEntity, IVocabularyFillersEntityWrapper, IVocabularyJSONEntity, IWordExplanationRequest } from "../../../types"
 import { validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../../text_to_speach"
 import { IRepository } from "../storage"
 import SearchSynonymsSchema from "./json_schema/search_synonyms.schema.json"
 import WordExplanationSchema from "./json_schema/word_explanation.schema.json"
-import { buildSynonymsSystemPrompt, buildVocabularySystemPrompt } from "./prompt"
+import { buildSynonymsSystemPrompt, buildSynonymsUserPrompt, buildVocabularySystemPrompt } from "./prompt"
 
 export class VocabularyTrackerService implements IVocabularyTracker {
   private readonly vocabularyTrackerRepo: IRepository
@@ -145,11 +145,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     }
   }
 
-  async searchSynonymsByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyJSONEntity[]> {
+  async searchFillersByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyFillersEntity[]> {
     try {
-      const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
-
-      const userMessagesOnly = dto.payload.messages?.filter((msg) => msg.role !== "system" && msg.role !== "assistant")
+      const userMessagesOnly = dto.history?.filter((msg) => msg.role !== "system" && msg.role !== "assistant")
 
       if (!Array.isArray(userMessagesOnly)) {
         throw new Error("no messages key provided in payload.")
@@ -166,15 +164,15 @@ export class VocabularyTrackerService implements IVocabularyTracker {
         },
         {
           role: "user",
-          content: JSON.stringify(userMessagesOnly),
+          content: buildSynonymsUserPrompt(userMessagesOnly, dto.language, dto.translation_language),
         },
       ]
 
       const response = await openaiREST.chat.completions.create({
-        model: "gpt-4o",
+        model: dto.payload.model,
         messages,
         temperature: 0.6,
-        max_tokens: 16000,
+        max_tokens: 3000,
         tools: [
           {
             type: "function",
@@ -203,30 +201,11 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       }
 
       const rawParsed = JSON.parse(toolCall.function.arguments)
-      const modelResponse = validateToolResponse<IVocabularyEntityWrapper>(rawParsed, SearchSynonymsSchema)
-
-      const existingEntries = await this.vocabularyTrackerRepo.list()
-
-      const newWords = modelResponse.entries.filter(
-        (item) =>
-          !existingEntries.some((entry) => entry.word.toLowerCase() === item.word.toLowerCase() && entry.language === item.language && entry.translation_language === item.translation_language),
-      )
-
-      if (isSessionIdValid) {
-        const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
-        for (const word of newWords) {
-          await this.vocabularyTrackerRepo.create({
-            ...word,
-            session_id: sessionId,
-            created_at: new Date(),
-            updated_at: new Date(),
-          })
-        }
-      }
+      const modelResponse = validateToolResponse<IVocabularyFillersEntityWrapper>(rawParsed, SearchSynonymsSchema)
 
       return modelResponse.entries
     } catch (error: unknown) {
-      logger.error("VocabularyTrackerService | error in searchSynonymsByHistory:", error)
+      logger.error("VocabularyTrackerService | error in searchFillersByHistory:", error)
       throw error
     }
   }

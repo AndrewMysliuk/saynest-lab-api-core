@@ -12,7 +12,9 @@ export class CommunicationReviewRepository implements IRepository {
   }
 
   async list(options?: IMongooseOptions): Promise<IStatistics[]> {
-    return StatisticsModel.find().session(options?.session || null)
+    return StatisticsModel.find()
+      .sort({ created_at: -1 })
+      .session(options?.session || null)
   }
 
   async add(statistics: Partial<IStatistics>, options?: IMongooseOptions): Promise<IStatistics> {

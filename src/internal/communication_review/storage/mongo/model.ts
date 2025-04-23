@@ -10,7 +10,7 @@ import {
   IStatistics,
   IStatisticsHistory,
   IUserGoalEvaluation,
-  IVocabularyEntity,
+  IVocabularyFillersEntity,
   IVocabularyUsage,
   IWord,
   IssueItem,
@@ -33,14 +33,14 @@ const MeaningSchema = new Schema<IMeaningEntity>(
   { _id: false },
 )
 
-const VocabularySchema = new Schema<IVocabularyEntity>(
+const VocabularySchema = new Schema<IVocabularyFillersEntity>(
   {
     language: { type: String, required: true },
     translation_language: { type: String, required: true },
     word: { type: String, required: true },
     frequency_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
     meanings: { type: [MeaningSchema], default: [] },
-    audio_base64: { type: String, default: null },
+    repeated_count: { type: Number, required: true },
   },
   { _id: false },
 )

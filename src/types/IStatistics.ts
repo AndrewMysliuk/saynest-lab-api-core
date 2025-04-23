@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose"
 
 import { IConversationHistory } from "./IConversation"
 import { IErrorAnalysisEntity } from "./IErrorAnalysis"
-import { IVocabularyEntity, VocabularyFrequencyLevelEnum } from "./IVocabulary"
+import { IVocabularyFillersEntity, VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export interface IStatisticsHistory {
   start_time: Date // Время начала сессии
@@ -44,7 +44,7 @@ export interface IStatistics {
   user_language: string
   history: IStatisticsHistory
   error_analysis: IErrorAnalysisEntity[]
-  vocabulary: IVocabularyEntity[]
+  vocabulary: IVocabularyFillersEntity[]
   suggestion: string[]
   conclusion: string
   user_cefr_level: ILevelDiagnosis

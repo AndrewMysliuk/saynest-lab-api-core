@@ -1,5 +1,6 @@
 import { ObjectId } from "mongoose"
 
+import { IConversationHistory } from "./IConversation"
 import { IGPTPayload } from "./IGPT"
 
 export enum VocabularyFrequencyLevelEnum {
@@ -59,6 +60,19 @@ export interface IVocabularyEntityWrapper {
   entries: IVocabularyJSONEntity[]
 }
 
+export interface IVocabularyFillersEntity {
+  language: string
+  translation_language: string
+  word: string
+  frequency_level: VocabularyFrequencyLevelEnum
+  meanings: IMeaningEntity[]
+  repeated_count: number
+}
+
+export interface IVocabularyFillersEntityWrapper {
+  entries: IVocabularyFillersEntity[]
+}
+
 export interface IWordExplanationRequest {
   session_id: string
   language: string
@@ -68,7 +82,8 @@ export interface IWordExplanationRequest {
 
 export interface ISearchSynonymsRequest {
   payload: IGPTPayload
-  session_id: string
+  history: IConversationHistory[]
+  // session_id: string
   language: string
   translation_language: string
 }
