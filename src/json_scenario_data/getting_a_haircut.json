@@ -1,0 +1,105 @@
+{
+  "id": "getting_a_haircut",
+  "module": "sendbox",
+  "title": "Getting a Haircut",
+  "description": "You visit a hair salon or barbershop for a haircut. You'll describe what you want, respond to questions, and make small talk during the appointment.",
+  "level": "B1",
+  "goals": [
+    {
+      "phrase": "Describe the haircut you want",
+      "translation": "Описать, какую стрижку вы хотите"
+    },
+    {
+      "phrase": "Ask for a beard trim or styling",
+      "translation": "Попросить подровнять или оформить бороду"
+    },
+    {
+      "phrase": "Make small talk during the haircut",
+      "translation": "Поддержать разговор во время стрижки"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Hair salon or barbershop",
+    "situation": "User comes in for a haircut and needs to describe what they want and have a casual conversation during the process",
+    "goal": "Help the user get the haircut they want while practicing polite conversation and practical vocabulary",
+    "steps": [
+      "Greet the user and ask what they’d like today",
+      "Ask follow-up questions to clarify the haircut",
+      "Ask if they’d like any beard grooming or styling",
+      "Suggest styling options based on what they say",
+      "Make light small talk (e.g. weekend plans, recent events)",
+      "Wrap up with confirmation and payment"
+    ]
+  },
+  "prompt": "You are a helpful and polite hair stylist. The user is coming in for a haircut and might not know the right words. Help them describe the haircut they want, ask clarifying questions, and make them feel comfortable. Give suggestions if they are unsure.",
+  "dictionary": [
+    {
+      "word": "trim",
+      "translation": "подровнять",
+      "meaning": "to cut just a little off to maintain the shape"
+    },
+    {
+      "word": "fade",
+      "translation": "переход",
+      "meaning": "a haircut style where hair gradually changes from short to long"
+    },
+    {
+      "word": "buzz cut",
+      "translation": "очень короткая стрижка",
+      "meaning": "a very short haircut using clippers"
+    },
+    {
+      "word": "line-up",
+      "translation": "оформление контура бороды",
+      "meaning": "shaping the edges of a beard or hairline"
+    },
+    {
+      "word": "beard trim",
+      "translation": "подравнивание бороды",
+      "meaning": "shortening and shaping facial hair"
+    },
+    {
+      "word": "clippers",
+      "translation": "машинка для стрижки",
+      "meaning": "electric device used to cut hair"
+    },
+    {
+      "word": "neckline",
+      "translation": "зона шеи",
+      "meaning": "the lower edge of the haircut around the neck"
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "Can you make it shorter on the sides and clean up the top?",
+      "translation": "Можно сделать короче по бокам и немного убрать сверху?"
+    },
+    {
+      "phrase": "I'd like a low fade, please.",
+      "translation": "Я бы хотел низкий переход, пожалуйста."
+    },
+    {
+      "phrase": "Can you shape the beard and clean up the neckline?",
+      "translation": "Можете оформить бороду и подровнять в области шеи?"
+    },
+    {
+      "phrase": "Keep the length, just clean up the edges.",
+      "translation": "Сохраните длину, просто подровняйте края."
+    },
+    {
+      "phrase": "What do you think would suit my face shape?",
+      "translation": "Как вы думаете, что подойдёт под форму моего лица?"
+    },
+    {
+      "phrase": "Do you use scissors or clippers for this?",
+      "translation": "Вы используете ножницы или машинку для этого?"
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 10,
+    "end_behavior": "Glad you liked it! Hope to see you again soon."
+  }
+}

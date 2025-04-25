@@ -10,6 +10,32 @@ export const getPromptsListHandler = (promptService: IPromptService): RequestHan
 
       res.status(200).json(response)
     } catch (error: unknown) {
+      logger.error(`getPromptsListHandler | error: ${error}`)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
+export const getModuleListHandler = (promptService: IPromptService): RequestHandler => {
+  return async (_req: Request, res: Response): Promise<void> => {
+    try {
+      const response = promptService.getModuleList()
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
+      logger.error(`getModuleListHandler | error: ${error}`)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
+export const getModuleScenariosHandler = (promptService: IPromptService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const response = promptService.getModuleScenarios(req.params.module_id)
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
       logger.error(`getTheoryByLanguageHandler | error: ${error}`)
       res.status(500).json({ error: "Internal Server Error" })
     }
@@ -23,7 +49,7 @@ export const getPromptByIdHandler = (promptService: IPromptService): RequestHand
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getTheoryByLanguageHandler | error: ${error}`)
+      logger.error(`getPromptByIdHandler | error: ${error}`)
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

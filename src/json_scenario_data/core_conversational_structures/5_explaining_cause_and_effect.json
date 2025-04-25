@@ -1,0 +1,77 @@
+{
+  "id": "explaining_cause_and_effect",
+  "module": "core_conversational_structures",
+  "title": "Explaining Cause & Effect",
+  "description": "Practice explaining reasons and consequences using common cause-and-effect phrases in conversation.",
+  "level": "B1",
+  "goals": [
+    {
+      "phrase": "Explain reasons using clear expressions",
+      "translation": "Объяснять причины с помощью понятных выражений"
+    },
+    {
+      "phrase": "Describe results or consequences naturally",
+      "translation": "Описывать последствия или результаты естественным образом"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Reasoning practice",
+    "situation": "User needs to explain why something happened and what happened because of it",
+    "goal": "Help the user clearly describe cause and effect using fluent phrases",
+    "steps": [
+      "Ask the user to explain why something happened in their experience",
+      "Encourage them to use reason/result connectors like 'because', 'so', 'therefore', etc.",
+      "Follow up with a question about the outcome or consequence",
+      "Offer suggestions if they struggle to explain clearly",
+      "Reinforce use of proper phrases and sentence flow"
+    ]
+  },
+  "prompt": "You are a fluency coach helping the user explain reasons and consequences more clearly. Encourage the use of expressions like 'because', 'as a result', 'so', 'due to', and 'that's why'. If the user gives a weak or unclear explanation, guide them with examples or simpler structures.",
+  "dictionary": [
+    { "word": "because", "translation": "потому что", "meaning": "used to give a reason for something" },
+    { "word": "so", "translation": "поэтому", "meaning": "used to show the result of something" },
+    { "word": "as a result", "translation": "в результате", "meaning": "used to introduce an effect of something" },
+    { "word": "due to", "translation": "из-за", "meaning": "used to indicate the cause of something" },
+    { "word": "that's why", "translation": "вот почему", "meaning": "used to summarize a reason-effect relationship" },
+    { "word": "which led to", "translation": "что привело к", "meaning": "used to describe a consequence" },
+    { "word": "as a consequence", "translation": "в качестве следствия", "meaning": "used to show a formal result" },
+    { "word": "thanks to", "translation": "благодаря", "meaning": "used for positive reasons or outcomes" },
+    { "word": "resulted in", "translation": "привело к", "meaning": "used to describe an effect or outcome" },
+    { "word": "since", "translation": "так как", "meaning": "used to explain a reason" },
+    { "word": "so that", "translation": "чтобы", "meaning": "used to show purpose or intended result" },
+    { "word": "for this reason", "translation": "по этой причине", "meaning": "used to introduce a reason more formally" }
+  ],
+  "phrases": [
+    {
+      "phrase": "I missed the train because I woke up late.",
+      "translation": "Я опоздал на поезд, потому что проснулся поздно."
+    },
+    {
+      "phrase": "It was raining, so we stayed inside.",
+      "translation": "Шёл дождь, поэтому мы остались дома."
+    },
+    {
+      "phrase": "I didn’t prepare well, and as a result, I failed the test.",
+      "translation": "Я плохо подготовился и в результате провалил тест."
+    },
+    {
+      "phrase": "The website was down due to a server issue.",
+      "translation": "Сайт не работал из-за проблемы с сервером."
+    },
+    {
+      "phrase": "We changed the plan, which led to better results.",
+      "translation": "Мы изменили план, что привело к лучшим результатам."
+    },
+    {
+      "phrase": "Thanks to the new strategy, our team worked more efficiently.",
+      "translation": "Благодаря новой стратегии команда работала эффективнее."
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 7,
+    "max_turns": 8,
+    "end_behavior": "Well done! You're getting better at explaining why things happen and what follows."
+  }
+}

@@ -1,4 +1,4 @@
-import { IDictionaryEntry, IPhraseEntry, IPromptGoal, IPromptScenario, VocabularyFrequencyLevelEnum } from "../types"
+import { IDictionaryEntry, IModuleScenario, IPhraseEntry, IPromptGoal, IPromptScenario, VocabularyFrequencyLevelEnum } from "../types"
 
 export function generateFinallyPrompt(raw: any): string {
   const scenario: IPromptScenario = transformSingleScenarioJson(raw)
@@ -67,12 +67,26 @@ export function generateFinallyPrompt(raw: any): string {
 // `.trim()
 // }
 
+export function transformSingleModuleJson(item: any): IModuleScenario {
+  return {
+    id: String(item.id),
+    title: String(item.title),
+    description: String(item.description),
+    level: Array.isArray(item.level)
+      ? (item.level.filter((lvl: string) => Object.values(VocabularyFrequencyLevelEnum).includes(lvl as VocabularyFrequencyLevelEnum)) as VocabularyFrequencyLevelEnum[])
+      : [],
+    tags: Array.isArray(item.tags) ? item.tags.map(String) : [],
+    scenarios: Array.isArray(item.scenarios) ? item.scenarios.map(String) : [],
+  }
+}
+
 export function transformSingleScenarioJson(item: any): IPromptScenario {
   const level = item.level?.toUpperCase?.() as keyof typeof VocabularyFrequencyLevelEnum
   const safeLevel = VocabularyFrequencyLevelEnum[level] || VocabularyFrequencyLevelEnum.B2
 
   return {
     id: item.id,
+    module: item.module,
     title: item.title,
     description: item.description,
     level: safeLevel,

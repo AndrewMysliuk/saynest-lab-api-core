@@ -1,5 +1,6 @@
 {
   "id": "visiting_an_optician",
+  "module": "sendbox",
   "title": "Visiting an Optician",
   "description": "You visit an optical store to check your eyesight and possibly buy glasses or contact lenses. You’ll need to explain your needs, ask questions, and understand suggestions from the staff.",
   "level": "B2",

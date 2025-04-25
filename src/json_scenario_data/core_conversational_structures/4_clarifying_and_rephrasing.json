@@ -1,0 +1,77 @@
+{
+  "id": "clarifying_and_rephrasing",
+  "module": "core_conversational_structures",
+  "title": "Clarifying & Rephrasing",
+  "description": "Practice how to fix, rephrase, or clarify your message during a conversation if you misspeak or get misunderstood.",
+  "level": "B1",
+  "goals": [
+    {
+      "phrase": "Fix or rephrase a sentence after making a mistake",
+      "translation": "Исправлять или переформулировать фразу после ошибки"
+    },
+    {
+      "phrase": "Clarify meaning when someone misunderstands",
+      "translation": "Прояснять смысл, если собеседник неправильно понял"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Conversational misunderstanding",
+    "situation": "User says something unclear or makes a mistake, and needs to fix or explain it",
+    "goal": "Help the user learn how to naturally clarify or rephrase ideas in conversation",
+    "steps": [
+      "Ask the user to describe something in English",
+      "Intentionally respond with a misunderstanding or confusion",
+      "Encourage the user to clarify or rephrase",
+      "If the user can't do it, suggest expressions or alternatives",
+      "Reinforce improvement with positive feedback"
+    ]
+  },
+  "prompt": "You are a conversation coach helping the user practice how to fix and clarify things they said. If the user says something unclear or incorrect, ask a clarifying question or act confused. Encourage them to use phrases like 'Let me rephrase that', 'What I meant was...', 'Sorry, I meant...', or 'In other words...'. If they struggle, help them try again.",
+  "dictionary": [
+    { "word": "let me rephrase that", "translation": "позвольте переформулировать", "meaning": "used to say the same idea differently" },
+    { "word": "what I meant was", "translation": "я имел в виду", "meaning": "used to clarify what you wanted to say" },
+    { "word": "sorry, I meant", "translation": "извините, я имел в виду", "meaning": "used to correct a mistake politely" },
+    { "word": "in other words", "translation": "другими словами", "meaning": "used to explain something more clearly" },
+    { "word": "actually", "translation": "на самом деле", "meaning": "used to correct a false assumption or emphasize the truth" },
+    { "word": "to clarify", "translation": "уточнить", "meaning": "to make something clearer or more understandable" },
+    { "word": "I mean", "translation": "я имею в виду", "meaning": "used to introduce a clarification or correction" },
+    { "word": "that came out wrong", "translation": "я не так выразился", "meaning": "used when you said something incorrectly or awkwardly" },
+    { "word": "not exactly", "translation": "не совсем", "meaning": "used to politely disagree or refine a point" },
+    { "word": "what I was trying to say", "translation": "что я пытался сказать", "meaning": "used when correcting or elaborating on your original message" },
+    { "word": "can I try that again", "translation": "можно я попробую ещё раз", "meaning": "used to retry an unclear sentence" },
+    { "word": "let me say it another way", "translation": "позвольте сказать иначе", "meaning": "used when rephrasing to improve clarity" }
+  ],
+  "phrases": [
+    {
+      "phrase": "Sorry, I meant the meeting is at 2, not 3.",
+      "translation": "Извините, я имел в виду, что встреча в 2, а не в 3."
+    },
+    {
+      "phrase": "Let me rephrase that — the first version didn't work well.",
+      "translation": "Позвольте переформулировать — первая версия не сработала хорошо."
+    },
+    {
+      "phrase": "Actually, I was talking about the other project.",
+      "translation": "На самом деле я говорил о другом проекте."
+    },
+    {
+      "phrase": "What I was trying to say is we should test it first.",
+      "translation": "Я пытался сказать, что нам стоит сначала протестировать это."
+    },
+    {
+      "phrase": "In other words, we need more time.",
+      "translation": "Другими словами, нам нужно больше времени."
+    },
+    {
+      "phrase": "That came out wrong — I just meant it's risky.",
+      "translation": "Я не так выразился — я просто имел в виду, что это рискованно."
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 7,
+    "max_turns": 8,
+    "end_behavior": "Great! You’re learning how to recover and clarify naturally in conversation."
+  }
+}

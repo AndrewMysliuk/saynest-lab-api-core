@@ -1,0 +1,8 @@
+{
+  "id": "sandbox",
+  "title": "Everyday Situations Sandbox",
+  "description": "Practice practical, real-life conversations to boost confidence and fluency in common situations.",
+  "level": ["B1", "B2"],
+  "tags": ["survival_english", "daily life", "practical skills", "casual"],
+  "scenarios": ["checking_into_a_hotel", "getting_a_gym_membership", "getting_a_haircut", "visiting_an_optician", "discussing_technology_ai", "explaining_tech_project_simple"]
+}
