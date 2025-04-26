@@ -57,4 +57,10 @@ export class VocabularyRepository implements IRepository {
 
     await VocabularyModel.findByIdAndDelete(id).session(options?.session || null)
   }
+
+  async deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void> {
+    await VocabularyModel.deleteMany({ session_id }).session(options?.session || null)
+
+    return
+  }
 }

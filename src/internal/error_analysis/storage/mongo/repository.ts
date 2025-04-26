@@ -37,4 +37,10 @@ export class ErrorAnalysisRepository implements IRepository {
       .lean()
       .session(options?.session || null)
   }
+
+  async deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void> {
+    await ErrorAnalysisModel.deleteMany({ session_id }).session(options?.session || null)
+
+    return
+  }
 }

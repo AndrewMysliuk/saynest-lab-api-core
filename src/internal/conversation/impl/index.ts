@@ -214,4 +214,8 @@ export class ConversationService implements IConversationService {
       throw error
     }
   }
+
+  async deleteAllBySessionId(session_id: string): Promise<void> {
+    return this.historyRepo.deleteAllBySessionId(session_id)
+  }
 }

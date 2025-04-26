@@ -7,4 +7,5 @@ export interface IRepository {
   create(data: Partial<IVocabularyEntity>, options?: IMongooseOptions): Promise<IVocabularyEntity | null>
   patchAudio(id: string, audio_base64: string | null, options?: IMongooseOptions): Promise<IVocabularyEntity>
   delete(id: string, options?: IMongooseOptions): Promise<void>
+  deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void>
 }

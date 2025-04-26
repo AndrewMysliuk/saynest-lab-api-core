@@ -34,3 +34,12 @@ export const connectToDatabase = async () => {
     process.exit(1)
   }
 }
+
+export const disconnectFromDatabase = async () => {
+  try {
+    await mongoose.disconnect()
+    logger.info("Disconnected from MongoDB.")
+  } catch (error: unknown) {
+    logger.error(`Failed to disconnect from MongoDB: ${JSON.stringify(error)}`)
+  }
+}

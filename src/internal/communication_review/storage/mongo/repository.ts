@@ -23,7 +23,7 @@ export class CommunicationReviewRepository implements IRepository {
     return created.save({ session: options?.session })
   }
 
-  async delete(id: string, options?: IMongooseOptions): Promise<void> {
-    await StatisticsModel.findByIdAndDelete(id).session(options?.session || null)
+  async delete(id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+    return StatisticsModel.findByIdAndDelete(id).session(options?.session || null)
   }
 }

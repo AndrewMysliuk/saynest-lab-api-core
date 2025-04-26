@@ -13,4 +13,5 @@ export interface IConversationService {
     conversation_history: IConversationHistory[]
   }>
   listConversationHistory(session_id: string): Promise<IConversationHistory[]>
+  deleteAllBySessionId(session_id: string): Promise<void>
 }

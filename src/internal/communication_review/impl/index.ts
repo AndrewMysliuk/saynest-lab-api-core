@@ -1,7 +1,7 @@
 import mongoose, { ClientSession } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
-import { openaiREST } from "../../../config"
+import { cleanUserSessionFiles, openaiREST } from "../../../config"
 import { GPTRoleType, IStatistics, IStatisticsGenerateRequest, IStatisticsModelResponse } from "../../../types"
 import { countHistoryData, validateToolResponse } from "../../../utils"
 import logger from "../../../utils/logger"
@@ -154,16 +154,27 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
   async reviewsList(): Promise<IStatistics[]> {
     try {
-      return await this.communicationReviewRepo.list()
+      return this.communicationReviewRepo.list()
     } catch (error: unknown) {
       logger.error(`reviewsList | error: ${error}`)
       throw error
     }
   }
 
-  async deleteReview(id: string): Promise<void> {
+  async deleteReview(review_id: string): Promise<void> {
     try {
-      await this.communicationReviewRepo.delete(id)
+      const review = await this.communicationReviewRepo.delete(review_id)
+
+      if (!review) return
+
+      await Promise.all([
+        this.conversationService.deleteAllBySessionId(review.session_id),
+        this.errorAnalysisService.deleteAllBySessionId(review.session_id),
+        this.vocabularyTrackerService.deleteAllBySessionId(review.session_id),
+        this.sessionService.deleteSession(review.session_id),
+      ])
+
+      await cleanUserSessionFiles([review.session_id])
     } catch (error: unknown) {
       logger.error(`deleteReview | error: ${error}`)
       throw error

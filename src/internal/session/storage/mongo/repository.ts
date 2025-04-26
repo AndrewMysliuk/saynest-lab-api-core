@@ -64,4 +64,10 @@ export class SessionRepository implements IRepository {
 
     return session.toObject()
   }
+
+  async deleteSession(session_id: string, options?: IMongooseOptions): Promise<void> {
+    await SessionModel.findByIdAndDelete(session_id).session(options?.session || null)
+
+    return
+  }
 }

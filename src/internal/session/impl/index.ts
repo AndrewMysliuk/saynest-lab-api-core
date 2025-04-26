@@ -41,4 +41,8 @@ export class SessionService implements ISessionService {
 
     return this.sessionRepo.setSessionStatus(session_id, SessionStatusEnum.FINISHED, options)
   }
+
+  async deleteSession(session_id: string): Promise<void> {
+    return this.sessionRepo.deleteSession(session_id)
+  }
 }

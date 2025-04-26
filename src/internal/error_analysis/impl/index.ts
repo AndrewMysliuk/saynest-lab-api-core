@@ -126,4 +126,8 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       throw error
     }
   }
+
+  async deleteAllBySessionId(session_id: string): Promise<void> {
+    return this.errorAnalysisRepo.deleteAllBySessionId(session_id)
+  }
 }

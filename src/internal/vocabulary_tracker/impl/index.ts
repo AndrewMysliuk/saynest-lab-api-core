@@ -209,4 +209,8 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       throw error
     }
   }
+
+  async deleteAllBySessionId(session_id: string): Promise<void> {
+    return this.vocabularyTrackerRepo.deleteAllBySessionId(session_id)
+  }
 }

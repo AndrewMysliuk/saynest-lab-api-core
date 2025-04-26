@@ -6,4 +6,5 @@ export interface IVocabularyTracker {
   wordsList(): Promise<IVocabularyEntity[]>
   wordsListBySessionId(session_id: string): Promise<IVocabularyEntity[]>
   searchFillersByHistory(dto: ISearchSynonymsRequest): Promise<IVocabularyFillersEntity[]>
+  deleteAllBySessionId(session_id: string): Promise<void>
 }
