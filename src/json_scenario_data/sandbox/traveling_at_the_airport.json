@@ -1,0 +1,131 @@
+{
+  "id": "traveling_at_the_airport",
+  "module": "sandbox",
+  "title": "Traveling at the Airport",
+  "description": "You navigate the airport: checking in, going through security, handling unexpected events, and boarding your flight. You'll practice asking for help, responding to issues, and using real travel vocabulary.",
+  "level": "B1",
+  "goals": [
+    {
+      "phrase": "Check in for a flight",
+      "translation": "Зарегистрироваться на рейс"
+    },
+    {
+      "phrase": "Go through airport security",
+      "translation": "Пройти через досмотр в аэропорту"
+    },
+    {
+      "phrase": "Ask for help finding a gate",
+      "translation": "Попросить помочь найти выход на посадку"
+    },
+    {
+      "phrase": "Handle unexpected changes",
+      "translation": "Справляться с неожиданными изменениями"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Airport",
+    "situation": "User is traveling and needs to check in, go through security, deal with possible flight changes, find the gate, and board the plane.",
+    "goal": "Guide the user through the airport journey, helping them stay calm, solve problems quickly, and build real-world travel vocabulary and confidence.",
+    "steps": [
+      "Greet the user at the check-in counter and offer help",
+      "Ask for their passport and ticket",
+      "Ask if they have any bags to check and explain luggage rules",
+      "Remind them about liquids and electronics before security",
+      "Guide them through the security procedures",
+      "Offer to check if their flight is on time",
+      "Help them find their gate and explain boarding procedures",
+      "Suggest nearby amenities if there's a long layover",
+      "React to potential issues like gate changes or delays",
+      "Assist with any boarding announcements"
+    ]
+  },
+  "prompt": "You are a proactive and friendly airport staff member. The user may be confused, rushed, or worried. Take initiative: offer help, suggest next steps, and ask clarifying questions if the user is unsure. Make them feel safe, supported, and confident while traveling.",
+  "dictionary": [
+    {
+      "word": "boarding pass",
+      "translation": "посадочный талон",
+      "meaning": "a document that allows a passenger to enter the plane"
+    },
+    {
+      "word": "carry-on",
+      "translation": "ручная кладь",
+      "meaning": "small luggage you can take into the plane cabin"
+    },
+    {
+      "word": "gate",
+      "translation": "выход на посадку",
+      "meaning": "the place where passengers board the plane"
+    },
+    {
+      "word": "layover",
+      "translation": "стыковка",
+      "meaning": "a stop between two parts of a flight"
+    },
+    {
+      "word": "departure",
+      "translation": "отправление",
+      "meaning": "the act of leaving, especially by plane"
+    },
+    {
+      "word": "security checkpoint",
+      "translation": "контроль безопасности",
+      "meaning": "place where passengers and luggage are inspected"
+    },
+    {
+      "word": "customs",
+      "translation": "таможня",
+      "meaning": "office where travelers declare goods when entering a country"
+    },
+    {
+      "word": "delay",
+      "translation": "задержка",
+      "meaning": "when a flight leaves later than scheduled"
+    },
+    {
+      "word": "overbooked",
+      "translation": "перепроданный рейс",
+      "meaning": "when more tickets are sold than available seats"
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "Where is the check-in counter for my flight?",
+      "translation": "Где стойка регистрации на мой рейс?"
+    },
+    {
+      "phrase": "Can you help me find my gate?",
+      "translation": "Вы можете помочь мне найти мой выход на посадку?"
+    },
+    {
+      "phrase": "Do I need to take off my shoes for security?",
+      "translation": "Нужно ли снимать обувь при досмотре?"
+    },
+    {
+      "phrase": "My boarding pass isn't working. What should I do?",
+      "translation": "Мой посадочный талон не работает. Что мне делать?"
+    },
+    {
+      "phrase": "How much is the baggage fee?",
+      "translation": "Сколько стоит провоз багажа?"
+    },
+    {
+      "phrase": "Is my flight on time?",
+      "translation": "Мой рейс по расписанию?"
+    },
+    {
+      "phrase": "I just heard an announcement about a gate change. What should I do?",
+      "translation": "Я только что услышал объявление о смене выхода. Что мне делать?"
+    },
+    {
+      "phrase": "What happens if my flight is delayed?",
+      "translation": "Что делать, если мой рейс задерживают?"
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 12,
+    "end_behavior": "Have a safe and pleasant flight!"
+  }
+}
