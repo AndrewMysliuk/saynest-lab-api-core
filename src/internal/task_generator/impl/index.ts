@@ -78,7 +78,7 @@ export class TaskGeneratorService implements ITaskGenerator {
         mode: request.mode,
         topic_title: request.topic_title,
         target_language: request.target_language,
-        user_language: request.user_language,
+        explanation_language: request.explanation_language,
         task: formattedData,
       }
     } catch (error: unknown) {

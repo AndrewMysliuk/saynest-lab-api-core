@@ -94,7 +94,6 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
       (goal: any): IPromptGoal => ({
         phrase: goal.phrase,
         translation: goal.translation,
-        transcription_language: goal.transcription_language || undefined,
       }),
     ),
     scenario: {

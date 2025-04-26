@@ -8,6 +8,6 @@ export const StatisticsGenerateRequestSchema = z.object({
   }),
   prompt_id: z.string(),
   topic_title: z.string().min(1, "topic_title required"),
-  language: z.string().min(1, "language required"),
-  user_language: z.string().min(1, "user_language required"),
+  target_language: z.string().min(1, "target_language required"),
+  explanation_language: z.string().min(1, "explanation_language required"),
 })

@@ -78,5 +78,5 @@ export const conversationSchema = z.object({
   tts: ttsSchema,
   system: systemSchema,
   target_language: z.string(),
-  user_native_language: z.string(),
+  explanation_language: z.string(),
 })

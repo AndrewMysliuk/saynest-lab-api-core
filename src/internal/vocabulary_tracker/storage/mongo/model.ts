@@ -27,8 +27,8 @@ const VocabularySchema = new Schema<IVocabularyDocument>(
   {
     // user_id: { type: Schema.Types.ObjectId, required: true, ref: USER_TABLE },
     session_id: { type: Schema.Types.ObjectId, required: true, ref: SESSION_TABLE },
-    language: { type: String, required: true },
-    translation_language: { type: String, required: true },
+    target_language: { type: String, required: true },
+    explanation_language: { type: String, required: true },
     word: { type: String, required: true },
     frequency_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
     meanings: { type: [MeaningSchema], required: true },
@@ -42,6 +42,6 @@ const VocabularySchema = new Schema<IVocabularyDocument>(
   },
 )
 
-VocabularySchema.index({ word: 1, language: 1, translation_language: 1 }, { unique: true })
+VocabularySchema.index({ word: 1, target_language: 1, explanation_language: 1 }, { unique: true })
 
 export const VocabularyModel = mongoose.model<IVocabularyDocument>(MODEL_NAME, VocabularySchema)

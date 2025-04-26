@@ -2,13 +2,13 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "VocabularyEntity",
   "type": "object",
-  "required": ["language", "translation_language", "word", "frequency_level", "meanings"],
+  "required": ["target_language", "explanation_language", "word", "frequency_level", "meanings"],
   "properties": {
-    "language": {
+    "target_language": {
       "type": "string",
       "minLength": 1
     },
-    "translation_language": {
+    "explanation_language": {
       "type": "string",
       "minLength": 1
     },

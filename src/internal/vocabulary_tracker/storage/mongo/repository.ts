@@ -17,8 +17,8 @@ export class VocabularyRepository implements IRepository {
     }).session(options?.session || null)
   }
 
-  async getByWord({ word, language, translation_language }: IWordExplanationRequest, options?: IMongooseOptions): Promise<IVocabularyEntity | null> {
-    return VocabularyModel.findOne({ word, language, translation_language }).session(options?.session || null)
+  async getByWord({ word, target_language, explanation_language }: IWordExplanationRequest, options?: IMongooseOptions): Promise<IVocabularyEntity | null> {
+    return VocabularyModel.findOne({ word, target_language, explanation_language }).session(options?.session || null)
   }
 
   async create(data: Partial<IVocabularyEntity>, options?: IMongooseOptions): Promise<IVocabularyEntity | null> {

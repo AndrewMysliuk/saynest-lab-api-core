@@ -22,7 +22,7 @@ export const getWordExplanationHandler = (vocabularyTrackerService: IVocabularyT
     try {
       const dto = req.body as IWordExplanationRequest
 
-      if (!dto.word || !dto.language || !dto.translation_language) {
+      if (!dto.word || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({
           error: "getWordExplanationHandler | Missing required fields in payload",
         })
@@ -44,7 +44,7 @@ export const getWordAudioHandler = (vocabularyTrackerService: IVocabularyTracker
     try {
       const dto = req.body as IWordExplanationRequest
 
-      if (!dto.word || !dto.language || !dto.translation_language) {
+      if (!dto.word || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({
           error: "getWordExplanationHandler | Missing required fields in payload",
         })
@@ -66,7 +66,7 @@ export const searchWordsSynonymsHandler = (vocabularyTrackerService: IVocabulary
     try {
       const dto = req.body as ISearchSynonymsRequest
 
-      if (!dto.history?.length || !dto.language || !dto.translation_language) {
+      if (!dto.history?.length || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({
           error: "getWordExplanationHandler | Missing required fields in payload",
         })

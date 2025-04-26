@@ -30,7 +30,6 @@ export interface IPromptMeta {
 export interface IPromptGoal {
   phrase: string
   translation: string
-  transcription_language?: string
 }
 
 export interface IPromptScenario {

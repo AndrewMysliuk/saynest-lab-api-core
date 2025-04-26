@@ -1,14 +1,14 @@
 import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, IVocabularyFillersEntity } from "../../../../types"
 
-export const buildSystemPrompt = (language: string, user_language: string, prompt: IPromptScenario): string => {
+export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenario): string => {
   const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
   const expressionsBlock = prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
   const userGoals = prompt.goals.map((entry) => `- ${entry.phrase}`).join("\n")
 
   return `
 You are a language performance evaluation assistant.
-Your job is to assess how well a user communicated during a conversation session in the target language (${language}).
-The user is a learner whose native language is ${user_language}.
+Your job is to assess how well a user communicated during a conversation session in the target language (${target_language}).
+The user is a learner whose native language is ${explanation_language}.
 The session was based on the following scenario:
 
 - Title: ${prompt.title}
@@ -20,10 +20,10 @@ You will be provided with:
 - A list of grammar and lexical issues identified during the session
 - A list of vocabulary items used
 
-IMPORTANT: Your entire analysis (suggestions, summaries, explanations) must be written in the user's native language: **${user_language}**.
+IMPORTANT: Your entire analysis (suggestions, summaries, explanations) must be written in the user's native language: **${explanation_language}**.
 
 HOWEVER:
-- If you include any quotes, phrases, or examples from the user's speech, keep them in the **original target language (${language})**.
+- If you include any quotes, phrases, or examples from the user's speech, keep them in the **original target language (${target_language})**.
 - Do not translate user quotes or scenario phrases.
 - This helps the user clearly identify what to improve while still understanding the explanation.
 
@@ -43,8 +43,16 @@ Return a single JSON object with the following fields:
 - "phrases_used": (optional) List of scenario-relevant expressions that were used by the user.
 
 Details for the "user_cefr_level" field:
-- Estimate the user's CEFR level (A1–C2) based on their vocabulary, grammar, structure, and ability to interact naturally.
-- Include 1–3 brief reasons explaining your judgment.
+- Estimate the user's CEFR level (A1–C2) based on a holistic evaluation of:
+  - Clarity (how understandable the user's speech is)
+  - Fluency (how smoothly and naturally the user speaks)
+  - Responsiveness (how appropriately and effectively the user responds)
+  - Vocabulary range and appropriateness (especially use of scenario vocabulary and expressions)
+  - Grammar and structure accuracy
+- Focus primarily on Clarity, Fluency, and Responsiveness to determine the core CEFR estimate.
+- Use vocabulary control and grammatical accuracy only to slightly adjust the core level up or down if they have a strong impact on communication.
+- A few grammar mistakes should not significantly lower the CEFR level if overall communication is clear, fluent, and responsive.
+- Include 1–3 brief reasons justifying your judgment, mentioning both strengths and weaknesses when necessary.
 
 Details for the "goals_coverage" field:
 - For each goal listed below, return one object.
@@ -78,7 +86,13 @@ Your output must be only the JSON object. Do not include any additional commenta
 `.trim()
 }
 
-export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], vocabularyList: IVocabularyFillersEntity[], language: string, user_language: string): string => {
+export const buildUserPrompt = (
+  historyList: IConversationHistory[],
+  errorsList: IErrorAnalysisEntity[],
+  vocabularyList: IVocabularyFillersEntity[],
+  target_language: string,
+  explanation_language: string,
+): string => {
   const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
 
   const errorsSection = errorsList.length
@@ -109,8 +123,8 @@ export const buildUserPrompt = (historyList: IConversationHistory[], errorsList:
     : "No vocabulary extracted."
 
   return `
-LANGUAGE: ${language}
-USER_NATIVE_LANGUAGE: ${user_language}
+LANGUAGE: ${target_language}
+USER_NATIVE_LANGUAGE: ${explanation_language}
 
 === CONVERSATION HISTORY ===
 ${historySection}

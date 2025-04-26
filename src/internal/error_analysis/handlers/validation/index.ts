@@ -20,7 +20,7 @@ export const ErrorAnalysisRequestSchema = z.object({
   gpt_payload: GPTPayloadSchema,
   session_id: z.string(),
   target_language: z.string(),
-  user_language: z.string(),
+  explanation_language: z.string(),
   prompt_id: z.string(),
 })
 

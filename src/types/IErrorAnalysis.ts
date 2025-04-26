@@ -51,6 +51,6 @@ export interface IErrorAnalysisRequest {
   gpt_payload: IGPTPayload
   session_id: string
   target_language: string
-  user_language: string
+  explanation_language: string
   prompt_id: string
 }

@@ -8,13 +8,13 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["language", "translation_language", "word", "frequency_level", "meanings", "repeated_count"],
+        "required": ["target_language", "explanation_language", "word", "frequency_level", "meanings", "repeated_count"],
         "properties": {
-          "language": {
+          "target_language": {
             "type": "string",
             "minLength": 1
           },
-          "translation_language": {
+          "explanation_language": {
             "type": "string",
             "minLength": 1
           },

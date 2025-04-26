@@ -36,7 +36,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         {
           role: "system",
-          content: buildVocabularySystemPrompt(dto.language, dto.translation_language),
+          content: buildVocabularySystemPrompt(dto.target_language, dto.explanation_language),
         },
         {
           role: "user",
@@ -109,7 +109,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const response = await this.textToSpeachService.ttsTextToSpeechBase64(
         {
           model: "tts-1",
-          voice: "alloy",
+          voice: "nova",
         },
         dto.word,
       )
@@ -160,11 +160,11 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         {
           role: "system",
-          content: buildSynonymsSystemPrompt(dto.language, dto.translation_language),
+          content: buildSynonymsSystemPrompt(dto.target_language, dto.explanation_language),
         },
         {
           role: "user",
-          content: buildSynonymsUserPrompt(userMessagesOnly, dto.language, dto.translation_language),
+          content: buildSynonymsUserPrompt(userMessagesOnly, dto.target_language, dto.explanation_language),
         },
       ]
 

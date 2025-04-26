@@ -24,7 +24,7 @@ export const createConversationHandler = (conversationService: IConversationServ
         tts: JSON.parse(req.body.tts),
         system: JSON.parse(req.body.system),
         target_language: JSON.parse(req.body.target_language),
-        user_native_language: JSON.parse(req.body.user_native_language),
+        explanation_language: JSON.parse(req.body.explanation_language),
       })
 
       if (!parsedBody.whisper.audio_file) {
@@ -52,7 +52,7 @@ export const createConversationHandler = (conversationService: IConversationServ
           tts: parsedBody.tts,
           system: parsedBody.system,
           target_language: parsedBody.target_language,
-          user_native_language: parsedBody.target_language,
+          explanation_language: parsedBody.explanation_language,
         },
         output,
       )

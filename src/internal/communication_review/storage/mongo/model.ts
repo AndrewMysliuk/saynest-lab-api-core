@@ -35,8 +35,8 @@ const MeaningSchema = new Schema<IMeaningEntity>(
 
 const VocabularySchema = new Schema<IVocabularyFillersEntity>(
   {
-    language: { type: String, required: true },
-    translation_language: { type: String, required: true },
+    target_language: { type: String, required: true },
+    explanation_language: { type: String, required: true },
     word: { type: String, required: true },
     frequency_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
     meanings: { type: [MeaningSchema], default: [] },
@@ -141,8 +141,8 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
     session_id: { type: String, required: true, ref: SESSION_TABLE },
     prompt_id: { type: String, required: true },
     topic_title: { type: String, required: true },
-    language: { type: String, required: true },
-    user_language: { type: String, required: true },
+    target_language: { type: String, required: true },
+    explanation_language: { type: String, required: true },
     history: { type: StatisticsHistorySchema, required: true },
     error_analysis: { type: [ErrorAnalysisSchema], default: [] },
     vocabulary: { type: [VocabularySchema], default: [] },

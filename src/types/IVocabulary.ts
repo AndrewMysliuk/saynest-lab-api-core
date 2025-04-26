@@ -37,8 +37,8 @@ export interface IMeaningEntity {
 export interface IVocabularyEntity {
   _id: ObjectId
   session_id: ObjectId
-  language: string
-  translation_language: string
+  target_language: string
+  explanation_language: string
   word: string
   frequency_level: VocabularyFrequencyLevelEnum
   meanings: IMeaningEntity[]
@@ -48,8 +48,8 @@ export interface IVocabularyEntity {
 }
 
 export interface IVocabularyJSONEntity {
-  language: string
-  translation_language: string
+  target_language: string
+  explanation_language: string
   word: string
   frequency_level: VocabularyFrequencyLevelEnum
   meanings: IMeaningEntity[]
@@ -61,8 +61,8 @@ export interface IVocabularyEntityWrapper {
 }
 
 export interface IVocabularyFillersEntity {
-  language: string
-  translation_language: string
+  target_language: string
+  explanation_language: string
   word: string
   frequency_level: VocabularyFrequencyLevelEnum
   meanings: IMeaningEntity[]
@@ -75,8 +75,8 @@ export interface IVocabularyFillersEntityWrapper {
 
 export interface IWordExplanationRequest {
   session_id: string
-  language: string
-  translation_language: string
+  target_language: string
+  explanation_language: string
   word: string
 }
 
@@ -84,6 +84,6 @@ export interface ISearchSynonymsRequest {
   payload: IGPTPayload
   history: IConversationHistory[]
   // session_id: string
-  language: string
-  translation_language: string
+  target_language: string
+  explanation_language: string
 }

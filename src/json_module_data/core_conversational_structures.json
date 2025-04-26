@@ -2,7 +2,7 @@
   "id": "core_conversational_structures",
   "title": "Core Conversational Structures",
   "description": "Master the essential techniques for structuring your thoughts and speaking clearly in English conversations.",
-  "level": "B1",
+  "level": ["B1"],
   "tags": ["fluency", "communication", "soft skills", "speaking"],
   "scenarios": [
     "1_linking_ideas_clearly",

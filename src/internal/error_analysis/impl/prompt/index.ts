@@ -2,7 +2,7 @@ import { IErrorAnalysisRequest, ILanguageTopic, IPromptScenario } from "../../..
 
 export function buildSystemPrompt(topics: ILanguageTopic[], prompt: IPromptScenario, dto: IErrorAnalysisRequest): string {
   const topicTitles = topics.map((topic) => `"${topic.title}"`).join(", ")
-  const { target_language, user_language } = dto
+  const { target_language, explanation_language } = dto
 
   const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
   const expressionsBlock = prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
@@ -33,7 +33,7 @@ Language:
 - All output should be in ${target_language}, **except**:
   - "suggestion_message"
   - "explanation" (in each issue)
-These two must be in ${user_language}.
+These two must be in ${explanation_language}.
 
 Return a single raw JSON object with these fields:
 
@@ -42,13 +42,13 @@ Return a single raw JSON object with these fields:
   - corrected_text
   - error_words: array of { id, value }
   - corrected_words: array of { id, value }
-  - explanation (in ${user_language})
+  - explanation (in ${explanation_language})
   - topic_titles: string
 
 - improve_user_answer: rewritten version of the user’s message in ${target_language}, clearer and more fluent, like a confident native speaker.
 
 - has_errors: true/false
-- suggestion_message: friendly improvement tip (in ${user_language})
+- suggestion_message: friendly improvement tip (in ${explanation_language})
 - detected_language: the language the user spoke
 - is_target_language: true if detected_language matches target_language
 - sentence_structure: one of "SIMPLE", "COMPOUND", or "COMPLEX"

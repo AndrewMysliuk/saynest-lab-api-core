@@ -1,6 +1,6 @@
 {
   "id": "checking_into_a_hotel",
-  "module": "sendbox",
+  "module": "sandbox",
   "title": "Checking Into a Hotel",
   "description": "You arrive at a hotel in a foreign country. You need to check in, confirm your reservation, ask basic questions, and handle possible issues.",
   "level": "B1",

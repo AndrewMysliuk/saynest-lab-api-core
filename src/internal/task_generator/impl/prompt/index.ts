@@ -69,7 +69,7 @@ Task difficulty should be moderate — not suitable for absolute beginners, but 
 
 Language usage:
 - Write **all task content** in the target language: ${request.target_language}
-- Write **all explanations** (if applicable) in the user's native language: ${request.user_language}
+- Write **all explanations** (if applicable) in the user's native language: ${request.explanation_language}
 
 Use the following scenario information **only if relevant** to the topic:
 
