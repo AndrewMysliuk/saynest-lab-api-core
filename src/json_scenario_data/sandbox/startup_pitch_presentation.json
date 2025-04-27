@@ -1,0 +1,96 @@
+{
+  "id": "startup_pitch_presentation",
+  "module": "sandbox",
+  "title": "Explaining Your Project at a Startup Pitch",
+  "description": "You are participating in a startup event where you need to explain your project briefly and clearly to potential investors, partners, and other attendees.",
+  "level": "B2",
+  "goals": [
+    {
+      "phrase": "Introduce yourself and your role in the startup",
+      "translation": "Представиться и объяснить свою роль в стартапе"
+    },
+    {
+      "phrase": "Explain what your startup does and the problem it solves",
+      "translation": "Объяснить, чем занимается стартап и какую проблему он решает"
+    },
+    {
+      "phrase": "Describe what makes your startup different or special",
+      "translation": "Описать, чем ваш стартап отличается от других"
+    }
+  ],
+  "scenario": {
+    "allowed_languages": ["English"],
+    "force_topic_focus": true,
+    "setting": "Startup networking event",
+    "situation": "User is a startup founder or team member pitching their project informally to someone interested",
+    "goal": "Keep the user engaged, simulate questions from an investor or partner, and help the user deliver a clear, confident explanation of their project",
+    "steps": [
+      "Greet and introduce yourself",
+      "Ask the user to explain their project in one or two sentences",
+      "Ask follow-up questions about the problem and the target market",
+      "Ask what makes their solution different or better",
+      "Simulate an investor asking about traction or future plans",
+      "Encourage the user to summarize their value proposition"
+    ]
+  },
+  "prompt": "You are a friendly investor attending a startup event. A founder approaches you to explain their project. Ask them to describe it briefly, then ask follow-up questions about the problem, the solution, the market, and the startup's progress. Encourage the founder to be clear and concise. Be supportive but professional.",
+  "dictionary": [
+    {
+      "word": "pitch",
+      "translation": "презентация проекта",
+      "meaning": "a short speech to explain your idea to investors or partners"
+    },
+    {
+      "word": "traction",
+      "translation": "результаты продвижения",
+      "meaning": "evidence that your startup is growing or gaining users/customers"
+    },
+    {
+      "word": "value proposition",
+      "translation": "ценностное предложение",
+      "meaning": "a clear statement of the benefits your product offers"
+    },
+    {
+      "word": "market fit",
+      "translation": "соответствие рынку",
+      "meaning": "how well a product satisfies the demand of a market"
+    },
+    {
+      "word": "differentiation",
+      "translation": "отличие",
+      "meaning": "what makes your startup different from competitors"
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "Hi, I'm [your name], the founder of [your startup].",
+      "translation": "Привет, я [ваше имя], основатель [ваш стартап].",
+      "meaning": "Used to introduce yourself quickly at networking events"
+    },
+    {
+      "phrase": "Our startup helps [target audience] by [solution].",
+      "translation": "Наш стартап помогает [целевой аудитории], предоставляя [решение].",
+      "meaning": "Clear way to describe your business"
+    },
+    {
+      "phrase": "The problem we're solving is [problem statement].",
+      "translation": "Проблема, которую мы решаем, это [описание проблемы].",
+      "meaning": "Explaining the pain point your startup addresses"
+    },
+    {
+      "phrase": "We stand out because [differentiator].",
+      "translation": "Мы отличаемся тем, что [отличительная черта].",
+      "meaning": "Describing what makes your startup special"
+    },
+    {
+      "phrase": "Currently, we have [traction example] and plan to [future goal].",
+      "translation": "На данный момент у нас есть [пример продвижения], и мы планируем [цель].",
+      "meaning": "Talking about progress and future plans"
+    }
+  ],
+  "meta": {
+    "estimated_duration_minutes": 7,
+    "max_turns": 12,
+    "end_behavior": "Wish the user good luck with their startup!"
+  }
+}

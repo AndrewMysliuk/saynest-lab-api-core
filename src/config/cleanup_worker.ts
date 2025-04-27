@@ -10,7 +10,7 @@ import { formatBytes } from "../utils"
 import logger from "../utils/logger"
 
 const CLEAN_INTERVAL_MS = 5 * 60 * 1000
-const SESSION_EXPIRATION_MINUTES = 30
+const SESSION_EXPIRATION_MINUTES = 120
 const USER_SESSIONS_FOLDER = path.join(process.cwd(), "user_sessions")
 
 let shouldRunCleanup = true
