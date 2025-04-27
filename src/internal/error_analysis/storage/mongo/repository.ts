@@ -1,46 +1,67 @@
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IMongooseOptions } from "../../../../types"
+import logger from "../../../../utils/logger"
 import { IRepository } from "../index"
 import { ErrorAnalysisModel } from "./model"
 
 export class ErrorAnalysisRepository implements IRepository {
   async setErrorAnalysis(session_id: string, prompt_id: string, last_user_message: string, dto: IErrorAnalysisModelEntity, options?: IMongooseOptions): Promise<IErrorAnalysisEntity | null> {
-    if (!dto.has_errors) return null
+    try {
+      if (!dto.has_errors) return null
 
-    const record = new ErrorAnalysisModel({
-      session_id,
-      last_user_message,
-      improve_user_answer: dto.improve_user_answer,
-      suggestion_message: dto.suggestion_message,
-      detected_language: dto.detected_language,
-      is_target_language: dto.is_target_language,
-      prompt_id,
-      sentence_structure: dto.sentence_structure,
-      issues: dto.issues,
-      has_errors: dto.has_errors,
-      is_end: dto.is_end,
-    })
+      const record = new ErrorAnalysisModel({
+        session_id,
+        last_user_message,
+        improve_user_answer: dto.improve_user_answer,
+        suggestion_message: dto.suggestion_message,
+        detected_language: dto.detected_language,
+        is_target_language: dto.is_target_language,
+        prompt_id,
+        sentence_structure: dto.sentence_structure,
+        issues: dto.issues,
+        has_errors: dto.has_errors,
+        is_end: dto.is_end,
+      })
 
-    await record.save({ session: options?.session })
+      await record.save({ session: options?.session })
 
-    return record
+      return record
+    } catch (error: unknown) {
+      logger.error(`setErrorAnalysis | error: ${error}`)
+      throw error
+    }
   }
 
   async getErrorAnalysisById(id: string, options?: IMongooseOptions): Promise<IErrorAnalysisEntity | null> {
-    return ErrorAnalysisModel.findById(id)
-      .lean()
-      .session(options?.session || null)
+    try {
+      return ErrorAnalysisModel.findById(id)
+        .lean()
+        .session(options?.session || null)
+    } catch (error: unknown) {
+      logger.error(`getErrorAnalysisById | error: ${error}`)
+      throw error
+    }
   }
 
   async listErrorAnalysisBySession(session_id: string, options?: IMongooseOptions): Promise<IErrorAnalysisEntity[]> {
-    return ErrorAnalysisModel.find({ session_id })
-      .sort({ created_at: 1 })
-      .lean()
-      .session(options?.session || null)
+    try {
+      return ErrorAnalysisModel.find({ session_id })
+        .sort({ created_at: 1 })
+        .lean()
+        .session(options?.session || null)
+    } catch (error: unknown) {
+      logger.error(`listErrorAnalysisBySession | error: ${error}`)
+      throw error
+    }
   }
 
   async deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void> {
-    await ErrorAnalysisModel.deleteMany({ session_id }).session(options?.session || null)
+    try {
+      await ErrorAnalysisModel.deleteMany({ session_id }).session(options?.session || null)
 
-    return
+      return
+    } catch (error: unknown) {
+      logger.error(`deleteAllBySessionId | error: ${error}`)
+      throw error
+    }
   }
 }
