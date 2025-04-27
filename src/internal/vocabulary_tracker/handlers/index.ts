@@ -21,6 +21,7 @@ export const getWordExplanationHandler = (vocabularyTrackerService: IVocabularyT
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const dto = req.body as IWordExplanationRequest
+      const { user_id, organization_id } = req.user!
 
       if (!dto.word || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({
@@ -29,7 +30,7 @@ export const getWordExplanationHandler = (vocabularyTrackerService: IVocabularyT
         return
       }
 
-      const response = await vocabularyTrackerService.getWordExplanation(dto)
+      const response = await vocabularyTrackerService.getWordExplanation(user_id, organization_id, dto)
 
       res.status(200).json(response)
     } catch (error: unknown) {
@@ -65,6 +66,7 @@ export const searchWordsSynonymsHandler = (vocabularyTrackerService: IVocabulary
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const dto = req.body as ISearchSynonymsRequest
+      const { user_id, organization_id } = req.user!
 
       if (!dto.history?.length || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({

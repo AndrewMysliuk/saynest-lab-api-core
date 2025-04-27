@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 
 import { IConversationHistory } from "./IConversation"
 import { IGPTPayload } from "./IGPT"
@@ -35,8 +35,10 @@ export interface IMeaningEntity {
 }
 
 export interface IVocabularyEntity {
-  _id: ObjectId
-  session_id: ObjectId
+  _id: Types.ObjectId
+  user_id: Types.ObjectId
+  organization_id: Types.ObjectId
+  session_id: Types.ObjectId
   target_language: string
   explanation_language: string
   word: string

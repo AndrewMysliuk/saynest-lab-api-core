@@ -9,7 +9,6 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const { type, system_prompt, prompt_id } = req.body as ISessionCreateRequest
-      // organization_id, user_id
 
       if (!type || !system_prompt || !prompt_id) {
         res.status(400).json({
@@ -18,9 +17,19 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
         return
       }
 
+      const user_id = req.user?.user_id || null
+      const organization_id = req.user?.organization_id || null
+
       const sessionDir = await ensureStorageDirExists()
 
-      const response = await sessionService.createSession(prompt_id, system_prompt, sessionDir, type)
+      const response = await sessionService.createSession({
+        prompt_id,
+        session_directory: sessionDir,
+        user_id,
+        organization_id,
+        system_prompt,
+        type,
+      })
 
       res.status(200).json(response)
     } catch (error: unknown) {
@@ -34,8 +43,6 @@ export const getSessionHandler = (sessionService: ISessionService): RequestHandl
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const session_id = req.params.session_id
-      // const organization_id = req.params.organization_id
-      // const user_id = req.params.user_id
 
       if (!session_id) {
         res.status(400).json({
@@ -58,8 +65,6 @@ export const finishSessionHandler = (sessionService: ISessionService): RequestHa
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const session_id = req.params.session_id
-      // const organization_id = req.params.organization_id
-      // const user_id = req.params.user_id
 
       if (!session_id) {
         res.status(400).json({

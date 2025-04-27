@@ -20,7 +20,7 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     this.textToSpeachService = textToSpeachService
   }
 
-  async getWordExplanation(dto: IWordExplanationRequest): Promise<IVocabularyJSONEntity> {
+  async getWordExplanation(user_id: string, organization_id: string, dto: IWordExplanationRequest): Promise<IVocabularyJSONEntity> {
     try {
       const isSessionIdValid = Types.ObjectId.isValid(dto.session_id)
 
@@ -80,8 +80,13 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const modelResponse = validateToolResponse<IVocabularyJSONEntity>(rawParsed, WordExplanationSchema)
 
       if (isSessionIdValid) {
-        const sessionId = new Types.ObjectId(dto.session_id) as unknown as ObjectId
+        const sessionId = new Types.ObjectId(dto.session_id)
+        const orgId = new Types.ObjectId(organization_id)
+        const userId = new Types.ObjectId(user_id)
+
         await this.vocabularyTrackerRepo.create({
+          organization_id: orgId,
+          user_id: userId,
           ...modelResponse,
           session_id: sessionId,
         })

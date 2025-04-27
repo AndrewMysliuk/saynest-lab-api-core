@@ -17,7 +17,9 @@ import {
   PartOfSpeechEnum,
   VocabularyFrequencyLevelEnum,
 } from "../../../../types"
+import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
 import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
 export const MODEL_NAME = "statistics"
 
@@ -47,7 +49,6 @@ const VocabularySchema = new Schema<IVocabularyFillersEntity>(
 
 const ConversationHistorySchema = new Schema<IConversationHistory>(
   {
-    session_id: { type: String, required: true },
     pair_id: { type: String, required: true },
     role: { type: String, enum: ["system", "user", "assistant"], required: true },
     content: { type: String, required: true },
@@ -91,7 +92,6 @@ const IssueSchema = new Schema<IssueItem>(
 
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
   {
-    session_id: { type: String, required: true },
     improve_user_answer: { type: String, required: true },
     last_user_message: { type: String, required: true },
     suggestion_message: { type: String, required: true },
@@ -138,7 +138,9 @@ const ExpressionUsageSchema = new Schema<IExpressionUsage>({
 
 const StatisticsSchema = new Schema<IStatisticsDocument>(
   {
-    session_id: { type: String, required: true, ref: SESSION_TABLE },
+    user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
+    organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: true },
+    session_id: { type: Schema.Types.ObjectId, required: true, ref: SESSION_TABLE },
     prompt_id: { type: String, required: true },
     topic_title: { type: String, required: true },
     target_language: { type: String, required: true },

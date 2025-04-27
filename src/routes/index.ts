@@ -1,5 +1,8 @@
 import { Router } from "express"
 
+import { AuthService } from "../internal/auth/impl"
+import { createAuthRouter } from "../internal/auth/router"
+import { AuthRepository } from "../internal/auth/storage/mongo/repository"
 import { CommunicationReviewService } from "../internal/communication_review/impl"
 import { createCommunicationReviewRouter } from "../internal/communication_review/router"
 import { CommunicationReviewRepository } from "../internal/communication_review/storage/mongo/repository"
@@ -11,7 +14,8 @@ import { createErrorAnalysisRouter } from "../internal/error_analysis/router"
 import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mongo/repository"
 import { LanguageTheoryService } from "../internal/language_theory/impl"
 import { createLanguageTheoryRouter } from "../internal/language_theory/router"
-// import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
+import { OrganisationService } from "../internal/organisation/impl"
+import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
 import { PromptService } from "../internal/prompts_library/impl"
 import { createPromptRouter } from "../internal/prompts_library/router"
 import { SessionService } from "../internal/session/impl"
@@ -25,14 +29,17 @@ import { TextAnalysisService } from "../internal/text_analysis/impl"
 import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
-// import { UserRepository } from "../internal/user/storage/mongo/repository"
+import { UserService } from "../internal/user/impl"
+import { UserRepository } from "../internal/user/storage/mongo/repository"
 import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
 import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
 import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
+import { authMiddleware, optionalAuthMiddleware } from "../middlewares"
 
 // Repositories
-// const organisationRepo = new OrganisationRepository()
-// const userRepo = new UserRepository()
+const organisationRepo = new OrganisationRepository()
+const userRepo = new UserRepository()
+const authRepo = new AuthRepository()
 const sessionRepo = new SessionRepository()
 const vocabularyRepo = new VocabularyRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
@@ -40,6 +47,9 @@ const historyRepo = new HistoryRepository()
 const communicationReviewRepo = new CommunicationReviewRepository()
 
 // Services
+const organisationService = new OrganisationService(organisationRepo)
+const userService = new UserService(userRepo)
+const authService = new AuthService(authRepo, userService, organisationService)
 const sessionService = new SessionService(sessionRepo, historyRepo)
 const languageTheoryService = new LanguageTheoryService()
 const promptService = new PromptService()
@@ -54,16 +64,17 @@ const communicationReviewService = new CommunicationReviewService(communicationR
 
 const router = Router()
 
-router.use("/session", createSessionRouter(sessionService))
-router.use("/language-theory", createLanguageTheoryRouter(languageTheoryService))
-router.use("/vocabulary-tracker", createVocabularyTrackerRouter(vocabularyTrackerService))
-router.use("/task-generator", createTaskGeneratorRouter(taskGeneratorService))
-router.use("/error-analysis", createErrorAnalysisRouter(errorAnalysisService))
-router.use("/speach-to-text", createSpeachToTextRouter(speachToTextService))
-router.use("/text-analysis", createTextAnalysisRouter(textAnalysisService))
-router.use("/text-to-speach", createTextToSpeachRouter(textToSpeachService))
-router.use("/conversation", createConversationRouter(conversationService))
-router.use("/communication-review", createCommunicationReviewRouter(communicationReviewService))
+router.use("/auth", createAuthRouter(authService))
+router.use("/session", optionalAuthMiddleware, createSessionRouter(sessionService))
+router.use("/language-theory", authMiddleware, createLanguageTheoryRouter(languageTheoryService))
+router.use("/vocabulary-tracker", authMiddleware, createVocabularyTrackerRouter(vocabularyTrackerService))
+router.use("/task-generator", authMiddleware, createTaskGeneratorRouter(taskGeneratorService))
+router.use("/error-analysis", optionalAuthMiddleware, createErrorAnalysisRouter(errorAnalysisService))
+router.use("/speach-to-text", authMiddleware, createSpeachToTextRouter(speachToTextService))
+router.use("/text-analysis", authMiddleware, createTextAnalysisRouter(textAnalysisService))
+router.use("/text-to-speach", authMiddleware, createTextToSpeachRouter(textToSpeachService))
+router.use("/conversation", optionalAuthMiddleware, createConversationRouter(conversationService))
+router.use("/communication-review", authMiddleware, createCommunicationReviewRouter(communicationReviewService))
 router.use("/prompts-library", createPromptRouter(promptService))
 
 export default router

@@ -16,7 +16,10 @@ export const errorAnalysisHandler = (errorAnalysisService: IErrorAnalysis): Requ
 
       const dto = parseResult.data
 
-      const response = await errorAnalysisService.conversationErrorAnalysis(dto)
+      const user_id = req.user?.user_id || null
+      const organization_id = req.user?.organization_id || null
+
+      const response = await errorAnalysisService.conversationErrorAnalysis(dto, user_id, organization_id)
 
       res.status(200).json(response)
     } catch (error: unknown) {

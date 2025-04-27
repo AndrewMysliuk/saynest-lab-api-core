@@ -1,3 +1,5 @@
+import { Types } from "mongoose"
+
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest } from "../../../types"
@@ -20,7 +22,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
     this.promptService = promptService
   }
 
-  async conversationErrorAnalysis(dto: IErrorAnalysisRequest): Promise<IErrorAnalysisEntity | null> {
+  async conversationErrorAnalysis(dto: IErrorAnalysisRequest, user_id: string | null, organization_id: string | null): Promise<IErrorAnalysisEntity | null> {
     try {
       const history = dto.gpt_payload.messages ?? []
 
@@ -102,11 +104,22 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       const rawParsed = JSON.parse(toolCall.function.arguments)
       const modelResponse = validateToolResponse<IErrorAnalysisModelEntity>(rawParsed, ConversationErrorAnalyserSchema)
 
-      this.errorAnalysisRepo.setErrorAnalysis(dto.session_id, dto.prompt_id, lastUserMessage.content, modelResponse)
+      const sessionId = new Types.ObjectId(dto.session_id)
+
+      let orgId, userId
+
+      if (user_id && organization_id) {
+        orgId = new Types.ObjectId(organization_id)
+        userId = new Types.ObjectId(user_id)
+      }
+
+      this.errorAnalysisRepo.setErrorAnalysis(dto.session_id, dto.prompt_id, lastUserMessage.content, modelResponse, orgId, userId)
 
       return {
         ...modelResponse,
-        session_id: dto.session_id,
+        session_id: sessionId,
+        organization_id: null,
+        user_id: null,
         prompt_id: dto.prompt_id,
         last_user_message: lastUserMessage.content,
         created_at: new Date(),

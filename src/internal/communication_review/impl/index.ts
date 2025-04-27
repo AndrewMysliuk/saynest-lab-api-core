@@ -1,4 +1,4 @@
-import mongoose, { ClientSession } from "mongoose"
+import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
 import { cleanUserSessionFiles, openaiREST } from "../../../config"
@@ -38,11 +38,13 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     this.promptService = promptService
   }
 
-  async generateConversationReview(dto: IStatisticsGenerateRequest): Promise<IStatistics> {
+  async generateConversationReview(user_id: string, organization_id: string, dto: IStatisticsGenerateRequest): Promise<IStatistics> {
     try {
       const statisticReview = await this.communicationReviewRepo.getBySessionId(dto.session_id)
 
-      if (statisticReview && statisticReview.session_id === dto.session_id) {
+      const sessionId = new Types.ObjectId(dto.session_id)
+
+      if (statisticReview && statisticReview.session_id === sessionId) {
         return statisticReview
       }
 
@@ -114,9 +116,14 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       try {
         session.startTransaction()
 
+        const userId = new Types.ObjectId(user_id)
+        const orgId = new Types.ObjectId(organization_id)
+
         const reviewResponse = await this.communicationReviewRepo.add(
           {
-            session_id: dto.session_id,
+            user_id: userId,
+            organization_id: orgId,
+            session_id: sessionId,
             prompt_id: dto.prompt_id,
             topic_title: dto.topic_title,
             target_language: dto.target_language,
@@ -168,13 +175,13 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       if (!review) return
 
       await Promise.all([
-        this.conversationService.deleteAllBySessionId(review.session_id),
-        this.errorAnalysisService.deleteAllBySessionId(review.session_id),
-        this.vocabularyTrackerService.deleteAllBySessionId(review.session_id),
-        this.sessionService.deleteSession(review.session_id),
+        this.conversationService.deleteAllBySessionId(review.session_id.toString()),
+        this.errorAnalysisService.deleteAllBySessionId(review.session_id.toString()),
+        this.vocabularyTrackerService.deleteAllBySessionId(review.session_id.toString()),
+        this.sessionService.deleteSession(review.session_id.toString()),
       ])
 
-      await cleanUserSessionFiles([review.session_id])
+      await cleanUserSessionFiles([review.session_id.toString()])
     } catch (error: unknown) {
       logger.error(`deleteReview | error: ${error}`)
       throw error

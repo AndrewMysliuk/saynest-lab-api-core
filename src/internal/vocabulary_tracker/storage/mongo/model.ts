@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import { IMeaningEntity, IVocabularyEntity, PartOfSpeechEnum, VocabularyFrequencyLevelEnum } from "../../../../types"
+import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
 import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
-
-// import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
 export const MODEL_NAME = "vocabularies"
 
@@ -25,7 +25,8 @@ const MeaningSchema = new Schema<IMeaningEntity>(
 
 const VocabularySchema = new Schema<IVocabularyDocument>(
   {
-    // user_id: { type: Schema.Types.ObjectId, required: true, ref: USER_TABLE },
+    user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
+    organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: true },
     session_id: { type: Schema.Types.ObjectId, required: true, ref: SESSION_TABLE },
     target_language: { type: String, required: true },
     explanation_language: { type: String, required: true },
@@ -42,6 +43,6 @@ const VocabularySchema = new Schema<IVocabularyDocument>(
   },
 )
 
-VocabularySchema.index({ word: 1, target_language: 1, explanation_language: 1 }, { unique: true })
+VocabularySchema.index({ word: 1, target_language: 1, explanation_language: 1, user_id: 1 }, { unique: true })
 
 export const VocabularyModel = mongoose.model<IVocabularyDocument>(MODEL_NAME, VocabularySchema)

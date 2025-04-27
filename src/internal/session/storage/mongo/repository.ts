@@ -3,20 +3,15 @@ import { Types } from "mongoose"
 import path from "path"
 
 import { IRepository } from ".."
-import { IMongooseOptions, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../../types"
+import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../../types"
 import logger from "../../../../utils/logger"
 import { SessionModel } from "./model"
 
 export class SessionRepository implements IRepository {
-  async createSession(prompt_id: string, system_prompt: string, session_directory: string, type: SessionTypeEnum, options?: IMongooseOptions): Promise<ISessionEntity> {
+  async createSession(dto: ISessionCreateRequest, options?: IMongooseOptions): Promise<ISessionEntity> {
     try {
       const session = new SessionModel({
-        // organization_id: new Types.ObjectId(organization_id),
-        // user_id: new Types.ObjectId(user_id),
-        prompt_id,
-        type,
-        system_prompt,
-        session_directory,
+        ...dto,
         status: SessionStatusEnum.ACTIVE,
         updated_at: new Date(),
         created_at: new Date(),
@@ -35,8 +30,6 @@ export class SessionRepository implements IRepository {
     try {
       const session = await SessionModel.findById({
         _id: new Types.ObjectId(session_id),
-        // organization_id: new Types.ObjectId(organization_id),
-        // user_id: new Types.ObjectId(user_id),
       }).session(options?.session || null)
 
       if (!session) {
@@ -63,8 +56,6 @@ export class SessionRepository implements IRepository {
       const session = await SessionModel.findByIdAndUpdate(
         {
           _id: new Types.ObjectId(session_id),
-          // organization_id: new Types.ObjectId(organization_id),
-          // user_id: new Types.ObjectId(user_id),
         },
         update,
         { new: true },

@@ -1,6 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import { ErrorAnalysisSentenceStructureEnum, IErrorAnalysisEntity, IWord, IssueItem } from "../../../../types"
+import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
+import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
 export const MODEL_NAME = "error_analyses"
 
@@ -28,7 +31,9 @@ const IssueSchema = new Schema<IssueItem>(
 
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisDocument>(
   {
-    session_id: { type: String, required: true },
+    user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: false, default: null },
+    organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: false, default: null },
+    session_id: { type: Schema.Types.ObjectId, ref: SESSION_TABLE, required: true },
     improve_user_answer: { type: String, required: true },
     last_user_message: { type: String, required: true },
     suggestion_message: { type: String, required: true },

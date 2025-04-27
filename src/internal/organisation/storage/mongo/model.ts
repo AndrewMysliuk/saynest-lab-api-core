@@ -1,15 +1,26 @@
 import mongoose, { Document, Schema, Types } from "mongoose"
 
-import { IOrganizationEntity } from "../../../../types"
+import { IOrganizationEntity, IOrganizationSettings, OrganizationStatusEnum } from "../../../../types"
 
-export const MODEL_NAME = "organisations"
+export const MODEL_NAME = "organizations"
 
-export type IOrganisationDocument = IOrganizationEntity & Document
+export type IOrganizationDocument = IOrganizationEntity & Document
 
-const OrganizationSchema = new Schema<IOrganizationEntity>(
+const OrganizationSettingsSchema = new Schema<IOrganizationSettings>(
   {
-    owner_id: { type: Types.ObjectId, required: true },
+    locale: { type: String, required: false },
+    timezone: { type: String, required: false },
+  },
+  { _id: false },
+)
+
+const OrganizationSchema = new Schema<IOrganizationDocument>(
+  {
+    owner_id: { type: Schema.Types.ObjectId, required: false, default: null },
     name: { type: String, required: true },
+    plan_id: { type: Schema.Types.ObjectId, required: false, default: null },
+    status: { type: String, enum: Object.values(OrganizationStatusEnum), default: OrganizationStatusEnum.ACTIVE, required: true },
+    settings: { type: OrganizationSettingsSchema, required: false },
   },
   {
     timestamps: {
@@ -19,4 +30,4 @@ const OrganizationSchema = new Schema<IOrganizationEntity>(
   },
 )
 
-export const OrganizationModel = mongoose.model<IOrganizationEntity>(MODEL_NAME, OrganizationSchema)
+export const OrganizationModel = mongoose.model<IOrganizationDocument>(MODEL_NAME, OrganizationSchema)

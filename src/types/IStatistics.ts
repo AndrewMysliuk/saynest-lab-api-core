@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 
 import { IConversationHistory } from "./IConversation"
 import { IErrorAnalysisEntity } from "./IErrorAnalysis"
@@ -36,9 +36,11 @@ export interface IExpressionUsage {
 }
 
 export interface IStatistics {
-  _id: ObjectId
+  _id: Types.ObjectId
+  user_id: Types.ObjectId
+  organization_id: Types.ObjectId
+  session_id: Types.ObjectId
   prompt_id: string
-  session_id: string
   topic_title: string
   target_language: string
   explanation_language: string

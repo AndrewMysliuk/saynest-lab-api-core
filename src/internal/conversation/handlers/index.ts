@@ -8,12 +8,8 @@ import { conversationSchema } from "./validation"
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      // const { organization_id, user_id }: { organization_id: string; user_id: string } = req.body
-
-      // if (!organization_id || !user_id) {
-      //   res.status(400).json({ error: "Missing required fields" })
-      //   return
-      // }
+      const user_id = req.user?.user_id || null
+      const organization_id = req.user?.organization_id || null
 
       const parsedBody = conversationSchema.parse({
         whisper: {
@@ -45,8 +41,6 @@ export const createConversationHandler = (conversationService: IConversationServ
 
       const generator = conversationService.streamConversation(
         {
-          // organization_id,
-          // user_id,
           whisper: parsedBody.whisper,
           gpt_model: parsedBody.gpt_model,
           tts: parsedBody.tts,
@@ -54,6 +48,8 @@ export const createConversationHandler = (conversationService: IConversationServ
           target_language: parsedBody.target_language,
           explanation_language: parsedBody.explanation_language,
         },
+        organization_id,
+        user_id,
         output,
       )
 

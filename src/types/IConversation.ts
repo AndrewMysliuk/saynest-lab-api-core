@@ -1,10 +1,12 @@
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 
 import { IGPTPayload } from "./IGPT"
 import { ITTSElevenLabsPayload, ITTSPayload } from "./ITTS"
 
 export interface IConversationHistory {
-  session_id: ObjectId
+  session_id: Types.ObjectId
+  user_id: Types.ObjectId | null
+  organization_id: Types.ObjectId | null
   pair_id: string
   role: "system" | "user" | "assistant"
   content: string

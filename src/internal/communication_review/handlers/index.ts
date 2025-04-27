@@ -7,9 +7,11 @@ import { StatisticsGenerateRequestSchema } from "./validation"
 export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
+      const { user_id, organization_id } = req.user!
+
       const dto = StatisticsGenerateRequestSchema.parse(req.body)
 
-      const response = await communicationReviewService.generateConversationReview(dto)
+      const response = await communicationReviewService.generateConversationReview(user_id, organization_id, dto)
 
       res.status(200).json(response)
     } catch (error: unknown) {

@@ -1,5 +1,5 @@
 import fs from "fs"
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
@@ -32,13 +32,24 @@ export class ConversationService implements IConversationService {
     this.textToSpeachService = textToSpeachService
   }
 
-  async *streamConversation(payload: IConversationPayload, outputConversation?: { finalData?: IConversationResponse }): AsyncGenerator<ConversationStreamEvent> {
+  async *streamConversation(
+    payload: IConversationPayload,
+    user_id: string | null,
+    organization_id: string | null,
+    outputConversation?: { finalData?: IConversationResponse },
+  ): AsyncGenerator<ConversationStreamEvent> {
     try {
       const perf = new PerfTimer()
       perf.mark("total")
 
       const { whisper, gpt_model, tts, system } = payload
       const pair_id = uuidv4()
+      let orgId, userId
+
+      if (user_id && organization_id) {
+        orgId = new Types.ObjectId(organization_id)
+        userId = new Types.ObjectId(user_id)
+      }
 
       const sessionDir = await ensureStorageDirExists(system.session_id)
 
@@ -52,6 +63,8 @@ export class ConversationService implements IConversationService {
       const conversationHistory = [...initialHistory]
 
       const userMessage = {
+        organization_id: orgId,
+        user_id: userId,
         session_id: activeSessionId,
         pair_id,
         role: "user",
@@ -157,6 +170,8 @@ export class ConversationService implements IConversationService {
       }
 
       const modelMessage = {
+        organization_id: orgId,
+        user_id: userId,
         session_id: activeSessionId,
         pair_id,
         role: "assistant",
@@ -191,12 +206,8 @@ export class ConversationService implements IConversationService {
     }
   }
 
-  async getSessionData(
-    // organization_id: string,
-    // user_id: string,
-    session_id: string,
-  ): Promise<{
-    session_id: ObjectId
+  async getSessionData(session_id: string): Promise<{
+    session_id: Types.ObjectId
     conversation_history: IConversationHistory[]
   }> {
     const session = await this.sessionService.getSession(session_id)

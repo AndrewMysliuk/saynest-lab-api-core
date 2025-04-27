@@ -1,3 +1,5 @@
+import { Types } from "mongoose"
+
 import { IGPTPayload } from "./IGPT"
 
 export enum ErrorAnalysisSentenceStructureEnum {
@@ -32,7 +34,9 @@ export interface IErrorAnalysisModelEntity {
 }
 
 export interface IErrorAnalysisEntity {
-  session_id: string
+  session_id: Types.ObjectId
+  user_id: Types.ObjectId | null
+  organization_id: Types.ObjectId | null
   improve_user_answer: string
   last_user_message: string
   suggestion_message: string

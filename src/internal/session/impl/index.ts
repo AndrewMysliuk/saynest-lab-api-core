@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 
-import { IMongooseOptions, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../types"
+import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../types"
 import { IRepository as IHistoryRepository } from "../../conversation/storage"
 import { ISessionService } from "../index"
 import { IRepository } from "../storage"
@@ -14,17 +14,21 @@ export class SessionService implements ISessionService {
     this.historyRepo = historyRepo
   }
 
-  async createSession(prompt_id: string, system_prompt: string, session_directory: string, type: SessionTypeEnum): Promise<ISessionEntity> {
-    const session = await this.sessionRepo.createSession(prompt_id, system_prompt, session_directory, type)
+  async createSession(dto: ISessionCreateRequest): Promise<ISessionEntity> {
+    const session = await this.sessionRepo.createSession(dto)
 
     const pair_id = uuidv4()
     const session_id = session._id
+    const user_id = session.user_id
+    const organization_id = session.organization_id
 
     await this.historyRepo.saveHistory({
+      user_id,
+      organization_id,
       session_id,
       pair_id,
       role: "system",
-      content: system_prompt,
+      content: dto.system_prompt,
     })
 
     return session

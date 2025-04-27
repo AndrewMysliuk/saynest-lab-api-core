@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 
 export enum SessionTypeEnum {
   SPEACKING = "SPEACKING",
@@ -14,10 +14,10 @@ export enum SessionStatusEnum {
 }
 
 export interface ISessionEntity {
-  _id: ObjectId
+  _id: Types.ObjectId
+  user_id: Types.ObjectId | null
+  organization_id: Types.ObjectId | null
   prompt_id: string
-  // user_id: ObjectId
-  // organization_id: ObjectId
   type: SessionTypeEnum
   status: SessionStatusEnum
   system_prompt: string
@@ -28,7 +28,10 @@ export interface ISessionEntity {
 }
 
 export interface ISessionCreateRequest {
-  type: SessionTypeEnum
-  system_prompt: string
   prompt_id: string
+  user_id: string | null
+  organization_id: string | null
+  system_prompt: string
+  session_directory: string
+  type: SessionTypeEnum
 }
