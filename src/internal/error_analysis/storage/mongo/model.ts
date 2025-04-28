@@ -12,7 +12,7 @@ export type IErrorAnalysisDocument = IErrorAnalysisEntity & Document
 const WordSchema = new Schema<IWord>(
   {
     id: { type: Number, required: true },
-    value: { type: String, required: true },
+    value: { type: String, required: false, default: "" },
   },
   { _id: false },
 )

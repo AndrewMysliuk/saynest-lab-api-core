@@ -20,7 +20,10 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
       const user_id = req.user?.user_id || null
       const organization_id = req.user?.organization_id || null
 
-      const sessionDir = await ensureStorageDirExists()
+      const sessionDir = await ensureStorageDirExists({
+        user_id,
+        organization_id,
+      })
 
       const response = await sessionService.createSession({
         prompt_id,

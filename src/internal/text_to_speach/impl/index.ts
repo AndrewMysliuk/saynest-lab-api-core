@@ -5,16 +5,16 @@ import { Readable } from "stream"
 
 import { openaiREST, serverConfig } from "../../../config"
 import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import { ensureStorageDirExists, normalizeAudioStream } from "../../../utils"
+import { ensureStorageDirExists, generateFileName, normalizeAudioStream } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
 export class TextToSpeachService implements ITextToSpeach {
   async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }, saveToFile: boolean = false): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ?? (await ensureStorageDirExists())
-      const fileExtension = payload?.response_format || "wav"
-      const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
+      const userSessionsDir = session_folder ?? (await ensureStorageDirExists({}))
+      const fileExtension = payload?.response_format || "mp3"
+      const filePath = path.join(userSessionsDir, generateFileName("model-response", fileExtension))
 
       const response = await openaiREST.audio.speech.create({
         model: payload.model,
@@ -46,9 +46,9 @@ export class TextToSpeachService implements ITextToSpeach {
 
   async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ?? (await ensureStorageDirExists())
+      const userSessionsDir = session_folder ?? (await ensureStorageDirExists({}))
       const fileExtension = "mp3"
-      const filePath = path.join(userSessionsDir, `${Date.now()}-model-response.${fileExtension}`)
+      const filePath = path.join(userSessionsDir, generateFileName("model-response", fileExtension))
 
       const voice_id = payload.voice || "EXAVITQu4vr4xnSDxMaL"
       const model_id = payload.model || "eleven_multilingual_v2"

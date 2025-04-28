@@ -4,7 +4,7 @@ import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
 import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IErrorAnalysisEntity, SessionTypeEnum, StreamEventEnum } from "../../../types"
-import { PerfTimer, ensureStorageDirExists, trimConversationHistory } from "../../../utils"
+import { PerfTimer, ensureStorageDirExists, generateFileName, trimConversationHistory } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
@@ -51,7 +51,11 @@ export class ConversationService implements IConversationService {
         userId = new Types.ObjectId(user_id)
       }
 
-      const sessionDir = await ensureStorageDirExists(system.session_id)
+      const sessionDir = await ensureStorageDirExists({
+        user_id,
+        organization_id,
+        session_id: system.session_id,
+      })
 
       const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, payload.target_language, sessionDir)
       const sessionDataPromise = this.getSessionData(system.session_id)
@@ -62,6 +66,12 @@ export class ConversationService implements IConversationService {
       const { session_id: activeSessionId, conversation_history: initialHistory } = sessionData
       const conversationHistory = [...initialHistory]
 
+      let pathToSessionFolder = `/user_sessions/session-${activeSessionId}/`
+
+      if (orgId && userId) {
+        pathToSessionFolder = `/user_sessions/org-${orgId}/user-${userId}/session-${activeSessionId}/`
+      }
+
       const userMessage = {
         organization_id: orgId,
         user_id: userId,
@@ -69,7 +79,7 @@ export class ConversationService implements IConversationService {
         pair_id,
         role: "user",
         content: transcription,
-        audio_url: `/user_sessions/${activeSessionId}/${path.basename(user_audio_path)}`,
+        audio_url: `${pathToSessionFolder}${path.basename(user_audio_path)}`,
         created_at: new Date(),
       } as IConversationHistory
 
@@ -159,8 +169,8 @@ export class ConversationService implements IConversationService {
         }
       }
 
-      const fileExtension = tts?.response_format || "wav"
-      const filePath = path.join(sessionDir, `${Date.now()}-model-response.${fileExtension}`)
+      const fileExtension = tts?.response_format || "mp3"
+      const filePath = path.join(sessionDir, generateFileName("model-response", fileExtension))
       await fs.promises.writeFile(filePath, Buffer.concat(allAudioChunks))
 
       yield {
@@ -176,7 +186,7 @@ export class ConversationService implements IConversationService {
         pair_id,
         role: "assistant",
         content: replyText,
-        audio_url: `/user_sessions/${activeSessionId}/${path.basename(filePath)}`,
+        audio_url: `${pathToSessionFolder}${path.basename(filePath)}`,
         created_at: new Date(),
       } as IConversationHistory
 

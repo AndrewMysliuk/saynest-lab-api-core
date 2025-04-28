@@ -9,8 +9,8 @@ import { VocabularyModel } from "../internal/vocabulary_tracker/storage/mongo/mo
 import { formatBytes } from "../utils"
 import logger from "../utils/logger"
 
-const CLEAN_INTERVAL_MS = 5 * 60 * 1000
-const SESSION_EXPIRATION_MINUTES = 120
+const CLEAN_INTERVAL_MS = 30 * 60 * 1000
+const SESSION_EXPIRATION_MINUTES = 240
 const USER_SESSIONS_FOLDER = path.join(process.cwd(), "user_sessions")
 
 let shouldRunCleanup = true
@@ -19,33 +19,50 @@ export async function cleanUserSessionFiles(sessionIds: string[]): Promise<{ fil
   let filesDeleted = 0
   let bytesFreed = 0
 
-  try {
-    const files = await fs.readdir(USER_SESSIONS_FOLDER)
+  async function traverseAndClean(directory: string) {
+    const entries = await fs.readdir(directory, { withFileTypes: true })
 
-    for (const file of files) {
-      if (sessionIds.some((id) => file.includes(id.toString()))) {
-        const fullPath = path.join(USER_SESSIONS_FOLDER, file)
-        try {
+    for (const entry of entries) {
+      const fullPath = path.join(directory, entry.name)
+
+      if (entry.isDirectory()) {
+        if (entry.name.startsWith("session-") && sessionIds.some((id) => entry.name === `session-${id}`)) {
           const stat = await fs.lstat(fullPath)
-
           bytesFreed += stat.size
 
-          if (stat.isDirectory()) {
-            await fs.rm(fullPath, { recursive: true, force: true })
-            logger.info(`Deleted directory: ${file}`)
-          } else {
-            await fs.unlink(fullPath)
-            logger.info(`Deleted file: ${file}`)
-          }
-
+          await fs.rm(fullPath, { recursive: true, force: true })
+          logger.info(`Deleted session directory: ${fullPath}`)
           filesDeleted++
-        } catch (err) {
-          logger.error(`Error deleting file/directory: ${file}`, err)
+        } else {
+          await traverseAndClean(fullPath)
         }
       }
     }
+  }
+
+  async function cleanRootFiles() {
+    const rootEntries = await fs.readdir(USER_SESSIONS_FOLDER, { withFileTypes: true })
+
+    for (const entry of rootEntries) {
+      if (entry.isFile()) {
+        const fullPath = path.join(USER_SESSIONS_FOLDER, entry.name)
+
+        if (entry.name.includes("user-request") || entry.name.includes("model-response")) {
+          const stat = await fs.lstat(fullPath)
+          bytesFreed += stat.size
+
+          await fs.unlink(fullPath)
+          logger.info(`Deleted root file: ${fullPath}`)
+          filesDeleted++
+        }
+      }
+    }
+  }
+
+  try {
+    await Promise.all([traverseAndClean(USER_SESSIONS_FOLDER), cleanRootFiles()])
   } catch (error) {
-    logger.error("Error reading user_sessions directory:", error)
+    logger.error("Error cleaning user_sessions directory:", error)
   }
 
   return { filesDeleted, bytesFreed }

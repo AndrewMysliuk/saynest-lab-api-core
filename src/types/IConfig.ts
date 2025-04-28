@@ -11,3 +11,9 @@ export interface IServerConfig {
 export interface IMongooseOptions {
   session?: ClientSession
 }
+
+export interface IStorageOptions {
+  session_id?: string
+  organization_id?: string | null
+  user_id?: string | null
+}
