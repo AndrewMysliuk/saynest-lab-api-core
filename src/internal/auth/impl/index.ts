@@ -76,7 +76,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async login(dto: ILoginRequest): Promise<ILoginResponse> {
+  async login(dto: ILoginRequest, ip: string, user_agent: string): Promise<ILoginResponse> {
     try {
       const { email, password } = dto
 
@@ -99,8 +99,8 @@ export class AuthService implements IAuthService {
         user_id: user._id,
         organization_id: user.organization_id,
         token: refreshToken,
-        ip: "",
-        user_agent: "",
+        ip,
+        user_agent,
         created_at: new Date(),
         expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       })

@@ -34,7 +34,7 @@ import { UserRepository } from "../internal/user/storage/mongo/repository"
 import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
 import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
 import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
-import { authMiddleware, optionalAuthMiddleware } from "../middlewares"
+import { authMiddleware } from "../middlewares"
 
 // Repositories
 const organisationRepo = new OrganisationRepository()
@@ -65,16 +65,16 @@ const communicationReviewService = new CommunicationReviewService(communicationR
 const router = Router()
 
 router.use("/auth", createAuthRouter(authService))
-router.use("/session", optionalAuthMiddleware, createSessionRouter(sessionService))
+router.use("/session", authMiddleware, createSessionRouter(sessionService))
 router.use("/language-theory", authMiddleware, createLanguageTheoryRouter(languageTheoryService))
 router.use("/vocabulary-tracker", authMiddleware, createVocabularyTrackerRouter(vocabularyTrackerService))
 router.use("/task-generator", authMiddleware, createTaskGeneratorRouter(taskGeneratorService))
-router.use("/error-analysis", optionalAuthMiddleware, createErrorAnalysisRouter(errorAnalysisService))
+router.use("/error-analysis", authMiddleware, createErrorAnalysisRouter(errorAnalysisService))
 router.use("/speach-to-text", authMiddleware, createSpeachToTextRouter(speachToTextService))
 router.use("/text-analysis", authMiddleware, createTextAnalysisRouter(textAnalysisService))
 router.use("/text-to-speach", authMiddleware, createTextToSpeachRouter(textToSpeachService))
-router.use("/conversation", optionalAuthMiddleware, createConversationRouter(conversationService))
+router.use("/conversation", authMiddleware, createConversationRouter(conversationService))
 router.use("/communication-review", authMiddleware, createCommunicationReviewRouter(communicationReviewService))
-router.use("/prompts-library", createPromptRouter(promptService))
+router.use("/prompts-library", authMiddleware, createPromptRouter(promptService))
 
 export default router

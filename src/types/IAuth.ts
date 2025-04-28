@@ -7,8 +7,8 @@ export interface IRefreshTokenEntity {
   user_id: Types.ObjectId
   organization_id: Types.ObjectId
   token: string
-  ip: string
-  user_agent: string
+  ip: string | null
+  user_agent: string | null
   created_at: Date
   expires_at: Date
 }
@@ -20,6 +20,7 @@ export interface IRegisterRequest {
   last_name: string
   country: string
   organization_name?: string
+  hcaptcha_token: string
 }
 
 export interface IRegisterResponse {
@@ -31,6 +32,7 @@ export interface IRegisterResponse {
 export interface ILoginRequest {
   email: string
   password: string
+  hcaptcha_token: string
 }
 
 export interface ILoginResponse {

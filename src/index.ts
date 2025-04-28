@@ -1,5 +1,6 @@
 import express from "express"
 
+import cookieParser from "cookie-parser"
 import cors from "cors"
 import fs from "fs"
 import { createServer } from "https"
@@ -21,7 +22,7 @@ let serverInstance: any
 const app = express()
 const server = createServer(httpsOptions, app)
 
-const allowedOrigins = ["http://localhost:3000", "http://209.38.199.61:3000", "https://localhost:3000", "https://209.38.199.61:3000"]
+const allowedOrigins = ["http://localhost:3000", "https://localhost:3000"]
 app.use(
   cors({
     origin: allowedOrigins,
@@ -31,6 +32,7 @@ app.use(
 )
 
 app.use(express.json())
+app.use(cookieParser())
 
 app.use("/user_sessions", express.static(path.join(__dirname, "../user_sessions")))
 

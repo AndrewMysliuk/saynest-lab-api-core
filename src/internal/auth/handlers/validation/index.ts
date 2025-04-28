@@ -7,4 +7,5 @@ export const RegisterRequestSchema = z.object({
   last_name: z.string().min(1),
   country: z.string().min(2),
   organization_name: z.string().optional(),
+  hcaptcha_token: z.string().min(1),
 })

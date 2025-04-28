@@ -9,5 +9,6 @@ export const serverConfig: IServerConfig = {
   OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
   MONGO_URI: process.env.MONGO_URI ?? "",
   ELEVEN_API_KEY: process.env.ELEVENLABS_API_KEY ?? "",
-  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET ?? "your-access-token-secret"
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET ?? "your-access-token-secret",
+  CAPTCHA_SITE_KEY: process.env.CAPTCHA_SITE_KEY ?? "",
 }

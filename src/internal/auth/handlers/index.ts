@@ -24,8 +24,8 @@ export const registerHandler = (authService: IAuthService): RequestHandler => {
         .cookie("refresh_token", result.refresh_token, {
           httpOnly: true,
           secure: true,
-          sameSite: "strict",
-          path: "/api/auth/refresh",
+          sameSite: "none",
+          path: "/api/auth",
         })
         .json({
           access_token: result.access_token,
@@ -41,15 +41,18 @@ export const registerHandler = (authService: IAuthService): RequestHandler => {
 export const loginHandler = (authService: IAuthService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const result = await authService.login(req.body)
+      const ip = req.ip || ""
+      const userAgent = req.get("User-Agent") || ""
+
+      const result = await authService.login(req.body, ip, userAgent)
 
       res
         .status(200)
         .cookie("refresh_token", result.refresh_token, {
           httpOnly: true,
           secure: true,
-          sameSite: "strict",
-          path: "/api/auth/refresh",
+          sameSite: "none",
+          path: "/api/auth",
         })
         .json({
           access_token: result.access_token,
@@ -74,9 +77,7 @@ export const refreshAccessTokenHandler = (authService: IAuthService): RequestHan
 
       const newAccessToken = await authService.refreshAccessToken(refreshToken)
 
-      res.status(200).json({
-        access_token: newAccessToken,
-      })
+      res.status(200).json(newAccessToken)
     } catch (error: unknown) {
       logger.error(`refreshAccessTokenHandler | error: ${error}`)
       res.status(500).json({ error: "Internal Server Error" })
@@ -87,7 +88,7 @@ export const refreshAccessTokenHandler = (authService: IAuthService): RequestHan
 export const logoutHandler = (authService: IAuthService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const refreshToken = req.cookies.refresh_token
+      const refreshToken = req?.cookies?.refresh_token
 
       if (!refreshToken) {
         res.status(400).json({ error: "No refresh token provided" })
@@ -96,7 +97,7 @@ export const logoutHandler = (authService: IAuthService): RequestHandler => {
 
       await authService.logout(refreshToken)
 
-      res.clearCookie("refresh_token", { path: "/api/auth/refresh" }).status(204).send()
+      res.clearCookie("refresh_token", { path: "/api/auth" }).status(204).send()
     } catch (error: unknown) {
       logger.error(`logoutHandler | error: ${error}`)
       res.status(500).json({ error: "Internal Server Error" })

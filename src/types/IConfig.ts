@@ -6,6 +6,7 @@ export interface IServerConfig {
   MONGO_URI: string
   ELEVEN_API_KEY: string
   ACCESS_TOKEN_SECRET: string
+  CAPTCHA_SITE_KEY: string
 }
 
 export interface IMongooseOptions {

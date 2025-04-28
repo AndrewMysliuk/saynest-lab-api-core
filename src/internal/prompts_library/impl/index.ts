@@ -11,6 +11,7 @@ import AgreeingDisagreeingReacting from "../../../json_scenario_data/core_conver
 import BuyingTimeThinkingOutLoud from "../../../json_scenario_data/core_conversational_structures/7_buying_time_thinking_out_loud.json"
 import CheckingIntoHotelPrompt from "../../../json_scenario_data/sandbox/checking_into_a_hotel.json"
 import GettingGymMembershipPrompt from "../../../json_scenario_data/sandbox/getting_a_gym_membership.json"
+import RentingCarPrompt from "../../../json_scenario_data/sandbox/renting_a_car.json"
 import StartupPitchPresentationPrompt from "../../../json_scenario_data/sandbox/startup_pitch_presentation.json"
 import TravelingAtTheAirportPrompt from "../../../json_scenario_data/sandbox/traveling_at_the_airport.json"
 import VisitingOpticianPrompt from "../../../json_scenario_data/sandbox/visiting_an_optician.json"
@@ -27,6 +28,10 @@ const MODULES = [
 
 const SCENARIOS = [
   // Sandbox
+  {
+    ...transformSingleScenarioJson(RentingCarPrompt),
+    finally_prompt: generateFinallyPrompt(RentingCarPrompt),
+  },
   {
     ...transformSingleScenarioJson(GettingGymMembershipPrompt),
     finally_prompt: generateFinallyPrompt(GettingGymMembershipPrompt),
