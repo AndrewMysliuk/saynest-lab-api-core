@@ -108,7 +108,7 @@ export const buildUserPrompt = (
             })
             .join("\n")
 
-          return `${index + 1}. Message: "${error.last_user_message}"\n${issuesFormatted}\n  Summary Comment: ${error.suggestion_message}`
+          return `${index + 1}. Message: "${error.last_user_message}"\n${issuesFormatted}\n  Summary Comment: ${error?.improve_user_answer?.explanation}`
         })
         .join("\n\n")
     : "No errors detected."

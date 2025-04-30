@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ErrorAnalysisModelEntity",
   "type": "object",
-  "required": ["issues", "has_errors", "is_end", "suggestion_message", "improve_user_answer", "detected_language", "is_target_language", "sentence_structure"],
+  "required": ["issues", "has_errors", "is_end", "improve_user_answer", "detected_language", "is_target_language"],
   "properties": {
     "issues": {
       "type": "array",
@@ -41,13 +41,19 @@
     },
     "has_errors": { "type": "boolean" },
     "is_end": { "type": "boolean" },
-    "improve_user_answer": { "type": "string" },
-    "suggestion_message": { "type": "string" },
+    "improve_user_answer": {
+      "type": "object",
+      "required": ["corrected_text", "cefr_level", "explanation"],
+      "properties": {
+        "corrected_text": { "type": "string" },
+        "cefr_level": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]
+        },
+        "explanation": { "type": "string" }
+      }
+    },
     "detected_language": { "type": "string" },
-    "is_target_language": { "type": "boolean" },
-    "sentence_structure": {
-      "type": "string",
-      "enum": ["SIMPLE", "COMPOUND", "COMPLEX"]
-    }
+    "is_target_language": { "type": "boolean" }
   }
 }

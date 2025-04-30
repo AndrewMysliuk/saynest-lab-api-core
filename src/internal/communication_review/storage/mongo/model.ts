@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import {
-  ErrorAnalysisSentenceStructureEnum,
   IConversationHistory,
   IErrorAnalysisEntity,
+  IErrorImproveUserAnswer,
   IExpressionUsage,
   ILevelDiagnosis,
   IMeaningEntity,
@@ -90,22 +90,25 @@ const IssueSchema = new Schema<IssueItem>(
   { _id: false },
 )
 
+const ImproveAnswerSchema = new Schema<IErrorImproveUserAnswer>(
+  {
+    corrected_text: { type: String, required: true },
+    cefr_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
+    explanation: { type: String, required: true },
+  },
+  { _id: false },
+)
+
 const ErrorAnalysisSchema = new Schema<IErrorAnalysisEntity>(
   {
-    improve_user_answer: { type: String, required: true },
-    last_user_message: { type: String, required: true },
-    suggestion_message: { type: String, required: true },
-    detected_language: { type: String, required: true },
-    is_target_language: { type: Boolean, required: true },
     prompt_id: { type: String, required: true },
-    sentence_structure: {
-      type: String,
-      enum: Object.values(ErrorAnalysisSentenceStructureEnum),
-      required: true,
-    },
     issues: { type: [IssueSchema], required: true },
     has_errors: { type: Boolean, required: true },
     is_end: { type: Boolean, required: true },
+    improve_user_answer: { type: ImproveAnswerSchema, required: true },
+    detected_language: { type: String, required: true },
+    is_target_language: { type: Boolean, required: true },
+    last_user_message: { type: String, required: true },
   },
   { _id: false },
 )

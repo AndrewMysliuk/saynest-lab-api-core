@@ -1,12 +1,7 @@
 import { Types } from "mongoose"
 
 import { IGPTPayload } from "./IGPT"
-
-export enum ErrorAnalysisSentenceStructureEnum {
-  SIMPLE = "SIMPLE",
-  COMPOUND = "COMPOUND",
-  COMPLEX = "COMPLEX",
-}
+import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export interface IWord {
   id: number
@@ -22,31 +17,33 @@ export interface IssueItem {
   topic_titles: string
 }
 
+export interface IErrorImproveUserAnswer {
+  corrected_text: string
+  cefr_level: VocabularyFrequencyLevelEnum
+  explanation: string
+}
+
 export interface IErrorAnalysisModelEntity {
   issues: IssueItem[]
   has_errors: boolean
   is_end: boolean
-  improve_user_answer: string
-  suggestion_message: string
+  improve_user_answer: IErrorImproveUserAnswer
   detected_language: string
   is_target_language: boolean
-  sentence_structure: ErrorAnalysisSentenceStructureEnum
 }
 
 export interface IErrorAnalysisEntity {
   session_id: Types.ObjectId
   user_id: Types.ObjectId | null
   organization_id: Types.ObjectId | null
-  improve_user_answer: string
-  last_user_message: string
-  suggestion_message: string
-  detected_language: string
-  is_target_language: boolean
   prompt_id: string
-  sentence_structure: ErrorAnalysisSentenceStructureEnum
   issues: IssueItem[]
   has_errors: boolean
   is_end: boolean
+  improve_user_answer: IErrorImproveUserAnswer
+  detected_language: string
+  is_target_language: boolean
+  last_user_message: string
   updated_at: Date
   created_at: Date
 }

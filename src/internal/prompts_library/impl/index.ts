@@ -9,6 +9,7 @@ import ClarifyingAndRephrasing from "../../../json_scenario_data/core_conversati
 import ExplainingCauseAndEffect from "../../../json_scenario_data/core_conversational_structures/5_explaining_cause_and_effect.json"
 import AgreeingDisagreeingReacting from "../../../json_scenario_data/core_conversational_structures/6_agreeing_disagreeing_reacting.json"
 import BuyingTimeThinkingOutLoud from "../../../json_scenario_data/core_conversational_structures/7_buying_time_thinking_out_loud.json"
+import ApplyingDigitalNomadVisaCyprusPrompt from "../../../json_scenario_data/sandbox/applying_digital_nomad_visa_cyprus.json"
 import CheckingIntoHotelPrompt from "../../../json_scenario_data/sandbox/checking_into_a_hotel.json"
 import GettingGymMembershipPrompt from "../../../json_scenario_data/sandbox/getting_a_gym_membership.json"
 import RentingCarPrompt from "../../../json_scenario_data/sandbox/renting_a_car.json"
@@ -28,6 +29,10 @@ const MODULES = [
 
 const SCENARIOS = [
   // Sandbox
+  {
+    ...transformSingleScenarioJson(ApplyingDigitalNomadVisaCyprusPrompt),
+    finally_prompt: generateFinallyPrompt(ApplyingDigitalNomadVisaCyprusPrompt),
+  },
   {
     ...transformSingleScenarioJson(RentingCarPrompt),
     finally_prompt: generateFinallyPrompt(RentingCarPrompt),
