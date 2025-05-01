@@ -7,6 +7,7 @@ export interface IServerConfig {
   ELEVEN_API_KEY: string
   ACCESS_TOKEN_SECRET: string
   CAPTCHA_SITE_KEY: string
+  GCS_BUCKET_NAME: string
 }
 
 export interface IMongooseOptions {

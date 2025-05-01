@@ -1,12 +1,6 @@
-import fs from "fs"
-import path from "path"
-
 import { IStorageOptions } from "../types"
-import logger from "./logger"
 
-export const ensureStorageDirExists = async (options: IStorageOptions): Promise<string> => {
-  const baseDirectory = path.join(process.cwd(), "user_sessions")
-
+export const getStorageFilePath = (options: IStorageOptions): string => {
   const parts = []
 
   if (options.organization_id) {
@@ -21,26 +15,10 @@ export const ensureStorageDirExists = async (options: IStorageOptions): Promise<
     parts.push(`session-${options.session_id}`)
   }
 
-  const sessionDirectory = path.join(baseDirectory, ...parts)
-
-  try {
-    await fs.promises.mkdir(sessionDirectory, { recursive: true })
-  } catch (err) {
-    const error = err as NodeJS.ErrnoException
-    logger.error(`[FS] Failed to create session dir: ${error.message}`)
-    throw error
-  }
-
-  return sessionDirectory
+  const envPrefix = process.env.NODE_ENV === "production" ? "prod" : "dev"
+  return parts.length > 0 ? `${envPrefix}/${parts.join("/")}` : envPrefix
 }
 
 export const generateFileName = (type: "user-request" | "model-response", extension: string): string => {
   return `${Date.now()}-${type}.${extension}`
-}
-
-export function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 Bytes"
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(1024))
-  return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + sizes[i]
 }

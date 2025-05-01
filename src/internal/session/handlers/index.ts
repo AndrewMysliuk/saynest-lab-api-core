@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ISessionService } from ".."
 import { ISessionCreateRequest } from "../../../types"
-import { ensureStorageDirExists } from "../../../utils"
+import { getStorageFilePath } from "../../../utils"
 import logger from "../../../utils/logger"
 
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
@@ -20,9 +20,9 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
       const user_id = req.user?.user_id || null
       const organization_id = req.user?.organization_id || null
 
-      const sessionDir = await ensureStorageDirExists({
-        user_id,
+      const sessionDir = await getStorageFilePath({
         organization_id,
+        user_id,
       })
 
       const response = await sessionService.createSession({

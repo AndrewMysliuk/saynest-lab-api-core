@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import fs from "fs"
 import { createServer } from "https"
-import path from "path"
 
 import { connectToDatabase, disconnectFromDatabase, serverConfig, startCleanupWorker, stopCleanupWorker } from "./config"
 import routers from "./routes"
@@ -33,8 +32,6 @@ app.use(
 
 app.use(express.json())
 app.use(cookieParser())
-
-app.use("/user_sessions", express.static(path.join(__dirname, "../user_sessions")))
 
 app.use("/api", routers)
 

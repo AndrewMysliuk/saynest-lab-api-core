@@ -1,20 +1,20 @@
 import axios from "axios"
-import fs from "fs"
-import * as path from "path"
 import { Readable } from "stream"
 
-import { openaiREST, serverConfig } from "../../../config"
+import { gcsBucket, openaiREST, serverConfig } from "../../../config"
 import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import { ensureStorageDirExists, generateFileName, normalizeAudioStream } from "../../../utils"
+import { generateFileName, getStorageFilePath, normalizeAudioStream } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ITextToSpeach } from "../index"
 
 export class TextToSpeachService implements ITextToSpeach {
   async *ttsTextToSpeechStream(payload: ITTSPayload, session_folder?: string, output?: { filePath?: string }, saveToFile: boolean = false): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ?? (await ensureStorageDirExists({}))
+      const userSessionsDir = session_folder ?? getStorageFilePath({})
       const fileExtension = payload?.response_format || "mp3"
-      const filePath = path.join(userSessionsDir, generateFileName("model-response", fileExtension))
+      const fileName = generateFileName("model-response", fileExtension)
+      const storagePath = `${userSessionsDir}/${fileName}`
+      const gcsFile = gcsBucket.file(storagePath)
 
       const response = await openaiREST.audio.speech.create({
         model: payload.model,
@@ -24,7 +24,6 @@ export class TextToSpeachService implements ITextToSpeach {
       })
 
       const readableStream = response.body as NodeJS.ReadableStream
-
       const chunks: Buffer[] = []
 
       for await (const chunk of readableStream as AsyncIterable<Buffer>) {
@@ -33,8 +32,13 @@ export class TextToSpeachService implements ITextToSpeach {
       }
 
       if (saveToFile) {
-        await fs.promises.writeFile(filePath, Buffer.concat(chunks))
-        output && (output.filePath = filePath)
+        await gcsFile.save(Buffer.concat(chunks), {
+          metadata: {
+            contentType: `audio/${fileExtension}`,
+          },
+        })
+
+        if (output) output.filePath = storagePath
       }
 
       return
@@ -46,9 +50,11 @@ export class TextToSpeachService implements ITextToSpeach {
 
   async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
     try {
-      const userSessionsDir = session_folder ?? (await ensureStorageDirExists({}))
+      const userSessionsDir = session_folder ?? getStorageFilePath({})
       const fileExtension = "mp3"
-      const filePath = path.join(userSessionsDir, generateFileName("model-response", fileExtension))
+      const fileName = generateFileName("model-response", fileExtension)
+      const storagePath = `${userSessionsDir}/${fileName}`
+      const gcsFile = gcsBucket.file(storagePath)
 
       const voice_id = payload.voice || "EXAVITQu4vr4xnSDxMaL"
       const model_id = payload.model || "eleven_multilingual_v2"
@@ -83,9 +89,13 @@ export class TextToSpeachService implements ITextToSpeach {
         yield chunk
       }
 
-      await fs.promises.writeFile(filePath, Buffer.concat(chunks))
+      await gcsFile.save(Buffer.concat(chunks), {
+        metadata: {
+          contentType: "audio/mp3",
+        },
+      })
 
-      if (output) output.filePath = filePath
+      if (output) output.filePath = storagePath
     } catch (error: unknown) {
       console.error("ttsTextToSpeechStreamElevenLabs | error:", error)
       throw error

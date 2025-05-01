@@ -1,71 +1,66 @@
-import fs from "fs/promises"
-import path from "path"
-
 import { StatisticsModel } from "../internal/communication_review/storage/mongo/model"
 import { ConversationHistoryModel } from "../internal/conversation/storage/mongo/model"
 import { ErrorAnalysisModel } from "../internal/error_analysis/storage/mongo/model"
 import { SessionModel } from "../internal/session/storage/mongo/model"
 import { VocabularyModel } from "../internal/vocabulary_tracker/storage/mongo/model"
-import { formatBytes } from "../utils"
+import { ISessionIds } from "../types"
+import { getStorageFilePath } from "../utils"
 import logger from "../utils/logger"
+import { gcsBucket } from "./gcp_storage"
 
-const CLEAN_INTERVAL_MS = 30 * 60 * 1000
+const CLEAN_INTERVAL_MS = 60 * 60 * 1000
 const SESSION_EXPIRATION_MINUTES = 240
-const USER_SESSIONS_FOLDER = path.join(process.cwd(), "user_sessions")
 
 let shouldRunCleanup = true
 
-export async function cleanUserSessionFiles(sessionIds: string[]): Promise<{ filesDeleted: number; bytesFreed: number }> {
-  let filesDeleted = 0
-  let bytesFreed = 0
+export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<{ filesDeleted: number }> {
+  let totalDeleted = 0
+  const envPrefix = process.env.NODE_ENV === "production" ? "prod" : "dev"
 
-  async function traverseAndClean(directory: string) {
-    const entries = await fs.readdir(directory, { withFileTypes: true })
+  for (const data of sessionIds) {
+    const prefix =
+      getStorageFilePath({
+        session_id: data._id,
+        organization_id: data.organization_id,
+        user_id: data.user_id,
+      }) + "/"
 
-    for (const entry of entries) {
-      const fullPath = path.join(directory, entry.name)
+    try {
+      const [files] = await gcsBucket.getFiles({ prefix })
 
-      if (entry.isDirectory()) {
-        if (entry.name.startsWith("session-") && sessionIds.some((id) => entry.name === `session-${id}`)) {
-          const stat = await fs.lstat(fullPath)
-          bytesFreed += stat.size
-
-          await fs.rm(fullPath, { recursive: true, force: true })
-          logger.info(`Deleted session directory: ${fullPath}`)
-          filesDeleted++
-        } else {
-          await traverseAndClean(fullPath)
-        }
+      if (!files.length) {
+        logger.info(`[CLEANUP] No files found for prefix "${prefix}"`)
+        continue
       }
-    }
-  }
 
-  async function cleanRootFiles() {
-    const rootEntries = await fs.readdir(USER_SESSIONS_FOLDER, { withFileTypes: true })
+      await Promise.all(files.map((file) => file.delete()))
 
-    for (const entry of rootEntries) {
-      if (entry.isFile()) {
-        const fullPath = path.join(USER_SESSIONS_FOLDER, entry.name)
-
-        if (entry.name.includes("user-request") || entry.name.includes("model-response")) {
-          const stat = await fs.lstat(fullPath)
-          bytesFreed += stat.size
-
-          await fs.unlink(fullPath)
-          logger.info(`Deleted root file: ${fullPath}`)
-          filesDeleted++
-        }
-      }
+      logger.info(`[CLEANUP] Deleted ${files.length} file(s) from "${prefix}"`)
+      totalDeleted += files.length
+    } catch (error) {
+      logger.warn(`[CLEANUP] Failed to delete files for session ${data._id} (prefix: "${prefix}"):`, error)
     }
   }
 
   try {
-    await Promise.all([traverseAndClean(USER_SESSIONS_FOLDER), cleanRootFiles()])
-  } catch (error) {
-    logger.error("Error cleaning user_sessions directory:", error)
+    const [files] = await gcsBucket.getFiles({ prefix: `${envPrefix}/` })
+    const rootLevelGarbage = files.filter((file) => {
+      const parts = file.name.split("/")
+      return parts.length === 2 && (parts[1].includes("user-request") || parts[1].includes("model-response"))
+    })
+
+    if (rootLevelGarbage.length) {
+      const deletePromises = rootLevelGarbage.map((file) => file.delete())
+      await Promise.all(deletePromises)
+
+      logger.info(`[CLEANUP] Deleted ${rootLevelGarbage.length} root-level orphan files in '${envPrefix}/'`)
+      totalDeleted += rootLevelGarbage.length
+    }
+  } catch (err) {
+    logger.warn("[CLEANUP] Failed to clean root-level files:", err)
   }
 
-  return { filesDeleted, bytesFreed }
+  return { filesDeleted: totalDeleted }
 }
 
 async function cleanExpiredSessions() {
@@ -76,9 +71,13 @@ async function cleanExpiredSessions() {
     const expiredSessions = await SessionModel.find({
       ended_at: null,
       created_at: { $lt: expirationTime },
-    }).select("_id")
+    })
 
-    const sessionIds = expiredSessions.map((s) => s._id.toString())
+    const sessionIds: ISessionIds[] = expiredSessions.map((s) => ({
+      _id: s._id.toString(),
+      organization_id: s.organization_id?.toString(),
+      user_id: s.user_id?.toString(),
+    }))
 
     if (!sessionIds.length) {
       logger.info(`[CLEANUP] No expired sessions found.`)
@@ -100,10 +99,9 @@ async function cleanExpiredSessions() {
       `[CLEANUP] Related deletes: Statistics=${statsDeleted.deletedCount}, Histories=${convHistDeleted.deletedCount}, Errors=${errorsDeleted.deletedCount}, Vocabularies=${vocabsDeleted.deletedCount}`,
     )
 
-    const { filesDeleted, bytesFreed } = await cleanUserSessionFiles(sessionIds)
+    const { filesDeleted } = await cleanUserSessionFiles(sessionIds)
 
     logger.info(`[CLEANUP] Deleted ${filesDeleted} files/folders.`)
-    logger.info(`[CLEANUP] Freed approximately ${formatBytes(bytesFreed)} of disk space.`)
   } catch (error) {
     logger.error("[CLEANUP] Error during session cleanup:", error)
   }

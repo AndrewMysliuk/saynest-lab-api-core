@@ -181,7 +181,13 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         this.sessionService.deleteSession(review.session_id.toString()),
       ])
 
-      await cleanUserSessionFiles([review.session_id.toString()])
+      await cleanUserSessionFiles([
+        {
+          _id: review.session_id.toString(),
+          organization_id: review.organization_id.toString(),
+          user_id: review.user_id.toString(),
+        },
+      ])
     } catch (error: unknown) {
       logger.error(`deleteReview | error: ${error}`)
       throw error

@@ -1,10 +1,9 @@
-import fs from "fs"
 import { Types } from "mongoose"
-import path from "path"
 import { v4 as uuidv4 } from "uuid"
 
-import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IErrorAnalysisEntity, SessionTypeEnum, StreamEventEnum } from "../../../types"
-import { PerfTimer, ensureStorageDirExists, generateFileName, trimConversationHistory } from "../../../utils"
+import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
+import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, StreamEventEnum } from "../../../types"
+import { PerfTimer, generateFileName, getStorageFilePath, trimConversationHistory } from "../../../utils"
 import logger from "../../../utils/logger"
 import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
@@ -34,8 +33,8 @@ export class ConversationService implements IConversationService {
 
   async *streamConversation(
     payload: IConversationPayload,
-    user_id: string | null,
     organization_id: string | null,
+    user_id: string | null,
     outputConversation?: { finalData?: IConversationResponse },
   ): AsyncGenerator<ConversationStreamEvent> {
     try {
@@ -51,9 +50,9 @@ export class ConversationService implements IConversationService {
         userId = new Types.ObjectId(user_id)
       }
 
-      const sessionDir = await ensureStorageDirExists({
-        user_id,
+      const sessionDir = getStorageFilePath({
         organization_id,
+        user_id,
         session_id: system.session_id,
       })
 
@@ -62,15 +61,9 @@ export class ConversationService implements IConversationService {
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
 
-      const { transcription, user_audio_path } = whisperResult
+      const { transcription, user_audio_path, user_audio_url } = whisperResult
       const { session_id: activeSessionId, conversation_history: initialHistory } = sessionData
       const conversationHistory = [...initialHistory]
-
-      let pathToSessionFolder = `/user_sessions/session-${activeSessionId}/`
-
-      if (orgId && userId) {
-        pathToSessionFolder = `/user_sessions/org-${orgId}/user-${userId}/session-${activeSessionId}/`
-      }
 
       const userMessage = {
         organization_id: orgId,
@@ -79,7 +72,8 @@ export class ConversationService implements IConversationService {
         pair_id,
         role: "user",
         content: transcription,
-        audio_url: `${pathToSessionFolder}${path.basename(user_audio_path)}`,
+        audio_path: user_audio_path,
+        audio_url: user_audio_url,
         created_at: new Date(),
       } as IConversationHistory
 
@@ -170,8 +164,15 @@ export class ConversationService implements IConversationService {
       }
 
       const fileExtension = tts?.response_format || "mp3"
-      const filePath = path.join(sessionDir, generateFileName("model-response", fileExtension))
-      await fs.promises.writeFile(filePath, Buffer.concat(allAudioChunks))
+      const filename = generateFileName("model-response", fileExtension)
+      const storagePath = `${sessionDir}/${filename}`
+      const gcsFile = gcsBucket.file(storagePath)
+
+      await gcsFile.save(Buffer.concat(allAudioChunks), {
+        metadata: {
+          contentType: `audio/${fileExtension}`,
+        },
+      })
 
       yield {
         type: StreamEventEnum.GPT_FULL_RESPONSE,
@@ -186,7 +187,8 @@ export class ConversationService implements IConversationService {
         pair_id,
         role: "assistant",
         content: replyText,
-        audio_url: `${pathToSessionFolder}${path.basename(filePath)}`,
+        audio_path: storagePath,
+        audio_url: await getSignedUrlFromStoragePath(storagePath),
         created_at: new Date(),
       } as IConversationHistory
 

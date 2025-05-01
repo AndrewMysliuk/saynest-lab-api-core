@@ -35,3 +35,9 @@ export interface ISessionCreateRequest {
   session_directory: string
   type: SessionTypeEnum
 }
+
+export interface ISessionIds {
+  _id: string
+  user_id: string | undefined
+  organization_id: string | undefined
+}

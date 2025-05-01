@@ -13,11 +13,12 @@ export const whisperSpeechToTextHandler = (speachToTextService: ISpeachToText): 
       if (!audioFile) {
         res.status(400).json({ error: "whisperController | audio file is required" })
       } else {
-        const { transcription, user_audio_path } = await speachToTextService.whisperSpeechToText(audioFile, prompt)
+        const { transcription, user_audio_path, user_audio_url } = await speachToTextService.whisperSpeechToText(audioFile, prompt)
 
         const response: IWhisperHandlerResponse = {
           transcription,
           user_audio_path,
+          user_audio_url,
         }
 
         res.status(200).json(response)
