@@ -2,26 +2,18 @@ import express from "express"
 
 import cookieParser from "cookie-parser"
 import cors from "cors"
-import fs from "fs"
-import { createServer } from "https"
+import { createServer } from "http"
 
 import { connectToDatabase, disconnectFromDatabase, serverConfig, startCleanupWorker, stopCleanupWorker } from "./config"
 import routers from "./routes"
 import logger from "./utils/logger"
 
-const httpsOptions = {
-  // key: fs.readFileSync("/certs/server.key"),
-  // cert: fs.readFileSync("/certs/server.crt"),
-  key: fs.readFileSync("/Users/andrewmysliuk/server.key"),
-  cert: fs.readFileSync("/Users/andrewmysliuk/server.crt"),
-}
-
 let serverInstance: any
 
 const app = express()
-const server = createServer(httpsOptions, app)
+const server = createServer({}, app)
 
-const allowedOrigins = ["http://localhost:3000", "https://localhost:3000"]
+const allowedOrigins = ["http://localhost:3000"]
 app.use(
   cors({
     origin: allowedOrigins,

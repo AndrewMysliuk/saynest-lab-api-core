@@ -2,7 +2,6 @@ IMAGE_NAME ?= openai-speak-mate-core
 CERT_LOCAL_DIR := /Users/andrewmysliuk
 CERT_SERVER_DIR := /etc/ssl/certs
 CONTAINER_NAME=backend-app-container
-PORT=3001
 
 install:
 	yarn install
@@ -20,17 +19,14 @@ docker_build:
 	docker build -t ${IMAGE_NAME} .
 
 docker_run_local:
-	docker run -d -p $(PORT):$(PORT) \
-		-v $(CERT_LOCAL_DIR):/certs \
-		-e CERT_KEY_PATH=/certs/server.key \
-		-e CERT_CERT_PATH=/certs/server.crt \
-		--name $(CONTAINER_NAME) $(IMAGE_NAME)
+	docker run -d \
+		--env-file .env \
+		-v "$(shell pwd)/speak-mate-mvp-5f8c7bbc58d1.json":/app/speak-mate-mvp-5f8c7bbc58d1.json \
+		-p 3001:3001 \
+  		--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 docker_run_server:
-	docker run -d -p $(PORT):$(PORT) \
-		-v $(CERT_SERVER_DIR):/certs \
-		-e CERT_KEY_PATH=/certs/server.key \
-		-e CERT_CERT_PATH=/certs/server.crt \
+	docker run -d -p 3001:3001 \
 		--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 stop:

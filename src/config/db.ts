@@ -15,24 +15,46 @@ const MONGO_URI = serverConfig.MONGO_URI
 const CURRENT_TABLES = [ORGANISATION_TABLE, USER_TABLE, REFRESH_TOKENS, SESSION_TABLE, CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, VOCABULARY_TABLE, STATISTICS_TABLE]
 
 export const connectToDatabase = async () => {
-  try {
-    await mongoose.connect(MONGO_URI)
+  const maxAttempts = 5
+  const retryDelay = 3000
 
-    const dbName = mongoose.connection.db?.databaseName
-    logger.info(`Connected to MongoDB. Using database: ${dbName}`)
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await mongoose.connect(MONGO_URI)
 
-    const existingCollections = await mongoose.connection.db?.listCollections().toArray()
-    const existingNames = existingCollections?.map((col) => col.name) || []
+      const dbName = mongoose.connection.db?.databaseName
+      logger.info(`Connected to MongoDB. Using database: ${dbName}`)
 
-    for (const name of CURRENT_TABLES) {
-      if (!existingNames.includes(name)) {
-        await mongoose.connection.db?.createCollection(name)
-        logger.info(`Created collection: ${name}`)
+      const existingCollections = await mongoose.connection.db?.listCollections().toArray()
+      const existingNames = existingCollections?.map((col) => col.name) || []
+
+      for (const name of CURRENT_TABLES) {
+        if (!existingNames.includes(name)) {
+          await mongoose.connection.db?.createCollection(name)
+          logger.info(`Created collection: ${name}`)
+        }
+      }
+
+      return
+    } catch (error: unknown) {
+      logger.error(`MongoDB connection attempt ${attempt} failed:`)
+
+      if (error instanceof Error) {
+        logger.error(`Name: ${error.name}`)
+        logger.error(`Message: ${error.message}`)
+        logger.error(`Stack: ${error.stack}`)
+      } else {
+        logger.error(`Raw error: ${JSON.stringify(error)}`)
+      }
+
+      if (attempt < maxAttempts) {
+        logger.warn(`Retrying in ${retryDelay / 1000}s...`)
+        await new Promise((res) => setTimeout(res, retryDelay))
+      } else {
+        logger.error("Max MongoDB connection attempts exceeded. Exiting.")
+        process.exit(1)
       }
     }
-  } catch (error: unknown) {
-    logger.error(`Failed to connect to MongoDB: ${JSON.stringify(error)}`)
-    process.exit(1)
   }
 }
 
