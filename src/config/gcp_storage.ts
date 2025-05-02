@@ -3,11 +3,13 @@ import path from "path"
 
 import { serverConfig } from "./server_config"
 
-const keyPath = path.resolve(__dirname, "../../speak-mate-mvp-5f8c7bbc58d1.json")
+const isRunningInGCP = process.env.K_SERVICE !== undefined
 
-export const gcs = new Storage({
-  keyFilename: keyPath,
-})
+const gcs = isRunningInGCP
+  ? new Storage()
+  : new Storage({
+      keyFilename: path.resolve(__dirname, "../../speak-mate-mvp-5f8c7bbc58d1.json"),
+    })
 
 export const gcsBucket = gcs.bucket(serverConfig.GCS_BUCKET_NAME)
 

@@ -1,7 +1,7 @@
 import { ClientSession } from "mongoose"
 
 export interface IServerConfig {
-  PORT?: number
+  PORT?: string
   OPENAI_API_KEY: string
   MONGO_URI: string
   ELEVEN_API_KEY: string
