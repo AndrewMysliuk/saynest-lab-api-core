@@ -1,12 +1,26 @@
 import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
-export interface IScenarioDetails {
-  allowed_languages: string[]
-  force_topic_focus: boolean
-  setting: string
-  situation: string
-  goal: string
-  steps: string[]
+export interface IPromptScenario {
+  id: string
+  module: string
+  title: string
+  description: string
+  level: VocabularyFrequencyLevelEnum
+  user_content: IUserContent
+  model_behavior: IModelBehavior
+  meta: IPromptMeta
+  finally_prompt: string
+}
+
+export interface IUserContent {
+  goals: IPromptGoal[]
+  dictionary: IDictionaryEntry[]
+  phrases: IPhraseEntry[]
+}
+
+export interface IPromptGoal {
+  phrase: string
+  translation: string
 }
 
 export interface IDictionaryEntry {
@@ -21,30 +35,23 @@ export interface IPhraseEntry {
   meaning: string
 }
 
+export interface IModelBehavior {
+  prompt: string
+  scenario: IScenarioDetails
+}
+
+export interface IScenarioDetails {
+  allowed_languages: string[]
+  setting: string
+  situation: string
+  goal: string
+  steps: string[]
+}
+
 export interface IPromptMeta {
   estimated_duration_minutes: number
   max_turns: number
-  end_behavior: string
-}
-
-export interface IPromptGoal {
-  phrase: string
-  translation: string
-}
-
-export interface IPromptScenario {
-  id: string
-  module: string
-  title: string
-  description: string
-  level: VocabularyFrequencyLevelEnum
-  scenario: IScenarioDetails
-  prompt: string
-  dictionary: IDictionaryEntry[]
-  phrases: IPhraseEntry[]
-  meta: IPromptMeta
-  finally_prompt: string
-  goals: IPromptGoal[]
+  model_end_behavior: string
 }
 
 export interface IModuleScenario {

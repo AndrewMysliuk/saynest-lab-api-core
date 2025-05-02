@@ -1,0 +1,148 @@
+{
+  "id": "lost_tourist_navigation",
+  "module": "sandbox",
+  "title": "Helping a Lost Tourist Find Their Way",
+  "description": "You meet a lost tourist who needs directions. Practice giving simple, clear instructions in English to help them reach their destination.",
+  "level": "B1",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Ask the tourist where they are trying to go",
+        "translation": "Спросить туриста, куда он пытается попасть"
+      },
+      {
+        "phrase": "Give clear directions using landmarks and simple phrases",
+        "translation": "Дать понятные указания, используя ориентиры и простые фразы"
+      },
+      {
+        "phrase": "Confirm that they understood the route",
+        "translation": "Убедиться, что они поняли маршрут"
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "straight ahead",
+        "translation": "прямо",
+        "meaning": "in a forward direction without turning"
+      },
+      {
+        "word": "backwards",
+        "translation": "назад",
+        "meaning": "in the direction behind you"
+      },
+      {
+        "word": "across",
+        "translation": "через",
+        "meaning": "from one side of something to the other"
+      },
+      {
+        "word": "opposite",
+        "translation": "напротив",
+        "meaning": "directly facing something"
+      },
+      {
+        "word": "adjacent",
+        "translation": "соседний, прилегающий",
+        "meaning": "next to or adjoining something"
+      },
+      {
+        "word": "diagonally",
+        "translation": "по диагонали",
+        "meaning": "in a slanted direction across from something"
+      },
+      {
+        "word": "nearby",
+        "translation": "поблизости",
+        "meaning": "close in distance"
+      },
+      {
+        "word": "ahead",
+        "translation": "впереди",
+        "meaning": "in the direction you are facing"
+      },
+      {
+        "word": "on the corner",
+        "translation": "на углу",
+        "meaning": "at the place where two streets meet"
+      },
+      {
+        "word": "at the end of the street",
+        "translation": "в конце улицы",
+        "meaning": "located where the street finishes"
+      },
+      {
+        "word": "around the corner",
+        "translation": "за углом",
+        "meaning": "just beyond the corner of the street"
+      },
+      {
+        "word": "along",
+        "translation": "вдоль",
+        "meaning": "moving in a constant direction on or beside something"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "You’ll need to go past the church and take the second left.",
+        "translation": "Вам нужно пройти мимо церкви и повернуть на второй поворот налево.",
+        "meaning": "Giving directions with landmarks and order"
+      },
+      {
+        "phrase": "It's located just beyond the roundabout, on your right.",
+        "translation": "Это сразу за кольцом, справа от вас.",
+        "meaning": "Using spatial markers like 'beyond'"
+      },
+      {
+        "phrase": "Follow the main road until you reach a large intersection.",
+        "translation": "Следуйте по главной дороге, пока не дойдёте до большого перекрёстка.",
+        "meaning": "Describing a longer stretch of movement"
+      },
+      {
+        "phrase": "Take the pedestrian crossing and walk alongside the park.",
+        "translation": "Перейдите по пешеходному переходу и идите вдоль парка.",
+        "meaning": "Describing movement with surroundings"
+      },
+      {
+        "phrase": "Go under the bridge and the entrance will be on your left.",
+        "translation": "Пройдите под мостом, и вход будет слева от вас.",
+        "meaning": "Using vertical/spatial reference"
+      },
+      {
+        "phrase": "If you reach the river, you’ve gone too far.",
+        "translation": "Если вы дойдёте до реки — вы зашли слишком далеко.",
+        "meaning": "Setting boundaries or reference points"
+      },
+      {
+        "phrase": "The building should be adjacent to a small grocery store.",
+        "translation": "Здание должно находиться рядом с небольшим магазином.",
+        "meaning": "Describing position with more precise vocabulary"
+      },
+      {
+        "phrase": "There's a junction ahead; take the road that curves left.",
+        "translation": "Впереди развязка — возьмите дорогу, которая уходит влево.",
+        "meaning": "Combining directional action and visual guidance"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are a lost tourist in a city. You don’t speak the local language well, and you're trying to find a famous place (e.g., train station, museum). Start the conversation by politely asking for help. Ask for clear directions, use simple words, and confirm that you understood. Be a little confused, but friendly.",
+    "scenario": {
+      "allowed_languages": ["English"],
+      "setting": "City street",
+      "situation": "You are a tourist asking a local person (the user) for directions",
+      "goal": "Ask for help finding a specific location and respond naturally as the user gives you directions",
+      "steps": [
+        "Greet the user and ask for help",
+        "Say the place you are trying to reach",
+        "Listen to the user's directions and ask questions if something is unclear",
+        "Confirm that you understood the instructions",
+        "Thank the user and say goodbye"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 10,
+    "model_end_behavior": "Thanks so much! I think I can find it now. Have a great day!"
+  }
+}

@@ -1,9 +1,9 @@
 import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, IVocabularyFillersEntity } from "../../../../types"
 
 export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenario): string => {
-  const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
-  const expressionsBlock = prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
-  const userGoals = prompt.goals.map((entry) => `- ${entry.phrase}`).join("\n")
+  const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
+  const expressionsBlock = prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
+  const userGoals = prompt.user_content.goals.map((entry) => `- ${entry.phrase}`).join("\n")
 
   return `
 You are a language performance evaluation assistant.
@@ -12,8 +12,8 @@ The user is a learner whose native language is ${explanation_language}.
 The session was based on the following scenario:
 
 - Title: ${prompt.title}
-- Situation: ${prompt.scenario.situation}
-- Goal: ${prompt.scenario.goal}
+- Situation: ${prompt.model_behavior.scenario.situation}
+- Goal: ${prompt.model_behavior.scenario.goal}
 
 You will be provided with:
 - The full message history between the user and the assistant

@@ -4,103 +4,106 @@
   "title": "Visiting an Optician",
   "description": "You visit an optical store to check your eyesight and possibly buy glasses or contact lenses. You’ll need to explain your needs, ask questions, and understand suggestions from the staff.",
   "level": "B2",
-  "goals": [
-    {
-      "phrase": "Say that you want to check your vision",
-      "translation": "Сказать, что хотите проверить зрение"
-    },
-    {
-      "phrase": "Ask about glasses or contact lens options",
-      "translation": "Спросить про варианты очков или контактных линз"
-    },
-    {
-      "phrase": "Understand the process and ask about prices or insurance",
-      "translation": "Понять, как всё работает, и уточнить цены или страховку"
-    }
-  ],
-  "scenario": {
-    "allowed_languages": ["English"],
-    "force_topic_focus": true,
-    "setting": "Optical store or eye clinic",
-    "situation": "User is visiting to check their vision and buy glasses or lenses",
-    "goal": "Guide the user through checking their eyesight and helping them choose glasses or lenses",
-    "steps": [
-      "Greet the user and ask how you can help",
-      "Ask if they need an eye test or already have a prescription",
-      "Explain available services (vision test, frame selection, contact lenses)",
-      "Discuss preferences (glasses vs lenses), insurance, pricing",
-      "Help them choose a product or book an appointment",
-      "Wrap up the visit and explain when items will be ready"
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Say that you want to check your vision",
+        "translation": "Сказать, что хотите проверить зрение"
+      },
+      {
+        "phrase": "Ask about glasses or contact lens options",
+        "translation": "Спросить про варианты очков или контактных линз"
+      },
+      {
+        "phrase": "Understand the process and ask about prices or insurance",
+        "translation": "Понять, как всё работает, и уточнить цены или страховку"
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "eye exam",
+        "translation": "проверка зрения",
+        "meaning": "a test to measure vision and eye health"
+      },
+      {
+        "word": "prescription",
+        "translation": "рецепт (на очки/линзы)",
+        "meaning": "details of the user's vision correction needs"
+      },
+      {
+        "word": "frames",
+        "translation": "оправа",
+        "meaning": "the part of the glasses that holds the lenses"
+      },
+      {
+        "word": "lenses",
+        "translation": "линзы",
+        "meaning": "either part of glasses or contact lenses"
+      },
+      {
+        "word": "contact lenses",
+        "translation": "контактные линзы",
+        "meaning": "small lenses placed directly on the eyes"
+      },
+      {
+        "word": "insurance coverage",
+        "translation": "страховое покрытие",
+        "meaning": "whether health insurance pays for the service or product"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "I’d like to get my eyes checked.",
+        "translation": "Я бы хотел проверить зрение.",
+        "meaning": "Used to request a vision test"
+      },
+      {
+        "phrase": "Can I look at your glasses frames?",
+        "translation": "Можно посмотреть оправы?",
+        "meaning": "Used to browse glasses"
+      },
+      {
+        "phrase": "Do I need an appointment for the eye exam?",
+        "translation": "Нужна ли запись для проверки зрения?",
+        "meaning": "Used to ask about scheduling"
+      },
+      {
+        "phrase": "Do you sell contact lenses too?",
+        "translation": "Вы также продаёте контактные линзы?",
+        "meaning": "Used to ask about other vision options"
+      },
+      {
+        "phrase": "Is this covered by insurance?",
+        "translation": "Это покрывается страховкой?",
+        "meaning": "Used to ask about payment/insurance"
+      },
+      {
+        "phrase": "How long will it take to get the glasses?",
+        "translation": "Сколько времени займёт изготовление очков?",
+        "meaning": "Used to ask about delivery"
+      }
     ]
   },
-  "prompt": "You are an optician at a vision care center. The user has come in to either check their vision or buy new glasses or lenses. Ask helpful questions, explain available services, and guide them through the process politely and clearly.",
-  "dictionary": [
-    {
-      "word": "eye exam",
-      "translation": "проверка зрения",
-      "meaning": "a test to measure vision and eye health"
-    },
-    {
-      "word": "prescription",
-      "translation": "рецепт (на очки/линзы)",
-      "meaning": "details of the user's vision correction needs"
-    },
-    {
-      "word": "frames",
-      "translation": "оправа",
-      "meaning": "the part of the glasses that holds the lenses"
-    },
-    {
-      "word": "lenses",
-      "translation": "линзы",
-      "meaning": "either part of glasses or contact lenses"
-    },
-    {
-      "word": "contact lenses",
-      "translation": "контактные линзы",
-      "meaning": "small lenses placed directly on the eyes"
-    },
-    {
-      "word": "insurance coverage",
-      "translation": "страховое покрытие",
-      "meaning": "whether health insurance pays for the service or product"
+  "model_behavior": {
+    "prompt": "You are an optician at a vision care center. The user has come in to either check their vision or buy new glasses or lenses. Ask helpful questions, explain available services, and guide them through the process politely and clearly.",
+    "scenario": {
+      "allowed_languages": ["English"],
+      "setting": "Optical store or eye clinic",
+      "situation": "You are an optician assisting a customer who wants to check their vision and explore glasses or lens options.",
+      "goal": "Guide the user through checking their eyesight and helping them choose glasses or lenses",
+      "steps": [
+        "Greet the user and ask how you can help",
+        "Ask if they need an eye test or already have a prescription",
+        "Explain available services (vision test, frame selection, contact lenses)",
+        "Discuss preferences (glasses vs lenses), insurance, pricing",
+        "Help them choose a product or book an appointment",
+        "Wrap up the visit and explain when items will be ready"
+      ]
     }
-  ],
-  "phrases": [
-    {
-      "phrase": "I’d like to get my eyes checked.",
-      "translation": "Я бы хотел проверить зрение.",
-      "meaning": "Used to request a vision test"
-    },
-    {
-      "phrase": "Can I look at your glasses frames?",
-      "translation": "Можно посмотреть оправы?",
-      "meaning": "Used to browse glasses"
-    },
-    {
-      "phrase": "Do I need an appointment for the eye exam?",
-      "translation": "Нужна ли запись для проверки зрения?",
-      "meaning": "Used to ask about scheduling"
-    },
-    {
-      "phrase": "Do you sell contact lenses too?",
-      "translation": "Вы также продаёте контактные линзы?",
-      "meaning": "Used to ask about other vision options"
-    },
-    {
-      "phrase": "Is this covered by insurance?",
-      "translation": "Это покрывается страховкой?",
-      "meaning": "Used to ask about payment/insurance"
-    },
-    {
-      "phrase": "How long will it take to get the glasses?",
-      "translation": "Сколько времени займёт изготовление очков?",
-      "meaning": "Used to ask about delivery"
-    }
-  ],
+  },
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "end_behavior": "Thanks! We'll contact you when everything is ready."
+    "model_end_behavior": "Thanks! We'll contact you when everything is ready."
   }
 }

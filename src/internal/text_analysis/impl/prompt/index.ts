@@ -1,10 +1,10 @@
 import { IPromptScenario } from "../../../../types"
 
 export const buildSystemPrompt = (prompt: IPromptScenario): string => {
-  const vocabBlock = prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
-  const expressionsBlock = prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
-  const steps = prompt.scenario.steps.map((step, i) => `  ${i + 1}. ${step}`).join("\n")
-  const goalHints = prompt.goals.map((g, i) => `  ${i + 1}. ${g.phrase}`).join("\n")
+  const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
+  const expressionsBlock = prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
+  const steps = prompt.model_behavior.scenario.steps.map((step, i) => `  ${i + 1}. ${step}`).join("\n")
+  const goalHints = prompt.user_content.goals.map((g, i) => `  ${i + 1}. ${g.phrase}`).join("\n")
 
   return `
 You are acting as a **conversation tutor** for the user, helping them practice realistic communication skills in the following roleplay.
@@ -67,7 +67,7 @@ ENDING INSTRUCTION
 
 When the user has likely completed their communication goals, gently bring the conversation to a close.
 End the dialogue using this exact phrase only if the user appears satisfied or has completed the scenario.:
-"${prompt.meta.end_behavior}"
+"${prompt.meta.model_end_behavior}"
 
 ====================
 OUTPUT RULES

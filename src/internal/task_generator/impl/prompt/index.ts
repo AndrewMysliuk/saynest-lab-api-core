@@ -56,8 +56,8 @@ export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_senten
   const readableType = taskTypeReadable[request.type]
   const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 
-  const vocabBlock = prompt.dictionary.length ? prompt.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
-  const expressionsBlock = prompt.phrases.length ? prompt.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
+  const vocabBlock = prompt.user_content.dictionary.length ? prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
+  const expressionsBlock = prompt.user_content.phrases.length ? prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
 
   return `
 You are an AI language assistant.
@@ -75,7 +75,7 @@ Use the following scenario information **only if relevant** to the topic:
 
 Scenario context:
 - Title: ${prompt.title}
-- Setting: ${prompt.scenario.setting}
+- Setting: ${prompt.model_behavior.scenario.setting}
 
 Key vocabulary:
 ${vocabBlock}
