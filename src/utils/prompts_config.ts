@@ -77,7 +77,7 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
     meta: {
       estimated_duration_minutes: item.meta?.estimated_duration_minutes || 5,
       max_turns: item.meta?.max_turns || 10,
-      model_end_behavior: item.meta?.end_behavior || "",
+      model_end_behavior: item.meta?.model_end_behavior || "",
     },
     finally_prompt: "",
   }
