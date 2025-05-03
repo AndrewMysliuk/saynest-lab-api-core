@@ -3,8 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
 import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, StreamEventEnum } from "../../../types"
-import { PerfTimer, generateFileName, getStorageFilePath, trimConversationHistory } from "../../../utils"
-import logger from "../../../utils/logger"
+import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, logger, trimConversationHistory } from "../../../utils"
 import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
 import { ITextAnalysis } from "../../text_analysis"
@@ -15,6 +14,7 @@ import { IRepository } from "../storage"
 const MAX_CONVERSATION_TOKENS = 128000
 const SENTENCE_END_REGEX = /[.!?…]/
 const MIN_CHARACTERS = 50
+const log = createScopedLogger("conversationService")
 
 export class ConversationService implements IConversationService {
   private readonly historyRepo: IRepository
@@ -45,6 +45,12 @@ export class ConversationService implements IConversationService {
       const pair_id = uuidv4()
       let orgId, userId
 
+      log.info("streamConversation", "Started streaming", {
+        session_id: system.session_id,
+        user_id,
+        organization_id,
+      })
+
       if (user_id && organization_id) {
         orgId = new Types.ObjectId(organization_id)
         userId = new Types.ObjectId(user_id)
@@ -64,6 +70,11 @@ export class ConversationService implements IConversationService {
       const { transcription, user_audio_path, user_audio_url } = whisperResult
       const { session_id: activeSessionId, conversation_history: initialHistory } = sessionData
       const conversationHistory = [...initialHistory]
+
+      log.info("streamConversation", "Transcription and session loaded", {
+        transcription,
+        session_id: activeSessionId.toString(),
+      })
 
       const userMessage = {
         organization_id: orgId,
@@ -100,6 +111,8 @@ export class ConversationService implements IConversationService {
       )
 
       let sentenceBuffer: string[] = []
+
+      log.info("streamConversation", "Started GPT stream")
 
       for await (const chunk of gptStream) {
         replyText += chunk
@@ -180,6 +193,10 @@ export class ConversationService implements IConversationService {
         content: replyText,
       }
 
+      log.info("streamConversation", "Finished GPT stream", {
+        response_length: replyText.length,
+      })
+
       const modelMessage = {
         organization_id: orgId,
         user_id: userId,
@@ -194,6 +211,8 @@ export class ConversationService implements IConversationService {
 
       this.historyRepo.saveMany([userMessage, modelMessage]).catch((error) => logger.warn("Failed to save history", error))
 
+      log.info("streamConversation", "Saved user and model messages to history")
+
       conversationHistory.push(modelMessage)
 
       const final: IConversationResponse = {
@@ -206,12 +225,14 @@ export class ConversationService implements IConversationService {
 
       perf.duration("total")
     } catch (error: unknown) {
-      logger.error(`ConversationService | error in processConversation: ${JSON.stringify(error)}`)
+      log.error("streamConversation", "Error during conversation", {
+        error: error instanceof Error ? error.message : String(error),
+      })
 
       yield {
         type: StreamEventEnum.ERROR,
         role: "system",
-        content: JSON.stringify(error),
+        content: "Conversation unexpectedly terminated",
       }
 
       throw error
@@ -223,7 +244,12 @@ export class ConversationService implements IConversationService {
     conversation_history: IConversationHistory[]
   }> {
     const session = await this.sessionService.getSession(session_id)
+
+    log.info("getSessionData", "Loaded session data", { session_id })
+
     const conversation_history = await this.historyRepo.getHistoryBySession(session_id)
+
+    log.info("getSessionData", "Fetched history", { session_id })
 
     return { session_id: session._id, conversation_history }
   }
@@ -232,13 +258,16 @@ export class ConversationService implements IConversationService {
     try {
       return this.historyRepo.getHistoryBySession(session_id)
     } catch (error: unknown) {
-      logger.error(`ConversationService | error in getConversationHistory: ${JSON.stringify(error)}`)
+      log.error("listConversationHistory", "Failed to fetch history", {
+        error: error instanceof Error ? error.message : String(error),
+      })
 
       throw error
     }
   }
 
   async deleteAllBySessionId(session_id: string): Promise<void> {
+    log.warn("deleteAllBySessionId", "Deleting all messages by session", { session_id })
     return this.historyRepo.deleteAllBySessionId(session_id)
   }
 }

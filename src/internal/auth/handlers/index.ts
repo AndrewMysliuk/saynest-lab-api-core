@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IAuthService } from ".."
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { RegisterRequestSchema } from "./validation"
 
 export const registerHandler = (authService: IAuthService): RequestHandler => {

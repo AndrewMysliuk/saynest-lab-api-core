@@ -1,7 +1,7 @@
 import { Server as HttpServer } from "http"
 import WebSocket from "ws"
 
-import logger from "../utils/logger"
+import { logger } from "../utils"
 
 export const wsServerConfig = (server: HttpServer) => {
   const wss = new WebSocket.Server({ server })

@@ -1,7 +1,7 @@
 import { ILanguageTheory } from ".."
 import language_theory_en_json from "../../../json_data/language_theory_en.json"
 import { ILanguageTopic, VocabularyFrequencyLevelEnum } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 
 export class LanguageTheoryService implements ILanguageTheory {
   async list(): Promise<ILanguageTopic[]> {

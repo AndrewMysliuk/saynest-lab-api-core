@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ILanguageTheory } from ".."
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 
 export const getTheoryByLanguageHandler = (languageTheoryService: ILanguageTheory): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {

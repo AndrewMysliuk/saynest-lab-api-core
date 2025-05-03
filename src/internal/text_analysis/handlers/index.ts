@@ -1,8 +1,8 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ITextAnalysis } from ".."
-import { IGPTConversationRequest, IGPTPayload } from "../../../types"
-import logger from "../../../utils/logger"
+import { IGPTConversationRequest } from "../../../types"
+import { logger } from "../../../utils"
 
 export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {

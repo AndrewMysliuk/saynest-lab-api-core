@@ -1,6 +1,6 @@
 import { IOrganisationService } from ".."
 import { IMongooseOptions, IOrganizationEntity } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { IRepository } from "../storage"
 
 export class OrganisationService implements IOrganisationService {

@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { ITextToSpeach } from "../index"
 
 export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): RequestHandler => {

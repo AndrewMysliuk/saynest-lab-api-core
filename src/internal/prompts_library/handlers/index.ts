@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IPromptService } from ".."
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 
 export const getPromptsListHandler = (promptService: IPromptService): RequestHandler => {
   return async (_req: Request, res: Response): Promise<void> => {

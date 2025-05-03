@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IConversationResponse, StreamEventEnum } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { IConversationService } from "../index"
 import { conversationSchema } from "./validation"
 

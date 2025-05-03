@@ -1,5 +1,5 @@
 import { IConversationHistory, IMongooseOptions } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { logger } from "../../../../utils"
 import { IRepository } from "../index"
 import { ConversationHistoryModel } from "./model"
 

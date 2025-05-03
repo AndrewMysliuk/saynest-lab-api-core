@@ -1,7 +1,7 @@
 import { ITextAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { IGPTPayload } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { IPromptService } from "../../prompts_library"
 import { buildSystemPrompt } from "./prompt"
 
@@ -54,8 +54,6 @@ export class TextAnalysisService implements ITextAnalysis {
           yield content
         }
       }
-
-      logger.info("streamGptReplyOnly successfully completed")
     } catch (error: unknown) {
       logger.error(`streamGptReplyOnly | error: ${error}`)
       throw error

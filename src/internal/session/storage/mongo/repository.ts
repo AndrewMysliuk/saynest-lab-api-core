@@ -1,8 +1,8 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum } from "../../../../types"
+import { logger } from "../../../../utils"
 import { SessionModel } from "./model"
 
 export class SessionRepository implements IRepository {

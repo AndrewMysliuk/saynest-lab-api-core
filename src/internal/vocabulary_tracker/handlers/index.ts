@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express"
 
 import { IVocabularyTracker } from ".."
 import { ISearchSynonymsRequest, IWordExplanationRequest } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 
 export const getWordsListHandler = (vocabularyTrackerService: IVocabularyTracker): RequestHandler => {
   return async (_req: Request, res: Response): Promise<void> => {

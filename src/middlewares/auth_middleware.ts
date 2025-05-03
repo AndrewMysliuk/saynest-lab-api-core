@@ -3,8 +3,7 @@ import { NextFunction, Request, Response } from "express"
 import axios from "axios"
 
 import { serverConfig } from "../config"
-import { parseAuthToken } from "../utils"
-import logger from "../utils/logger"
+import { logger, parseAuthToken } from "../utils"
 
 const HCAPTCHA_SECRET_KEY = serverConfig.HCAPTCHA_SECRET_KEY
 const isCloudRun = !!process.env.K_SERVICE

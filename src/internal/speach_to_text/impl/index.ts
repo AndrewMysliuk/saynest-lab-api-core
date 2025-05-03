@@ -4,8 +4,7 @@ import tmp from "tmp"
 
 import { gcsBucket, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
 import { IWhisperHandlerResponse } from "../../../types"
-import { generateFileName, getStorageFilePath } from "../../../utils"
-import logger from "../../../utils/logger"
+import { generateFileName, getStorageFilePath, logger } from "../../../utils"
 import { ISpeachToText } from "../index"
 
 export class SpeachToTextService implements ISpeachToText {

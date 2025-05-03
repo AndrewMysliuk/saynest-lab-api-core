@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from "express"
 
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { ITaskGenerator } from "../index"
 import { TaskGeneratorRequestSchema, TaskGeneratorRequestType } from "./validation"
 

@@ -1,6 +1,6 @@
 import { IRepository } from "../"
 import { IMongooseOptions, IStatistics } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { logger } from "../../../../utils"
 import { StatisticsModel } from "./model"
 
 export class CommunicationReviewRepository implements IRepository {

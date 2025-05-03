@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ICommunicationReviewService } from ".."
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { StatisticsGenerateRequestSchema } from "./validation"
 
 export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {

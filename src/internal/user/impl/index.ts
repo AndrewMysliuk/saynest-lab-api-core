@@ -2,8 +2,7 @@ import { Types } from "mongoose"
 
 import { IUserService } from ".."
 import { IMongooseOptions, IUserCreateRequest, IUserEntity } from "../../../types"
-import { hashPassword } from "../../../utils"
-import logger from "../../../utils/logger"
+import { hashPassword, logger } from "../../../utils"
 import { IRepository } from "../storage"
 
 export class UserService implements IUserService {

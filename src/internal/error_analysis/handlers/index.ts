@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IErrorAnalysis } from ".."
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { ErrorAnalysisRequestSchema } from "./validation"
 
 export const errorAnalysisHandler = (errorAnalysisService: IErrorAnalysis): RequestHandler => {

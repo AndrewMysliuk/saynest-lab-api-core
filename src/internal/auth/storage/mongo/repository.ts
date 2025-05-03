@@ -2,7 +2,7 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IRefreshTokenEntity } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { logger } from "../../../../utils"
 import { RefreshTokenModel } from "./model"
 
 export class AuthRepository implements IRepository {

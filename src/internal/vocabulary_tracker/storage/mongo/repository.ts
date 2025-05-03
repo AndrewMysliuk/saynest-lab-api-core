@@ -2,7 +2,7 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IVocabularyEntity, IWordExplanationRequest } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { logger } from "../../../../utils"
 import { VocabularyModel } from "../mongo/model"
 
 export class VocabularyRepository implements IRepository {

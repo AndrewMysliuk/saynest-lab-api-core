@@ -4,8 +4,7 @@ import { ErrorAnalysisModel } from "../internal/error_analysis/storage/mongo/mod
 import { SessionModel } from "../internal/session/storage/mongo/model"
 import { VocabularyModel } from "../internal/vocabulary_tracker/storage/mongo/model"
 import { ISessionIds } from "../types"
-import { getStorageFilePath } from "../utils"
-import logger from "../utils/logger"
+import { getStorageFilePath, logger } from "../utils"
 import { gcsBucket } from "./gcp_storage"
 
 const CLEAN_INTERVAL_MS = 60 * 60 * 1000

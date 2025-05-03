@@ -1,29 +1,31 @@
-import fs from "fs"
-import path from "path"
 import { createLogger, format, transports } from "winston"
 
-const { combine, timestamp, printf, colorize } = format
+const { combine, timestamp, errors, json } = format
 
-const logsDir = path.join(__dirname, "../logs")
-
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true })
-}
-
-const logFormat = printf(({ level, message, timestamp }) => {
-  return `${timestamp} [${level}]: ${message}`
-})
-
-const logger = createLogger({
+export const logger = createLogger({
   level: "info",
-  format: combine(
-    colorize(),
-    timestamp({
-      format: "YYYY-MM-DD HH:mm:ss",
-    }),
-    logFormat,
-  ),
-  transports: [new transports.Console(), new transports.File({ filename: path.join(logsDir, "app.log") })],
+  format: combine(timestamp(), errors({ stack: true }), json()),
+  defaultMeta: { service: "api-core" },
+  transports: [new transports.Console()],
 })
 
-export default logger
+export const createScopedLogger = (module: string) => {
+  const baseLogger = logger.child({ module })
+
+  const scopedLog = (level: "info" | "error" | "warn") => {
+    return (method: string, message: string, dto?: Record<string, any>) => {
+      baseLogger.log({
+        level,
+        message,
+        method,
+        ...(dto || {}),
+      })
+    }
+  }
+
+  return {
+    info: scopedLog("info"),
+    error: scopedLog("error"),
+    warn: scopedLog("warn"),
+  }
+}

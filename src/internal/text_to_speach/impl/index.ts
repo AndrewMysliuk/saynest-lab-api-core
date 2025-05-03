@@ -3,8 +3,7 @@ import { Readable } from "stream"
 
 import { gcsBucket, openaiREST, serverConfig } from "../../../config"
 import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import { generateFileName, getStorageFilePath, normalizeAudioStream } from "../../../utils"
-import logger from "../../../utils/logger"
+import { generateFileName, getStorageFilePath, logger, normalizeAudioStream } from "../../../utils"
 import { ITextToSpeach } from "../index"
 
 export class TextToSpeachService implements ITextToSpeach {

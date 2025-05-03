@@ -1,8 +1,8 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IMongooseOptions, IOrganizationEntity, IOrganizationSettings, IOrganizationUpdateRequest, OrganizationStatusEnum } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../../types"
+import { logger } from "../../../../utils"
 import { OrganizationModel } from "./model"
 
 export class OrganisationRepository implements IRepository {

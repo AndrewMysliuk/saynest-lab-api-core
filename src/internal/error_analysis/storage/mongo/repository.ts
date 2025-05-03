@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IMongooseOptions } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { logger } from "../../../../utils"
 import { IRepository } from "../index"
 import { ErrorAnalysisModel } from "./model"
 

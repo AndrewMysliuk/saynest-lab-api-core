@@ -1,8 +1,8 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IMongooseOptions, IUserEntity, IUserSettings, IUserUpdateRequest, UserRoleEnum, UserStatusEnum } from "../../../../types"
-import logger from "../../../../utils/logger"
+import { IMongooseOptions, IUserEntity, IUserUpdateRequest } from "../../../../types"
+import { logger } from "../../../../utils"
 import { UserModel } from "./model"
 
 export class UserRepository implements IRepository {

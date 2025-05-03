@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IWhisperHandlerResponse } from "../../../types"
-import logger from "../../../utils/logger"
+import { logger } from "../../../utils"
 import { ISpeachToText } from "../index"
 
 export const whisperSpeechToTextHandler = (speachToTextService: ISpeachToText): RequestHandler => {

@@ -2,8 +2,7 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ISessionService } from ".."
 import { ISessionCreateRequest } from "../../../types"
-import { getStorageFilePath } from "../../../utils"
-import logger from "../../../utils/logger"
+import { getStorageFilePath, logger } from "../../../utils"
 
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {

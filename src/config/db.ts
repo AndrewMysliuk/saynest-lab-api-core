@@ -8,7 +8,7 @@ import { MODEL_NAME as ORGANISATION_TABLE } from "../internal/organisation/stora
 import { MODEL_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../internal/user/storage/mongo/model"
 import { MODEL_NAME as VOCABULARY_TABLE } from "../internal/vocabulary_tracker/storage/mongo/model"
-import logger from "../utils/logger"
+import { logger } from "../utils"
 import { serverConfig } from "./server_config"
 
 const MONGO_URI = serverConfig.MONGO_URI

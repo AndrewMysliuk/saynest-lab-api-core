@@ -6,7 +6,7 @@ import { createServer } from "http"
 
 import { connectToDatabase, disconnectFromDatabase, serverConfig, startCleanupWorker, stopCleanupWorker } from "./config"
 import routers from "./routes"
-import logger from "./utils/logger"
+import { logger } from "./utils"
 
 let serverInstance: any
 
