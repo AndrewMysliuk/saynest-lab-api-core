@@ -45,12 +45,18 @@ export const verifyCaptchaMiddleware = async (req: Request, res: Response, next:
       return
     }
 
-    const verifyResponse = await axios.post("https://hcaptcha.com/siteverify", null, {
-      params: {
+    const verifyResponse = await axios.post(
+      "https://hcaptcha.com/siteverify",
+      new URLSearchParams({
         secret: CAPTCHA_SITE_KEY,
         response: hcaptcha_token,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       },
-    })
+    )
 
     const { success } = verifyResponse.data
 
