@@ -25,10 +25,6 @@ docker_run_local:
 		-p 3001:3001 \
   		--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
-docker_run_server:
-	docker run -d -p 3001:3001 \
-		--name $(CONTAINER_NAME) $(IMAGE_NAME)
-
 stop:
 	docker stop $(CONTAINER_NAME)
 	docker rm $(CONTAINER_NAME)

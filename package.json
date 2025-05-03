@@ -9,8 +9,8 @@
     "format": "prettier --write .",
     "dev": "nodemon",
     "build": "tsc",
-    "start_dev": "NODE_ENV=development node dist/index.js",
-    "start": "NODE_ENV=production node dist/index.js"
+    "start": "NODE_ENV=development node dist/index.js",
+    "start_prod": "NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.16.0",
