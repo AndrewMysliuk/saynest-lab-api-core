@@ -62,7 +62,7 @@ export const verifyCaptchaMiddleware = async (req: Request, res: Response, next:
 
     if (!success) {
       // res.status(403).json({ error: "Failed hCaptcha verification" })
-      res.status(403).json({ error: verifyResponse.data })
+      res.status(403).json({ error: verifyResponse.data, secret: CAPTCHA_SITE_KEY })
       return
     }
 
