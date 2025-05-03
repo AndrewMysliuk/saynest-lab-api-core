@@ -10,6 +10,6 @@ export const serverConfig: IServerConfig = {
   MONGO_URI: process.env.MONGO_URI ?? "",
   ELEVEN_API_KEY: process.env.ELEVENLABS_API_KEY ?? "",
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET ?? "your-access-token-secret",
-  CAPTCHA_SITE_KEY: process.env.CAPTCHA_SITE_KEY ?? "",
+  HCAPTCHA_SECRET_KEY: process.env.HCAPTCHA_SECRET_KEY ?? "",
   GCS_BUCKET_NAME: process.env.GCS_BUCKET_NAME ?? "",
 }

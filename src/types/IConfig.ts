@@ -6,7 +6,7 @@ export interface IServerConfig {
   MONGO_URI: string
   ELEVEN_API_KEY: string
   ACCESS_TOKEN_SECRET: string
-  CAPTCHA_SITE_KEY: string
+  HCAPTCHA_SECRET_KEY: string
   GCS_BUCKET_NAME: string
 }
 

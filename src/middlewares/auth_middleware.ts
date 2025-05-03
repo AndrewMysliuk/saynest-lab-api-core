@@ -6,7 +6,7 @@ import { serverConfig } from "../config"
 import { parseAuthToken } from "../utils"
 import logger from "../utils/logger"
 
-const CAPTCHA_SITE_KEY = serverConfig.CAPTCHA_SITE_KEY
+const HCAPTCHA_SECRET_KEY = serverConfig.HCAPTCHA_SECRET_KEY
 const isCloudRun = !!process.env.K_SERVICE
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction): void {
@@ -48,7 +48,7 @@ export const verifyCaptchaMiddleware = async (req: Request, res: Response, next:
     const verifyResponse = await axios.post(
       "https://hcaptcha.com/siteverify",
       new URLSearchParams({
-        secret: CAPTCHA_SITE_KEY,
+        secret: HCAPTCHA_SECRET_KEY,
         response: hcaptcha_token,
       }),
       {
@@ -61,8 +61,8 @@ export const verifyCaptchaMiddleware = async (req: Request, res: Response, next:
     const { success } = verifyResponse.data
 
     if (!success) {
-      // res.status(403).json({ error: "Failed hCaptcha verification" })
-      res.status(403).json({ error: verifyResponse.data, secret: CAPTCHA_SITE_KEY })
+      logger.error(`verifyCaptcha error:`, verifyResponse.data)
+      res.status(403).json({ error: "Failed hCaptcha verification" })
       return
     }
 
