@@ -7,6 +7,7 @@ import { parseAuthToken } from "../utils"
 import logger from "../utils/logger"
 
 const CAPTCHA_SITE_KEY = serverConfig.CAPTCHA_SITE_KEY
+const isCloudRun = !!process.env.K_SERVICE
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction): void {
   const user = parseAuthToken(req)
@@ -31,6 +32,11 @@ export function optionalAuthMiddleware(req: Request, res: Response, next: NextFu
 }
 
 export const verifyCaptchaMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  if (!isCloudRun) {
+    logger.info("Skipping captcha middleware in local/dev environment")
+    return next()
+  }
+
   try {
     const { hcaptcha_token } = req.body
 
