@@ -1,22 +1,24 @@
 import { Server as HttpServer } from "http"
 import WebSocket from "ws"
 
-import { logger } from "../utils"
+import { createScopedLogger } from "../utils/logger"
 
 export const wsServerConfig = (server: HttpServer) => {
+  const log = createScopedLogger("websocket")
+
   const wss = new WebSocket.Server({ server })
 
   wss.on("connection", (ws) => {
-    logger.info("WS | Client connected")
+    log.info("onConnection", "WebSocket client connected")
 
     ws.on("close", () => {
-      logger.info("WS | Client disconnected")
+      log.info("onClose", "WebSocket client disconnected")
     })
 
-    ws.on("error", (err) => {
-      logger.error(`WS | Error in client connection: ${JSON.stringify(err)}`)
+    ws.on("error", (error) => {
+      log.error("onError", "WebSocket client error", { error })
     })
   })
 
-  logger.info(`WS | Server is now running`)
+  log.info("wsServerConfig", "WebSocket server is now running")
 }

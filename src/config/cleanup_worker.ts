@@ -4,13 +4,14 @@ import { ErrorAnalysisModel } from "../internal/error_analysis/storage/mongo/mod
 import { SessionModel } from "../internal/session/storage/mongo/model"
 import { VocabularyModel } from "../internal/vocabulary_tracker/storage/mongo/model"
 import { ISessionIds } from "../types"
-import { getStorageFilePath, logger } from "../utils"
+import { createScopedLogger, getStorageFilePath } from "../utils"
 import { gcsBucket } from "./gcp_storage"
 
 const CLEAN_INTERVAL_MS = 60 * 60 * 1000
 const SESSION_EXPIRATION_MINUTES = 240
 
 let shouldRunCleanup = true
+const log = createScopedLogger("cleanupWorker")
 
 export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<{ filesDeleted: number }> {
   let totalDeleted = 0
@@ -28,16 +29,16 @@ export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<
       const [files] = await gcsBucket.getFiles({ prefix })
 
       if (!files.length) {
-        logger.info(`[CLEANUP] No files found for prefix "${prefix}"`)
+        log.info("cleanUserSessionFiles", "No files found for session prefix", { prefix })
         continue
       }
 
       await Promise.all(files.map((file) => file.delete()))
+      log.info("cleanUserSessionFiles", "Deleted session files", { prefix, count: files.length })
 
-      logger.info(`[CLEANUP] Deleted ${files.length} file(s) from "${prefix}"`)
       totalDeleted += files.length
     } catch (error) {
-      logger.warn(`[CLEANUP] Failed to delete files for session ${data._id} (prefix: "${prefix}"):`, error)
+      log.warn("cleanUserSessionFiles", "Failed to delete files", { prefix, error })
     }
   }
 
@@ -49,14 +50,16 @@ export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<
     })
 
     if (rootLevelGarbage.length) {
-      const deletePromises = rootLevelGarbage.map((file) => file.delete())
-      await Promise.all(deletePromises)
+      await Promise.all(rootLevelGarbage.map((file) => file.delete()))
+      log.info("cleanUserSessionFiles", "Deleted orphan root-level files", {
+        prefix: `${envPrefix}/`,
+        count: rootLevelGarbage.length,
+      })
 
-      logger.info(`[CLEANUP] Deleted ${rootLevelGarbage.length} root-level orphan files in '${envPrefix}/'`)
       totalDeleted += rootLevelGarbage.length
     }
-  } catch (err) {
-    logger.warn("[CLEANUP] Failed to clean root-level files:", err)
+  } catch (error) {
+    log.warn("cleanUserSessionFiles", "Failed to clean root-level files", { error })
   }
 
   return { filesDeleted: totalDeleted }
@@ -79,11 +82,11 @@ async function cleanExpiredSessions() {
     }))
 
     if (!sessionIds.length) {
-      logger.info(`[CLEANUP] No expired sessions found.`)
+      log.info("cleanExpiredSessions", "No expired sessions found")
       return
     }
 
-    logger.info(`[CLEANUP] Found ${sessionIds.length} expired sessions to remove.`)
+    log.info("cleanExpiredSessions", "Expired sessions to remove", { count: sessionIds.length })
 
     const [statsDeleted, convHistDeleted, errorsDeleted, vocabsDeleted] = await Promise.all([
       StatisticsModel.deleteMany({ session_id: { $in: sessionIds } }),
@@ -93,21 +96,22 @@ async function cleanExpiredSessions() {
       SessionModel.deleteMany({ _id: { $in: sessionIds } }),
     ])
 
-    logger.info(`[CLEANUP] Deleted ${sessionIds.length} expired sessions from database.`)
-    logger.info(
-      `[CLEANUP] Related deletes: Statistics=${statsDeleted.deletedCount}, Histories=${convHistDeleted.deletedCount}, Errors=${errorsDeleted.deletedCount}, Vocabularies=${vocabsDeleted.deletedCount}`,
-    )
+    log.info("cleanExpiredSessions", "Session-related deletions complete", {
+      statistics: statsDeleted.deletedCount,
+      histories: convHistDeleted.deletedCount,
+      errors: errorsDeleted.deletedCount,
+      vocabularies: vocabsDeleted.deletedCount,
+    })
 
     const { filesDeleted } = await cleanUserSessionFiles(sessionIds)
-
-    logger.info(`[CLEANUP] Deleted ${filesDeleted} files/folders.`)
+    log.info("cleanExpiredSessions", "Session file deletions complete", { filesDeleted })
   } catch (error) {
-    logger.error("[CLEANUP] Error during session cleanup:", error)
+    log.error("cleanExpiredSessions", "Error during session cleanup", { error })
   }
 }
 
 export async function startCleanupWorker() {
-  logger.info("Starting session cleanup worker...")
+  log.info("startCleanupWorker", "Starting session cleanup loop...")
 
   async function loop() {
     while (shouldRunCleanup) {
@@ -116,14 +120,14 @@ export async function startCleanupWorker() {
       try {
         await cleanExpiredSessions()
       } catch (error) {
-        logger.error("[CLEANUP] Error during cleanup execution:", error)
+        log.error("loop", "Error during cleanup execution", { error })
       }
 
       const elapsed = Date.now() - start
       const delay = Math.max(CLEAN_INTERVAL_MS - elapsed, 0)
 
       if (delay > 0) {
-        logger.info(`[CLEANUP] Waiting ${(delay / 1000).toFixed(2)} seconds before next run.`)
+        log.info("loop", "Sleeping before next cleanup run", { delaySeconds: +(delay / 1000).toFixed(2) })
         await new Promise((resolve) => setTimeout(resolve, delay))
       }
     }
@@ -134,5 +138,5 @@ export async function startCleanupWorker() {
 
 export function stopCleanupWorker() {
   shouldRunCleanup = false
-  logger.info("Session cleanup worker stop requested.")
+  log.info("stopCleanupWorker", "Cleanup worker stop requested")
 }

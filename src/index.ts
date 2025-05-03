@@ -6,14 +6,16 @@ import { createServer } from "http"
 
 import { connectToDatabase, disconnectFromDatabase, serverConfig, startCleanupWorker, stopCleanupWorker } from "./config"
 import routers from "./routes"
-import { logger } from "./utils"
+import { createScopedLogger } from "./utils"
 
+const log = createScopedLogger("main")
 let serverInstance: any
 
 const app = express()
 const server = createServer({}, app)
 
 const allowedOrigins = ["http://localhost:3000", "https://frontend-926895610955.europe-central2.run.app"]
+
 app.use(
   cors({
     origin: allowedOrigins,
@@ -27,53 +29,50 @@ app.use(cookieParser())
 
 app.use("/api", routers)
 
-// WS
+// WebSocket support — optional
 // wsServerConfig(server)
 
 async function startServer() {
-  // DB
-  await connectToDatabase()
-
-  // Start cleanup worker
-  startCleanupWorker()
-
-  // Server
-  serverInstance = server.listen(serverConfig.PORT, () => {
-    logger.info(`Server started on port ${serverConfig.PORT}`)
-  })
-}
-
-// Graceful shutdown
-async function gracefulShutdown(signal: string) {
-  logger.info(`[SHUTDOWN] Received ${signal}. Closing server...`)
-
   try {
-    if (serverInstance) {
-      await new Promise((resolve, reject) => {
-        serverInstance.close((err: any) => {
-          if (err) return reject(err)
-          resolve(true)
-        })
-      })
-      logger.info("[SHUTDOWN] HTTP server closed.")
-    }
+    await connectToDatabase()
+    startCleanupWorker()
 
-    // Stop background workers
-    stopCleanupWorker()
-    logger.info("[SHUTDOWN] Cleanup worker stopped.")
-
-    // Close DB connection
-    await disconnectFromDatabase()
-    logger.info("[SHUTDOWN] Database connection closed.")
-
-    process.exit(0)
+    serverInstance = server.listen(serverConfig.PORT, () => {
+      log.info("startServer", "Server started successfully", { port: serverConfig.PORT })
+    })
   } catch (error) {
-    logger.error("[SHUTDOWN] Error during shutdown:", error)
+    log.error("startServer", "Failed to start server", { error })
     process.exit(1)
   }
 }
 
-// ловим сигналы остановки
+async function gracefulShutdown(signal: string) {
+  log.info("gracefulShutdown", "Shutdown signal received", { signal })
+
+  try {
+    if (serverInstance) {
+      await new Promise<void>((resolve, reject) => {
+        serverInstance.close((err: unknown) => {
+          if (err) return reject(err)
+          resolve()
+        })
+      })
+      log.info("gracefulShutdown", "HTTP server closed")
+    }
+
+    stopCleanupWorker()
+    log.info("gracefulShutdown", "Cleanup worker stopped")
+
+    await disconnectFromDatabase()
+    log.info("gracefulShutdown", "Database connection closed")
+
+    process.exit(0)
+  } catch (error) {
+    log.error("gracefulShutdown", "Error during shutdown", { error })
+    process.exit(1)
+  }
+}
+
 process.on("SIGINT", () => gracefulShutdown("SIGINT"))
 process.on("SIGTERM", () => gracefulShutdown("SIGTERM"))
 
