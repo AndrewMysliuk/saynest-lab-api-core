@@ -211,7 +211,7 @@ export class ConversationService implements IConversationService {
       yield {
         type: StreamEventEnum.ERROR,
         role: "system",
-        content: "Conversation unexpectedly terminated",
+        content: JSON.stringify(error),
       }
 
       throw error
