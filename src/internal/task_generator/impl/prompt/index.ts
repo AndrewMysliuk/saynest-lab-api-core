@@ -11,40 +11,69 @@ export function getReadableSchemaInstructions(type: TaskTypeEnum, count: number)
   switch (type) {
     case TaskTypeEnum.FILL_BLANK:
       return `
-You must return a JSON object with a top-level key "sentences", which maps to an array of exactly ${count} ${plural} for a "fill in the blank" activity.
+====================
+OUTPUT FORMAT: FILL IN THE BLANK
+====================
 
-Each item in the "sentences" array must be an object with the following structure:
-- id (number): A unique numeric identifier for the sentence (e.g., 1, 2).
-- prompt (string): A sentence with one missing word, represented by a blank. If the missing word is a verb that requires the user to apply a correct tense or form, include the base verb in brackets. Example: "He ___ (buy) a new phone recently."
+Return a single valid JSON object with **one top-level key**: "sentences".
+
+The "sentences" key must map to an array of exactly ${count} ${plural}.  
+Each item must follow the structure below:
+
+--------------------
+Structure of Each Sentence Object:
+--------------------
+- id (number): A unique numeric ID (e.g., 1, 2).
+- prompt (string): A sentence with **one missing word**, represented by a blank (___).
+  - If the missing word is a **verb**, include the base form in brackets.  
+  - Example: "He ___ (buy) a new phone recently."
 - answer (string): The correct word or verb form that completes the sentence naturally and grammatically.
-- explanation (string, optional): A short explanation of why the answer is correct. This may be written in the user's native language.
+- explanation (string, optional): A short explanation of the correct answer. Write this in the **user’s native language**.
 
-Important rules:
-- Only include **one blank** per sentence.
-- Make the sentences moderately challenging and realistic.
-- Include verbs in brackets where appropriate to focus on grammar, not guessing.
+--------------------
+Rules and Constraints:
+--------------------
+- Use **only one blank** per sentence.
+- Sentences must be **realistic** and **moderately challenging**.
+- Use brackets for verbs only when the user must apply the correct verb form.
+- Do **not** use extra keys outside of "sentences".
 
-Make sure the top-level object has only one key: "sentences".
 `.trim()
 
     case TaskTypeEnum.MULTIPLE_CHOICE:
       return `
-You must return a JSON object with a top-level key "sentences", which maps to an array of exactly ${count} ${plural} for a "multiple choice" language activity.
+====================
+OUTPUT FORMAT: MULTIPLE CHOICE
+====================
 
-Each item in the "sentences" array must be an object with the following structure:
+Return a single valid JSON object with **one top-level key**: "sentences".
 
-- id (number): A unique numeric identifier for the question (e.g., 1, 2).
-- prompt (string): A sentence with a missing word. If testing verb forms, you may include the base verb in brackets to clarify what transformation is expected. Example (verb form): "They ___ (watch) a movie last night." Example (word choice): "She ___ to go out in the rain."
-- options (array of strings): A list of 3–4 possible answers. Include **only one correct answer**. Example: ["watch", "watched", "watches"]
-- answer (string): The correct answer. Must exactly match one of the items in "options".
-- explanation (string, optional): A short explanation of why the answer is correct. You may write this in the user's native language.
+The "sentences" key must map to an array of exactly ${count} ${plural}.  
+Each item must follow the structure below:
 
-Guidelines:
-- Options must be plausible and appropriate to the context and user's level.
-- Only include **one correct answer**.
-- Sentences should reflect real-life usage and moderate difficulty.
+--------------------
+Structure of Each Sentence Object:
+--------------------
+- id (number): A unique numeric ID (e.g., 1, 2).
+- prompt (string): A sentence with one missing word.  
+  - If testing **verb forms**, include the base verb in brackets.  
+    - Example: "They ___ (watch) a movie last night."  
+  - If testing **word choice**, no brackets needed.  
+    - Example: "She ___ to go out in the rain."
+- options (string[]): A list of 3–4 possible answers.  
+  - Include **only one correct answer**.  
+    - Example: ["watch", "watched", "watches"]
+- answer (string): The correct answer. Must exactly match one of the options.
+- explanation (string, optional): A short explanation of why the answer is correct. Write this in the **user’s native language**.
 
-Make sure the top-level object has only one key: "sentences".
+--------------------
+Rules and Constraints:
+--------------------
+- Include **only one correct answer** per sentence.
+- All options must be plausible and contextually appropriate.
+- Sentences must reflect **realistic, moderately difficult usage**.
+- Do **not** use extra keys outside of "sentences".
+
 `.trim()
 
     default:
@@ -57,45 +86,65 @@ export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_senten
   const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 
   const vocabBlock = prompt.user_content.dictionary.length ? prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
+
   const expressionsBlock = prompt.user_content.phrases.length ? prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
 
   return `
+====================
+SYSTEM ROLE
+====================
 You are an AI language assistant.
 
-Generate a structured "${readableType}" practice task focused **exclusively** on the following topic:
-"${request.topic_title}"
+Your task is to generate a structured "${readableType}" language exercise focused **exclusively** on the topic:
+**"${request.topic_title}"**
 
-Task difficulty should be moderate — not suitable for absolute beginners, but also not too advanced. Aim for realistic and slightly challenging content that reinforces common patterns and promotes active recall.
+====================
+TASK DIFFICULTY
+====================
+- The task should be moderately challenging — appropriate for intermediate learners.
+- Avoid overly simple or excessively advanced structures.
+- Focus on natural and realistic sentence constructions.
 
-Language usage:
-- Write **all task content** in the target language: ${request.target_language}
-- Write **all explanations** (if applicable) in the user's native language: ${request.explanation_language}
+====================
+LANGUAGE USAGE
+====================
+- All task content (sentence prompts and answer options) must be written in the **target language**: ${request.target_language}.
+- All explanations (if included) must be written in the **user’s native language**: ${request.explanation_language}.
 
-Use the following scenario information **only if relevant** to the topic:
+====================
+SCENARIO CONTEXT (Optional)
+====================
+Use this background info only if clearly relevant to the topic.
 
-Scenario context:
-- Title: ${prompt.title}
-- Setting: ${prompt.model_behavior.scenario.setting}
+- Scenario Title: ${prompt.title}
+- Scenario Setting: ${prompt.model_behavior.scenario.setting}
 
-Key vocabulary:
+Key Vocabulary:
 ${vocabBlock}
 
-Useful expressions:
+Useful Expressions:
 ${expressionsBlock}
 
-Instructions:
-- Generate exactly ${request.task_sentences_count} sentence(s) for the activity type "${readableType}".
-- Focus on the topic: **"${request.topic_title}"**. All sentences must directly support this topic.
-- Sentences should reflect realistic, natural usage in ${request.target_language}, with **moderate difficulty** — avoid overly simple constructions.
-- If the task requires the user to transform a verb into the correct tense or form, include the base verb in brackets (e.g., "___ (go)").
-- Do not use brackets if the correct answer is simply a specific word (e.g., a modal, article, or preposition).
-- Use vocabulary and expressions from the scenario only if they are clearly relevant and helpful for the topic.
+====================
+GENERATION INSTRUCTIONS
+====================
+- Generate **exactly ${request.task_sentences_count} sentence(s)** for the activity type: "${readableType}".
+- Each sentence must directly support the topic: **"${request.topic_title}"**.
+- Sentence content must reflect **real-life usage** and **moderate difficulty**.
+- If a verb form is expected, include the **base verb in brackets** (e.g., "___ (go)").
+- If the answer is not a verb form, do **not** use brackets (e.g., articles, prepositions, modals).
+- Use vocabulary and expressions from the scenario **only** if they are clearly relevant.
 
-Response format:
+====================
+OUTPUT FORMAT
+====================
+Return a single valid **JSON object**. Do not include any extra text.
+
 ${schemaInstructions}
 
-IMPORTANT:
-- Return a **single valid JSON object**.
-- Do not include any extra commentary, formatting, or explanation — only the JSON object.
+====================
+ENDING INSTRUCTION
+====================
+Respond only with a valid JSON object. No preambles, no formatting, no explanations. Just the JSON.
 `.trim()
 }
