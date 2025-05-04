@@ -22,9 +22,11 @@ export const generateConversationReviewHandler = (communicationReviewService: IC
 }
 
 export const reviewsListHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
-  return async (_req: Request, res: Response): Promise<void> => {
+  return async (req: Request, res: Response): Promise<void> => {
     try {
-      const response = await communicationReviewService.reviewsList()
+      const { user_id } = req.user!
+
+      const response = await communicationReviewService.reviewsList(user_id)
 
       res.status(200).json(response)
     } catch (error: unknown) {
@@ -38,6 +40,7 @@ export const deleteReviewHandler = (communicationReviewService: ICommunicationRe
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const id = req.params.id
+      const { user_id } = req.user!
 
       if (!id) {
         res.status(400).json({
@@ -46,7 +49,7 @@ export const deleteReviewHandler = (communicationReviewService: ICommunicationRe
         return
       }
 
-      await communicationReviewService.deleteReview(id)
+      await communicationReviewService.deleteReview(id, user_id)
 
       res.status(200).json(true)
     } catch (error: unknown) {
@@ -60,6 +63,7 @@ export const getReviewHandler = (communicationReviewService: ICommunicationRevie
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const id = req.params.id
+      const { user_id } = req.user!
 
       if (!id) {
         res.status(400).json({
@@ -68,7 +72,7 @@ export const getReviewHandler = (communicationReviewService: ICommunicationRevie
         return
       }
 
-      const response = await communicationReviewService.getReview(id)
+      const response = await communicationReviewService.getReview(id, user_id)
 
       res.status(200).json(response)
     } catch (error: unknown) {

@@ -4,9 +4,9 @@ import { logger } from "../../../../utils"
 import { StatisticsModel } from "./model"
 
 export class CommunicationReviewRepository implements IRepository {
-  async get(id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async get(id: string, user_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
     try {
-      return StatisticsModel.findById(id).session(options?.session || null)
+      return StatisticsModel.findOne({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {
       logger.error(`get | error: ${error}`)
       throw error
@@ -22,9 +22,9 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async list(options?: IMongooseOptions): Promise<IStatistics[]> {
+  async list(user_id: string, options?: IMongooseOptions): Promise<IStatistics[]> {
     try {
-      return StatisticsModel.find()
+      return StatisticsModel.find({ user_id })
         .sort({ created_at: -1 })
         .session(options?.session || null)
     } catch (error: unknown) {
@@ -44,9 +44,9 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async delete(id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async delete(id: string, user_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
     try {
-      return StatisticsModel.findByIdAndDelete(id).session(options?.session || null)
+      return StatisticsModel.findOneAndDelete({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {
       logger.error(`delete | error: ${error}`)
       throw error

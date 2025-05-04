@@ -158,18 +158,18 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async reviewsList(): Promise<IStatistics[]> {
+  async reviewsList(user_id: string): Promise<IStatistics[]> {
     try {
-      return this.communicationReviewRepo.list()
+      return this.communicationReviewRepo.list(user_id)
     } catch (error: unknown) {
       logger.error(`reviewsList | error: ${error}`)
       throw error
     }
   }
 
-  async deleteReview(review_id: string): Promise<void> {
+  async deleteReview(review_id: string, user_id: string): Promise<void> {
     try {
-      const review = await this.communicationReviewRepo.delete(review_id)
+      const review = await this.communicationReviewRepo.delete(review_id, user_id)
 
       if (!review) return
 
@@ -193,9 +193,9 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async getReview(id: string): Promise<IStatistics> {
+  async getReview(id: string, user_id: string): Promise<IStatistics> {
     try {
-      const result = await this.communicationReviewRepo.get(id)
+      const result = await this.communicationReviewRepo.get(id, user_id)
 
       if (!result) {
         throw new Error(`Review not found with id: ${id}`)
