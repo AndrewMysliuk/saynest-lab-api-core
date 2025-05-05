@@ -1,8 +1,8 @@
 import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
-import { cleanUserSessionFiles, openaiREST } from "../../../config"
-import { GPTRoleType, IStatistics, IStatisticsGenerateRequest, IStatisticsModelResponse } from "../../../types"
+import { cleanUserSessionFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
+import { GPTRoleType, IStatistics, IStatisticsGenerateRequest, IStatisticsModelResponse, IStatisticsUpdateAudioUrl } from "../../../types"
 import { countHistoryData, logger, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
@@ -204,6 +204,35 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       return result
     } catch (error: unknown) {
       logger.error(`getReview | error: ${error}`)
+      throw error
+    }
+  }
+
+  async updateAudioUrl(dto: IStatisticsUpdateAudioUrl): Promise<string> {
+    try {
+      const [currentReview, historyList] = await Promise.all([this.communicationReviewRepo.get(dto.id, dto.user_id), this.conversationService.listConversationHistory(dto.session_id)])
+
+      if (!currentReview) {
+        throw new Error(`Review not found with id: ${dto.id}`)
+      }
+
+      const currentHistory = historyList?.find((item) => item.pair_id === dto.pair_id && item.role === dto.role)
+
+      if (!currentHistory) {
+        throw new Error(`History not found with pair_id: ${dto.pair_id}`)
+      }
+
+      const newUrl = await getSignedUrlFromStoragePath(currentHistory.audio_path)
+      currentHistory.audio_url = newUrl
+
+      const newHistoryList = historyList.map((item) => (item.pair_id === dto.pair_id && item.role === dto.role ? currentHistory : item))
+      currentReview.history.messages = newHistoryList
+
+      await this.communicationReviewRepo.update(dto.id, dto.user_id, currentReview)
+
+      return newUrl
+    } catch (error: unknown) {
+      logger.error(`updateAudioUrl | error: ${error}`)
       throw error
     }
   }

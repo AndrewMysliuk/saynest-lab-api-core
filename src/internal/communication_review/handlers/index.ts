@@ -81,3 +81,32 @@ export const getReviewHandler = (communicationReviewService: ICommunicationRevie
     }
   }
 }
+
+export const updateAudioUrlHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id, session_id, pair_id, role } = req.body
+      const { user_id } = req.user!
+
+      if (!id || !session_id || !pair_id || !role) {
+        res.status(400).json({
+          error: "updateAudioUrlHandler | Missing required id field in payload",
+        })
+        return
+      }
+
+      const response = await communicationReviewService.updateAudioUrl({
+        id,
+        session_id,
+        user_id,
+        pair_id,
+        role,
+      })
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
+      logger.error(`updateAudioUrlHandler | error: ${error}`)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}

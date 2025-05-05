@@ -15,7 +15,8 @@ export const getStorageFilePath = (options: IStorageOptions): string => {
     parts.push(`session-${options.session_id}`)
   }
 
-  const envPrefix = process.env.NODE_ENV === "production" ? "prod" : "dev"
+  // const envPrefix = process.env.NODE_ENV === "production" ? "prod" : "dev"
+  const envPrefix = "prod"
   return parts.length > 0 ? `${envPrefix}/${parts.join("/")}` : envPrefix
 }
 

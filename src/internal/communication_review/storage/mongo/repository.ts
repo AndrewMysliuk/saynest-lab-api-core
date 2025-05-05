@@ -44,6 +44,22 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
+  async update(id: string, user_id: string, updates: Partial<IStatistics>, options?: IMongooseOptions): Promise<IStatistics | null> {
+    try {
+      return await StatisticsModel.findOneAndUpdate(
+        { _id: id, user_id },
+        { $set: updates },
+        {
+          new: true,
+          session: options?.session,
+        },
+      )
+    } catch (error) {
+      logger.error(`updateByIdAndUser | error: ${error}`)
+      throw error
+    }
+  }
+
   async delete(id: string, user_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
     try {
       return StatisticsModel.findOneAndDelete({ _id: id, user_id }).session(options?.session || null)
