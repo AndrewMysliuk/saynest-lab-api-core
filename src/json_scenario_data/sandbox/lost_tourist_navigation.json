@@ -8,15 +8,15 @@
     "goals": [
       {
         "phrase": "Ask the tourist where they are trying to go",
-        "translation": "Спросить туриста, куда он пытается попасть"
+        "translation": "Запитайте туриста, куди він намагається потрапити"
       },
       {
         "phrase": "Give clear directions using landmarks and simple phrases",
-        "translation": "Дать понятные указания, используя ориентиры и простые фразы"
+        "translation": "Дайте чіткі вказівки, використовуючи орієнтири та прості фрази"
       },
       {
         "phrase": "Confirm that they understood the route",
-        "translation": "Убедиться, что они поняли маршрут"
+        "translation": "Переконайтесь, що вони зрозуміли маршрут"
       }
     ],
     "dictionary": [
@@ -37,89 +37,89 @@
       },
       {
         "word": "opposite",
-        "translation": "напротив",
+        "translation": "навпроти",
         "meaning": "directly facing something"
       },
       {
         "word": "adjacent",
-        "translation": "соседний, прилегающий",
+        "translation": "сусідній / прилеглий",
         "meaning": "next to or adjoining something"
       },
       {
         "word": "diagonally",
-        "translation": "по диагонали",
+        "translation": "по діагоналі",
         "meaning": "in a slanted direction across from something"
       },
       {
         "word": "nearby",
-        "translation": "поблизости",
+        "translation": "поруч / поблизу",
         "meaning": "close in distance"
       },
       {
         "word": "ahead",
-        "translation": "впереди",
+        "translation": "попереду",
         "meaning": "in the direction you are facing"
       },
       {
         "word": "on the corner",
-        "translation": "на углу",
+        "translation": "на розі",
         "meaning": "at the place where two streets meet"
       },
       {
         "word": "at the end of the street",
-        "translation": "в конце улицы",
+        "translation": "в кінці вулиці",
         "meaning": "located where the street finishes"
       },
       {
         "word": "around the corner",
-        "translation": "за углом",
+        "translation": "за рогом",
         "meaning": "just beyond the corner of the street"
       },
       {
         "word": "along",
-        "translation": "вдоль",
+        "translation": "вздовж",
         "meaning": "moving in a constant direction on or beside something"
       }
     ],
     "phrases": [
       {
         "phrase": "You’ll need to go past the church and take the second left.",
-        "translation": "Вам нужно пройти мимо церкви и повернуть на второй поворот налево.",
+        "translation": "Вам потрібно пройти повз церкву та повернути на другому повороті ліворуч.",
         "meaning": "Giving directions with landmarks and order"
       },
       {
         "phrase": "It's located just beyond the roundabout, on your right.",
-        "translation": "Это сразу за кольцом, справа от вас.",
+        "translation": "Це одразу за кільцем, праворуч від вас.",
         "meaning": "Using spatial markers like 'beyond'"
       },
       {
         "phrase": "Follow the main road until you reach a large intersection.",
-        "translation": "Следуйте по главной дороге, пока не дойдёте до большого перекрёстка.",
+        "translation": "Ідіть головною дорогою, поки не дійдете до великого перехрестя.",
         "meaning": "Describing a longer stretch of movement"
       },
       {
         "phrase": "Take the pedestrian crossing and walk alongside the park.",
-        "translation": "Перейдите по пешеходному переходу и идите вдоль парка.",
+        "translation": "Перейдіть по пішохідному переходу та йдіть уздовж парку.",
         "meaning": "Describing movement with surroundings"
       },
       {
         "phrase": "Go under the bridge and the entrance will be on your left.",
-        "translation": "Пройдите под мостом, и вход будет слева от вас.",
+        "translation": "Пройдіть під мостом, і вхід буде ліворуч від вас.",
         "meaning": "Using vertical/spatial reference"
       },
       {
         "phrase": "If you reach the river, you’ve gone too far.",
-        "translation": "Если вы дойдёте до реки — вы зашли слишком далеко.",
+        "translation": "Якщо ви дійдете до річки — значить, зайшли надто далеко.",
         "meaning": "Setting boundaries or reference points"
       },
       {
         "phrase": "The building should be adjacent to a small grocery store.",
-        "translation": "Здание должно находиться рядом с небольшим магазином.",
+        "translation": "Будівля має бути поруч із невеликим магазином.",
         "meaning": "Describing position with more precise vocabulary"
       },
       {
         "phrase": "There's a junction ahead; take the road that curves left.",
-        "translation": "Впереди развязка — возьмите дорогу, которая уходит влево.",
+        "translation": "Попереду розв’язка — оберіть дорогу, що повертає ліворуч.",
         "meaning": "Combining directional action and visual guidance"
       }
     ]
@@ -127,7 +127,6 @@
   "model_behavior": {
     "prompt": "You are a lost tourist in a city. You don’t speak the local language well, and you're trying to find a famous place (e.g., train station, museum). Start the conversation by politely asking for help. Ask for clear directions, use simple words, and confirm that you understood. Be a little confused, but friendly.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "City street",
       "situation": "You are a tourist asking a local person (the user) for directions",
       "goal": "Ask for help finding a specific location and respond naturally as the user gives you directions",
@@ -143,6 +142,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "model_end_behavior": "Thanks so much! I think I can find it now. Have a great day!"
+    "model_end_behavior": "Thanks so much! I think I can find it now. Have a great day!",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

@@ -8,107 +8,107 @@
     "goals": [
       {
         "phrase": "Check in for a flight",
-        "translation": "Зарегистрироваться на рейс"
+        "translation": "Зареєструватися на рейс"
       },
       {
         "phrase": "Go through airport security",
-        "translation": "Пройти через досмотр в аэропорту"
+        "translation": "Пройти контроль безпеки в аеропорту"
       },
       {
         "phrase": "Ask for help finding a gate",
-        "translation": "Попросить помочь найти выход на посадку"
+        "translation": "Попросити допомогу у пошуку виходу на посадку"
       },
       {
         "phrase": "Handle unexpected changes",
-        "translation": "Справляться с неожиданными изменениями"
+        "translation": "Справлятися з неочікуваними змінами"
       }
     ],
     "dictionary": [
       {
         "word": "boarding pass",
-        "translation": "посадочный талон",
+        "translation": "посадковий талон",
         "meaning": "a document that allows a passenger to enter the plane"
       },
       {
         "word": "carry-on",
-        "translation": "ручная кладь",
+        "translation": "ручна поклажа",
         "meaning": "small luggage you can take into the plane cabin"
       },
       {
         "word": "gate",
-        "translation": "выход на посадку",
+        "translation": "вихід на посадку",
         "meaning": "the place where passengers board the plane"
       },
       {
         "word": "layover",
-        "translation": "стыковка",
+        "translation": "пересадка",
         "meaning": "a stop between two parts of a flight"
       },
       {
         "word": "departure",
-        "translation": "отправление",
+        "translation": "відправлення",
         "meaning": "the act of leaving, especially by plane"
       },
       {
         "word": "security checkpoint",
-        "translation": "контроль безопасности",
+        "translation": "контроль безпеки",
         "meaning": "place where passengers and luggage are inspected"
       },
       {
         "word": "customs",
-        "translation": "таможня",
+        "translation": "митниця",
         "meaning": "office where travelers declare goods when entering a country"
       },
       {
         "word": "delay",
-        "translation": "задержка",
+        "translation": "затримка",
         "meaning": "when a flight leaves later than scheduled"
       },
       {
         "word": "overbooked",
-        "translation": "перепроданный рейс",
+        "translation": "перепроданий рейс",
         "meaning": "when more tickets are sold than available seats"
       }
     ],
     "phrases": [
       {
         "phrase": "Where is the check-in counter for my flight?",
-        "translation": "Где стойка регистрации на мой рейс?",
+        "translation": "Де стійка реєстрації на мій рейс?",
         "meaning": ""
       },
       {
         "phrase": "Can you help me find my gate?",
-        "translation": "Вы можете помочь мне найти мой выход на посадку?",
+        "translation": "Чи можете допомогти мені знайти мій вихід на посадку?",
         "meaning": ""
       },
       {
         "phrase": "Do I need to take off my shoes for security?",
-        "translation": "Нужно ли снимать обувь при досмотре?",
+        "translation": "Чи потрібно знімати взуття для контролю безпеки?",
         "meaning": ""
       },
       {
         "phrase": "My boarding pass isn't working. What should I do?",
-        "translation": "Мой посадочный талон не работает. Что мне делать?",
+        "translation": "Мій посадковий талон не працює. Що мені робити?",
         "meaning": ""
       },
       {
         "phrase": "How much is the baggage fee?",
-        "translation": "Сколько стоит провоз багажа?",
+        "translation": "Скільки коштує провезення багажу?",
         "meaning": ""
       },
       {
         "phrase": "Is my flight on time?",
-        "translation": "Мой рейс по расписанию?",
+        "translation": "Мій рейс за розкладом?",
         "meaning": ""
       },
       {
         "phrase": "I just heard an announcement about a gate change. What should I do?",
-        "translation": "Я только что услышал объявление о смене выхода. Что мне делать?",
+        "translation": "Я щойно почув оголошення про зміну виходу. Що мені робити?",
         "meaning": ""
       },
       {
         "phrase": "What happens if my flight is delayed?",
-        "translation": "Что делать, если мой рейс задерживают?",
+        "translation": "Що робити, якщо мій рейс затримується?",
         "meaning": ""
       }
     ]
@@ -116,7 +116,6 @@
   "model_behavior": {
     "prompt": "You are a proactive and friendly airport staff member. The user may be confused, rushed, or worried. Take initiative: offer help, suggest next steps, and ask clarifying questions if the user is unsure. Make them feel safe, supported, and confident while traveling.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "Airport",
       "situation": "You are an airport staff member helping a traveler with check-in, security, and boarding.",
       "goal": "Guide the user through the airport journey, helping them stay calm, solve problems quickly, and build real-world travel vocabulary and confidence.",
@@ -137,6 +136,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 12,
-    "model_end_behavior": "Have a safe and pleasant flight!"
+    "model_end_behavior": "Have a safe and pleasant flight!",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

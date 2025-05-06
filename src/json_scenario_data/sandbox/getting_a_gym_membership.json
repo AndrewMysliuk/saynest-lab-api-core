@@ -8,15 +8,15 @@
     "goals": [
       {
         "phrase": "Find out what membership options are available and how much they cost",
-        "translation": "Узнать, какие есть варианты абонементов и сколько они стоят"
+        "translation": "Дізнайтеся, які варіанти членства доступні та скільки вони коштують"
       },
       {
         "phrase": "Understand what's actually included in the membership (like classes or sauna)",
-        "translation": "Понять, что вообще входит в абонемент (например, занятия или сауна)"
+        "translation": "Зрозуміти, що саме входить до членства (наприклад, заняття чи сауна)"
       },
       {
         "phrase": "Ask if it’s possible to pause or cancel the membership later",
-        "translation": "Спросить, можно ли приостановить или отменить абонемент потом"
+        "translation": "Запитайте, чи можна призупинити або скасувати членство пізніше"
       }
     ],
     "dictionary": [
@@ -27,59 +27,59 @@
       },
       {
         "word": "facility",
-        "translation": "удобство / объект",
+        "translation": "зручності / об’єкт",
         "meaning": "services or spaces provided by the gym, like a pool or sauna"
       },
       {
         "word": "locker room",
-        "translation": "раздевалка",
+        "translation": "роздягальня",
         "meaning": "a place to change clothes and store personal items"
       },
       {
         "word": "personal trainer",
-        "translation": "персональный тренер",
+        "translation": "персональний тренер",
         "meaning": "a fitness coach who works with you individually"
       },
       {
         "word": "contract",
-        "translation": "договор",
+        "translation": "контракт",
         "meaning": "a formal agreement for the gym membership"
       },
       {
         "word": "treadmill",
-        "translation": "беговая дорожка",
+        "translation": "бігова доріжка",
         "meaning": "a cardio machine used for walking or running"
       },
       {
         "word": "group classes",
-        "translation": "групповые занятия",
+        "translation": "групові заняття",
         "meaning": "fitness sessions with an instructor and multiple participants"
       }
     ],
     "phrases": [
       {
         "phrase": "I'm interested in joining the gym.",
-        "translation": "Я хотел бы записаться в спортзал.",
+        "translation": "Я хотів би записатися до спортзалу.",
         "meaning": "Opening statement when you want to sign up"
       },
       {
         "phrase": "What kind of memberships do you offer?",
-        "translation": "Какие виды абонементов у вас есть?",
+        "translation": "Які типи абонементів ви пропонуєте?",
         "meaning": "Used to ask about pricing and plans"
       },
       {
         "phrase": "Are there any group classes included?",
-        "translation": "Групповые занятия входят в абонемент?",
+        "translation": "Чи включені групові заняття в абонемент?",
         "meaning": "Used to ask about included services"
       },
       {
         "phrase": "Do I need to sign a contract?",
-        "translation": "Нужно ли подписывать договор?",
+        "translation": "Чи потрібно підписувати контракт?",
         "meaning": "Used to ask about commitment requirements"
       },
       {
         "phrase": "Is there a trial period?",
-        "translation": "Есть ли пробный период?",
+        "translation": "Чи є пробний період?",
         "meaning": "Used to ask if you can test the gym before committing"
       }
     ]
@@ -87,7 +87,6 @@
   "model_behavior": {
     "prompt": "You are a friendly gym receptionist. The user has just entered and wants to get information about gym memberships. Guide them through the options, ask questions to understand their needs, and explain the available services. Avoid sounding like a salesperson, but do be helpful and clear.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "Fitness Center / Gym",
       "situation": "You are a gym receptionist helping a guest explore membership options",
       "goal": "Keep the user engaged and guide them through buying a membership, step by step, using natural conversation",
@@ -104,6 +103,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "model_end_behavior": "This concludes our conversation. Thanks!"
+    "model_end_behavior": "This concludes our conversation. Thanks!",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

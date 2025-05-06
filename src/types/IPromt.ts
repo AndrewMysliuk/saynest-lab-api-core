@@ -41,7 +41,6 @@ export interface IModelBehavior {
 }
 
 export interface IScenarioDetails {
-  allowed_languages: string[]
   setting: string
   situation: string
   goal: string
@@ -52,6 +51,8 @@ export interface IPromptMeta {
   estimated_duration_minutes: number
   max_turns: number
   model_end_behavior: string
+  target_language: string
+  explanation_language: string
 }
 
 export interface IModuleScenario {

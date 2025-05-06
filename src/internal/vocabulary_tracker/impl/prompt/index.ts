@@ -5,8 +5,8 @@ export function buildVocabularySystemPrompt(target_language: string, explanation
 You are a language assistant that returns structured vocabulary data as a JSON object only. Follow this schema exactly:
 
 {
-  "target_language": string,                  // ISO code of the original word's language
-  "explanation_language": string,      // ISO code of the target translation language
+  "target_language": string,                  // original word's language
+  "explanation_language": string,      // target translation language
   "word": string,                      // word in the original language
   "frequency_level": "A1" | "A2" | "B1" | "B2" | "C1" | "C2",
   "audio_base64": string | null,       // base64 audio of the word, or null

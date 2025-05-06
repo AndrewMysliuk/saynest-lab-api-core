@@ -8,26 +8,26 @@
     "goals": [
       {
         "phrase": "Say that you want to check your vision",
-        "translation": "Сказать, что хотите проверить зрение"
+        "translation": "Сказати, що хочете перевірити зір"
       },
       {
         "phrase": "Ask about glasses or contact lens options",
-        "translation": "Спросить про варианты очков или контактных линз"
+        "translation": "Запитати про варіанти окулярів або контактних лінз"
       },
       {
         "phrase": "Understand the process and ask about prices or insurance",
-        "translation": "Понять, как всё работает, и уточнить цены или страховку"
+        "translation": "Зрозуміти, як усе працює, та уточнити ціни або страхування"
       }
     ],
     "dictionary": [
       {
         "word": "eye exam",
-        "translation": "проверка зрения",
+        "translation": "перевірка зору",
         "meaning": "a test to measure vision and eye health"
       },
       {
         "word": "prescription",
-        "translation": "рецепт (на очки/линзы)",
+        "translation": "рецепт (на окуляри/лінзи)",
         "meaning": "details of the user's vision correction needs"
       },
       {
@@ -37,49 +37,49 @@
       },
       {
         "word": "lenses",
-        "translation": "линзы",
+        "translation": "лінзи",
         "meaning": "either part of glasses or contact lenses"
       },
       {
         "word": "contact lenses",
-        "translation": "контактные линзы",
+        "translation": "контактні лінзи",
         "meaning": "small lenses placed directly on the eyes"
       },
       {
         "word": "insurance coverage",
-        "translation": "страховое покрытие",
+        "translation": "страхове покриття",
         "meaning": "whether health insurance pays for the service or product"
       }
     ],
     "phrases": [
       {
         "phrase": "I’d like to get my eyes checked.",
-        "translation": "Я бы хотел проверить зрение.",
+        "translation": "Я хотів би перевірити зір.",
         "meaning": "Used to request a vision test"
       },
       {
         "phrase": "Can I look at your glasses frames?",
-        "translation": "Можно посмотреть оправы?",
+        "translation": "Можна подивитися оправи для окулярів?",
         "meaning": "Used to browse glasses"
       },
       {
         "phrase": "Do I need an appointment for the eye exam?",
-        "translation": "Нужна ли запись для проверки зрения?",
+        "translation": "Чи потрібен запис на перевірку зору?",
         "meaning": "Used to ask about scheduling"
       },
       {
         "phrase": "Do you sell contact lenses too?",
-        "translation": "Вы также продаёте контактные линзы?",
+        "translation": "Ви також продаєте контактні лінзи?",
         "meaning": "Used to ask about other vision options"
       },
       {
         "phrase": "Is this covered by insurance?",
-        "translation": "Это покрывается страховкой?",
+        "translation": "Це покривається страховкою?",
         "meaning": "Used to ask about payment/insurance"
       },
       {
         "phrase": "How long will it take to get the glasses?",
-        "translation": "Сколько времени займёт изготовление очков?",
+        "translation": "Скільки часу займе виготовлення окулярів?",
         "meaning": "Used to ask about delivery"
       }
     ]
@@ -87,7 +87,6 @@
   "model_behavior": {
     "prompt": "You are an optician at a vision care center. The user has come in to either check their vision or buy new glasses or lenses. Ask helpful questions, explain available services, and guide them through the process politely and clearly.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "Optical store or eye clinic",
       "situation": "You are an optician assisting a customer who wants to check their vision and explore glasses or lens options.",
       "goal": "Guide the user through checking their eyesight and helping them choose glasses or lenses",
@@ -104,6 +103,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "model_end_behavior": "Thanks! We'll contact you when everything is ready."
+    "model_end_behavior": "Thanks! We'll contact you when everything is ready.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

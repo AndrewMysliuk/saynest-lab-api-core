@@ -67,7 +67,6 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
     model_behavior: {
       prompt: item.prompt,
       scenario: {
-        allowed_languages: item.model_behavior.scenario.allowed_languages || ["English"],
         setting: item.model_behavior.scenario.setting,
         situation: item.model_behavior.scenario.situation,
         goal: item.model_behavior.scenario.goal,
@@ -78,6 +77,8 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
       estimated_duration_minutes: item.meta?.estimated_duration_minutes || 5,
       max_turns: item.meta?.max_turns || 10,
       model_end_behavior: item.meta?.model_end_behavior || "",
+      target_language: item.meta?.target_language || "English",
+      explanation_language: item.meta?.explanation_language || "Ukrainian",
     },
     finally_prompt: "",
   }

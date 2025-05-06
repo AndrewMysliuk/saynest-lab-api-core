@@ -8,83 +8,83 @@
     "goals": [
       {
         "phrase": "Check into a hotel and confirm the reservation",
-        "translation": "Заселиться в отель и подтвердить бронь"
+        "translation": "Заселитися в готель і підтвердити бронювання"
       },
       {
         "phrase": "Ask about check-out time, breakfast, and Wi-Fi",
-        "translation": "Спросить про время выезда, завтрак и Wi-Fi"
+        "translation": "Запитайте про час виїзду, сніданок та Wi-Fi"
       },
       {
         "phrase": "Politely report a problem or ask to change something",
-        "translation": "Вежливо сообщить о проблеме или попросить что-то поменять"
+        "translation": "Ввічливо повідомити про проблему або попросити щось змінити"
       }
     ],
     "dictionary": [
       {
         "word": "reservation",
-        "translation": "бронь",
+        "translation": "бронювання",
         "meaning": "a booking made in advance for a hotel room"
       },
       {
         "word": "check-in",
-        "translation": "заселение",
+        "translation": "заселення",
         "meaning": "the process of arriving at a hotel and getting your room"
       },
       {
         "word": "check-out",
-        "translation": "выезд",
+        "translation": "виїзд",
         "meaning": "the process of leaving the hotel and paying the bill"
       },
       {
         "word": "key card",
-        "translation": "карта-ключ",
+        "translation": "ключ-карта",
         "meaning": "a plastic card that opens the hotel room"
       },
       {
         "word": "reception",
-        "translation": "ресепшн",
+        "translation": "рецепція",
         "meaning": "the front desk area where guests interact with staff"
       },
       {
         "word": "amenities",
-        "translation": "удобства",
+        "translation": "зручності",
         "meaning": "extra services or items like toiletries, towels, or Wi-Fi"
       },
       {
         "word": "upgrade",
-        "translation": "улучшение номера",
+        "translation": "оновлення",
         "meaning": "a better room offered than the one originally booked"
       }
     ],
     "phrases": [
       {
         "phrase": "I have a reservation under the name [your name].",
-        "translation": "У меня бронь на имя [ваше имя].",
+        "translation": "У мене заброньовано місце на ім'я [ваше ім'я].",
         "meaning": "Used to inform the hotel staff about your booking"
       },
       {
         "phrase": "What time is check-out?",
-        "translation": "Во сколько выезд?",
+        "translation": "О котрій годині виїзд?",
         "meaning": "Used to ask about the time you must leave the room"
       },
       {
         "phrase": "Does the room include breakfast?",
-        "translation": "Завтрак включён в номер?",
+        "translation": "Чи входить у вартість проживання сніданок?",
         "meaning": "Used to ask about meal availability"
       },
       {
         "phrase": "Is there free Wi-Fi in the room?",
-        "translation": "Есть бесплатный Wi-Fi в номере?",
+        "translation": "Чи є в номері безкоштовний Wi-Fi?",
         "meaning": "Used to ask about internet access"
       },
       {
         "phrase": "Excuse me, I think there’s a mistake with my room.",
-        "translation": "Извините, по-моему, с моим номером ошибка.",
+        "translation": "Вибачте, здається, з моєю кімнатою сталася помилка.",
         "meaning": "Used to politely bring up a problem"
       },
       {
         "phrase": "Can I get a different room?",
-        "translation": "Можно другой номер?",
+        "translation": "Чи можу я отримати іншу кімнату?",
         "meaning": "Used to ask for a change in accommodation"
       }
     ]
@@ -92,7 +92,6 @@
   "model_behavior": {
     "prompt": "You are a polite hotel receptionist. A guest has arrived to check into their room. Ask for their name, confirm their reservation, explain basic hotel policies (check-out time, breakfast, Wi-Fi), and handle any questions or small issues they may have. Be helpful, clear, and welcoming.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "Hotel reception",
       "situation": "You are a hotel receptionist helping a guest check into their room",
       "goal": "Keep the user engaged and simulate a full hotel check-in experience including common questions and small issues",
@@ -110,6 +109,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "model_end_behavior": "Enjoy your stay!"
+    "model_end_behavior": "Enjoy your stay!",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

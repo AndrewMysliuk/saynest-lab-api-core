@@ -2,6 +2,7 @@ import { Types } from "mongoose"
 import { v4 as uuidv4 } from "uuid"
 
 import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
+import Languages from "../../../json_data/languages.json"
 import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, StreamEventEnum } from "../../../types"
 import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, logger, trimConversationHistory } from "../../../utils"
 import { ISessionService } from "../../session"
@@ -62,7 +63,13 @@ export class ConversationService implements IConversationService {
         session_id: system.session_id,
       })
 
-      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, payload.target_language, sessionDir)
+      const findAlpha2Code = Languages?.find((item) => item.language.toLowerCase() === payload.target_language.toLowerCase())?.language_iso?.toLowerCase()
+
+      if (!findAlpha2Code) {
+        throw new Error("Can't find alpha2 code by country")
+      }
+
+      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
       const sessionDataPromise = this.getSessionData(system.session_id)
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])

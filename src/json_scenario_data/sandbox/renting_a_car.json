@@ -8,21 +8,21 @@
     "goals": [
       {
         "phrase": "Rent a car and confirm or make a reservation",
-        "translation": "Арендовать машину и подтвердить или сделать бронь"
+        "translation": "Орендувати автомобіль та підтвердити або зробити бронювання"
       },
       {
         "phrase": "Ask about insurance, fuel policy, and additional charges",
-        "translation": "Спросить про страховку, политику топлива и дополнительные сборы"
+        "translation": "Запитати про страховку, паливну політику та додаткові збори"
       },
       {
         "phrase": "Politely report an issue or ask for a different car",
-        "translation": "Вежливо сообщить о проблеме или попросить другую машину"
+        "translation": "Ввічливо повідомити про проблему або попросити іншу машину"
       }
     ],
     "dictionary": [
       {
         "word": "reservation",
-        "translation": "бронь",
+        "translation": "бронювання",
         "meaning": "a booking made in advance for a rental car"
       },
       {
@@ -32,54 +32,54 @@
       },
       {
         "word": "fuel policy",
-        "translation": "политика топлива",
+        "translation": "паливна політика",
         "meaning": "rules about whether you return the car with a full tank"
       },
       {
         "word": "mileage limit",
-        "translation": "ограничение пробега",
+        "translation": "обмеження пробігу",
         "meaning": "maximum distance you can drive without extra charges"
       },
       {
         "word": "upgrade",
-        "translation": "улучшение автомобиля",
+        "translation": "покращення автомобіля",
         "meaning": "receiving a better car than the one booked"
       },
       {
         "word": "deposit",
-        "translation": "депозит",
+        "translation": "застава",
         "meaning": "money held as security during the rental period"
       }
     ],
     "phrases": [
       {
         "phrase": "I have a car reservation under the name [your name].",
-        "translation": "У меня бронь автомобиля на имя [ваше имя].",
+        "translation": "У мене бронювання автомобіля на ім’я [ваше ім’я].",
         "meaning": "Used to inform the rental agent about your booking"
       },
       {
         "phrase": "What does the insurance cover?",
-        "translation": "Что покрывает страховка?",
+        "translation": "Що покриває страховка?",
         "meaning": "Used to ask about insurance details"
       },
       {
         "phrase": "Is there a mileage limit?",
-        "translation": "Есть ограничение по пробегу?",
+        "translation": "Чи є обмеження пробігу?",
         "meaning": "Used to ask about driving distance restrictions"
       },
       {
         "phrase": "What is your fuel policy?",
-        "translation": "Какая у вас политика по топливу?",
+        "translation": "Яка у вас паливна політика?",
         "meaning": "Used to ask if you need to return the car with a full tank"
       },
       {
         "phrase": "Excuse me, I think there is a problem with the car.",
-        "translation": "Извините, по-моему, с машиной проблема.",
+        "translation": "Вибачте, здається, з автомобілем є проблема.",
         "meaning": "Used to politely report a car issue"
       },
       {
         "phrase": "Can I get a different car?",
-        "translation": "Можно другую машину?",
+        "translation": "Чи можу я отримати інший автомобіль?",
         "meaning": "Used to ask for a change of vehicle"
       }
     ]
@@ -87,7 +87,6 @@
   "model_behavior": {
     "prompt": "You are a helpful car rental agent. A customer has arrived to rent a car. Ask if they have a reservation, confirm the booking or offer options, explain rental policies (insurance, fuel, mileage), and handle any questions or small problems. Be polite, clear, and efficient.",
     "scenario": {
-      "allowed_languages": ["English"],
       "setting": "Car rental desk at an airport or city office",
       "situation": "You are a rental agent helping a traveler rent or pick up a car",
       "goal": "Engage the user in a full rental transaction including optional insurance, fuel policy explanations, and small issues like wrong car type",
@@ -105,6 +104,8 @@
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
-    "model_end_behavior": "Have a safe drive!"
+    "model_end_behavior": "Have a safe drive!",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
   }
 }

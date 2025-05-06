@@ -2,6 +2,7 @@ import { Types } from "mongoose"
 
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
+import Languages from "../../../json_data/languages.json"
 import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest } from "../../../types"
 import { logger, validateToolResponse } from "../../../utils"
 import { ILanguageTheory } from "../../language_theory"
@@ -43,7 +44,13 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       const lastUserMessage = userMessages[userMessages.length - 1]
       const lastAssistantMessage = assistantMessages[assistantMessages.length - 1]
 
-      const topics = await this.languageTheoryService.filteredShortListByLanguage(dto.target_language, {
+      const findAlpha2Code = Languages?.find((item) => item.language.toLowerCase() === dto.target_language.toLowerCase())?.language_iso?.toLowerCase()
+
+      if (!findAlpha2Code) {
+        throw new Error("Can't find alpha2 code by country")
+      }
+
+      const topics = await this.languageTheoryService.filteredShortListByLanguage(findAlpha2Code, {
         topic_ids: [],
         topic_titles: [],
         level_cefr: [],

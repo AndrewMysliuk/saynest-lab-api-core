@@ -17,8 +17,8 @@ const conversationHistorySchema = new Schema<IConversationHistoryDocument>(
     pair_id: { type: String, required: true },
     role: { type: String, enum: ["system", "user", "assistant"], required: true },
     content: { type: String, required: true },
-    audio_path: { type: String },
-    audio_url: { type: String },
+    audio_url: { type: String, default: "" },
+    audio_path: { type: String, default: "" },
   },
   {
     timestamps: {
