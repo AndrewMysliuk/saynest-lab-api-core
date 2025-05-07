@@ -4,5 +4,7 @@
   "description": "Practice practical, real-life conversations to boost confidence and fluency in common situations.",
   "level": ["B1", "B2"],
   "tags": ["survival_english", "daily life", "practical skills", "casual"],
-  "scenarios": ["lost_tourist_navigation", "renting_a_car", "checking_into_a_hotel", "getting_a_gym_membership", "traveling_at_the_airport", "visiting_an_optician", "startup_pitch_presentation"]
+  "type": "FLAT",
+  "scenarios": ["lost_tourist_navigation", "renting_a_car", "checking_into_a_hotel", "getting_a_gym_membership", "traveling_at_the_airport", "visiting_an_optician", "startup_pitch_presentation"],
+  "submodules": []
 }

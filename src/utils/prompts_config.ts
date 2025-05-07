@@ -1,4 +1,6 @@
-import { IDictionaryEntry, IModuleScenario, IPhraseEntry, IPromptGoal, IPromptScenario, VocabularyFrequencyLevelEnum } from "../types"
+import { isArgumentsObject } from "util/types"
+
+import { IDictionaryEntry, IModuleScenario, IPhraseEntry, IPromptGoal, IPromptScenario, ModuleTypeEnum, VocabularyFrequencyLevelEnum } from "../types"
 
 export function generateFinallyPrompt(raw: any): string {
   const scenario: IPromptScenario = transformSingleScenarioJson(raw)
@@ -28,7 +30,17 @@ export function transformSingleModuleJson(item: any): IModuleScenario {
       ? (item.level.filter((lvl: string) => Object.values(VocabularyFrequencyLevelEnum).includes(lvl as VocabularyFrequencyLevelEnum)) as VocabularyFrequencyLevelEnum[])
       : [],
     tags: Array.isArray(item.tags) ? item.tags.map(String) : [],
+    type: Object.values(ModuleTypeEnum).includes(item.type) ? item.type : ModuleTypeEnum.FLAT,
     scenarios: Array.isArray(item.scenarios) ? item.scenarios.map(String) : [],
+    submodules: Array.isArray(item.submodules)
+      ? item.submodules.map((sm: any) => ({
+          id: String(sm.id),
+          title: String(sm.title),
+          description: String(sm.description),
+          tips: Array.isArray(sm.tips) ? sm.tips.map(String) : [],
+          scenarios: Array.isArray(sm.scenarios) ? sm.scenarios.map(String) : [],
+        }))
+      : [],
   }
 }
 

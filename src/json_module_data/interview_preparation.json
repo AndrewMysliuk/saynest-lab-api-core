@@ -1,0 +1,43 @@
+{
+  "id": "interview_preparation",
+  "title": "Interview Preparation",
+  "description": "Master the full interview process from first HR screening to the final CTO meeting. Simulate real conversations and get personalized feedback.",
+  "level": ["B1", "B2", "C1"],
+  "tags": ["interview", "IT jobs", "career", "communication", "soft skills"],
+  "type": "STRUCTURED",
+  "scenarios": [],
+  "submodules": [
+    {
+      "id": "interview_hr",
+      "title": "HR Interview",
+      "description": "Practice general questions, motivations, and soft skills with an HR interviewer.",
+      "tips": ["Structure your answers clearly — beginning, middle, end.", "Use real examples from your experience, even simple ones.", "Try the STAR method: Situation, Task, Action, Result."],
+      "scenarios": ["introduction_basics", "motivation_expectations", "strengths_challenges", "collaboration_and_conflict", "culture_and_fit"]
+    },
+    {
+      "id": "interview_tech",
+      "title": "Technical Interview",
+      "description": "Prepare to explain technical decisions, architecture, and code logic clearly.",
+      "tips": ["Focus on clarity, not just correctness.", "Avoid buzzwords unless you can explain them simply.", "Imagine you're explaining to a junior developer or product manager."],
+      "scenarios": [
+        "system_design_and_architecture",
+        "data_flow_and_validation",
+        "state_management_and_ui_logic",
+        "code_quality_and_tooling",
+        "core_technical_concepts",
+        "debugging_testing_and_deployment"
+      ]
+    },
+    {
+      "id": "interview_final",
+      "title": "Final Interview",
+      "description": "Get ready to speak with leadership about your goals, values, and long-term fit.",
+      "tips": [
+        "Be honest but optimistic — this is about who you are, not a test.",
+        "Connect your goals to what the company is doing.",
+        "Ask questions too — it shows you're not just passively hoping to get hired."
+      ],
+      "scenarios": ["learning_and_growth", "long_term_goals", "team_culture_fit", "ask_us_something"]
+    }
+  ]
+}

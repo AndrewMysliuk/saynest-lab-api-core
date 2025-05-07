@@ -55,11 +55,26 @@ export interface IPromptMeta {
   explanation_language: string
 }
 
+export enum ModuleTypeEnum {
+  STRUCTURED = "STRUCTURED",
+  FLAT = "FLAT",
+}
+
+export interface IModuleSubmodules {
+  id: string
+  title: string
+  description: string
+  tips: string[]
+  scenarios: string[]
+}
+
 export interface IModuleScenario {
   id: string
   title: string
   description: string
   level: VocabularyFrequencyLevelEnum[]
   tags: string[]
+  type: ModuleTypeEnum
   scenarios: string[]
+  submodules: IModuleSubmodules[]
 }
