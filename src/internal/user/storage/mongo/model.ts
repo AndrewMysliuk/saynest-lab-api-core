@@ -24,6 +24,7 @@ const UserSchema = new Schema<IUserDocument>(
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     country: { type: String, required: true },
+    explanation_language: { type: String, default: null },
     role: { type: String, enum: Object.values(UserRoleEnum), default: UserRoleEnum.USER, required: true },
     status: { type: String, enum: Object.values(UserStatusEnum), default: UserStatusEnum.ACTIVE, required: true },
     settings: { type: UserSettingsSchema, required: false },

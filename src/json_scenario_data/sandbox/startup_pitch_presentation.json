@@ -8,68 +8,94 @@
     "goals": [
       {
         "phrase": "Introduce yourself and your role in the startup",
-        "translation": "Представитися та пояснити свою роль у стартапі"
+        "translation": {
+          "uk": "Представитися та пояснити свою роль у стартапі"
+        }
       },
       {
         "phrase": "Explain what your startup does and the problem it solves",
-        "translation": "Пояснити, чим займається ваш стартап і яку проблему він вирішує"
+        "translation": {
+          "uk": "Пояснити, чим займається ваш стартап і яку проблему він вирішує"
+        }
       },
       {
         "phrase": "Describe what makes your startup different or special",
-        "translation": "Описати, чим ваш стартап відрізняється або є особливим"
+        "translation": {
+          "uk": "Описати, чим ваш стартап відрізняється або є особливим"
+        }
       }
     ],
     "dictionary": [
       {
         "word": "pitch",
-        "translation": "презентація проєкту",
+        "translation": {
+          "uk": "презентація проєкту"
+        },
         "meaning": "a short speech to explain your idea to investors or partners"
       },
       {
         "word": "traction",
-        "translation": "показники зростання",
+        "translation": {
+          "uk": "показники зростання"
+        },
         "meaning": "evidence that your startup is growing or gaining users/customers"
       },
       {
         "word": "value proposition",
-        "translation": "ціннісна пропозиція",
+        "translation": {
+          "uk": "ціннісна пропозиція"
+        },
         "meaning": "a clear statement of the benefits your product offers"
       },
       {
         "word": "market fit",
-        "translation": "відповідність ринку",
+        "translation": {
+          "uk": "відповідність ринку"
+        },
         "meaning": "how well a product satisfies the demand of a market"
       },
       {
         "word": "differentiation",
-        "translation": "відмінність",
+        "translation": {
+          "uk": "відмінність"
+        },
         "meaning": "what makes your startup different from competitors"
       }
     ],
     "phrases": [
       {
         "phrase": "Hi, I'm [your name], the founder of [your startup].",
-        "translation": "Привіт, я [ваше ім’я], засновник [ваш стартап].",
+        "translation": {
+          "uk": "Привіт, я [ваше ім’я], засновник [ваш стартап]."
+        },
         "meaning": "Used to introduce yourself quickly at networking events"
       },
       {
         "phrase": "Our startup helps [target audience] by [solution].",
-        "translation": "Наш стартап допомагає [цільовій аудиторії], надаючи [рішення].",
+        "translation": {
+          "uk": "Наш стартап допомагає [цільовій аудиторії], надаючи [рішення]."
+        },
         "meaning": "Clear way to describe your business"
       },
       {
         "phrase": "The problem we're solving is [problem statement].",
-        "translation": "Проблема, яку ми вирішуємо, — це [опис проблеми].",
+        "translation": {
+          "uk": "Проблема, яку ми вирішуємо, — це [опис проблеми]."
+        },
         "meaning": "Explaining the pain point your startup addresses"
       },
       {
         "phrase": "We stand out because [differentiator].",
-        "translation": "Ми вирізняємось тим, що [відмінна риса].",
+        "translation": {
+          "uk": "Ми вирізняємось тим, що [відмінна риса]."
+        },
         "meaning": "Describing what makes your startup special"
       },
       {
         "phrase": "Currently, we have [traction example] and plan to [future goal].",
-        "translation": "Зараз у нас є [приклад зростання], і ми плануємо [майбутня мета].",
+        "translation": {
+          "uk": "Зараз у нас є [приклад зростання], і ми плануємо [майбутня мета]."
+        },
         "meaning": "Talking about progress and future plans"
       }
     ]
@@ -87,12 +113,14 @@
         "Ask what makes their solution different or better",
         "Simulate an investor asking about traction or future plans",
         "Encourage the user to summarize their value proposition"
-      ]
+      ],
+      "optional_steps": []
     }
   },
   "meta": {
     "estimated_duration_minutes": 7,
     "max_turns": 12,
+    "question_count_range": null,
     "model_end_behavior": "Wish the user good luck with their startup!",
     "target_language": "English",
     "explanation_language": "Ukrainian"

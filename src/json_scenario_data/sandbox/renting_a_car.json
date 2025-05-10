@@ -8,78 +8,108 @@
     "goals": [
       {
         "phrase": "Rent a car and confirm or make a reservation",
-        "translation": "Орендувати автомобіль та підтвердити або зробити бронювання"
+        "translation": {
+          "uk": "Орендувати автомобіль та підтвердити або зробити бронювання"
+        }
       },
       {
         "phrase": "Ask about insurance, fuel policy, and additional charges",
-        "translation": "Запитати про страховку, паливну політику та додаткові збори"
+        "translation": {
+          "uk": "Запитати про страховку, паливну політику та додаткові збори"
+        }
       },
       {
         "phrase": "Politely report an issue or ask for a different car",
-        "translation": "Ввічливо повідомити про проблему або попросити іншу машину"
+        "translation": {
+          "uk": "Ввічливо повідомити про проблему або попросити іншу машину"
+        }
       }
     ],
     "dictionary": [
       {
         "word": "reservation",
-        "translation": "бронювання",
+        "translation": {
+          "uk": "бронювання"
+        },
         "meaning": "a booking made in advance for a rental car"
       },
       {
         "word": "insurance",
-        "translation": "страховка",
+        "translation": {
+          "uk": "страховка"
+        },
         "meaning": "a service that protects you from paying full price for damages or accidents"
       },
       {
         "word": "fuel policy",
-        "translation": "паливна політика",
+        "translation": {
+          "uk": "паливна політика"
+        },
         "meaning": "rules about whether you return the car with a full tank"
       },
       {
         "word": "mileage limit",
-        "translation": "обмеження пробігу",
+        "translation": {
+          "uk": "обмеження пробігу"
+        },
         "meaning": "maximum distance you can drive without extra charges"
       },
       {
         "word": "upgrade",
-        "translation": "покращення автомобіля",
+        "translation": {
+          "uk": "покращення автомобіля"
+        },
         "meaning": "receiving a better car than the one booked"
       },
       {
         "word": "deposit",
-        "translation": "застава",
+        "translation": {
+          "uk": "застава"
+        },
         "meaning": "money held as security during the rental period"
       }
     ],
     "phrases": [
       {
         "phrase": "I have a car reservation under the name [your name].",
-        "translation": "У мене бронювання автомобіля на ім’я [ваше ім’я].",
+        "translation": {
+          "uk": "У мене бронювання автомобіля на ім’я [ваше ім’я]."
+        },
         "meaning": "Used to inform the rental agent about your booking"
       },
       {
         "phrase": "What does the insurance cover?",
-        "translation": "Що покриває страховка?",
+        "translation": {
+          "uk": "Що покриває страховка?"
+        },
         "meaning": "Used to ask about insurance details"
       },
       {
         "phrase": "Is there a mileage limit?",
-        "translation": "Чи є обмеження пробігу?",
+        "translation": {
+          "uk": "Чи є обмеження пробігу?"
+        },
         "meaning": "Used to ask about driving distance restrictions"
       },
       {
         "phrase": "What is your fuel policy?",
-        "translation": "Яка у вас паливна політика?",
+        "translation": {
+          "uk": "Яка у вас паливна політика?"
+        },
         "meaning": "Used to ask if you need to return the car with a full tank"
       },
       {
         "phrase": "Excuse me, I think there is a problem with the car.",
-        "translation": "Вибачте, здається, з автомобілем є проблема.",
+        "translation": {
+          "uk": "Вибачте, здається, з автомобілем є проблема."
+        },
         "meaning": "Used to politely report a car issue"
       },
       {
         "phrase": "Can I get a different car?",
-        "translation": "Чи можу я отримати інший автомобіль?",
+        "translation": {
+          "uk": "Чи можу я отримати інший автомобіль?"
+        },
         "meaning": "Used to ask for a change of vehicle"
       }
     ]
@@ -98,12 +128,14 @@
         "Ask if the user wants to add any extras (GPS, child seat, additional driver)",
         "Handle any issues the user mentions (wrong car size, mechanical issue)",
         "Finish by handing over keys and wishing them a safe trip"
-      ]
+      ],
+      "optional_steps": []
     }
   },
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
+    "question_count_range": null,
     "model_end_behavior": "Have a safe drive!",
     "target_language": "English",
     "explanation_language": "Ukrainian"

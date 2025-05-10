@@ -1,0 +1,133 @@
+{
+  "id": "hr_culture_and_fit",
+  "module": "interview_hr",
+  "title": "Culture & Fit",
+  "description": "Talk about your values, work habits, and how you fit into different work environments.",
+  "level": "B1",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Describe what kind of company culture helps you thrive",
+        "translation": {
+          "uk": "Описати, в якій корпоративній культурі ви найкраще працюєте"
+        }
+      },
+      {
+        "phrase": "Talk about values that are important to you in a team",
+        "translation": {
+          "uk": "Розповісти про цінності, які важливі для вас у команді"
+        }
+      },
+      {
+        "phrase": "Explain what helps you stay motivated long-term",
+        "translation": {
+          "uk": "Пояснити, що допомагає вам залишатися вмотивованим у довгостроковій перспективі"
+        }
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "company culture",
+        "translation": {
+          "uk": "корпоративна культура"
+        },
+        "meaning": "The values, behaviors, and atmosphere of a company"
+      },
+      {
+        "word": "motivation",
+        "translation": {
+          "uk": "мотивація"
+        },
+        "meaning": "What drives you to perform well and stay engaged"
+      },
+      {
+        "word": "values",
+        "translation": {
+          "uk": "цінності"
+        },
+        "meaning": "Principles or beliefs that guide your behavior at work"
+      },
+      {
+        "word": "adaptability",
+        "translation": {
+          "uk": "адаптивність"
+        },
+        "meaning": "Your ability to adjust to new situations or changes"
+      },
+      {
+        "word": "ownership",
+        "translation": {
+          "uk": "відповідальність за результат"
+        },
+        "meaning": "Taking responsibility and acting with initiative"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "I value a culture that encourages [openness/flexibility/feedback/etc.].",
+        "translation": {
+          "uk": "Я ціную культуру, яка заохочує [відкритість/гнучкість/зворотний зв'язок/тощо]."
+        },
+        "meaning": "Used to describe what kind of culture fits you best"
+      },
+      {
+        "phrase": "I’m motivated when I feel like my work has impact.",
+        "translation": {
+          "uk": "Мене мотивує, коли я бачу, що моя робота має вплив."
+        },
+        "meaning": "Used to explain what keeps you engaged long-term"
+      },
+      {
+        "phrase": "I like working in teams that are [collaborative/self-organized/supportive].",
+        "translation": {
+          "uk": "Мені подобається працювати в командах, які [співпрацюють/самоорганізовані/підтримують]."
+        },
+        "meaning": "Used to describe preferred team dynamics"
+      },
+      {
+        "phrase": "I prefer environments where learning and feedback are part of the culture.",
+        "translation": {
+          "uk": "Я віддаю перевагу середовищам, де навчання і зворотний зв'язок є частиною культури."
+        },
+        "meaning": "Used to show openness to growth"
+      },
+      {
+        "phrase": "For me, trust and autonomy are really important.",
+        "translation": {
+          "uk": "Для мене дуже важливі довіра і автономність."
+        },
+        "meaning": "Used to express values that support your best performance"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are an HR interviewer trying to understand if the candidate will be a good cultural fit. Ask about their work values, preferred environments, and motivation.",
+    "scenario": {
+      "setting": "HR screening call",
+      "situation": "You are assessing long-term fit and values",
+      "goal": "Help the user express their values and what kind of culture supports them best",
+      "steps": ["What kind of company culture do you work best in?", "What values are important to you in a team?"],
+      "optional_steps": [
+        "How do you stay motivated over time?",
+        "What kind of leadership style works best for you?",
+        "How do you deal with change in the workplace?",
+        "How do you support a positive work environment?",
+        "What helps you feel included and valued at work?",
+        "How do you approach learning and growth in your career?",
+        "How do you balance autonomy and collaboration?",
+        "What does a good day at work look like for you?"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 6,
+    "max_turns": 10,
+    "question_count_range": {
+      "min": 4,
+      "max": 6
+    },
+    "model_end_behavior": "Thank the user and say you'll share their thoughts with the team.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
+  }
+}

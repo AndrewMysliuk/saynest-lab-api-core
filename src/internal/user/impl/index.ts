@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 
 import { IUserService } from ".."
-import { IMongooseOptions, IUserCreateRequest, IUserEntity } from "../../../types"
+import { IMongooseOptions, IUserCreateRequest, IUserEntity, IUserUpdateRequest } from "../../../types"
 import { hashPassword, logger } from "../../../utils"
 import { IRepository } from "../storage"
 
@@ -48,6 +48,15 @@ export class UserService implements IUserService {
       return this.userRepo.getById(id, options)
     } catch (error: unknown) {
       logger.error(`getById | error: ${error}`)
+      throw error
+    }
+  }
+
+  async update(id: string, dto: IUserUpdateRequest, options?: IMongooseOptions): Promise<IUserEntity | null> {
+    try {
+      return this.userRepo.update(id, dto, options)
+    } catch (error: unknown) {
+      logger.error(`update | error: ${error}`)
       throw error
     }
   }

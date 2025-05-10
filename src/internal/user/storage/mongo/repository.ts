@@ -11,7 +11,11 @@ export class UserRepository implements IRepository {
       const user = new UserModel(data)
       await user.save({ session: options?.session || null })
       return user.toObject()
-    } catch (error: unknown) {
+    } catch (error: any) {
+      if (error?.code === 11000 && error?.keyPattern?.email) {
+        throw new Error("Email already exists")
+      }
+
       logger.error(`create | error: ${error}`)
       throw error
     }

@@ -8,118 +8,164 @@
     "goals": [
       {
         "phrase": "Ask the tourist where they are trying to go",
-        "translation": "Запитайте туриста, куди він намагається потрапити"
+        "translation": {
+          "uk": "Запитайте туриста, куди він намагається потрапити"
+        }
       },
       {
         "phrase": "Give clear directions using landmarks and simple phrases",
-        "translation": "Дайте чіткі вказівки, використовуючи орієнтири та прості фрази"
+        "translation": {
+          "uk": "Дайте чіткі вказівки, використовуючи орієнтири та прості фрази"
+        }
       },
       {
         "phrase": "Confirm that they understood the route",
-        "translation": "Переконайтесь, що вони зрозуміли маршрут"
+        "translation": {
+          "uk": "Переконайтесь, що вони зрозуміли маршрут"
+        }
       }
     ],
     "dictionary": [
       {
         "word": "straight ahead",
-        "translation": "прямо",
+        "translation": {
+          "uk": "прямо"
+        },
         "meaning": "in a forward direction without turning"
       },
       {
         "word": "backwards",
-        "translation": "назад",
+        "translation": {
+          "uk": "назад"
+        },
         "meaning": "in the direction behind you"
       },
       {
         "word": "across",
-        "translation": "через",
+        "translation": {
+          "uk": "через"
+        },
         "meaning": "from one side of something to the other"
       },
       {
         "word": "opposite",
-        "translation": "навпроти",
+        "translation": {
+          "uk": "навпроти"
+        },
         "meaning": "directly facing something"
       },
       {
         "word": "adjacent",
-        "translation": "сусідній / прилеглий",
+        "translation": {
+          "uk": "сусідній / прилеглий"
+        },
         "meaning": "next to or adjoining something"
       },
       {
         "word": "diagonally",
-        "translation": "по діагоналі",
+        "translation": {
+          "uk": "по діагоналі"
+        },
         "meaning": "in a slanted direction across from something"
       },
       {
         "word": "nearby",
-        "translation": "поруч / поблизу",
+        "translation": {
+          "uk": "поруч / поблизу"
+        },
         "meaning": "close in distance"
       },
       {
         "word": "ahead",
-        "translation": "попереду",
+        "translation": {
+          "uk": "попереду"
+        },
         "meaning": "in the direction you are facing"
       },
       {
         "word": "on the corner",
-        "translation": "на розі",
+        "translation": {
+          "uk": "на розі"
+        },
         "meaning": "at the place where two streets meet"
       },
       {
         "word": "at the end of the street",
-        "translation": "в кінці вулиці",
+        "translation": {
+          "uk": "в кінці вулиці"
+        },
         "meaning": "located where the street finishes"
       },
       {
         "word": "around the corner",
-        "translation": "за рогом",
+        "translation": {
+          "uk": "за рогом"
+        },
         "meaning": "just beyond the corner of the street"
       },
       {
         "word": "along",
-        "translation": "вздовж",
+        "translation": {
+          "uk": "вздовж"
+        },
         "meaning": "moving in a constant direction on or beside something"
       }
     ],
     "phrases": [
       {
         "phrase": "You’ll need to go past the church and take the second left.",
-        "translation": "Вам потрібно пройти повз церкву та повернути на другому повороті ліворуч.",
+        "translation": {
+          "uk": "Вам потрібно пройти повз церкву та повернути на другому повороті ліворуч."
+        },
         "meaning": "Giving directions with landmarks and order"
       },
       {
         "phrase": "It's located just beyond the roundabout, on your right.",
-        "translation": "Це одразу за кільцем, праворуч від вас.",
+        "translation": {
+          "uk": "Це одразу за кільцем, праворуч від вас."
+        },
         "meaning": "Using spatial markers like 'beyond'"
       },
       {
         "phrase": "Follow the main road until you reach a large intersection.",
-        "translation": "Ідіть головною дорогою, поки не дійдете до великого перехрестя.",
+        "translation": {
+          "uk": "Ідіть головною дорогою, поки не дійдете до великого перехрестя."
+        },
         "meaning": "Describing a longer stretch of movement"
       },
       {
         "phrase": "Take the pedestrian crossing and walk alongside the park.",
-        "translation": "Перейдіть по пішохідному переходу та йдіть уздовж парку.",
+        "translation": {
+          "uk": "Перейдіть по пішохідному переходу та йдіть уздовж парку."
+        },
         "meaning": "Describing movement with surroundings"
       },
       {
         "phrase": "Go under the bridge and the entrance will be on your left.",
-        "translation": "Пройдіть під мостом, і вхід буде ліворуч від вас.",
+        "translation": {
+          "uk": "Пройдіть під мостом, і вхід буде ліворуч від вас."
+        },
         "meaning": "Using vertical/spatial reference"
       },
       {
         "phrase": "If you reach the river, you’ve gone too far.",
-        "translation": "Якщо ви дійдете до річки — значить, зайшли надто далеко.",
+        "translation": {
+          "uk": "Якщо ви дійдете до річки — значить, зайшли надто далеко."
+        },
         "meaning": "Setting boundaries or reference points"
       },
       {
         "phrase": "The building should be adjacent to a small grocery store.",
-        "translation": "Будівля має бути поруч із невеликим магазином.",
+        "translation": {
+          "uk": "Будівля має бути поруч із невеликим магазином."
+        },
         "meaning": "Describing position with more precise vocabulary"
       },
       {
         "phrase": "There's a junction ahead; take the road that curves left.",
-        "translation": "Попереду розв’язка — оберіть дорогу, що повертає ліворуч.",
+        "translation": {
+          "uk": "Попереду розв’язка — оберіть дорогу, що повертає ліворуч."
+        },
         "meaning": "Combining directional action and visual guidance"
       }
     ]
@@ -136,12 +182,14 @@
         "Listen to the user's directions and ask questions if something is unclear",
         "Confirm that you understood the instructions",
         "Thank the user and say goodbye"
-      ]
+      ],
+      "optional_steps": []
     }
   },
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
+    "question_count_range": null,
     "model_end_behavior": "Thanks so much! I think I can find it now. Have a great day!",
     "target_language": "English",
     "explanation_language": "Ukrainian"

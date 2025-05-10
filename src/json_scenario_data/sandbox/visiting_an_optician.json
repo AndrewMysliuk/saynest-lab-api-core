@@ -8,78 +8,108 @@
     "goals": [
       {
         "phrase": "Say that you want to check your vision",
-        "translation": "Сказати, що хочете перевірити зір"
+        "translation": {
+          "uk": "Сказати, що хочете перевірити зір"
+        }
       },
       {
         "phrase": "Ask about glasses or contact lens options",
-        "translation": "Запитати про варіанти окулярів або контактних лінз"
+        "translation": {
+          "uk": "Запитати про варіанти окулярів або контактних лінз"
+        }
       },
       {
         "phrase": "Understand the process and ask about prices or insurance",
-        "translation": "Зрозуміти, як усе працює, та уточнити ціни або страхування"
+        "translation": {
+          "uk": "Зрозуміти, як усе працює, та уточнити ціни або страхування"
+        }
       }
     ],
     "dictionary": [
       {
         "word": "eye exam",
-        "translation": "перевірка зору",
+        "translation": {
+          "uk": "перевірка зору"
+        },
         "meaning": "a test to measure vision and eye health"
       },
       {
         "word": "prescription",
-        "translation": "рецепт (на окуляри/лінзи)",
+        "translation": {
+          "uk": "рецепт (на окуляри/лінзи)"
+        },
         "meaning": "details of the user's vision correction needs"
       },
       {
         "word": "frames",
-        "translation": "оправа",
+        "translation": {
+          "uk": "оправа"
+        },
         "meaning": "the part of the glasses that holds the lenses"
       },
       {
         "word": "lenses",
-        "translation": "лінзи",
+        "translation": {
+          "uk": "лінзи"
+        },
         "meaning": "either part of glasses or contact lenses"
       },
       {
         "word": "contact lenses",
-        "translation": "контактні лінзи",
+        "translation": {
+          "uk": "контактні лінзи"
+        },
         "meaning": "small lenses placed directly on the eyes"
       },
       {
         "word": "insurance coverage",
-        "translation": "страхове покриття",
+        "translation": {
+          "uk": "страхове покриття"
+        },
         "meaning": "whether health insurance pays for the service or product"
       }
     ],
     "phrases": [
       {
         "phrase": "I’d like to get my eyes checked.",
-        "translation": "Я хотів би перевірити зір.",
+        "translation": {
+          "uk": "Я хотів би перевірити зір."
+        },
         "meaning": "Used to request a vision test"
       },
       {
         "phrase": "Can I look at your glasses frames?",
-        "translation": "Можна подивитися оправи для окулярів?",
+        "translation": {
+          "uk": "Можна подивитися оправи для окулярів?"
+        },
         "meaning": "Used to browse glasses"
       },
       {
         "phrase": "Do I need an appointment for the eye exam?",
-        "translation": "Чи потрібен запис на перевірку зору?",
+        "translation": {
+          "uk": "Чи потрібен запис на перевірку зору?"
+        },
         "meaning": "Used to ask about scheduling"
       },
       {
         "phrase": "Do you sell contact lenses too?",
-        "translation": "Ви також продаєте контактні лінзи?",
+        "translation": {
+          "uk": "Ви також продаєте контактні лінзи?"
+        },
         "meaning": "Used to ask about other vision options"
       },
       {
         "phrase": "Is this covered by insurance?",
-        "translation": "Це покривається страховкою?",
+        "translation": {
+          "uk": "Це покривається страховкою?"
+        },
         "meaning": "Used to ask about payment/insurance"
       },
       {
         "phrase": "How long will it take to get the glasses?",
-        "translation": "Скільки часу займе виготовлення окулярів?",
+        "translation": {
+          "uk": "Скільки часу займе виготовлення окулярів?"
+        },
         "meaning": "Used to ask about delivery"
       }
     ]
@@ -97,12 +127,14 @@
         "Discuss preferences (glasses vs lenses), insurance, pricing",
         "Help them choose a product or book an appointment",
         "Wrap up the visit and explain when items will be ready"
-      ]
+      ],
+      "optional_steps": []
     }
   },
   "meta": {
     "estimated_duration_minutes": 5,
     "max_turns": 10,
+    "question_count_range": null,
     "model_end_behavior": "Thanks! We'll contact you when everything is ready.",
     "target_language": "English",
     "explanation_language": "Ukrainian"

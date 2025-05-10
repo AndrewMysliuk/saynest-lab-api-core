@@ -1,0 +1,134 @@
+{
+  "id": "final_team_culture_fit",
+  "module": "interview_final",
+  "title": "Team & Culture Fit",
+  "description": "Talk about the kind of team you work best in, your communication style, and how you contribute to a healthy culture.",
+  "level": "B2",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Describe what kind of people and teams you work well with",
+        "translation": {
+          "uk": "Описати, з якими людьми та командами вам комфортно працювати"
+        }
+      },
+      {
+        "phrase": "Talk about how you contribute to team dynamics",
+        "translation": {
+          "uk": "Розповісти, як ви впливаєте на динаміку команди"
+        }
+      },
+      {
+        "phrase": "Explain your communication and collaboration style",
+        "translation": {
+          "uk": "Пояснити ваш стиль спілкування та співпраці"
+        }
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "team dynamics",
+        "translation": {
+          "uk": "динаміка команди"
+        },
+        "meaning": "How people interact and work together within a team"
+      },
+      {
+        "word": "collaboration",
+        "translation": {
+          "uk": "співпраця"
+        },
+        "meaning": "Working together with others to achieve common goals"
+      },
+      {
+        "word": "inclusion",
+        "translation": {
+          "uk": "інклюзивність"
+        },
+        "meaning": "Making sure all team members feel valued and involved"
+      },
+      {
+        "word": "communication style",
+        "translation": {
+          "uk": "стиль спілкування"
+        },
+        "meaning": "The way you share ideas and interact with others"
+      },
+      {
+        "word": "psychological safety",
+        "translation": {
+          "uk": "психологічна безпека"
+        },
+        "meaning": "The belief that team members can speak up without fear of judgment"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "I work best in teams where people are open and collaborative.",
+        "translation": {
+          "uk": "Я найкраще працюю в командах, де люди відкриті та співпрацюють."
+        },
+        "meaning": "Used to describe your ideal team environment"
+      },
+      {
+        "phrase": "I try to create a safe and positive space for my colleagues.",
+        "translation": {
+          "uk": "Я намагаюся створювати безпечну та позитивну атмосферу для колег."
+        },
+        "meaning": "Used to show your impact on culture"
+      },
+      {
+        "phrase": "Clear communication and feedback are really important to me.",
+        "translation": {
+          "uk": "Чітке спілкування та зворотний зв'язок дуже важливі для мене."
+        },
+        "meaning": "Used to describe communication preferences"
+      },
+      {
+        "phrase": "I value honesty, respect, and accountability in teams.",
+        "translation": {
+          "uk": "Я ціную чесність, повагу та відповідальність у командах."
+        },
+        "meaning": "Used to list key values"
+      },
+      {
+        "phrase": "I’m comfortable adapting to different team styles.",
+        "translation": {
+          "uk": "Мені зручно адаптуватися до різних стилів команди."
+        },
+        "meaning": "Used to show flexibility"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are a company leader evaluating whether the candidate fits well with the team and culture. Ask about communication, values, and teamwork habits.",
+    "scenario": {
+      "setting": "Final round interview",
+      "situation": "You are exploring the candidate's team fit and communication preferences",
+      "goal": "Help the user reflect on how they function in different team cultures",
+      "steps": ["What kind of people do you work best with?", "What helps you build trust in a team?", "What behaviors make a team successful?"],
+      "optional_steps": [
+        "How do you help create a positive work atmosphere?",
+        "What role do you usually take in a team?",
+        "What do you do when team values clash with personal values?",
+        "How do you handle unclear expectations in a team?",
+        "What’s one quality you appreciate most in colleagues?",
+        "How do you contribute to team alignment?",
+        "What kind of team rituals or habits do you value?",
+        "Do you prefer flat teams or clear hierarchy?",
+        "What does “healthy culture” mean to you?"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 6,
+    "max_turns": 10,
+    "question_count_range": {
+      "min": 4,
+      "max": 6
+    },
+    "model_end_behavior": "Thank the user and say you appreciate hearing how they approach team collaboration.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
+  }
+}

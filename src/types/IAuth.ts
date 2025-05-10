@@ -23,20 +23,20 @@ export interface IRegisterRequest {
   hcaptcha_token: string
 }
 
-export interface IRegisterResponse {
-  access_token: string
-  refresh_token: string
-  user: IUserEntity
-}
-
 export interface ILoginRequest {
   email: string
   password: string
   hcaptcha_token: string
 }
 
-export interface ILoginResponse {
+export interface IAuthResponse {
   access_token: string
   refresh_token: string
   user: IUserEntity
+}
+
+export interface IGoogleAuth {
+  id_token: string
+  ip: string
+  user_agent: string
 }

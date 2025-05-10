@@ -12,7 +12,7 @@
       "title": "HR Interview",
       "description": "Practice general questions, motivations, and soft skills with an HR interviewer.",
       "tips": ["Structure your answers clearly — beginning, middle, end.", "Use real examples from your experience, even simple ones.", "Try the STAR method: Situation, Task, Action, Result."],
-      "scenarios": ["introduction_basics", "motivation_expectations", "strengths_challenges", "collaboration_and_conflict", "culture_and_fit"]
+      "scenarios": ["hr_introduction_basics", "hr_motivation_expectations", "hr_strengths_challenges", "hr_collaboration_and_conflict", "hr_culture_and_fit"]
     },
     {
       "id": "interview_tech",
@@ -20,12 +20,12 @@
       "description": "Prepare to explain technical decisions, architecture, and code logic clearly.",
       "tips": ["Focus on clarity, not just correctness.", "Avoid buzzwords unless you can explain them simply.", "Imagine you're explaining to a junior developer or product manager."],
       "scenarios": [
-        "system_design_and_architecture",
-        "data_flow_and_validation",
-        "state_management_and_ui_logic",
-        "code_quality_and_tooling",
-        "core_technical_concepts",
-        "debugging_testing_and_deployment"
+        "tech_system_design_and_architecture",
+        "tech_data_flow_and_validation",
+        "tech_state_management_and_ui_logic",
+        "tech_code_quality_and_tooling",
+        "tech_core_technical_concepts",
+        "tech_debugging_testing_and_deployment"
       ]
     },
     {
@@ -37,7 +37,7 @@
         "Connect your goals to what the company is doing.",
         "Ask questions too — it shows you're not just passively hoping to get hired."
       ],
-      "scenarios": ["learning_and_growth", "long_term_goals", "team_culture_fit", "ask_us_something"]
+      "scenarios": ["final_learning_and_growth", "final_long_term_goals", "final_team_culture_fit", "final_ask_us_something"]
     }
   ]
 }

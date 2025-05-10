@@ -1,0 +1,132 @@
+{
+  "id": "final_ask_us_something",
+  "module": "interview_final",
+  "title": "Ask Us Something",
+  "description": "Practice turning the tables — ask thoughtful questions to show interest and clarify details.",
+  "level": "B2",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Practice asking smart questions to the interviewer",
+        "translation": {
+          "uk": "Попрактикуватися у тому, як ставити розумні запитання інтерв'юеру"
+        }
+      },
+      {
+        "phrase": "Clarify any remaining doubts about the role or company",
+        "translation": {
+          "uk": "Уточнити залишкові питання щодо ролі або компанії"
+        }
+      },
+      {
+        "phrase": "Show genuine interest and engagement",
+        "translation": {
+          "uk": "Показати щиру зацікавленість та залученість"
+        }
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "role clarity",
+        "translation": {
+          "uk": "чіткість ролі"
+        },
+        "meaning": "Understanding what your responsibilities will be"
+      },
+      {
+        "word": "team structure",
+        "translation": {
+          "uk": "структура команди"
+        },
+        "meaning": "How the people and roles are organized in a team"
+      },
+      {
+        "word": "onboarding",
+        "translation": {
+          "uk": "вступ у компанію / адаптація"
+        },
+        "meaning": "The process of integrating a new employee"
+      },
+      {
+        "word": "management style",
+        "translation": {
+          "uk": "стиль управління"
+        },
+        "meaning": "How leaders make decisions and support the team"
+      },
+      {
+        "word": "company values",
+        "translation": {
+          "uk": "цінності компанії"
+        },
+        "meaning": "The core principles that guide behavior and decisions"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "Could you tell me more about the team I would be joining?",
+        "translation": {
+          "uk": "Розкажіть, будь ласка, більше про команду, до якої я приєднаюсь?"
+        },
+        "meaning": "Used to ask about team structure and members"
+      },
+      {
+        "phrase": "What does success look like in this role?",
+        "translation": {
+          "uk": "Як виглядає успіх на цій посаді?"
+        },
+        "meaning": "Used to ask about expectations"
+      },
+      {
+        "phrase": "How do you support new employees during onboarding?",
+        "translation": {
+          "uk": "Як ви підтримуєте нових працівників під час адаптації?"
+        },
+        "meaning": "Used to understand onboarding process"
+      },
+      {
+        "phrase": "Can you describe the company culture?",
+        "translation": {
+          "uk": "Чи могли б ви описати культуру компанії?"
+        },
+        "meaning": "Used to ask about values and team atmosphere"
+      },
+      {
+        "phrase": "Is there anything about this role that we haven't discussed yet?",
+        "translation": {
+          "uk": "Чи є щось про цю роль, що ми ще не обговорили?"
+        },
+        "meaning": "Used to prompt the interviewer to share more info"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are an interviewer closing the final stage. Invite the candidate to ask any questions they may have about the role, team, or company. Respond naturally and encourage curiosity.",
+    "scenario": {
+      "setting": "Final round interview",
+      "situation": "You are giving the candidate a chance to ask questions",
+      "goal": "Help the user practice asking thoughtful questions and exploring topics they care about",
+      "steps": ["Do you have any questions for us?", "What would you like to know about the team?", "Is there anything unclear about the role?"],
+      "optional_steps": [
+        "What would help you decide if this job is a good fit?",
+        "Is there anything you’re unsure about from our side?",
+        "Are there things that are especially important for you to clarify before accepting an offer?",
+        "What kind of support would you expect from your manager?",
+        "Do you want to know more about the company’s values?",
+        "Is there anything we didn’t cover that you were hoping to discuss?",
+        "What concerns do you usually have at this stage of the process?"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 8,
+    "question_count_range": {
+      "min": 3,
+      "max": 4
+    },
+    "model_end_behavior": "Thank the user for their questions and say you’ll follow up soon.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
+  }
+}

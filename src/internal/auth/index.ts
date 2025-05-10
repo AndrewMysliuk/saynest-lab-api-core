@@ -1,8 +1,9 @@
-import { ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from "../../types"
+import { IAuthResponse, IGoogleAuth, ILoginRequest, IRegisterRequest } from "../../types"
 
 export interface IAuthService {
-  register(dto: IRegisterRequest, ip: string, user_agent: string): Promise<IRegisterResponse>
-  login(dto: ILoginRequest, ip: string, user_agent: string): Promise<ILoginResponse>
+  loginWithGoogle(dto: IGoogleAuth): Promise<IAuthResponse>
+  register(dto: IRegisterRequest, ip: string, user_agent: string): Promise<IAuthResponse>
+  login(dto: ILoginRequest, ip: string, user_agent: string): Promise<IAuthResponse>
   refreshAccessToken(refresh_token: string): Promise<string>
   logout(refresh_token: string): Promise<void>
 }

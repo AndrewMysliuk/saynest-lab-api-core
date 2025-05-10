@@ -1,0 +1,134 @@
+{
+  "id": "final_long_term_goals",
+  "module": "interview_final",
+  "title": "Long-Term Goals",
+  "description": "Talk about your long-term vision, ambitions, and where you see your career heading.",
+  "level": "B2",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Describe your long-term professional goals",
+        "translation": {
+          "uk": "Описати свої довгострокові професійні цілі"
+        }
+      },
+      {
+        "phrase": "Explain what motivates your long-term direction",
+        "translation": {
+          "uk": "Пояснити, що мотивує вас у довгостроковій перспективі"
+        }
+      },
+      {
+        "phrase": "Show how you plan to grow and stay focused",
+        "translation": {
+          "uk": "Показати, як ви плануєте розвиватися та залишатися сфокусованим"
+        }
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "career path",
+        "translation": {
+          "uk": "кар'єрний шлях"
+        },
+        "meaning": "The progression and direction of your professional life"
+      },
+      {
+        "word": "vision",
+        "translation": {
+          "uk": "бачення"
+        },
+        "meaning": "A clear picture of what you want to achieve in the future"
+      },
+      {
+        "word": "goal-setting",
+        "translation": {
+          "uk": "постановка цілей"
+        },
+        "meaning": "The process of defining what you want to accomplish"
+      },
+      {
+        "word": "success",
+        "translation": {
+          "uk": "успіх"
+        },
+        "meaning": "Achieving what you planned or aimed for"
+      },
+      {
+        "word": "professional growth",
+        "translation": {
+          "uk": "професійний розвиток"
+        },
+        "meaning": "The process of improving and advancing your career"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "In the next few years, I’d like to [goal].",
+        "translation": {
+          "uk": "У найближчі кілька років я хотів(ла) б [мета]."
+        },
+        "meaning": "Used to describe a concrete future goal"
+      },
+      {
+        "phrase": "I try to balance short-term tasks with long-term vision.",
+        "translation": {
+          "uk": "Я намагаюсь поєднувати короткострокові завдання з довгостроковим баченням."
+        },
+        "meaning": "Used to show strategic thinking"
+      },
+      {
+        "phrase": "My long-term goal is to grow into [role/field/impact].",
+        "translation": {
+          "uk": "Моя довгострокова мета — розвиватися у напрямку [роль/сфера/вплив]."
+        },
+        "meaning": "Used to define big-picture aspirations"
+      },
+      {
+        "phrase": "I'm taking steps like [action] to move in that direction.",
+        "translation": {
+          "uk": "Я роблю кроки, як-от [дія], щоб рухатися в цьому напрямку."
+        },
+        "meaning": "Used to demonstrate planning and effort"
+      },
+      {
+        "phrase": "Success for me means [definition].",
+        "translation": {
+          "uk": "Для мене успіх означає [визначення]."
+        },
+        "meaning": "Used to express personal interpretation of success"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are a company leader speaking with a candidate in the final round. Ask about their long-term career goals, motivation, and how they plan to grow in the future.",
+    "scenario": {
+      "setting": "Final round interview",
+      "situation": "You are exploring the candidate's long-term plans and ambitions",
+      "goal": "Help the user reflect on their goals and how they align with a future career path",
+      "steps": ["Where do you see yourself in the next few years?", "What are your long-term career goals?", "What kind of projects do you want to work on long term?"],
+      "optional_steps": [
+        "What motivates you to stay on track with your goals?",
+        "Do you prefer deep expertise or broader skills?",
+        "How do you balance short-term tasks with long-term vision?",
+        "Have your goals changed in the past few years?",
+        "What steps are you currently taking to reach your goals?",
+        "What kind of legacy do you want to leave professionally?",
+        "What kind of leadership role (if any) do you see yourself in?",
+        "How do you define personal success?",
+        "Are you more driven by stability or growth?"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 6,
+    "max_turns": 10,
+    "question_count_range": {
+      "min": 4,
+      "max": 6
+    },
+    "model_end_behavior": "Thank the user and say you appreciate hearing their long-term vision.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
+  }
+}

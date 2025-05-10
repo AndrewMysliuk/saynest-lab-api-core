@@ -30,6 +30,7 @@ import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
 import { createTextToSpeachRouter } from "../internal/text_to_speach/router"
 import { UserService } from "../internal/user/impl"
+import { createUserRouter } from "../internal/user/router"
 import { UserRepository } from "../internal/user/storage/mongo/repository"
 import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
 import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
@@ -65,6 +66,7 @@ const communicationReviewService = new CommunicationReviewService(communicationR
 const router = Router()
 
 router.use("/auth", createAuthRouter(authService))
+router.use("/user", authMiddleware, createUserRouter(userService))
 router.use("/session", authMiddleware, createSessionRouter(sessionService))
 router.use("/language-theory", authMiddleware, createLanguageTheoryRouter(languageTheoryService))
 router.use("/vocabulary-tracker", authMiddleware, createVocabularyTrackerRouter(vocabularyTrackerService))

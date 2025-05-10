@@ -20,18 +20,18 @@ export interface IUserContent {
 
 export interface IPromptGoal {
   phrase: string
-  translation: string
+  translation: Record<string, string>
 }
 
 export interface IDictionaryEntry {
   word: string
-  translation: string
+  translation: Record<string, string>
   meaning: string
 }
 
 export interface IPhraseEntry {
   phrase: string
-  translation: string
+  translation: Record<string, string>
   meaning: string
 }
 
@@ -45,6 +45,7 @@ export interface IScenarioDetails {
   situation: string
   goal: string
   steps: string[]
+  optional_steps: string[]
 }
 
 export interface IPromptMeta {
@@ -53,8 +54,13 @@ export interface IPromptMeta {
   model_end_behavior: string
   target_language: string
   explanation_language: string
+  question_count_range: {
+    min: number
+    max: number
+  } | null
 }
 
+// Modules
 export enum ModuleTypeEnum {
   STRUCTURED = "STRUCTURED",
   FLAT = "FLAT",

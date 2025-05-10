@@ -27,6 +27,7 @@ export interface IUserEntity {
   first_name: string
   last_name: string
   country: string
+  explanation_language: string | null
   role: UserRoleEnum
   status: UserStatusEnum
   settings?: IUserSettings
@@ -38,6 +39,7 @@ export interface IUserUpdateRequest {
   first_name?: string
   last_name?: string
   email?: string
+  explanation_language?: string
   country?: string
   role?: UserRoleEnum
   status?: UserStatusEnum
@@ -50,6 +52,8 @@ export interface IUserCreateRequest {
   first_name: string
   last_name: string
   country: string
+  is_email_confirmed?: boolean
+  explanation_language: string | null
   role: UserRoleEnum
   organization_id: string
 }

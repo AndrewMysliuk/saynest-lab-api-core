@@ -1,5 +1,5 @@
 import { IOrganisationService } from ".."
-import { IMongooseOptions, IOrganizationEntity } from "../../../types"
+import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../types"
 import { logger } from "../../../utils"
 import { IRepository } from "../storage"
 
@@ -29,6 +29,15 @@ export class OrganisationService implements IOrganisationService {
       }
 
       return organization
+    } catch (error: unknown) {
+      logger.error(`setOwner | error: ${error}`)
+      throw error
+    }
+  }
+
+  async update(id: string, dto: IOrganizationUpdateRequest, options?: IMongooseOptions): Promise<IOrganizationEntity | null> {
+    try {
+      return this.orgRepo.update(id, dto, options)
     } catch (error: unknown) {
       logger.error(`setOwner | error: ${error}`)
       throw error

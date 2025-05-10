@@ -2,7 +2,46 @@ import { Request, RequestHandler, Response } from "express"
 
 import { IAuthService } from ".."
 import { logger } from "../../../utils"
+import { INVALID_CREDENTIALS } from "../impl"
 import { RegisterRequestSchema } from "./validation"
+
+export const googleHandler = (authService: IAuthService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const ip = req.ip || ""
+      const user_agent = req.get("User-Agent") || ""
+
+      const { id_token } = req.body
+
+      if (!id_token) {
+        res.status(400).json({ error: "Missing Google token" })
+        return
+      }
+
+      const result = await authService.loginWithGoogle({
+        ip,
+        id_token,
+        user_agent,
+      })
+
+      res
+        .status(200)
+        .cookie("refresh_token", result.refresh_token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          path: "/api/auth",
+        })
+        .json({
+          access_token: result.access_token,
+          user: result.user,
+        })
+    } catch (error: unknown) {
+      logger.error(`registerHandler | error: ${error}`)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
 
 export const registerHandler = (authService: IAuthService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -31,8 +70,14 @@ export const registerHandler = (authService: IAuthService): RequestHandler => {
           access_token: result.access_token,
           user: result.user,
         })
-    } catch (error: unknown) {
+    } catch (error: any) {
       logger.error(`registerHandler | error: ${error}`)
+
+      if (error?.message?.includes("Email already exists")) {
+        res.status(400).json({ error: "Email already exists" })
+        return
+      }
+
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -58,8 +103,14 @@ export const loginHandler = (authService: IAuthService): RequestHandler => {
           access_token: result.access_token,
           user: result.user,
         })
-    } catch (error: unknown) {
+    } catch (error: any) {
       logger.error(`loginHandler | error: ${error}`)
+
+      if (error?.message === INVALID_CREDENTIALS) {
+        res.status(401).json({ error: "Invalid credentials" })
+        return
+      }
+
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

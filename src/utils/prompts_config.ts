@@ -1,24 +1,78 @@
-import { isArgumentsObject } from "util/types"
-
 import { IDictionaryEntry, IModuleScenario, IPhraseEntry, IPromptGoal, IPromptScenario, ModuleTypeEnum, VocabularyFrequencyLevelEnum } from "../types"
+
+function maybeRandomizeOptionalSteps(optionalSteps: string[], min: number, max: number): string[] {
+  const total = optionalSteps.length
+
+  if (total < min) return optionalSteps
+
+  const upperBound = Math.min(max, total)
+  const count = Math.floor(Math.random() * (upperBound - min + 1)) + min
+  return optionalSteps
+    .slice()
+    .sort(() => 0.5 - Math.random())
+    .slice(0, count)
+}
 
 export function generateFinallyPrompt(raw: any): string {
   const scenario: IPromptScenario = transformSingleScenarioJson(raw)
-  const { title, level, model_behavior, user_content } = scenario
+  const { title, level, model_behavior, user_content, meta } = scenario
+  const { setting, situation, goal, steps, optional_steps = [] } = model_behavior.scenario
 
-  const goalsFlat = user_content.goals?.length ? user_content.goals.map((g) => g.phrase).join("; ") : "help the user complete a realistic communication task"
+  let finalSteps: string[] = steps
 
-  const { setting, situation, goal } = model_behavior.scenario
+  if (meta.question_count_range && optional_steps.length) {
+    const { min, max } = meta.question_count_range
+
+    const randomized = maybeRandomizeOptionalSteps(optional_steps, min, max)
+    finalSteps = [...steps, ...randomized]
+  }
+
+  const goalHints = finalSteps.map((s, i) => `  ${i + 1}. ${s}`).join("\n")
+  const userGoals = user_content.goals?.length ? user_content.goals.map((g) => `- ${g.phrase}`).join("\n") : "- Help the user complete a realistic communication task"
+
+  const vocabBlock = user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
+  const expressionsBlock = user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
 
   return `
-You are participating in a roleplay scenario titled "${title}".
-The user's language level is approximately ${level}, and the conversation takes place in the setting of "${setting}".
-You are in the role of ${situation}.
-Your overall objective is: ${goal}.
-Maintain a realistic and coherent conversation to help the user achieve the following goals: ${goalsFlat}.
-Do not break character, correct the user's grammar, or go off-topic.
-Use relevant vocabulary from the context naturally.
-  `.trim()
+====================
+SCENARIO CONTEXT
+====================
+
+Title: ${title}
+Level: ${level} 
+Setting: ${setting}  
+Your Role: ${situation}  
+Overall Goal: ${goal}
+
+====================
+USER GOALS
+====================
+
+${userGoals}
+
+====================
+CONVERSATION FLOW
+====================
+
+${goalHints}
+
+====================
+LANGUAGE SUPPORT
+====================
+
+Useful Vocabulary:
+${vocabBlock}
+
+Useful Phrases:
+${expressionsBlock}
+
+====================
+ENDING PHRASE
+====================
+
+When the user has likely completed their goals, use this phrase:
+"${meta.model_end_behavior}"
+`.trim()
 }
 
 export function transformSingleModuleJson(item: any): IModuleScenario {
@@ -44,6 +98,14 @@ export function transformSingleModuleJson(item: any): IModuleScenario {
   }
 }
 
+function normalizeTranslation(value: any): Record<string, string> {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return value
+  }
+
+  return { uk: String(value || "") }
+}
+
 export function transformSingleScenarioJson(item: any): IPromptScenario {
   const level = item.level?.toUpperCase?.() as keyof typeof VocabularyFrequencyLevelEnum
   const safeLevel = VocabularyFrequencyLevelEnum[level] || VocabularyFrequencyLevelEnum.B2
@@ -58,31 +120,32 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
       goals: (item.user_content.goals || []).map(
         (goal: any): IPromptGoal => ({
           phrase: goal.phrase,
-          translation: goal.translation,
+          translation: normalizeTranslation(goal.translation),
         }),
       ),
       dictionary: (item.user_content.dictionary || []).map(
         (entry: any): IDictionaryEntry => ({
           word: entry.word,
-          translation: entry.translation,
+          translation: normalizeTranslation(entry.translation),
           meaning: entry.meaning,
         }),
       ),
       phrases: (item.user_content.phrases || []).map(
         (entry: any): IPhraseEntry => ({
           phrase: entry.phrase,
-          translation: entry.translation,
-          meaning: entry.meaning,
+          translation: normalizeTranslation(entry.translation),
+          meaning: entry.meaning || "",
         }),
       ),
     },
     model_behavior: {
-      prompt: item.prompt,
+      prompt: item.model_behavior?.prompt || "",
       scenario: {
-        setting: item.model_behavior.scenario.setting,
-        situation: item.model_behavior.scenario.situation,
-        goal: item.model_behavior.scenario.goal,
-        steps: item.model_behavior.scenario.steps || [],
+        setting: item.model_behavior?.scenario?.setting || "",
+        situation: item.model_behavior?.scenario?.situation || "",
+        goal: item.model_behavior?.scenario?.goal || "",
+        steps: item.model_behavior?.scenario?.steps || [],
+        optional_steps: item.model_behavior?.scenario?.steps || [],
       },
     },
     meta: {
@@ -91,6 +154,7 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
       model_end_behavior: item.meta?.model_end_behavior || "",
       target_language: item.meta?.target_language || "English",
       explanation_language: item.meta?.explanation_language || "Ukrainian",
+      question_count_range: item.meta?.question_count_range ?? null,
     },
     finally_prompt: "",
   }
