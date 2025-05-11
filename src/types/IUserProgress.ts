@@ -36,6 +36,7 @@ export interface IUserProgressTasks {
 }
 
 export interface IUserProgressEntity {
+  _id: Types.ObjectId
   user_id: Types.ObjectId
   organization_id: Types.ObjectId
   total_sessions: number
@@ -47,9 +48,9 @@ export interface IUserProgressEntity {
   completed_prompts: {
     [prompt_id: string]: number // Кол-во раз, когда пользователь прошёл этот prompt
   }
-  tasks: IUserProgressTasks
+  tasks: IUserProgressTasks[]
   current_streak: number
   longest_streak: number
-  last_active: Date
   created_at: Date
+  updated_at: Date
 }

@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose"
+import mongoose, { Document, Schema } from "mongoose"
 
 import { IUserEntity, IUserSettings, UserRoleEnum, UserStatusEnum } from "../../../../types"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"

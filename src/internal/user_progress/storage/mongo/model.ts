@@ -1,0 +1,76 @@
+import mongoose, { Document, Schema } from "mongoose"
+
+import { IUserProgressEntity, TaskTypeEnum, UserProgressTrendEnum, VocabularyFrequencyLevelEnum } from "../../../../types"
+import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
+import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
+
+export const MODEL_NAME = "user_progress"
+
+export type IUserProgressDocument = IUserProgressEntity & Document
+
+const cefrHistorySchema = new Schema(
+  {
+    date: { type: Date, required: true },
+    level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
+  },
+  { _id: false },
+)
+
+const errorStatsSchema = new Schema(
+  {
+    category: { type: String, required: true },
+    total_count: { type: Number, required: true },
+    trend: { type: String, enum: Object.values(UserProgressTrendEnum), required: true },
+  },
+  { _id: false },
+)
+
+const fillerWordsUsageSchema = new Schema(
+  {
+    word: { type: String, required: true },
+    total_count: { type: Number, required: true },
+    trend: { type: String, enum: Object.values(UserProgressTrendEnum), required: true },
+  },
+  { _id: false },
+)
+
+const tasksSchema = new Schema(
+  {
+    task_id: { type: String, required: true },
+    type: { type: String, enum: Object.values(TaskTypeEnum), required: true },
+    topic_title: { type: String, required: true },
+    is_completed: { type: Boolean, default: false },
+    created_at: { type: Date, required: true },
+    completed_at: { type: Date, required: false },
+  },
+  { _id: false },
+)
+
+const userProgressSchema = new Schema<IUserProgressDocument>(
+  {
+    user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
+    organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: false, default: null },
+    total_sessions: { type: Number, required: true },
+    avg_session_duration: { type: Number, required: true },
+    cefr_history: [cefrHistorySchema],
+    error_stats: [errorStatsSchema],
+    top_issues: [{ type: String }],
+    filler_words_usage: [fillerWordsUsageSchema],
+    completed_prompts: {
+      type: Map,
+      of: Number,
+      default: {},
+    },
+    tasks: [tasksSchema],
+    current_streak: { type: Number, required: true },
+    longest_streak: { type: Number, required: true },
+  },
+  {
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
+  },
+)
+
+export const UserProgressModel = mongoose.model<IUserProgressDocument>(MODEL_NAME, userProgressSchema)
