@@ -25,6 +25,7 @@ import { SpeachToTextService } from "../internal/speach_to_text/impl"
 import { createSpeachToTextRouter } from "../internal/speach_to_text/router"
 import { TaskGeneratorService } from "../internal/task_generator/impl"
 import { createTaskGeneratorRouter } from "../internal/task_generator/router"
+import { TaskGeneratorRepository } from "../internal/task_generator/storage/mongo/repository"
 import { TextAnalysisService } from "../internal/text_analysis/impl"
 import { createTextAnalysisRouter } from "../internal/text_analysis/router"
 import { TextToSpeachService } from "../internal/text_to_speach/impl"
@@ -46,6 +47,7 @@ const vocabularyRepo = new VocabularyRepository()
 const errorAnalysisRepository = new ErrorAnalysisRepository()
 const historyRepo = new HistoryRepository()
 const communicationReviewRepo = new CommunicationReviewRepository()
+const taskGeneratorRepo = new TaskGeneratorRepository()
 
 // Services
 const organisationService = new OrganisationService(organisationRepo)
@@ -60,8 +62,8 @@ const textAnalysisService = new TextAnalysisService(promptService)
 const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService, promptService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
-const taskGeneratorService = new TaskGeneratorService(sessionService, promptService)
 const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService, promptService)
+const taskGeneratorService = new TaskGeneratorService(taskGeneratorRepo, communicationReviewService, promptService)
 
 const router = Router()
 

@@ -104,7 +104,7 @@ export const buildUserPrompt = (
     Original: "${issue.original_text}"
     Corrected: "${issue.corrected_text}"
     Explanation: ${issue.explanation}
-    Topic: ${issue.topic_titles}`
+    Topics: ${issue.topic_titles.join(", ")}`
             })
             .join("\n")
 

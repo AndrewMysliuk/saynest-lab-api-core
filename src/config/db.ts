@@ -6,6 +6,7 @@ import { MODEL_NAME as CONVERSATION_TABLE } from "../internal/conversation/stora
 import { MODEL_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../internal/organisation/storage/mongo/model"
 import { MODEL_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
+import { MODEL_NAME as TASK_TABLE } from "../internal/task_generator/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../internal/user/storage/mongo/model"
 import { MODEL_NAME as VOCABULARY_TABLE } from "../internal/vocabulary_tracker/storage/mongo/model"
 import { createScopedLogger } from "../utils/logger"
@@ -14,7 +15,7 @@ import { serverConfig } from "./server_config"
 const log = createScopedLogger("database")
 const MONGO_URI = serverConfig.MONGO_URI
 
-const CURRENT_TABLES = [ORGANISATION_TABLE, USER_TABLE, REFRESH_TOKENS, SESSION_TABLE, CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, VOCABULARY_TABLE, STATISTICS_TABLE]
+const CURRENT_TABLES = [ORGANISATION_TABLE, USER_TABLE, REFRESH_TOKENS, SESSION_TABLE, CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, VOCABULARY_TABLE, STATISTICS_TABLE, TASK_TABLE]
 
 export const connectToDatabase = async () => {
   const maxAttempts = 5

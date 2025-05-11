@@ -1,27 +1,30 @@
-import { v4 as uuidv4 } from "uuid"
+import { Types } from "mongoose"
 
 import { ITaskGenerator } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, IGenericTask, ITaskGeneratorRequest, TaskTypeEnum } from "../../../types"
+import { GPTRoleType, IGenericTaskEntity, ITaskGeneratorRequest, TaskTypeEnum } from "../../../types"
 import { logger } from "../../../utils"
+import { ICommunicationReviewService } from "../../communication_review"
 import { IPromptService } from "../../prompts_library"
-import { ISessionService } from "../../session"
+import { IRepository } from "../storage"
 import { TaskTypeMap, getTaskDefinition } from "./helpers"
 import { buildSystemPrompt } from "./prompt"
 
 export class TaskGeneratorService implements ITaskGenerator {
-  private readonly sessionService: ISessionService
+  private readonly taskGeneratorRepo: IRepository
+  private readonly communicationReviewService: ICommunicationReviewService
   private readonly promptService: IPromptService
 
-  constructor(sessionService: ISessionService, promptService: IPromptService) {
-    this.sessionService = sessionService
+  constructor(taskGeneratorRepo: IRepository, communicationReviewService: ICommunicationReviewService, promptService: IPromptService) {
+    this.taskGeneratorRepo = taskGeneratorRepo
+    this.communicationReviewService = communicationReviewService
     this.promptService = promptService
   }
 
-  async generateTask<T extends TaskTypeEnum>(request: ITaskGeneratorRequest & { type: T }): Promise<IGenericTask<TaskTypeMap[T]["response_type"]>> {
+  async generateTask<T extends TaskTypeEnum>(request: ITaskGeneratorRequest & { type: T }): Promise<IGenericTaskEntity<TaskTypeMap[T]["response_type"]>> {
     try {
-      const session = await this.sessionService.getSession(request.session_id)
-      const prompt = this.promptService.getById(session.prompt_id)
+      const review = await this.communicationReviewService.getReview(request.review_id, request.user_id)
+      const prompt = this.promptService.getById(review.prompt_id)
 
       if (!prompt) {
         throw new Error("Prompt not found.")
@@ -72,17 +75,43 @@ export class TaskGeneratorService implements ITaskGenerator {
       const rawParsed = JSON.parse(toolCall.function.arguments)
       const formattedData = parseResponse(rawParsed)
 
-      return {
-        id: uuidv4(),
+      const saved = await this.taskGeneratorRepo.create({
+        _id: new Types.ObjectId(),
         type: request.type,
         mode: request.mode,
         topic_title: request.topic_title,
         target_language: request.target_language,
         explanation_language: request.explanation_language,
         task: formattedData,
-      }
+        is_completed: false,
+        review_id: new Types.ObjectId(request.review_id),
+        user_id: new Types.ObjectId(request.user_id),
+        organization_id: new Types.ObjectId(request.organization_id),
+        created_at: new Date(),
+        updated_at: new Date(),
+      })
+
+      return saved
     } catch (error: unknown) {
       logger.error(`generateTask | error: ${error}`)
+      throw error
+    }
+  }
+
+  async setCompleted(task_id: string): Promise<void> {
+    try {
+      await this.taskGeneratorRepo.setCompleted(new Types.ObjectId(task_id))
+    } catch (error: unknown) {
+      logger.error(`setCompleted | error: ${error}`)
+      throw error
+    }
+  }
+
+  async listByReviewId(user_id: string, review_id: string): Promise<IGenericTaskEntity[]> {
+    try {
+      return await this.taskGeneratorRepo.listByReviewId(new Types.ObjectId(user_id), new Types.ObjectId(review_id))
+    } catch (error: unknown) {
+      logger.error(`listByReviewId | error: ${error}`)
       throw error
     }
   }

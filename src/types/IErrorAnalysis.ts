@@ -14,7 +14,7 @@ export interface IssueItem {
   error_words: IWord[]
   corrected_words: IWord[]
   explanation: string
-  topic_titles: string
+  topic_titles: string[]
 }
 
 export interface IErrorImproveUserAnswer {

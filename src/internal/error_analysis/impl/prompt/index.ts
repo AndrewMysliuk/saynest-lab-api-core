@@ -56,7 +56,7 @@ Return a single raw JSON object with the following fields:
   - error_words: array of { id: number, value: string } — words or segments with an issue
   - corrected_words: array of { id: number, value: string } — suggested correction
   - explanation: short explanation of the issue in '${explanation_language}'
-  - topic_titles: one or more relevant topic titles as a comma-separated string (from the provided Language Topics list)
+  - topic_titles: a list of categories this prompt belongs to, as an array of strings (e.g., ["English alphabet and pronunciation", "Relative pronouns (who, which, that)", "Passive voice (The cake was eaten)"])
 
 - improve_user_answer: an object with a complete, polished version of the user's message. Includes:
   - corrected_text: a natural version of the user's message, as if said by a confident native speaker (not overly formal or robotic). This should go **beyond just correcting grammar** — rephrase where needed for naturalness and fluency.

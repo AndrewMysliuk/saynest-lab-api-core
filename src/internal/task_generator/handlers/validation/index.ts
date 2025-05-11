@@ -3,7 +3,7 @@ import { z } from "zod"
 import { TaskModeEnum, TaskTypeEnum } from "../../../../types"
 
 export const TaskGeneratorRequestSchema = z.object({
-  session_id: z.string().min(1, "session_id is required"),
+  review_id: z.string().min(1, "review_id is required"),
   type: z.nativeEnum(TaskTypeEnum),
   mode: z.nativeEnum(TaskModeEnum),
   target_language: z.string().min(1, "target_language is required"),

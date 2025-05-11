@@ -86,7 +86,7 @@ const IssueSchema = new Schema<IssueItem>(
     error_words: { type: [WordSchema], required: true },
     corrected_words: { type: [WordSchema], required: true },
     explanation: { type: String, required: true },
-    topic_titles: { type: String, required: true },
+    topic_titles: { type: [String], required: true },
   },
   { _id: false },
 )

@@ -35,7 +35,12 @@
             }
           },
           "explanation": { "type": "string" },
-          "topic_titles": { "type": "string" }
+          "topic_titles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
