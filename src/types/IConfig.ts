@@ -1,5 +1,7 @@
 import { ClientSession } from "mongoose"
 
+import { IUserJWTPayload } from "./IUser"
+
 export interface IServerConfig {
   PORT?: string
   OPENAI_API_KEY: string
@@ -20,4 +22,12 @@ export interface IStorageOptions {
   session_id?: string
   organization_id?: string | null
   user_id?: string | null
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: IUserJWTPayload
+    }
+  }
 }

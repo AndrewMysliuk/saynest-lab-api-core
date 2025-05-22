@@ -1,10 +1,10 @@
 import { IRepository } from "../"
-import { IMongooseOptions, IStatistics } from "../../../../types"
+import { IMongooseOptions, ICommunicationReview } from "../../../../types"
 import { logger } from "../../../../utils"
 import { StatisticsModel } from "./model"
 
 export class CommunicationReviewRepository implements IRepository {
-  async get(id: string, user_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async get(id: string, user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
     try {
       return StatisticsModel.findOne({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {
@@ -13,7 +13,7 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async getBySessionId(session_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async getBySessionId(session_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
     try {
       return StatisticsModel.findOne({ session_id }).session(options?.session || null)
     } catch (error: unknown) {
@@ -22,7 +22,7 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async list(user_id: string, options?: IMongooseOptions): Promise<IStatistics[]> {
+  async list(user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview[]> {
     try {
       return StatisticsModel.find({ user_id })
         .sort({ created_at: -1 })
@@ -33,7 +33,7 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async add(statistics: Partial<IStatistics>, options?: IMongooseOptions): Promise<IStatistics> {
+  async add(statistics: Partial<ICommunicationReview>, options?: IMongooseOptions): Promise<ICommunicationReview> {
     try {
       const created = new StatisticsModel(statistics)
 
@@ -44,7 +44,7 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async update(id: string, user_id: string, updates: Partial<IStatistics>, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async update(id: string, user_id: string, updates: Partial<ICommunicationReview>, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
     try {
       return await StatisticsModel.findOneAndUpdate(
         { _id: id, user_id },
@@ -60,7 +60,7 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async delete(id: string, user_id: string, options?: IMongooseOptions): Promise<IStatistics | null> {
+  async delete(id: string, user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
     try {
       return StatisticsModel.findOneAndDelete({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {

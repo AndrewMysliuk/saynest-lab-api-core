@@ -2,7 +2,7 @@ import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
 import { cleanUserSessionFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
-import { GPTRoleType, IStatistics, IStatisticsGenerateRequest, IStatisticsModelResponse, IStatisticsUpdateAudioUrl } from "../../../types"
+import { GPTRoleType, ICommunicationReview, ICommunicationReviewGenerateRequest, ICommunicationReviewModelResponse, ICommunicationReviewUpdateAudioUrl } from "../../../types"
 import { countHistoryData, logger, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
@@ -37,7 +37,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     this.promptService = promptService
   }
 
-  async generateConversationReview(user_id: string, organization_id: string, dto: IStatisticsGenerateRequest): Promise<IStatistics> {
+  async generateConversationReview(user_id: string, organization_id: string, dto: ICommunicationReviewGenerateRequest): Promise<ICommunicationReview> {
     try {
       const statisticReview = await this.communicationReviewRepo.getBySessionId(dto.session_id)
 
@@ -106,7 +106,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       }
 
       const rawParsed = JSON.parse(toolCall.function.arguments)
-      const modelResponse = validateToolResponse<IStatisticsModelResponse>(rawParsed, GenerateStatisticSchema)
+      const modelResponse = validateToolResponse<ICommunicationReviewModelResponse>(rawParsed, GenerateStatisticSchema)
 
       const historyReview = countHistoryData(historyList)
 
@@ -158,7 +158,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async reviewsList(user_id: string): Promise<IStatistics[]> {
+  async reviewsList(user_id: string): Promise<ICommunicationReview[]> {
     try {
       return this.communicationReviewRepo.list(user_id)
     } catch (error: unknown) {
@@ -193,7 +193,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async getReview(id: string, user_id: string): Promise<IStatistics> {
+  async getReview(id: string, user_id: string): Promise<ICommunicationReview> {
     try {
       const result = await this.communicationReviewRepo.get(id, user_id)
 
@@ -208,7 +208,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async updateAudioUrl(dto: IStatisticsUpdateAudioUrl): Promise<string> {
+  async updateAudioUrl(dto: ICommunicationReviewUpdateAudioUrl): Promise<string> {
     try {
       const [currentReview, historyList] = await Promise.all([this.communicationReviewRepo.get(dto.id, dto.user_id), this.conversationService.listConversationHistory(dto.session_id)])
 

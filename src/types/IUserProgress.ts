@@ -27,7 +27,7 @@ export interface IUserProgressFillerWordsUsage {
 }
 
 export interface IUserProgressTasks {
-  task_id: Types.ObjectId
+  task_id: string
   type: TaskTypeEnum
   topic_title: string
   is_completed: boolean
@@ -43,14 +43,19 @@ export interface IUserProgressEntity {
   avg_session_duration: number
   cefr_history: IUserProgressCefrHistory[]
   error_stats: IUserProgressErrorStats[]
-  top_issues: string[]
   filler_words_usage: IUserProgressFillerWordsUsage[]
   completed_prompts: {
     [prompt_id: string]: number // Кол-во раз, когда пользователь прошёл этот prompt
   }
   tasks: IUserProgressTasks[]
-  current_streak: number
-  longest_streak: number
+  current_day_streak: number
+  longest_day_streak: number
+  activity_log: Record<string, boolean>
   created_at: Date
   updated_at: Date
+}
+
+export interface IUserProgressApplyReviewStatsRequest {
+  user_id: string
+  session_id: string
 }

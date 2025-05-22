@@ -49,4 +49,10 @@ export class SessionService implements ISessionService {
   async deleteSession(session_id: string): Promise<void> {
     return this.sessionRepo.deleteSession(session_id)
   }
+
+  async getSessionsByUserId(user_id: string, options?: IMongooseOptions): Promise<ISessionEntity[]> {
+    if (!user_id) throw new Error("user_id field is required")
+
+    return this.sessionRepo.getSessionsByUserId(user_id, options)
+  }
 }

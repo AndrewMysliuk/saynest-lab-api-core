@@ -18,12 +18,11 @@ export class UserProgressRepository implements IRepository {
           avg_session_duration: 0,
           cefr_history: [],
           error_stats: [],
-          top_issues: [],
           filler_words_usage: [],
           completed_prompts: {},
           tasks: [],
-          current_streak: 0,
-          longest_streak: 0,
+          current_day_streak: 0,
+          longest_day_streak: 0,
         })
 
         await doc.save({ session: options?.session || null })
@@ -51,6 +50,28 @@ export class UserProgressRepository implements IRepository {
       return updated
     } catch (err) {
       logger.error("[UserProgressRepository.update] error", { error: err, user_id })
+      throw err
+    }
+  }
+
+  async addActivityDate(user_id: Types.ObjectId, date: string, streakData?: { current_day_streak: number; longest_day_streak?: number }, options?: IMongooseOptions): Promise<void> {
+    try {
+      const $set: Record<string, any> = {
+        [`activity_log.${date}`]: true,
+        updated_at: new Date(),
+      }
+
+      if (streakData) {
+        $set.current_day_streak = streakData.current_day_streak
+
+        if (streakData.longest_day_streak !== undefined) {
+          $set.longest_day_streak = streakData.longest_day_streak
+        }
+      }
+
+      await UserProgressModel.updateOne({ user_id }, { $set }, options)
+    } catch (err) {
+      logger.error("[UserProgressRepository.addActivityDate] error", { error: err, user_id, date })
       throw err
     }
   }

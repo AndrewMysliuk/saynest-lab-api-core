@@ -12,14 +12,6 @@ const ACCESS_TOKEN_SECRET = serverConfig.ACCESS_TOKEN_SECRET
 
 const REFRESH_TOKEN_BYTES = 64
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: IUserJWTPayload
-    }
-  }
-}
-
 export function generateAccessToken(user: IUserEntity): string {
   const payload = {
     user_id: user._id.toString(),

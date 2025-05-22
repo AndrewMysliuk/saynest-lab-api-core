@@ -1,14 +1,14 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import {
+  ICommunicationReview,
+  ICommunicationReviewHistory,
   IConversationHistory,
   IErrorAnalysisEntity,
   IErrorImproveUserAnswer,
   IExpressionUsage,
   ILevelDiagnosis,
   IMeaningEntity,
-  IStatistics,
-  IStatisticsHistory,
   IUserGoalEvaluation,
   IVocabularyFillersEntity,
   IVocabularyUsage,
@@ -21,9 +21,9 @@ import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/
 import { MODEL_NAME as SESSION_TABLE } from "../../../session/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
-export const MODEL_NAME = "statistics"
+export const MODEL_NAME = "communication_reviews"
 
-export type IStatisticsDocument = IStatistics & Document
+export type ICommunicationReviewDocument = ICommunicationReview & Document
 
 const MeaningSchema = new Schema<IMeaningEntity>(
   {
@@ -60,7 +60,7 @@ const ConversationHistorySchema = new Schema<IConversationHistory>(
   { _id: false },
 )
 
-const StatisticsHistorySchema = new Schema<IStatisticsHistory>(
+const StatisticsHistorySchema = new Schema<ICommunicationReviewHistory>(
   {
     start_time: { type: Date, required: true },
     duration_seconds: { type: Number, required: true },
@@ -140,7 +140,7 @@ const ExpressionUsageSchema = new Schema<IExpressionUsage>({
   quote_from_dialogue: { type: String, required: false },
 })
 
-const StatisticsSchema = new Schema<IStatisticsDocument>(
+const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
   {
     user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
     organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: true },
@@ -171,4 +171,4 @@ const StatisticsSchema = new Schema<IStatisticsDocument>(
 
 StatisticsSchema.index({ session_id: 1 }, { unique: true })
 
-export const StatisticsModel = mongoose.model<IStatisticsDocument>(MODEL_NAME, StatisticsSchema)
+export const StatisticsModel = mongoose.model<ICommunicationReviewDocument>(MODEL_NAME, StatisticsSchema)

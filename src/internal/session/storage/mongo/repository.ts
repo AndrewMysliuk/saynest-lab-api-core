@@ -80,4 +80,17 @@ export class SessionRepository implements IRepository {
       throw error
     }
   }
+
+  async getSessionsByUserId(user_id: string, options?: IMongooseOptions): Promise<ISessionEntity[]> {
+    try {
+      const sessions = await SessionModel.find({
+        user_id: new Types.ObjectId(user_id),
+      }).session(options?.session || null)
+
+      return sessions.map((session) => session.toObject())
+    } catch (error: unknown) {
+      logger.error(`getSessionsByUserId | error: ${error}`)
+      throw error
+    }
+  }
 }

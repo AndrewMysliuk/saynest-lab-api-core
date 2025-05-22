@@ -4,7 +4,7 @@ import { IUserProgressEntity, TaskTypeEnum, UserProgressTrendEnum, VocabularyFre
 import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
-export const MODEL_NAME = "user_progress"
+export const MODEL_NAME = "user_progresses"
 
 export type IUserProgressDocument = IUserProgressEntity & Document
 
@@ -54,7 +54,6 @@ const userProgressSchema = new Schema<IUserProgressDocument>(
     avg_session_duration: { type: Number, required: true },
     cefr_history: [cefrHistorySchema],
     error_stats: [errorStatsSchema],
-    top_issues: [{ type: String }],
     filler_words_usage: [fillerWordsUsageSchema],
     completed_prompts: {
       type: Map,
@@ -62,8 +61,13 @@ const userProgressSchema = new Schema<IUserProgressDocument>(
       default: {},
     },
     tasks: [tasksSchema],
-    current_streak: { type: Number, required: true },
-    longest_streak: { type: Number, required: true },
+    current_day_streak: { type: Number, required: true },
+    longest_day_streak: { type: Number, required: true },
+    activity_log: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
   },
   {
     timestamps: {

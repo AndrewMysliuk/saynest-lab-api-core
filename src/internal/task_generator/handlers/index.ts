@@ -1,10 +1,11 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { logger } from "../../../utils"
+import { IUserProgressService } from "../../user_progress"
 import { ITaskGenerator } from "../index"
 import { TaskGeneratorRequestSchema, TaskGeneratorRequestType } from "./validation"
 
-export const taskGeneratorHandler = (taskGeneratorService: ITaskGenerator): RequestHandler => {
+export const taskGeneratorHandler = (taskGeneratorService: ITaskGenerator, userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const parsed = TaskGeneratorRequestSchema.safeParse(req.body)
@@ -25,6 +26,8 @@ export const taskGeneratorHandler = (taskGeneratorService: ITaskGenerator): Requ
         user_id,
         organization_id,
       })
+
+      await userProgressService.syncTaskProgress(user_id, result)
 
       res.status(200).json(result)
     } catch (error: unknown) {

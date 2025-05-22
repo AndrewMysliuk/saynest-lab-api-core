@@ -7,6 +7,7 @@ import { IAuthResponse, IGoogleAuth, ILoginRequest, IRegisterRequest, UserRoleEn
 import { generateAccessToken, generateRefreshTokenHash, logger, verifyPassword } from "../../../utils"
 import { IOrganisationService } from "../../organisation"
 import { IUserService } from "../../user"
+import { IUserProgressService } from "../../user_progress"
 import { IRepository } from "../storage"
 
 export const INVALID_CREDENTIALS = "AUTH.INVALID_CREDENTIALS"
@@ -18,11 +19,13 @@ export class AuthService implements IAuthService {
   private readonly authRepo: IRepository
   private readonly userService: IUserService
   private readonly orgService: IOrganisationService
+  private readonly userProgressService: IUserProgressService
 
-  constructor(authRepo: IRepository, userService: IUserService, orgService: IOrganisationService) {
+  constructor(authRepo: IRepository, userService: IUserService, orgService: IOrganisationService, userProgressService: IUserProgressService) {
     this.authRepo = authRepo
     this.userService = userService
     this.orgService = orgService
+    this.userProgressService = userProgressService
   }
 
   async loginWithGoogle(dto: IGoogleAuth): Promise<IAuthResponse> {
@@ -69,6 +72,8 @@ export class AuthService implements IAuthService {
         )
 
         await this.orgService.setOwner(organization._id.toString(), userDoc._id.toString(), { session })
+
+        await this.userProgressService.createIfNotExists(userDoc._id.toString(), organization._id.toString(), { session })
 
         user = userDoc
         await session.commitTransaction()
@@ -127,6 +132,8 @@ export class AuthService implements IAuthService {
       )
 
       await this.orgService.setOwner(organization._id.toString(), user._id.toString(), { session })
+
+      await this.userProgressService.createIfNotExists(user._id.toString(), organization._id.toString(), { session })
 
       const accessToken = generateAccessToken(user)
       const refreshToken = generateRefreshTokenHash()

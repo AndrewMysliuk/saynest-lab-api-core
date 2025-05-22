@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 import { MODEL_NAME as REFRESH_TOKENS } from "../internal/auth/storage/mongo/model"
-import { MODEL_NAME as STATISTICS_TABLE } from "../internal/communication_review/storage/mongo/model"
+import { MODEL_NAME as COMMUNICATION_REVIEWS_TABLE } from "../internal/communication_review/storage/mongo/model"
 import { MODEL_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
 import { MODEL_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../internal/organisation/storage/mongo/model"
@@ -16,7 +16,18 @@ import { serverConfig } from "./server_config"
 const log = createScopedLogger("database")
 const MONGO_URI = serverConfig.MONGO_URI
 
-const CURRENT_TABLES = [ORGANISATION_TABLE, USER_TABLE, REFRESH_TOKENS, SESSION_TABLE, CONVERSATION_TABLE, ERROR_ANALYSIS_TABLE, VOCABULARY_TABLE, STATISTICS_TABLE, TASK_TABLE, USER_PROGRESS_TABLE]
+const CURRENT_TABLES = [
+  ORGANISATION_TABLE,
+  USER_TABLE,
+  REFRESH_TOKENS,
+  SESSION_TABLE,
+  CONVERSATION_TABLE,
+  ERROR_ANALYSIS_TABLE,
+  VOCABULARY_TABLE,
+  COMMUNICATION_REVIEWS_TABLE,
+  TASK_TABLE,
+  USER_PROGRESS_TABLE,
+]
 
 export const connectToDatabase = async () => {
   const maxAttempts = 5

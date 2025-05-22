@@ -1,6 +1,6 @@
-import { IConversationHistory, IStatisticsHistory } from "../types"
+import { IConversationHistory, ICommunicationReviewHistory } from "../types"
 
-export const countHistoryData = (historyList: IConversationHistory[]): IStatisticsHistory => {
+export const countHistoryData = (historyList: IConversationHistory[]): ICommunicationReviewHistory => {
   if (!historyList || historyList.length === 0) {
     return {
       start_time: new Date(0),

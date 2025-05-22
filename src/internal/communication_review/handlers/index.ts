@@ -2,9 +2,10 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ICommunicationReviewService } from ".."
 import { logger } from "../../../utils"
+import { IUserProgressService } from "../../user_progress"
 import { StatisticsGenerateRequestSchema } from "./validation"
 
-export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
+export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService, userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const { user_id, organization_id } = req.user!
@@ -12,6 +13,11 @@ export const generateConversationReviewHandler = (communicationReviewService: IC
       const dto = StatisticsGenerateRequestSchema.parse(req.body)
 
       const response = await communicationReviewService.generateConversationReview(user_id, organization_id, dto)
+
+      await userProgressService.applyReviewStats({
+        user_id,
+        session_id: dto.session_id,
+      })
 
       res.status(200).json(response)
     } catch (error: unknown) {

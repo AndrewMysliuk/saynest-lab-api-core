@@ -5,4 +5,5 @@ export interface ISessionService {
   getSession(session_id: string): Promise<ISessionEntity>
   finishSession(session_id: string, options?: IMongooseOptions): Promise<ISessionEntity>
   deleteSession(session_id: string): Promise<void>
+  getSessionsByUserId(user_id: string, options?: IMongooseOptions): Promise<ISessionEntity[]>
 }
