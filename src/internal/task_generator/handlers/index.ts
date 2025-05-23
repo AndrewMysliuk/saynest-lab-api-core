@@ -37,6 +37,26 @@ export const taskGeneratorHandler = (taskGeneratorService: ITaskGenerator, userP
   }
 }
 
+export const getTaskHandler = (taskGeneratorService: ITaskGenerator): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { task_id } = req.params
+
+      if (!task_id) {
+        res.status(400).json({ error: "Missing task_id in URL params" })
+        return
+      }
+
+      const result = await taskGeneratorService.getById(task_id)
+
+      res.status(200).json(result)
+    } catch (error: unknown) {
+      logger.error("getTaskHandler | error:", error)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
 export const setCompletedHandler = (taskGeneratorService: ITaskGenerator): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {

@@ -34,4 +34,15 @@ export class TaskGeneratorRepository implements IRepository {
       throw err
     }
   }
+
+  async getById(task_id: Types.ObjectId, options?: IMongooseOptions): Promise<IGenericTaskEntity | null> {
+    try {
+      const query = await TaskModel.findById(task_id, null, options).lean()
+
+      return query
+    } catch (err) {
+      logger.error("[TaskRepository.getById] Failed to list tasks", err)
+      throw err
+    }
+  }
 }

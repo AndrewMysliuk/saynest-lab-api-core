@@ -115,4 +115,13 @@ export class TaskGeneratorService implements ITaskGenerator {
       throw error
     }
   }
+
+  async getById(task_id: string): Promise<IGenericTaskEntity | null> {
+    try {
+      return this.taskGeneratorRepo.getById(new Types.ObjectId(task_id))
+    } catch (error: unknown) {
+      logger.error(`getById | error: ${error}`)
+      throw error
+    }
+  }
 }
