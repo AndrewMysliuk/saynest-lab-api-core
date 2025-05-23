@@ -9,7 +9,7 @@ export const createTaskGeneratorRouter = (taskGeneratorService: ITaskGenerator, 
 
   router.post("/", taskGeneratorHandler(taskGeneratorService, userProgressService))
   router.get("/:task_id", getTaskHandler(taskGeneratorService))
-  router.patch("/:task_id/completed", setCompletedHandler(taskGeneratorService))
+  router.patch("/:task_id/completed", setCompletedHandler(taskGeneratorService, userProgressService))
   router.get("/review/:review_id", listByReviewHandler(taskGeneratorService))
 
   return router

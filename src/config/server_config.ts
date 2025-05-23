@@ -8,6 +8,7 @@ export const serverConfig: IServerConfig = {
   PORT: process.env.PORT,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
   MONGO_URI: process.env.MONGO_URI ?? "",
+  MONGO_LOCAL_URI: process.env.MONGO_LOCAL_URI ?? "",
   ELEVEN_API_KEY: process.env.ELEVENLABS_API_KEY ?? "",
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET ?? "your-access-token-secret",
   HCAPTCHA_SECRET_KEY: process.env.HCAPTCHA_SECRET_KEY ?? "",

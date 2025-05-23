@@ -16,9 +16,16 @@ export class TaskGeneratorRepository implements IRepository {
     }
   }
 
-  async setCompleted(task_id: Types.ObjectId, options?: IMongooseOptions): Promise<void> {
+  async setCompleted(task_id: Types.ObjectId, answers: Record<number, string>, options?: IMongooseOptions): Promise<IGenericTaskEntity | null> {
     try {
-      await TaskModel.updateOne({ _id: task_id }, { $set: { is_completed: true, updated_at: new Date() } }, options || {})
+      return TaskModel.findOneAndUpdate(
+        { _id: task_id },
+        { $set: { is_completed: true, user_answers: answers, updated_at: new Date() } },
+        {
+          new: true,
+          ...options,
+        },
+      )
     } catch (err) {
       logger.error("[TaskRepository.setCompleted] Failed to update task completion", { error: err, task_id })
       throw err

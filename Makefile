@@ -35,4 +35,10 @@ clean_all:
 	docker volume prune -f
 	docker system prune -f --volumes
 
+mongo_local_start:
+	mongod --dbpath ~/mongodb/replica --replSet rs0
+
+mongo_local_drop_all:
+	rm -rf ~/mongodb/replica
+
 .PHONY: install run build start docker-build docker-run

@@ -6,6 +6,7 @@ export interface IServerConfig {
   PORT?: string
   OPENAI_API_KEY: string
   MONGO_URI: string
+  MONGO_LOCAL_URI: string
   ELEVEN_API_KEY: string
   ACCESS_TOKEN_SECRET: string
   HCAPTCHA_SECRET_KEY: string

@@ -15,6 +15,7 @@ import { serverConfig } from "./server_config"
 
 const log = createScopedLogger("database")
 const MONGO_URI = serverConfig.MONGO_URI
+// const MONGO_LOCAL_URI = serverConfig.MONGO_LOCAL_URI
 
 const CURRENT_TABLES = [
   ORGANISATION_TABLE,

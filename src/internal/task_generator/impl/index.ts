@@ -98,9 +98,15 @@ export class TaskGeneratorService implements ITaskGenerator {
     }
   }
 
-  async setCompleted(task_id: string): Promise<void> {
+  async setCompleted(task_id: string, answers: Record<number, string>): Promise<IGenericTaskEntity> {
     try {
-      await this.taskGeneratorRepo.setCompleted(new Types.ObjectId(task_id))
+      const entity = await this.taskGeneratorRepo.setCompleted(new Types.ObjectId(task_id), answers)
+
+      if (!entity) {
+        throw new Error("nullable entity")
+      }
+
+      return entity
     } catch (error: unknown) {
       logger.error(`setCompleted | error: ${error}`)
       throw error

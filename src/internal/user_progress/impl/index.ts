@@ -149,7 +149,7 @@ export class UserProgressService implements IUserProgressService {
         throw new Error(`Review not found for session_id: ${session_id}`)
       }
 
-      const totalSessions = sessions.length
+      const totalSessions = sessions.filter((item) => item.ended_at !== null).length
       const durations = reviews.map((r) => r.history?.duration_seconds).filter(Boolean)
       const avgSessionDuration = durations.length ? Math.round(durations.reduce((acc, sec) => acc + sec, 0) / durations.length) : 0
 

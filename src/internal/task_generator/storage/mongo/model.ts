@@ -18,6 +18,11 @@ const taskSchema = new Schema<ITaskDocument>(
     explanation_language: { type: String, required: true },
     task: { type: Schema.Types.Mixed, required: true },
     is_completed: { type: Boolean, default: false },
+    user_answers: {
+      type: Map,
+      of: String,
+      default: {},
+    },
     user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
     organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: false, default: null },
     review_id: { type: Schema.Types.ObjectId, ref: REVIEW_TABLE, required: true },

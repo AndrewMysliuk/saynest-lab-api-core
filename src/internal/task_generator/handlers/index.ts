@@ -57,17 +57,21 @@ export const getTaskHandler = (taskGeneratorService: ITaskGenerator): RequestHan
   }
 }
 
-export const setCompletedHandler = (taskGeneratorService: ITaskGenerator): RequestHandler => {
+export const setCompletedHandler = (taskGeneratorService: ITaskGenerator, userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const { task_id } = req.params
+      const { answers } = req.body
+      const user_id = req.user!.user_id
 
-      if (!task_id) {
+      if (!task_id || !answers || typeof answers !== "object") {
         res.status(400).json({ error: "Missing task_id in URL params" })
         return
       }
 
-      await taskGeneratorService.setCompleted(task_id)
+      const result = await taskGeneratorService.setCompleted(task_id, answers)
+
+      await userProgressService.syncTaskProgress(user_id, result)
 
       res.status(204).send()
     } catch (error: unknown) {
