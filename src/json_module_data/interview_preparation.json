@@ -15,18 +15,13 @@
       "scenarios": ["hr_introduction_basics", "hr_motivation_expectations", "hr_strengths_challenges", "hr_collaboration_and_conflict", "hr_culture_and_fit"]
     },
     {
-      "id": "interview_tech",
-      "title": "Technical Interview",
-      "description": "Prepare to explain technical decisions, architecture, and code logic clearly.",
-      "tips": ["Focus on clarity, not just correctness.", "Avoid buzzwords unless you can explain them simply.", "Imagine you're explaining to a junior developer or product manager."],
-      "scenarios": [
-        "tech_system_design_and_architecture",
-        "tech_data_flow_and_validation",
-        "tech_state_management_and_ui_logic",
-        "tech_code_quality_and_tooling",
-        "tech_core_technical_concepts",
-        "tech_debugging_testing_and_deployment"
-      ]
+      "id": "interview_tech_frontend_basics",
+      "title": "Technical Interview (Frontend Basics)",
+      "description": "Practice explaining core frontend concepts and your hands-on experience with HTML, CSS, and JS.",
+      "tips": ["Use real examples from your work.", "Explain technical terms simply.", "Clarify your decision-making process."],
+      "tags": ["frontend", "javascript", "html"],
+      "difficulty": "junior",
+      "scenarios": ["frontend_html_css_basics", "frontend_javascript_variables", "frontend_event_loop", "frontend_project_structure", "frontend_api_integration"]
     },
     {
       "id": "interview_final",

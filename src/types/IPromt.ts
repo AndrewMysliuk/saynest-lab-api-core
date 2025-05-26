@@ -71,6 +71,8 @@ export interface IModuleSubmodules {
   title: string
   description: string
   tips: string[]
+  tags?: string[]
+  difficulty?: string
   scenarios: string[]
 }
 

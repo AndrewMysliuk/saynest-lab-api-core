@@ -1,0 +1,119 @@
+{
+  "id": "frontend_project_structure",
+  "module": "interview_tech_frontend_basics",
+  "title": "Project Structure & Organization",
+  "description": "Practice explaining how you organize files, components, and logic in your frontend projects.",
+  "level": "B1",
+  "user_content": {
+    "goals": [
+      {
+        "phrase": "Describe how you structure your project to keep components, styles, and logic separate and reusable",
+        "translation": {
+          "uk": "Описати, як ви структуруєте проєкт, щоб компоненти, стилі й логіка були відокремлені та повторно використовувані"
+        }
+      },
+      {
+        "phrase": "Explain how your folder and file structure reflects the architecture and scalability of your project",
+        "translation": {
+          "uk": "Пояснити, як структура папок і файлів відображає архітектуру та масштабованість вашого проєкту"
+        }
+      },
+      {
+        "phrase": "Mention how you enforce consistency in naming, structure, and file responsibility",
+        "translation": {
+          "uk": "Згадати, як ви підтримуєте послідовність у найменуванні, структурі та зоні відповідальності файлів"
+        }
+      }
+    ],
+    "dictionary": [
+      {
+        "word": "component",
+        "translation": { "uk": "компонент" },
+        "meaning": "A reusable UI piece, like a button or form field"
+      },
+      {
+        "word": "modular structure",
+        "translation": { "uk": "модульна структура" },
+        "meaning": "Organizing code in small, self-contained units"
+      },
+      {
+        "word": "naming convention",
+        "translation": { "uk": "правило іменування" },
+        "meaning": "A consistent way of naming files, folders, and variables"
+      },
+      {
+        "word": "separation of concerns",
+        "translation": { "uk": "розділення обов’язків (concerns)" },
+        "meaning": "Keeping logic, UI, and styles in separate parts of the codebase"
+      },
+      {
+        "word": "feature folder",
+        "translation": { "uk": "папка фічі" },
+        "meaning": "A folder that groups code by functionality (e.g. 'auth/', 'dashboard/')"
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "I usually organize my projects using a feature-based folder structure.",
+        "translation": {
+          "uk": "Я зазвичай організовую проєкти за принципом розподілу на фічі."
+        },
+        "meaning": "Used to describe a popular structuring approach"
+      },
+      {
+        "phrase": "Components go into a 'components' folder, often grouped by feature.",
+        "translation": {
+          "uk": "Компоненти розміщую в папці 'components', часто групуючи за функціоналом."
+        },
+        "meaning": "Explains file separation"
+      },
+      {
+        "phrase": "I keep styles in separate files or use CSS modules.",
+        "translation": {
+          "uk": "Я зберігаю стилі в окремих файлах або використовую CSS modules."
+        },
+        "meaning": "Explains style management"
+      },
+      {
+        "phrase": "I follow a consistent naming convention to keep things organized.",
+        "translation": {
+          "uk": "Я дотримуюсь послідовної системи іменування для зручності."
+        },
+        "meaning": "Used to emphasize consistency"
+      }
+    ]
+  },
+  "model_behavior": {
+    "prompt": "You are a frontend interviewer asking the candidate how they organize their projects. Let them talk about folders, file types, components, styles, and how they keep the codebase clean.",
+    "scenario": {
+      "setting": "Technical interview",
+      "situation": "You are evaluating how the candidate structures their frontend code and maintains clarity",
+      "goal": "Encourage the user to describe file/folder structure, naming, and separation of logic and UI",
+      "steps": [
+        "Can you describe how your project structure supports separation of concerns between logic, UI, and styles?",
+        "How does your folder and file organization help your project scale or stay maintainable?"
+      ],
+      "optional_steps": [
+        "Do you organize code by features, domains, or file types — and why?",
+        "How do you name and structure shared components and utilities?",
+        "Where do you store reusable logic like hooks or services?",
+        "Do you apply any architectural patterns like feature-sliced design, MVC, or atomic design?",
+        "How do you avoid tight coupling between parts of your codebase?",
+        "What do you do to keep a large project readable and maintainable over time?",
+        "Do you use tools like linters, generators, or file checkers to enforce structure?",
+        "How do you document the structure of your project for new developers?"
+      ]
+    }
+  },
+  "meta": {
+    "estimated_duration_minutes": 5,
+    "max_turns": 8,
+    "question_count_range": {
+      "min": 3,
+      "max": 5
+    },
+    "model_end_behavior": "Wrap up the topic and thank the user for their explanation.",
+    "target_language": "English",
+    "explanation_language": "Ukrainian"
+  }
+}
