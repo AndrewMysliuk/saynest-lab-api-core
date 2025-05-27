@@ -2,10 +2,25 @@
   "id": "interview_preparation",
   "title": "Interview Preparation",
   "description": "Master the full interview process from first HR screening to the final CTO meeting. Simulate real conversations and get personalized feedback.",
-  "level": ["B1", "B2", "C1"],
+  "level": ["B1", "B2"],
   "tags": ["interview", "IT jobs", "career", "communication", "soft skills"],
   "type": "STRUCTURED",
-  "scenarios": [],
+  "scenarios": [
+    "hr_introduction_basics",
+    "hr_motivation_expectations",
+    "hr_strengths_challenges",
+    "hr_collaboration_and_conflict",
+    "hr_culture_and_fit",
+    "frontend_html_css_basics",
+    "frontend_javascript_variables",
+    "frontend_event_loop",
+    "frontend_project_structure",
+    "frontend_api_integration",
+    "final_learning_and_growth",
+    "final_long_term_goals",
+    "final_team_culture_fit",
+    "final_ask_us_something"
+  ],
   "submodules": [
     {
       "id": "interview_hr",

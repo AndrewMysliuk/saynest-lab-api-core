@@ -1,4 +1,4 @@
-# OpenAI Speak Mate Core
+# Saynest Labs  Core
 
 ## Getting Started
 

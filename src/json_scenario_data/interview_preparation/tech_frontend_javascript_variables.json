@@ -1,6 +1,5 @@
 {
   "id": "frontend_javascript_variables",
-  "module": "interview_tech_frontend_basics",
   "title": "JavaScript Variables",
   "description": "Talk about how you use variables in JavaScript, what the differences are between var, let, and const, and how you manage state in your code.",
   "level": "B1",

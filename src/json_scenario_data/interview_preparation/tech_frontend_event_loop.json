@@ -1,6 +1,5 @@
 {
   "id": "frontend_event_loop",
-  "module": "interview_tech_frontend_basics",
   "title": "JavaScript Event Loop",
   "description": "Practice explaining how the JavaScript event loop works and how it affects asynchronous code.",
   "level": "B2",

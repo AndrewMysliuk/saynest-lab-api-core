@@ -92,6 +92,8 @@ export function transformSingleModuleJson(item: any): IModuleScenario {
           title: String(sm.title),
           description: String(sm.description),
           tips: Array.isArray(sm.tips) ? sm.tips.map(String) : [],
+          tags: Array.isArray(sm.tags) ? sm.tags.map(String) : [],
+          difficulty: sm.difficulty ? String(sm.difficulty) : "",
           scenarios: Array.isArray(sm.scenarios) ? sm.scenarios.map(String) : [],
         }))
       : [],
@@ -112,7 +114,6 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
 
   return {
     id: item.id,
-    module: item.module,
     title: item.title,
     description: item.description,
     level: safeLevel,

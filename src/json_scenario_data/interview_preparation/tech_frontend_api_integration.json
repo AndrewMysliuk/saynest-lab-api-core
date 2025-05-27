@@ -1,6 +1,5 @@
 {
   "id": "frontend_api_integration",
-  "module": "interview_tech_frontend_basics",
   "title": "API Integration",
   "description": "Practice talking about how you fetch and handle data from APIs in frontend projects.",
   "level": "B2",
