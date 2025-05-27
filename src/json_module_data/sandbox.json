@@ -5,6 +5,14 @@
   "level": ["B1", "B2"],
   "tags": ["survival_english", "daily life", "practical skills", "casual"],
   "type": "FLAT",
-  "scenarios": ["renting_a_car", "checking_into_a_hotel", "getting_a_gym_membership", "traveling_at_the_airport", "visiting_an_optician", "startup_pitch_presentation"],
+  "scenarios": [
+    "renting_a_car",
+    "checking_into_a_hotel",
+    "getting_a_gym_membership",
+    "traveling_at_the_airport",
+    "visiting_an_optician",
+    "applying_digital_nomad_visa_cyprus",
+    "startup_pitch_presentation"
+  ],
   "submodules": []
 }
