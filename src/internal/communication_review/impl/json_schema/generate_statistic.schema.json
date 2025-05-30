@@ -79,7 +79,46 @@
         },
         "required": ["phrase", "is_used", "quote_from_dialogue"]
       }
+    },
+    "consistency_review": {
+      "type": "object",
+      "description": "Analysis of how well the user's responses matched the questions asked by the assistant.",
+      "properties": {
+        "consistency_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "A score from 0 to 100 showing overall response relevance and alignment with the assistant's questions."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Summary in the user's native language explaining how consistent their responses were with the scenario questions."
+        },
+        "inconsistent_turns": {
+          "type": "array",
+          "description": "A list of question-response pairs where the user's reply did not align with the assistant's question.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "The original question asked by the assistant."
+              },
+              "user_response": {
+                "type": "string",
+                "description": "The user's response to the question."
+              },
+              "comment": {
+                "type": "string",
+                "description": "Explanation of why the response did not match the question."
+              }
+            },
+            "required": ["question", "user_response", "comment"]
+          }
+        }
+      },
+      "required": ["consistency_score", "summary", "inconsistent_turns"]
     }
   },
-  "required": ["suggestion", "conclusion", "user_cefr_level", "goals_coverage", "vocabulary_used", "phrases_used"]
+  "required": ["suggestion", "conclusion", "user_cefr_level", "goals_coverage", "vocabulary_used", "phrases_used", "consistency_review"]
 }

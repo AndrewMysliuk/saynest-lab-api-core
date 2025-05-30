@@ -146,7 +146,7 @@ export function transformSingleScenarioJson(item: any): IPromptScenario {
         situation: item.model_behavior?.scenario?.situation || "",
         goal: item.model_behavior?.scenario?.goal || "",
         steps: item.model_behavior?.scenario?.steps || [],
-        optional_steps: item.model_behavior?.scenario?.steps || [],
+        optional_steps: item.model_behavior?.scenario?.optional_steps || [],
       },
     },
     meta: {

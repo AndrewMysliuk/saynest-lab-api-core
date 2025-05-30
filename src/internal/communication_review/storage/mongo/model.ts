@@ -140,6 +140,24 @@ const ExpressionUsageSchema = new Schema<IExpressionUsage>({
   quote_from_dialogue: { type: String, required: false },
 })
 
+const InconsistentTurnSchema = new Schema(
+  {
+    question: { type: String, required: true },
+    user_response: { type: String, required: true },
+    comment: { type: String, required: true },
+  },
+  { _id: false },
+)
+
+const ConsistencyReviewSchema = new Schema(
+  {
+    consistency_score: { type: Number, required: true, min: 0, max: 100 },
+    summary: { type: String, required: true },
+    inconsistent_turns: { type: [InconsistentTurnSchema], required: true },
+  },
+  { _id: false },
+)
+
 const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
   {
     user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
@@ -158,6 +176,7 @@ const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
     goals_coverage: { type: [UserGoalEvaluationSchema], required: true },
     vocabulary_used: { type: [VocabularyUsageSchema], required: true },
     phrases_used: { type: [ExpressionUsageSchema], required: true },
+    consistency_review: { type: ConsistencyReviewSchema, required: true },
     updated_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now },
   },

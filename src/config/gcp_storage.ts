@@ -13,7 +13,7 @@ const gcs = isRunningInGCP
 
 export const gcsBucket = gcs.bucket(serverConfig.GCS_BUCKET_NAME)
 
-export async function getSignedUrlFromStoragePath(storagePath: string, expiresInMs = 60 * 60 * 1000): Promise<string> {
+export async function getSignedUrlFromStoragePath(storagePath: string, expiresInMs = 5 * 60 * 1000): Promise<string> {
   const file = gcsBucket.file(storagePath)
 
   const [signedUrl] = await file.getSignedUrl({

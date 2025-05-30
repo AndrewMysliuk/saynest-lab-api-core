@@ -108,10 +108,10 @@
     "estimated_duration_minutes": 5,
     "max_turns": 8,
     "question_count_range": {
-      "min": 3,
-      "max": 5
+      "min": 2,
+      "max": 4
     },
-    "model_end_behavior": "Wrap up the topic and thank the user for their explanation.",
+    "model_end_behavior": "Great job! You’ve finished this scenario. Feel free to check the analysis and see how you performed.",
     "target_language": "English",
     "explanation_language": "Ukrainian"
   }

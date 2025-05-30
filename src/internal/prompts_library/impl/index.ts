@@ -1,7 +1,14 @@
 import { IPromptService } from ".."
 import { generateFinallyPrompt, transformSingleModuleJson, transformSingleScenarioJson } from "../../..//utils"
+import CommonModule from "../../../json_module_data/common.json"
 import InterviewPreparationModule from "../../../json_module_data/interview_preparation.json"
-import SandboxModule from "../../../json_module_data/sandbox.json"
+import ApplyingDigitalNomadVisaCyprusPrompt from "../../../json_scenario_data/common/applying_digital_nomad_visa_cyprus.json"
+import CheckingIntoHotelPrompt from "../../../json_scenario_data/common/checking_into_a_hotel.json"
+import GettingGymMembershipPrompt from "../../../json_scenario_data/common/getting_a_gym_membership.json"
+import RentingCarPrompt from "../../../json_scenario_data/common/renting_a_car.json"
+import StartupPitchPresentationPrompt from "../../../json_scenario_data/common/startup_pitch_presentation.json"
+import TravelingAtTheAirportPrompt from "../../../json_scenario_data/common/traveling_at_the_airport.json"
+import VisitingOpticianPrompt from "../../../json_scenario_data/common/visiting_an_optician.json"
 import FinalAskUsSomething from "../../../json_scenario_data/interview_preparation/final_ask_us_something.json"
 import FinalLearningAndGrowth from "../../../json_scenario_data/interview_preparation/final_learning_and_growth.json"
 import FinalLongTermGoals from "../../../json_scenario_data/interview_preparation/final_long_term_goals.json"
@@ -16,13 +23,6 @@ import TechFrontendEventLoop from "../../../json_scenario_data/interview_prepara
 import TechFrontendHTMLCSSBasics from "../../../json_scenario_data/interview_preparation/tech_frontend_html_css_basics.json"
 import TechFrontendJavascriptVariables from "../../../json_scenario_data/interview_preparation/tech_frontend_javascript_variables.json"
 import TechFrontendProjectStructure from "../../../json_scenario_data/interview_preparation/tech_frontend_project_structure.json"
-import ApplyingDigitalNomadVisaCyprusPrompt from "../../../json_scenario_data/sandbox/applying_digital_nomad_visa_cyprus.json"
-import CheckingIntoHotelPrompt from "../../../json_scenario_data/sandbox/checking_into_a_hotel.json"
-import GettingGymMembershipPrompt from "../../../json_scenario_data/sandbox/getting_a_gym_membership.json"
-import RentingCarPrompt from "../../../json_scenario_data/sandbox/renting_a_car.json"
-import StartupPitchPresentationPrompt from "../../../json_scenario_data/sandbox/startup_pitch_presentation.json"
-import TravelingAtTheAirportPrompt from "../../../json_scenario_data/sandbox/traveling_at_the_airport.json"
-import VisitingOpticianPrompt from "../../../json_scenario_data/sandbox/visiting_an_optician.json"
 import { IModuleScenario, IPromptScenario } from "../../../types"
 
 const MODULES = [
@@ -30,12 +30,12 @@ const MODULES = [
     ...transformSingleModuleJson(InterviewPreparationModule),
   },
   {
-    ...transformSingleModuleJson(SandboxModule),
+    ...transformSingleModuleJson(CommonModule),
   },
 ]
 
 const SCENARIOS = [
-  // Sandbox
+  // Common
   {
     ...transformSingleScenarioJson(ApplyingDigitalNomadVisaCyprusPrompt),
     finally_prompt: generateFinallyPrompt(ApplyingDigitalNomadVisaCyprusPrompt),

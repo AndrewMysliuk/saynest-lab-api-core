@@ -73,6 +73,16 @@ Details for the "phrases_used" field:
 - Provide a short quote from the dialogue if the phrase was used.
 - If the phrase was not used, set is_used: false and leave quote_from_dialogue as an empty string.
 
+Details for the "consistency_review" field:
+- This field evaluates how consistently the user responded to the assistant’s questions.
+- "consistency_score" is a number between 0 and 100. A higher score means most answers were relevant and aligned with the questions. A lower score indicates frequent digressions, off-topic replies, or irrelevant answers.
+- "summary" is a short explanation (in ${explanation_language}) describing how consistent the user was during the session.
+- "inconsistent_turns" is a list of problematic responses. For each, include:
+  - "question": the assistant's original question,
+  - "user_response": the user's answer,
+  - "comment": a short explanation (in ${explanation_language}) of why the response was off-topic or irrelevant.
+- Only include entries that are clearly inconsistent. Do not nitpick minor misunderstandings or acceptable creative interpretation.
+
 Scenario goals:
 ${userGoals}
 

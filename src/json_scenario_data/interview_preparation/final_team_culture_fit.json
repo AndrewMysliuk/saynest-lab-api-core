@@ -123,10 +123,10 @@
     "estimated_duration_minutes": 6,
     "max_turns": 10,
     "question_count_range": {
-      "min": 4,
-      "max": 6
+      "min": 2,
+      "max": 4
     },
-    "model_end_behavior": "Thank the user and say you appreciate hearing how they approach team collaboration.",
+    "model_end_behavior": "Great job! You’ve finished this scenario. Feel free to check the analysis and see how you performed.",
     "target_language": "English",
     "explanation_language": "Ukrainian"
   }

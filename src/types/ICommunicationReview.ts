@@ -35,6 +35,18 @@ export interface IExpressionUsage {
   quote_from_dialogue?: string
 }
 
+export interface IInconsistentTurns {
+  question: string
+  user_response: string
+  comment: string // объяснение, почему ответ не соответствует вопросу
+}
+
+export interface IConsistencyReview {
+  consistency_score: number // от 0 до 100
+  summary: string // краткое ревью, на explanation_language
+  inconsistent_turns: IInconsistentTurns[]
+}
+
 export interface ICommunicationReview {
   _id: Types.ObjectId
   user_id: Types.ObjectId
@@ -53,6 +65,7 @@ export interface ICommunicationReview {
   goals_coverage: IUserGoalEvaluation[]
   vocabulary_used: IVocabularyUsage[]
   phrases_used: IExpressionUsage[]
+  consistency_review: IConsistencyReview
   updated_at: Date
   created_at: Date
 }
@@ -64,6 +77,7 @@ export interface ICommunicationReviewModelResponse {
   goals_coverage: IUserGoalEvaluation[]
   vocabulary_used: IVocabularyUsage[]
   phrases_used: IExpressionUsage[]
+  consistency_review: IConsistencyReview
 }
 
 export interface ICommunicationReviewGenerateRequest {

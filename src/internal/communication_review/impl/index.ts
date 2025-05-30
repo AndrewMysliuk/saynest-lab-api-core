@@ -136,6 +136,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
             goals_coverage: modelResponse.goals_coverage,
             vocabulary_used: modelResponse.vocabulary_used,
             phrases_used: modelResponse.phrases_used,
+            consistency_review: modelResponse.consistency_review,
           },
           {
             session,

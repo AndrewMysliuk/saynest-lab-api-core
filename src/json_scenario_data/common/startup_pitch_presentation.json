@@ -120,7 +120,7 @@
     "estimated_duration_minutes": 7,
     "max_turns": 12,
     "question_count_range": null,
-    "model_end_behavior": "Wish the user good luck with their startup!",
+    "model_end_behavior": "Great job! You’ve finished this scenario. Feel free to check the analysis and see how you performed.",
     "target_language": "English",
     "explanation_language": "Ukrainian"
   }

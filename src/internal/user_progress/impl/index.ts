@@ -197,62 +197,55 @@ export class UserProgressService implements IUserProgressService {
   }
 
   private updateFillerStats(fillerWordsList: IVocabularyFillersEntity[], fillerWordsUsage: IUserProgressFillerWordsUsage[]): IUserProgressFillerWordsUsage[] {
-    try {
-      const prevMap = new Map<string, number>()
-      for (const word of fillerWordsUsage) {
-        prevMap.set(word.word.toLowerCase(), word.total_count)
-      }
-
-      const result: IUserProgressFillerWordsUsage[] = fillerWordsList.map((entry) => {
-        const word = entry.word.toLowerCase()
-        const newCount = entry.repeated_count
-        const prevCount = prevMap.get(word)
-
-        const trend = getTrend(prevCount, newCount)
-
-        return {
-          word,
-          total_count: newCount,
-          trend,
-        }
-      })
-
-      return result.sort((a, b) => b.total_count - a.total_count)
-    } catch (error: unknown) {
-      logger.error(`updateFillerStats | error: ${error}`)
-      throw error
+    const prevMap = new Map<string, IUserProgressFillerWordsUsage>()
+    for (const word of fillerWordsUsage) {
+      prevMap.set(word.word.toLowerCase(), { ...word })
     }
+
+    for (const entry of fillerWordsList) {
+      const word = entry.word.toLowerCase()
+      const newCount = entry.repeated_count
+
+      const prevEntry = prevMap.get(word)
+      const prevCount = prevEntry ? prevEntry.total_count : 0
+
+      const trend = getTrend(prevCount, newCount)
+
+      prevMap.set(word, {
+        word,
+        total_count: newCount,
+        trend,
+      })
+    }
+
+    return Array.from(prevMap.values()).sort((a, b) => b.total_count - a.total_count)
   }
 
   private updateErrorStats(errorTopicTitles: string[], prevErrorStats: IUserProgressErrorStats[]): IUserProgressErrorStats[] {
-    try {
-      const prevMap = new Map<string, number>()
-      for (const stat of prevErrorStats) {
-        prevMap.set(stat.category.toLowerCase(), stat.total_count)
-      }
-
-      const newMap = new Map<string, number>()
-      for (const topic of errorTopicTitles) {
-        const key = topic.toLowerCase()
-        newMap.set(key, (newMap.get(key) || 0) + 1)
-      }
-
-      const result: IUserProgressErrorStats[] = Array.from(newMap.entries()).map(([category, newCount]) => {
-        const prevCount = prevMap.get(category)
-
-        const trend = getTrend(prevCount, newCount)
-
-        return {
-          category,
-          total_count: newCount,
-          trend,
-        }
-      })
-
-      return result
-    } catch (error: unknown) {
-      logger.error(`updateErrorStats | error: ${error}`)
-      throw error
+    const prevMap = new Map<string, IUserProgressErrorStats>()
+    for (const stat of prevErrorStats) {
+      prevMap.set(stat.category.toLowerCase(), { ...stat })
     }
+
+    const newMap = new Map<string, number>()
+    for (const topic of errorTopicTitles) {
+      const key = topic.toLowerCase()
+      newMap.set(key, (newMap.get(key) || 0) + 1)
+    }
+
+    for (const [category, newCount] of newMap.entries()) {
+      const prevEntry = prevMap.get(category)
+      const prevCount = prevEntry ? prevEntry.total_count : 0
+
+      const trend = getTrend(prevCount, newCount)
+
+      prevMap.set(category, {
+        category,
+        total_count: newCount,
+        trend,
+      })
+    }
+
+    return Array.from(prevMap.values())
   }
 }
