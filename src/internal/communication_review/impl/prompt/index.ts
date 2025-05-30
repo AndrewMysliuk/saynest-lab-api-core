@@ -1,6 +1,6 @@
-import { IConversationHistory, IErrorAnalysisEntity, IPromptScenario, IVocabularyFillersEntity } from "../../../../types"
+import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity, IVocabularyFillersEntity } from "../../../../types"
 
-export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenario): string => {
+export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
   const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
   const expressionsBlock = prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n")
   const userGoals = prompt.user_content.goals.map((entry) => `- ${entry.phrase}`).join("\n")

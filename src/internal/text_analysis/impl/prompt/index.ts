@@ -1,10 +1,8 @@
-import { IPromptScenario } from "../../../../types"
-
-export const buildSystemPrompt = (prompt: IPromptScenario): string => {
+export const buildSystemPrompt = (finally_prompt: string): string => {
   return `
 You are acting as a **conversation tutor** for the user, helping them practice realistic communication skills in the following roleplay.
 
-${prompt.finally_prompt}
+${finally_prompt}
 
 ====================
 BEHAVIOR RULES

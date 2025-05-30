@@ -1,6 +1,6 @@
-import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../types"
+import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../types"
 
-export interface IPromptService {
+export interface IRepository {
   createScenario(dto: Partial<IPromptScenarioEntity>, options?: IMongooseOptions): Promise<IPromptScenarioEntity>
   updateScenario(id: string, dto: Partial<IPromptScenarioEntity>, options?: IMongooseOptions): Promise<IPromptScenarioEntity>
   getScenario(id: string, options?: IMongooseOptions): Promise<IPromptScenarioEntity>

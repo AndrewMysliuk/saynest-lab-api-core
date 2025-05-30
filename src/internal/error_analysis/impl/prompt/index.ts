@@ -1,6 +1,6 @@
-import { IErrorAnalysisRequest, ILanguageTopic, IPromptScenario } from "../../../../types"
+import { IErrorAnalysisRequest, ILanguageTopic, IPromptScenarioEntity } from "../../../../types"
 
-export function buildSystemPrompt(topics: ILanguageTopic[], prompt: IPromptScenario, dto: IErrorAnalysisRequest): string {
+export function buildSystemPrompt(topics: ILanguageTopic[], prompt: IPromptScenarioEntity, dto: IErrorAnalysisRequest): string {
   const topicBlock = JSON.stringify(
     topics.map((t) => t.title),
     null,

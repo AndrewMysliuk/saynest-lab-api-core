@@ -9,7 +9,7 @@ export interface IConversationService {
     user_id: string | null,
     outputConversation?: { finalData?: IConversationResponse },
   ): AsyncGenerator<ConversationStreamEvent>
-  getSessionData(session_id: string): Promise<{ session_id: Types.ObjectId; conversation_history: IConversationHistory[] }>
+  getSessionData(session_id: string): Promise<{ session_id: Types.ObjectId; finally_prompt: string; conversation_history: IConversationHistory[] }>
   listConversationHistory(session_id: string): Promise<IConversationHistory[]>
   deleteAllBySessionId(session_id: string): Promise<void>
 }

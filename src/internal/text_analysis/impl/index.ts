@@ -2,19 +2,12 @@ import { ITextAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import { IGPTPayload } from "../../../types"
 import { createScopedLogger } from "../../../utils"
-import { IPromptService } from "../../prompts_library"
 import { buildSystemPrompt } from "./prompt"
 
 const log = createScopedLogger("textAnalysisService")
 
 export class TextAnalysisService implements ITextAnalysis {
-  private readonly promptService: IPromptService
-
-  constructor(promptService: IPromptService) {
-    this.promptService = promptService
-  }
-
-  async *streamGptReplyOnly(payload: IGPTPayload, prompt_id: string): AsyncGenerator<string, void, unknown> {
+  async *streamGptReplyOnly(payload: IGPTPayload, finally_prompt: string): AsyncGenerator<string, void, unknown> {
     const method = "streamGptReplyOnly"
 
     try {
@@ -39,17 +32,10 @@ export class TextAnalysisService implements ITextAnalysis {
         throw new Error(errorMsg)
       }
 
-      const prompt = this.promptService.getById(prompt_id)
-      if (!prompt) {
-        const errorMsg = `Prompt with id "${prompt_id}" not found`
-        log.error(method, errorMsg)
-        throw new Error(errorMsg)
-      }
-
-      messages[0].content = buildSystemPrompt(prompt)
+      messages[0].content = buildSystemPrompt(finally_prompt)
 
       log.info(method, "Starting GPT stream", {
-        prompt_id,
+        finally_prompt,
         messagesLength: messages.length,
         model: payload.model,
         temperature: payload.temperature,

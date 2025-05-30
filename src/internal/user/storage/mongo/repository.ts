@@ -1,15 +1,20 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IMongooseOptions, IUserEntity, IUserUpdateRequest } from "../../../../types"
+import { IMongooseOptions, IUserEntity, IUserUpdateRequest, UserRoleEnum } from "../../../../types"
 import { logger } from "../../../../utils"
 import { UserModel } from "./model"
 
 export class UserRepository implements IRepository {
   async create(data: Partial<IUserEntity>, options?: IMongooseOptions): Promise<IUserEntity> {
     try {
+      if (data.role === UserRoleEnum.SUPER_USER) {
+        throw new Error("Cannot set SUPER_USER role")
+      }
+
       const user = new UserModel(data)
       await user.save({ session: options?.session || null })
+
       return user.toObject()
     } catch (error: any) {
       if (error?.code === 11000 && error?.keyPattern?.email) {
@@ -67,7 +72,11 @@ export class UserRepository implements IRepository {
 
   async update(id: string, dto: IUserUpdateRequest, options?: IMongooseOptions): Promise<IUserEntity | null> {
     try {
-      const user = await UserModel.findByIdAndUpdate(id, { $set: dto }, { new: true, session: options?.session || null })
+      if (dto.role === UserRoleEnum.SUPER_USER) {
+        throw new Error("Cannot set SUPER_USER role")
+      }
+
+      const user = await UserModel.findByIdAndUpdate(id, { $set: dto }, { new: true, session: options?.session || null }).lean()
 
       return user
     } catch (error: unknown) {

@@ -1,4 +1,4 @@
-import { IPromptScenario, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
+import { IPromptScenarioEntity, ITaskGeneratorRequest, TaskTypeEnum } from "../../../../types"
 
 const taskTypeReadable: Record<TaskTypeEnum, string> = {
   FILL_BLANK: "Fill in the blanks",
@@ -81,7 +81,7 @@ Rules and Constraints:
   }
 }
 
-export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_sentences_count: number }, prompt: IPromptScenario): string {
+export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_sentences_count: number }, prompt: IPromptScenarioEntity): string {
   const readableType = taskTypeReadable[request.type]
   const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 

@@ -30,7 +30,6 @@ export interface IConversationPayload {
   // tts: ITTSElevenLabsPayload
   system: {
     session_id: string
-    global_prompt: string
     prompt_id: string
   }
   target_language: string

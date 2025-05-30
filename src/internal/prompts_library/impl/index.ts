@@ -1,152 +1,93 @@
 import { IPromptService } from ".."
-import { generateFinallyPrompt, transformSingleModuleJson, transformSingleScenarioJson } from "../../..//utils"
-import CommonModule from "../../../json_module_data/common.json"
-import InterviewPreparationModule from "../../../json_module_data/interview_preparation.json"
-import ApplyingDigitalNomadVisaCyprusPrompt from "../../../json_scenario_data/common/applying_digital_nomad_visa_cyprus.json"
-import CheckingIntoHotelPrompt from "../../../json_scenario_data/common/checking_into_a_hotel.json"
-import GettingGymMembershipPrompt from "../../../json_scenario_data/common/getting_a_gym_membership.json"
-import RentingCarPrompt from "../../../json_scenario_data/common/renting_a_car.json"
-import StartupPitchPresentationPrompt from "../../../json_scenario_data/common/startup_pitch_presentation.json"
-import TravelingAtTheAirportPrompt from "../../../json_scenario_data/common/traveling_at_the_airport.json"
-import VisitingOpticianPrompt from "../../../json_scenario_data/common/visiting_an_optician.json"
-import FinalAskUsSomething from "../../../json_scenario_data/interview_preparation/final_ask_us_something.json"
-import FinalLearningAndGrowth from "../../../json_scenario_data/interview_preparation/final_learning_and_growth.json"
-import FinalLongTermGoals from "../../../json_scenario_data/interview_preparation/final_long_term_goals.json"
-import FinalTeamCultureFit from "../../../json_scenario_data/interview_preparation/final_team_culture_fit.json"
-import HRCollaborationAndConflict from "../../../json_scenario_data/interview_preparation/hr_collaboration_and_conflict.json"
-import HRCultureAndFit from "../../../json_scenario_data/interview_preparation/hr_culture_and_fit.json"
-import HRIntroductionBasics from "../../../json_scenario_data/interview_preparation/hr_introduction_basics.json"
-import HRMotivationExpectations from "../../../json_scenario_data/interview_preparation/hr_motivation_expectations.json"
-import HRStrengthsChallenges from "../../../json_scenario_data/interview_preparation/hr_strengths_challenges.json"
-import TechFrontendAPIIntegration from "../../../json_scenario_data/interview_preparation/tech_frontend_api_integration.json"
-import TechFrontendEventLoop from "../../../json_scenario_data/interview_preparation/tech_frontend_event_loop.json"
-import TechFrontendHTMLCSSBasics from "../../../json_scenario_data/interview_preparation/tech_frontend_html_css_basics.json"
-import TechFrontendJavascriptVariables from "../../../json_scenario_data/interview_preparation/tech_frontend_javascript_variables.json"
-import TechFrontendProjectStructure from "../../../json_scenario_data/interview_preparation/tech_frontend_project_structure.json"
-import { IModuleScenario, IPromptScenario } from "../../../types"
-
-const MODULES = [
-  {
-    ...transformSingleModuleJson(InterviewPreparationModule),
-  },
-  {
-    ...transformSingleModuleJson(CommonModule),
-  },
-]
-
-const SCENARIOS = [
-  // Common
-  {
-    ...transformSingleScenarioJson(ApplyingDigitalNomadVisaCyprusPrompt),
-    finally_prompt: generateFinallyPrompt(ApplyingDigitalNomadVisaCyprusPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(RentingCarPrompt),
-    finally_prompt: generateFinallyPrompt(RentingCarPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(GettingGymMembershipPrompt),
-    finally_prompt: generateFinallyPrompt(GettingGymMembershipPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(CheckingIntoHotelPrompt),
-    finally_prompt: generateFinallyPrompt(CheckingIntoHotelPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(VisitingOpticianPrompt),
-    finally_prompt: generateFinallyPrompt(VisitingOpticianPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(TravelingAtTheAirportPrompt),
-    finally_prompt: generateFinallyPrompt(TravelingAtTheAirportPrompt),
-  },
-  {
-    ...transformSingleScenarioJson(StartupPitchPresentationPrompt),
-    finally_prompt: generateFinallyPrompt(StartupPitchPresentationPrompt),
-  },
-  // HR
-  {
-    ...transformSingleScenarioJson(HRIntroductionBasics),
-    finally_prompt: generateFinallyPrompt(HRIntroductionBasics),
-  },
-  {
-    ...transformSingleScenarioJson(HRMotivationExpectations),
-    finally_prompt: generateFinallyPrompt(HRMotivationExpectations),
-  },
-  {
-    ...transformSingleScenarioJson(HRStrengthsChallenges),
-    finally_prompt: generateFinallyPrompt(HRStrengthsChallenges),
-  },
-  {
-    ...transformSingleScenarioJson(HRCollaborationAndConflict),
-    finally_prompt: generateFinallyPrompt(HRCollaborationAndConflict),
-  },
-  {
-    ...transformSingleScenarioJson(HRCultureAndFit),
-    finally_prompt: generateFinallyPrompt(HRCultureAndFit),
-  },
-
-  // Final
-  {
-    ...transformSingleScenarioJson(FinalAskUsSomething),
-    finally_prompt: generateFinallyPrompt(FinalAskUsSomething),
-  },
-  {
-    ...transformSingleScenarioJson(FinalLearningAndGrowth),
-    finally_prompt: generateFinallyPrompt(FinalLearningAndGrowth),
-  },
-  {
-    ...transformSingleScenarioJson(FinalLongTermGoals),
-    finally_prompt: generateFinallyPrompt(FinalLongTermGoals),
-  },
-  {
-    ...transformSingleScenarioJson(FinalTeamCultureFit),
-    finally_prompt: generateFinallyPrompt(FinalTeamCultureFit),
-  },
-
-  // Tech Frontend
-  {
-    ...transformSingleScenarioJson(TechFrontendHTMLCSSBasics),
-    finally_prompt: generateFinallyPrompt(TechFrontendHTMLCSSBasics),
-  },
-  {
-    ...transformSingleScenarioJson(TechFrontendJavascriptVariables),
-    finally_prompt: generateFinallyPrompt(TechFrontendJavascriptVariables),
-  },
-  {
-    ...transformSingleScenarioJson(TechFrontendEventLoop),
-    finally_prompt: generateFinallyPrompt(TechFrontendEventLoop),
-  },
-  {
-    ...transformSingleScenarioJson(TechFrontendProjectStructure),
-    finally_prompt: generateFinallyPrompt(TechFrontendProjectStructure),
-  },
-  {
-    ...transformSingleScenarioJson(TechFrontendAPIIntegration),
-    finally_prompt: generateFinallyPrompt(TechFrontendAPIIntegration),
-  },
-]
+import { logger } from "../../..//utils"
+import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../types"
+import { IRepository } from "../storage"
 
 export class PromptService implements IPromptService {
-  getPromptList(): IPromptScenario[] {
-    return SCENARIOS
+  private readonly promptRepo: IRepository
+
+  constructor(promptRepo: IRepository) {
+    this.promptRepo = promptRepo
   }
 
-  getModuleList(): IModuleScenario[] {
-    return MODULES
+  async createScenario(dto: Partial<IPromptScenarioEntity>, options?: IMongooseOptions): Promise<IPromptScenarioEntity> {
+    try {
+      return this.promptRepo.createScenario(dto, options)
+    } catch (error: unknown) {
+      logger.error(`createScenario | error: ${error}`)
+      throw error
+    }
   }
 
-  getModuleScenarios(module_id: string): IPromptScenario[] {
-    const module = MODULES.find((m) => m.id === module_id)
-    if (!module) return []
-
-    const scenarioIds = new Set(module.scenarios)
-    return SCENARIOS.filter((scenario) => scenarioIds.has(scenario.id))
+  async updateScenario(id: string, dto: Partial<IPromptScenarioEntity>, options?: IMongooseOptions): Promise<IPromptScenarioEntity> {
+    try {
+      return this.promptRepo.updateScenario(id, dto, options)
+    } catch (error: unknown) {
+      logger.error(`updateScenario | error: ${error}`)
+      throw error
+    }
   }
 
-  getById(id: string): IPromptScenario | null {
-    const promptsList = this.getPromptList()
+  async getScenario(id: string, options?: IMongooseOptions): Promise<IPromptScenarioEntity> {
+    try {
+      return this.promptRepo.getScenario(id, options)
+    } catch (error: unknown) {
+      logger.error(`getScenario | error: ${error}`)
+      throw error
+    }
+  }
 
-    return promptsList.find((prompt) => prompt.id === id) || null
+  async listScenario(filter?: IPromptFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IPromptScenarioEntity[]> {
+    try {
+      return this.promptRepo.listScenario(filter, pagination, options)
+    } catch (error: unknown) {
+      logger.error(`listScenario | error: ${error}`)
+      throw error
+    }
+  }
+
+  async createModule(dto: Partial<IModuleScenarioEntity>, options?: IMongooseOptions): Promise<IModuleScenarioEntity> {
+    try {
+      return this.promptRepo.createModule(dto, options)
+    } catch (error: unknown) {
+      logger.error(`createModule | error: ${error}`)
+      throw error
+    }
+  }
+
+  async updateModule(id: string, dto: Partial<IModuleScenarioEntity>, options?: IMongooseOptions): Promise<IModuleScenarioEntity> {
+    try {
+      return this.promptRepo.updateModule(id, dto, options)
+    } catch (error: unknown) {
+      logger.error(`updateModule | error: ${error}`)
+      throw error
+    }
+  }
+
+  async getModule(id: string, options?: IMongooseOptions): Promise<IModuleScenarioEntity> {
+    try {
+      return this.promptRepo.getModule(id, options)
+    } catch (error: unknown) {
+      logger.error(`getModule | error: ${error}`)
+      throw error
+    }
+  }
+
+  async listModule(filter?: IModuleFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IModuleScenarioEntity[]> {
+    try {
+      return this.promptRepo.listModule(filter, pagination, options)
+    } catch (error: unknown) {
+      logger.error(`listModule | error: ${error}`)
+      throw error
+    }
+  }
+
+  async getScenariosForModule(module_id: string, options?: IMongooseOptions): Promise<IPromptScenarioEntity[]> {
+    try {
+      return this.promptRepo.getScenariosForModule(module_id, options)
+    } catch (error: unknown) {
+      logger.error(`getScenariosForModule | error: ${error}`)
+      throw error
+    }
   }
 }

@@ -24,7 +24,7 @@ export class TaskGeneratorService implements ITaskGenerator {
   async generateTask<T extends TaskTypeEnum>(request: ITaskGeneratorRequest & { type: T }): Promise<IGenericTaskEntity<TaskTypeMap[T]["response_type"]>> {
     try {
       const review = await this.communicationReviewService.getReview(request.review_id, request.user_id)
-      const prompt = this.promptService.getById(review.prompt_id)
+      const prompt = await this.promptService.getScenario(review.prompt_id)
 
       if (!prompt) {
         throw new Error("Prompt not found.")

@@ -1,5 +1,6 @@
 import { Router } from "express"
 
+import { superUserOnlyMiddleware } from "../../../middlewares"
 import { getWordAudioHandler, getWordExplanationHandler, getWordsListHandler, searchWordsSynonymsHandler } from "../handlers"
 import { IVocabularyTracker } from "../index"
 
@@ -12,8 +13,8 @@ export const createVocabularyTrackerRouter = (vocabularyTrackerService: IVocabul
 
   router.post("/explanation", getWordExplanationHandler(vocabularyTrackerService))
   router.post("/audio", getWordAudioHandler(vocabularyTrackerService))
-  router.post("/search-synonyms", searchWordsSynonymsHandler(vocabularyTrackerService))
-  router.get("/", getWordsListHandler(vocabularyTrackerService))
+  router.post("/search-synonyms", superUserOnlyMiddleware, searchWordsSynonymsHandler(vocabularyTrackerService))
+  router.get("/", superUserOnlyMiddleware, getWordsListHandler(vocabularyTrackerService))
 
   return router
 }

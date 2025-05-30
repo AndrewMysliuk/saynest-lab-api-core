@@ -13,6 +13,7 @@ import {
 } from "../../../types"
 import { calculateStreak, getTrend, logger } from "../../../utils"
 import { ICommunicationReviewService } from "../../communication_review"
+import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
 import { IRepository } from "../storage"
 
@@ -20,11 +21,13 @@ export class UserProgressService implements IUserProgressService {
   private readonly userProgressRepo: IRepository
   private readonly sessionService: ISessionService
   private readonly communicationReviewService: ICommunicationReviewService
+  private readonly promptService: IPromptService
 
-  constructor(userProgressRepo: IRepository, sessionService: ISessionService, communicationReviewService: ICommunicationReviewService) {
+  constructor(userProgressRepo: IRepository, sessionService: ISessionService, communicationReviewService: ICommunicationReviewService, promptService: IPromptService) {
     this.userProgressRepo = userProgressRepo
     this.sessionService = sessionService
     this.communicationReviewService = communicationReviewService
+    this.promptService = promptService
   }
 
   async createIfNotExists(user_id: string, organization_id?: string, options?: IMongooseOptions): Promise<IUserProgressEntity | null> {
@@ -153,10 +156,14 @@ export class UserProgressService implements IUserProgressService {
       const durations = reviews.map((r) => r.history?.duration_seconds).filter(Boolean)
       const avgSessionDuration = durations.length ? Math.round(durations.reduce((acc, sec) => acc + sec, 0) / durations.length) : 0
 
-      const progress = await this.userProgressRepo.getByUserId(new Types.ObjectId(user_id), options)
+      const [progress, prompt] = await Promise.all([this.userProgressRepo.getByUserId(new Types.ObjectId(user_id), options), this.promptService.getScenario(lastReview.prompt_id.toString())])
 
       if (!progress) {
         throw new Error(`User progress not found for user_id: ${user_id}`)
+      }
+
+      if (!prompt) {
+        throw new Error(`Scenario prompt not found for user_id: ${user_id}`)
       }
 
       const cefr_history = [...(progress.cefr_history || [])]
@@ -166,11 +173,8 @@ export class UserProgressService implements IUserProgressService {
         level: lastReview.user_cefr_level.level,
       })
 
-      const promptId = lastReview.prompt_id.toString()
       const completed_prompts = { ...(progress.completed_prompts || {}) }
-      if (promptId) {
-        completed_prompts[promptId] = (completed_prompts[promptId] || 0) + 1
-      }
+      completed_prompts[prompt.name] = (completed_prompts[prompt.name] || 0) + 1
 
       const filler_words_usage = this.updateFillerStats(lastReview.vocabulary, progress.filler_words_usage)
       const error_stats = this.updateErrorStats(

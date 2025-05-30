@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express"
 import axios from "axios"
 
 import { serverConfig } from "../config"
+import { UserRoleEnum } from "../types"
 import { logger, parseAuthToken } from "../utils"
 
 const HCAPTCHA_SECRET_KEY = serverConfig.HCAPTCHA_SECRET_KEY
@@ -70,4 +71,15 @@ export const verifyCaptchaMiddleware = async (req: Request, res: Response, next:
     logger.error(`verifyCaptcha error:`, error)
     res.status(500).json({ error: "Internal Server Error during captcha verification" })
   }
+}
+
+export function superUserOnlyMiddleware(req: Request, res: Response, next: NextFunction): void {
+  const user = req.user
+
+  if (user!.role !== UserRoleEnum.SUPER_USER) {
+    res.status(403).json({ error: "Forbidden: Only SUPER_USER can access this resource" })
+    return
+  }
+
+  next()
 }

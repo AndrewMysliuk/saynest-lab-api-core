@@ -25,6 +25,11 @@ export interface IStorageOptions {
   user_id?: string | null
 }
 
+export interface IPagination {
+  limit: number
+  offset: number
+}
+
 declare global {
   namespace Express {
     interface Request {

@@ -1,58 +1,95 @@
 import { v4 as uuidv4 } from "uuid"
 
-import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum, SessionTypeEnum } from "../../../types"
+import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum } from "../../../types"
+import { generateFinallyPrompt, logger } from "../../../utils"
 import { IRepository as IHistoryRepository } from "../../conversation/storage"
+import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../index"
 import { IRepository } from "../storage"
 
 export class SessionService implements ISessionService {
   private readonly sessionRepo: IRepository
   private readonly historyRepo: IHistoryRepository
+  private readonly promptService: IPromptService
 
-  constructor(sessionRepo: IRepository, historyRepo: IHistoryRepository) {
+  constructor(sessionRepo: IRepository, historyRepo: IHistoryRepository, promptService: IPromptService) {
     this.sessionRepo = sessionRepo
     this.historyRepo = historyRepo
+    this.promptService = promptService
   }
 
   async createSession(dto: ISessionCreateRequest): Promise<ISessionEntity> {
-    const session = await this.sessionRepo.createSession(dto)
+    try {
+      const prompt = await this.promptService.getScenario(dto.prompt_id)
 
-    const pair_id = uuidv4()
-    const session_id = session._id
-    const user_id = session.user_id
-    const organization_id = session.organization_id
+      if (!prompt) {
+        throw new Error("Prompt not found.")
+      }
 
-    await this.historyRepo.saveHistory({
-      user_id,
-      organization_id,
-      session_id,
-      pair_id,
-      role: "system",
-      content: dto.system_prompt,
-    })
+      const system_prompt = generateFinallyPrompt(prompt)
 
-    return session
+      const session = await this.sessionRepo.createSession({ ...dto, system_prompt })
+
+      const pair_id = uuidv4()
+      const session_id = session._id
+      const user_id = session.user_id
+      const organization_id = session.organization_id
+
+      await this.historyRepo.saveHistory({
+        user_id,
+        organization_id,
+        session_id,
+        pair_id,
+        role: "system",
+        content: system_prompt,
+      })
+
+      return session
+    } catch (error: unknown) {
+      logger.error(`createSession | error: ${error}`)
+      throw error
+    }
   }
 
   async getSession(session_id: string): Promise<ISessionEntity> {
-    if (!session_id) throw new Error("session_id field is required")
+    try {
+      if (!session_id) throw new Error("session_id field is required")
 
-    return this.sessionRepo.getSession(session_id)
+      return this.sessionRepo.getSession(session_id)
+    } catch (error: unknown) {
+      logger.error(`getSession | error: ${error}`)
+      throw error
+    }
   }
 
   async finishSession(session_id: string, options?: IMongooseOptions): Promise<ISessionEntity> {
-    if (!session_id) throw new Error("session_id field is required")
+    try {
+      if (!session_id) throw new Error("session_id field is required")
 
-    return this.sessionRepo.setSessionStatus(session_id, SessionStatusEnum.FINISHED, options)
+      return this.sessionRepo.setSessionStatus(session_id, SessionStatusEnum.FINISHED, options)
+    } catch (error: unknown) {
+      logger.error(`finishSession | error: ${error}`)
+      throw error
+    }
   }
 
   async deleteSession(session_id: string): Promise<void> {
-    return this.sessionRepo.deleteSession(session_id)
+    try {
+      return this.sessionRepo.deleteSession(session_id)
+    } catch (error: unknown) {
+      logger.error(`deleteSession | error: ${error}`)
+      throw error
+    }
   }
 
   async getSessionsByUserId(user_id: string, options?: IMongooseOptions): Promise<ISessionEntity[]> {
-    if (!user_id) throw new Error("user_id field is required")
+    try {
+      if (!user_id) throw new Error("user_id field is required")
 
-    return this.sessionRepo.getSessionsByUserId(user_id, options)
+      return this.sessionRepo.getSessionsByUserId(user_id, options)
+    } catch (error: unknown) {
+      logger.error(`getSessionsByUserId | error: ${error}`)
+      throw error
+    }
   }
 }

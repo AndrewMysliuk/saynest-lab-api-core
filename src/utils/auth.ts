@@ -13,9 +13,10 @@ const ACCESS_TOKEN_SECRET = serverConfig.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_BYTES = 64
 
 export function generateAccessToken(user: IUserEntity): string {
-  const payload = {
+  const payload: IUserJWTPayload = {
     user_id: user._id.toString(),
     organization_id: user.organization_id.toString(),
+    role: user.role,
   }
 
   return jwt.sign(payload, ACCESS_TOKEN_SECRET, {
@@ -53,6 +54,7 @@ export function parseAuthToken(req: Request): IUserJWTPayload | null {
     return {
       user_id: payload.user_id,
       organization_id: payload.organization_id,
+      role: payload.role,
     }
   } catch {
     return null

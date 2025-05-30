@@ -1,14 +1,21 @@
+import { Types } from "mongoose"
+
 import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
-export interface IPromptScenario {
-  id: string
+export interface IPromptScenarioEntity {
+  _id: Types.ObjectId
+  organization_id: Types.ObjectId
+  user_id: Types.ObjectId
+  name: string
   title: string
   description: string
   level: VocabularyFrequencyLevelEnum
   user_content: IUserContent
   model_behavior: IModelBehavior
   meta: IPromptMeta
-  finally_prompt: string
+  is_module_only: boolean
+  created_at: Date
+  updated_at: Date
 }
 
 export interface IUserContent {
@@ -59,6 +66,13 @@ export interface IPromptMeta {
   } | null
 }
 
+export interface IPromptFilters {
+  title?: string
+  is_module_only?: boolean
+  user_id?: string
+  organization_id?: string
+}
+
 // Modules
 export enum ModuleTypeEnum {
   STRUCTURED = "STRUCTURED",
@@ -75,8 +89,11 @@ export interface IModuleSubmodules {
   scenarios: string[]
 }
 
-export interface IModuleScenario {
-  id: string
+export interface IModuleScenarioEntity {
+  _id: Types.ObjectId
+  organization_id: Types.ObjectId
+  user_id: Types.ObjectId
+  name: string
   title: string
   description: string
   level: VocabularyFrequencyLevelEnum[]
@@ -84,4 +101,12 @@ export interface IModuleScenario {
   type: ModuleTypeEnum
   scenarios: string[]
   submodules: IModuleSubmodules[]
+  created_at: Date
+  updated_at: Date
+}
+
+export interface IModuleFilters {
+  title?: string
+  user_id?: string
+  organization_id?: string
 }

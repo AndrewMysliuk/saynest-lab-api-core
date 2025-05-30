@@ -4,6 +4,8 @@ export enum UserRoleEnum {
   USER = "USER",
   ADMIN = "ADMIN",
   OWNER = "OWNER",
+
+  SUPER_USER = "SUPER_USER",
 }
 
 export enum UserStatusEnum {
@@ -61,4 +63,5 @@ export interface IUserCreateRequest {
 export interface IUserJWTPayload {
   user_id: string
   organization_id: string
+  role: UserRoleEnum
 }

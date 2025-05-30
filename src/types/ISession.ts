@@ -31,7 +31,7 @@ export interface ISessionCreateRequest {
   prompt_id: string
   user_id: string | null
   organization_id: string | null
-  system_prompt: string
+  system_prompt?: string
   session_directory: string
   type: SessionTypeEnum
 }

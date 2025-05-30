@@ -50,13 +50,14 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         throw new Error("Can't find alpha2 code by country")
       }
 
-      const topics = await this.languageTheoryService.filteredShortListByLanguage(findAlpha2Code, {
-        topic_ids: [],
-        topic_titles: [],
-        level_cefr: [],
-      })
-
-      const prompt = this.promptService.getById(dto.prompt_id)
+      const [topics, prompt] = await Promise.all([
+        this.languageTheoryService.filteredShortListByLanguage(findAlpha2Code, {
+          topic_ids: [],
+          topic_titles: [],
+          level_cefr: [],
+        }),
+        this.promptService.getScenario(dto.prompt_id),
+      ])
 
       if (!prompt) {
         throw new Error("Prompt not found.")

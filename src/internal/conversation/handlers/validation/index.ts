@@ -68,7 +68,6 @@ export const systemSchema = z.object({
   session_id: z.string().regex(objectIdRegex, {
     message: "session_id mast have an ObjectId type",
   }),
-  global_prompt: z.string(),
   prompt_id: z.string(),
 })
 

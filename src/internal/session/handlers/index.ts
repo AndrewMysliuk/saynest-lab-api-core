@@ -7,9 +7,9 @@ import { getStorageFilePath, logger } from "../../../utils"
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { type, system_prompt, prompt_id } = req.body as ISessionCreateRequest
+      const { type, prompt_id } = req.body as ISessionCreateRequest
 
-      if (!type || !system_prompt || !prompt_id) {
+      if (!type || !prompt_id) {
         res.status(400).json({
           error: "createSessionHandler | Missing required fields in payload",
         })
@@ -29,7 +29,6 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
         session_directory: sessionDir,
         user_id,
         organization_id,
-        system_prompt,
         type,
       })
 

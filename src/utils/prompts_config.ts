@@ -1,20 +1,6 @@
-import { IDictionaryEntry, IModuleScenario, IPhraseEntry, IPromptGoal, IPromptScenario, ModuleTypeEnum, VocabularyFrequencyLevelEnum } from "../types"
+import { IPromptScenarioEntity } from "../types"
 
-function maybeRandomizeOptionalSteps(optionalSteps: string[], min: number, max: number): string[] {
-  const total = optionalSteps.length
-
-  if (total < min) return optionalSteps
-
-  const upperBound = Math.min(max, total)
-  const count = Math.floor(Math.random() * (upperBound - min + 1)) + min
-  return optionalSteps
-    .slice()
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count)
-}
-
-export function generateFinallyPrompt(raw: any): string {
-  const scenario: IPromptScenario = transformSingleScenarioJson(raw)
+export function generateFinallyPrompt(scenario: IPromptScenarioEntity): string {
   const { title, level, model_behavior, user_content, meta } = scenario
   const { setting, situation, goal, steps, optional_steps = [] } = model_behavior.scenario
 
@@ -75,88 +61,15 @@ When the user has likely completed their goals, use this phrase:
 `.trim()
 }
 
-export function transformSingleModuleJson(item: any): IModuleScenario {
-  return {
-    id: String(item.id),
-    title: String(item.title),
-    description: String(item.description),
-    level: Array.isArray(item.level)
-      ? (item.level.filter((lvl: string) => Object.values(VocabularyFrequencyLevelEnum).includes(lvl as VocabularyFrequencyLevelEnum)) as VocabularyFrequencyLevelEnum[])
-      : [],
-    tags: Array.isArray(item.tags) ? item.tags.map(String) : [],
-    type: Object.values(ModuleTypeEnum).includes(item.type) ? item.type : ModuleTypeEnum.FLAT,
-    scenarios: Array.isArray(item.scenarios) ? item.scenarios.map(String) : [],
-    submodules: Array.isArray(item.submodules)
-      ? item.submodules.map((sm: any) => ({
-          id: String(sm.id),
-          title: String(sm.title),
-          description: String(sm.description),
-          tips: Array.isArray(sm.tips) ? sm.tips.map(String) : [],
-          tags: Array.isArray(sm.tags) ? sm.tags.map(String) : [],
-          difficulty: sm.difficulty ? String(sm.difficulty) : "",
-          scenarios: Array.isArray(sm.scenarios) ? sm.scenarios.map(String) : [],
-        }))
-      : [],
-  }
-}
+function maybeRandomizeOptionalSteps(optionalSteps: string[], min: number, max: number): string[] {
+  const total = optionalSteps.length
 
-function normalizeTranslation(value: any): Record<string, string> {
-  if (value && typeof value === "object" && !Array.isArray(value)) {
-    return value
-  }
+  if (total < min) return optionalSteps
 
-  return { uk: String(value || "") }
-}
-
-export function transformSingleScenarioJson(item: any): IPromptScenario {
-  const level = item.level?.toUpperCase?.() as keyof typeof VocabularyFrequencyLevelEnum
-  const safeLevel = VocabularyFrequencyLevelEnum[level] || VocabularyFrequencyLevelEnum.B2
-
-  return {
-    id: item.id,
-    title: item.title,
-    description: item.description,
-    level: safeLevel,
-    user_content: {
-      goals: (item.user_content.goals || []).map(
-        (goal: any): IPromptGoal => ({
-          phrase: goal.phrase,
-          translation: normalizeTranslation(goal.translation),
-        }),
-      ),
-      dictionary: (item.user_content.dictionary || []).map(
-        (entry: any): IDictionaryEntry => ({
-          word: entry.word,
-          translation: normalizeTranslation(entry.translation),
-          meaning: entry.meaning,
-        }),
-      ),
-      phrases: (item.user_content.phrases || []).map(
-        (entry: any): IPhraseEntry => ({
-          phrase: entry.phrase,
-          translation: normalizeTranslation(entry.translation),
-          meaning: entry.meaning || "",
-        }),
-      ),
-    },
-    model_behavior: {
-      prompt: item.model_behavior?.prompt || "",
-      scenario: {
-        setting: item.model_behavior?.scenario?.setting || "",
-        situation: item.model_behavior?.scenario?.situation || "",
-        goal: item.model_behavior?.scenario?.goal || "",
-        steps: item.model_behavior?.scenario?.steps || [],
-        optional_steps: item.model_behavior?.scenario?.optional_steps || [],
-      },
-    },
-    meta: {
-      estimated_duration_minutes: item.meta?.estimated_duration_minutes || 5,
-      max_turns: item.meta?.max_turns || 10,
-      model_end_behavior: item.meta?.model_end_behavior || "",
-      target_language: item.meta?.target_language || "English",
-      explanation_language: item.meta?.explanation_language || "Ukrainian",
-      question_count_range: item.meta?.question_count_range ?? null,
-    },
-    finally_prompt: "",
-  }
+  const upperBound = Math.min(max, total)
+  const count = Math.floor(Math.random() * (upperBound - min + 1)) + min
+  return optionalSteps
+    .slice()
+    .sort(() => 0.5 - Math.random())
+    .slice(0, count)
 }

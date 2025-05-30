@@ -5,6 +5,8 @@ import { MODEL_NAME as COMMUNICATION_REVIEWS_TABLE } from "../internal/communica
 import { MODEL_NAME as CONVERSATION_TABLE } from "../internal/conversation/storage/mongo/model"
 import { MODEL_NAME as ERROR_ANALYSIS_TABLE } from "../internal/error_analysis/storage/mongo/model"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../internal/organisation/storage/mongo/model"
+import { MODEL_NAME as MODULES_TABLE } from "../internal/prompts_library/storage/mongo/modules_model"
+import { MODEL_NAME as SCENARIOS_TABLE } from "../internal/prompts_library/storage/mongo/scenarios_model"
 import { MODEL_NAME as SESSION_TABLE } from "../internal/session/storage/mongo/model"
 import { MODEL_NAME as TASK_TABLE } from "../internal/task_generator/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../internal/user/storage/mongo/model"
@@ -28,6 +30,8 @@ const CURRENT_TABLES = [
   COMMUNICATION_REVIEWS_TABLE,
   TASK_TABLE,
   USER_PROGRESS_TABLE,
+  MODULES_TABLE,
+  SCENARIOS_TABLE,
 ]
 
 export const connectToDatabase = async () => {

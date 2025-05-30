@@ -47,15 +47,10 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         return statisticReview
       }
 
-      const prompt = this.promptService.getById(dto.prompt_id)
-
-      if (!prompt) {
-        throw new Error("Prompt not found.")
-      }
-
       const historyList = await this.conversationService.listConversationHistory(dto.session_id)
 
-      const [errorsList, vocabularyList] = await Promise.all([
+      const [prompt, errorsList, vocabularyList] = await Promise.all([
+        this.promptService.getScenario(dto.prompt_id),
         this.errorAnalysisService.listConversationErrors(dto.session_id),
         this.vocabularyTrackerService.searchFillersByHistory({
           target_language: dto.target_language,
@@ -66,6 +61,10 @@ export class CommunicationReviewService implements ICommunicationReviewService {
           history: historyList,
         }),
       ])
+
+      if (!prompt) {
+        throw new Error("Prompt not found.")
+      }
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: buildSystemPrompt(dto.target_language, dto.explanation_language, prompt) },

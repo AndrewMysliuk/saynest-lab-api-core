@@ -75,7 +75,7 @@ export class ConversationService implements IConversationService {
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
 
       const { transcription, user_audio_path, user_audio_url } = whisperResult
-      const { session_id: activeSessionId, conversation_history: initialHistory } = sessionData
+      const { session_id: activeSessionId, finally_prompt: finallyPrompt, conversation_history: initialHistory } = sessionData
       const conversationHistory = [...initialHistory]
 
       log.info("streamConversation", "Transcription and session loaded", {
@@ -114,7 +114,7 @@ export class ConversationService implements IConversationService {
           ...gpt_model,
           messages: trimmedHistory,
         },
-        system.prompt_id,
+        finallyPrompt,
       )
 
       let sentenceBuffer: string[] = []
@@ -248,6 +248,7 @@ export class ConversationService implements IConversationService {
 
   async getSessionData(session_id: string): Promise<{
     session_id: Types.ObjectId
+    finally_prompt: string
     conversation_history: IConversationHistory[]
   }> {
     const session = await this.sessionService.getSession(session_id)
@@ -258,7 +259,7 @@ export class ConversationService implements IConversationService {
 
     log.info("getSessionData", "Fetched history", { session_id })
 
-    return { session_id: session._id, conversation_history }
+    return { session_id: session._id, finally_prompt: session.system_prompt, conversation_history }
   }
 
   async listConversationHistory(session_id: string): Promise<IConversationHistory[]> {
