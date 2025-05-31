@@ -32,7 +32,19 @@ export const reviewsListHandler = (communicationReviewService: ICommunicationRev
     try {
       const { user_id } = req.user!
 
-      const response = await communicationReviewService.reviewsList(user_id)
+      const { from_date, to_date, limit = 20, offset = 0 } = req.query
+
+      const filter = {
+        from_date: from_date ? new Date(from_date as string) : undefined,
+        to_date: to_date ? new Date(to_date as string) : undefined,
+      }
+
+      const pagination = {
+        limit: Number(limit),
+        offset: Number(offset),
+      }
+
+      const response = await communicationReviewService.reviewsList(user_id, filter, pagination)
 
       res.status(200).json(response)
     } catch (error: unknown) {

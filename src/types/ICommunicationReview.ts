@@ -95,3 +95,8 @@ export interface ICommunicationReviewUpdateAudioUrl {
   pair_id: string
   role: string
 }
+
+export interface ICommunicationReviewFilters {
+  from_date?: Date
+  to_date?: Date
+}

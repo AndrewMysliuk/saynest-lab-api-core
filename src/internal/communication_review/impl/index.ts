@@ -2,7 +2,15 @@ import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
 import { cleanUserSessionFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
-import { GPTRoleType, ICommunicationReview, ICommunicationReviewGenerateRequest, ICommunicationReviewModelResponse, ICommunicationReviewUpdateAudioUrl } from "../../../types"
+import {
+  GPTRoleType,
+  ICommunicationReview,
+  ICommunicationReviewFilters,
+  ICommunicationReviewGenerateRequest,
+  ICommunicationReviewModelResponse,
+  ICommunicationReviewUpdateAudioUrl,
+  IPagination,
+} from "../../../types"
 import { countHistoryData, logger, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
@@ -158,9 +166,9 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     }
   }
 
-  async reviewsList(user_id: string): Promise<ICommunicationReview[]> {
+  async reviewsList(user_id: string, filter?: ICommunicationReviewFilters, pagination?: IPagination): Promise<ICommunicationReview[]> {
     try {
-      return this.communicationReviewRepo.list(user_id)
+      return this.communicationReviewRepo.list(user_id, filter, pagination)
     } catch (error: unknown) {
       logger.error(`reviewsList | error: ${error}`)
       throw error

@@ -134,6 +134,10 @@ GENERATION INSTRUCTIONS
 - If a verb form is expected, include the **base verb in brackets** (e.g., "___ (go)").
 - If the answer is not a verb form, do **not** use brackets (e.g., articles, prepositions, modals).
 - Use vocabulary and expressions from the scenario **only** if they are clearly relevant.
+- Each sentence must be unique. Avoid duplicating prompts.
+- Each correct answer must be unique within the task. Avoid reusing the same answer across multiple sentences.
+- Randomize the position of the correct answer in the options to avoid patterns.
+- Make sentences moderately challenging, avoiding overly predictable structures.
 
 ====================
 OUTPUT FORMAT

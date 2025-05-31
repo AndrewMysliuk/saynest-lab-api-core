@@ -37,7 +37,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       if (!scenario) throw new Error(`Scenario not found: ${id}`)
 
-      return scenario.toObject()
+      return scenario.toObject({ flattenMaps: true })
     } catch (error: unknown) {
       logger.error(`getScenario | error: ${error}`)
       throw error
@@ -68,7 +68,7 @@ export class PromptsLibraryRepository implements IRepository {
         .skip(pagination?.offset || 0)
         .limit(pagination?.limit || 20)
 
-      return scenarios.map((s) => s.toObject())
+      return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
       logger.error(`listScenario | error: ${error}`)
       throw error
@@ -105,7 +105,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       if (!module) throw new Error(`Module not found: ${id}`)
 
-      return module.toObject()
+      return module.toObject({ flattenMaps: true })
     } catch (error: unknown) {
       logger.error(`getModule | error: ${error}`)
       throw error
@@ -132,7 +132,7 @@ export class PromptsLibraryRepository implements IRepository {
         .skip(pagination?.offset || 0)
         .limit(pagination?.limit || 20)
 
-      return modules.map((m) => m.toObject())
+      return modules.map((m) => m.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
       logger.error(`listModule | error: ${error}`)
       throw error
@@ -151,7 +151,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       const scenarios = await ScenarioModel.find({ _id: { $in: scenarioIds } }, {}, options)
 
-      return scenarios.map((s) => s.toObject())
+      return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
       logger.error(`getScenariosForModule | error: ${error}`)
       throw error

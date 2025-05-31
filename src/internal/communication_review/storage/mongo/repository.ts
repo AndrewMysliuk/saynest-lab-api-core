@@ -1,5 +1,5 @@
 import { IRepository } from "../"
-import { IMongooseOptions, ICommunicationReview } from "../../../../types"
+import { ICommunicationReview, ICommunicationReviewFilters, IMongooseOptions, IPagination } from "../../../../types"
 import { logger } from "../../../../utils"
 import { StatisticsModel } from "./model"
 
@@ -22,10 +22,20 @@ export class CommunicationReviewRepository implements IRepository {
     }
   }
 
-  async list(user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview[]> {
+  async list(user_id: string, filter?: ICommunicationReviewFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<ICommunicationReview[]> {
     try {
-      return StatisticsModel.find({ user_id })
+      const query: any = { user_id }
+
+      if (filter?.from_date || filter?.to_date) {
+        query.created_at = {}
+        if (filter.from_date) query.created_at.$gte = filter.from_date
+        if (filter.to_date) query.created_at.$lte = filter.to_date
+      }
+
+      return StatisticsModel.find(query, {}, options)
         .sort({ created_at: -1 })
+        .skip(pagination?.offset || 0)
+        .limit(pagination?.limit || 20)
         .session(options?.session || null)
     } catch (error: unknown) {
       logger.error(`list | error: ${error}`)
