@@ -16,6 +16,7 @@ export class UserProgressRepository implements IRepository {
           organization_id: organization_id || null,
           total_sessions: 0,
           avg_session_duration: 0,
+          total_session_duration: 0,
           cefr_history: [],
           error_stats: [],
           filler_words_usage: [],

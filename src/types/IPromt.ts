@@ -59,7 +59,6 @@ export interface IPromptMeta {
   max_turns: number
   model_end_behavior: string
   target_language: string
-  explanation_language: string
   question_count_range: {
     min: number
     max: number

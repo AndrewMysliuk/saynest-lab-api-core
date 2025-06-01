@@ -52,6 +52,7 @@ const userProgressSchema = new Schema<IUserProgressDocument>(
     organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: false, default: null },
     total_sessions: { type: Number, required: true },
     avg_session_duration: { type: Number, required: true },
+    total_session_duration: { type: Number, required: true },
     cefr_history: [cefrHistorySchema],
     error_stats: [errorStatsSchema],
     filler_words_usage: [fillerWordsUsageSchema],

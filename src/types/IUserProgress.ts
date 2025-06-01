@@ -41,6 +41,7 @@ export interface IUserProgressEntity {
   organization_id: Types.ObjectId
   total_sessions: number
   avg_session_duration: number
+  total_session_duration: number
   cefr_history: IUserProgressCefrHistory[]
   error_stats: IUserProgressErrorStats[]
   filler_words_usage: IUserProgressFillerWordsUsage[]

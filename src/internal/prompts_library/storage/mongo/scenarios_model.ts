@@ -59,7 +59,6 @@ const PromptMetaSchema = new Schema<IPromptMeta>(
     max_turns: { type: Number, required: true },
     model_end_behavior: { type: String, required: true },
     target_language: { type: String, required: true },
-    explanation_language: { type: String, required: true },
     question_count_range: {
       type: {
         min: { type: Number, required: true },

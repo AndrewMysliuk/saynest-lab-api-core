@@ -35,6 +35,7 @@ const tasksSchema = z.object({
 export const updateUserProgressSchema = z.object({
   total_sessions: z.number().nonnegative().optional(),
   avg_session_duration: z.number().nonnegative().optional(),
+  total_session_duration: z.number().nonnegative().optional(),
   cefr_history: z.array(cefrHistorySchema).optional(),
   error_stats: z.array(errorStatsSchema).optional(),
   filler_words_usage: z.array(fillerWordsUsageSchema).optional(),

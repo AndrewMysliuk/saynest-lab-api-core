@@ -155,6 +155,7 @@ export class UserProgressService implements IUserProgressService {
       const totalSessions = sessions.filter((item) => item.ended_at !== null).length
       const durations = reviews.map((r) => r.history?.duration_seconds).filter(Boolean)
       const avgSessionDuration = durations.length ? Math.round(durations.reduce((acc, sec) => acc + sec, 0) / durations.length) : 0
+      const totalSessionDuration = durations.reduce((acc, sec) => acc + sec, 0)
 
       const [progress, prompt] = await Promise.all([this.userProgressRepo.getByUserId(new Types.ObjectId(user_id), options), this.promptService.getScenario(lastReview.prompt_id.toString())])
 
@@ -186,6 +187,7 @@ export class UserProgressService implements IUserProgressService {
         {
           total_sessions: totalSessions,
           avg_session_duration: avgSessionDuration,
+          total_session_duration: totalSessionDuration,
           cefr_history,
           completed_prompts,
           filler_words_usage,

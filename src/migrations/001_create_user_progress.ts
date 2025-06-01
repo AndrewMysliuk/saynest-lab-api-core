@@ -17,6 +17,7 @@ export async function runMigration(): Promise<void> {
         organization_id: user.organization_id,
         total_sessions: 0,
         avg_session_duration: 0,
+        total_session_duration: 0,
         cefr_history: [],
         error_stats: [],
         filler_words_usage: [],
