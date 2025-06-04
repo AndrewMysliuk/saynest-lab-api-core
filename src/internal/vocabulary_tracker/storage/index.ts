@@ -8,4 +8,5 @@ export interface IRepository {
   patchAudio(id: string, audio_base64: string | null, options?: IMongooseOptions): Promise<IVocabularyEntity>
   delete(id: string, options?: IMongooseOptions): Promise<void>
   deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void>
+  deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
 }

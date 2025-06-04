@@ -15,4 +15,5 @@ export interface IRepository {
   getErrorAnalysisById(id: string, options?: IMongooseOptions): Promise<IErrorAnalysisEntity | null>
   listErrorAnalysisBySession(session_id: string, options?: IMongooseOptions): Promise<IErrorAnalysisEntity[]>
   deleteAllBySessionId(session_id: string, options?: IMongooseOptions): Promise<void>
+  deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
 }

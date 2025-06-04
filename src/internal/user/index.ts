@@ -5,4 +5,5 @@ export interface IUserService {
   getByEmail(email: string, options?: IMongooseOptions): Promise<IUserEntity | null>
   getById(id: string, options?: IMongooseOptions): Promise<IUserEntity | null>
   update(id: string, dto: IUserUpdateRequest, options?: IMongooseOptions): Promise<IUserEntity | null>
+  acceptUserPolicies(userId: string, options?: IMongooseOptions): Promise<IUserEntity | null>
 }

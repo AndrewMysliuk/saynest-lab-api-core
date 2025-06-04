@@ -78,4 +78,15 @@ export class CommunicationReviewRepository implements IRepository {
       throw error
     }
   }
+
+  async deleteAllHistoryByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      await StatisticsModel.deleteMany({ user_id }).session(options?.session || null)
+
+      return
+    } catch (error: unknown) {
+      logger.error(`deleteAllHistoryByUserId | error: ${error}`)
+      throw error
+    }
+  }
 }

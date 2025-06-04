@@ -2,7 +2,16 @@ import { Types } from "mongoose"
 
 import { IVocabularyTracker } from ".."
 import { openaiREST } from "../../../config"
-import { GPTRoleType, ISearchSynonymsRequest, IVocabularyEntity, IVocabularyFillersEntity, IVocabularyFillersEntityWrapper, IVocabularyJSONEntity, IWordExplanationRequest } from "../../../types"
+import {
+  GPTRoleType,
+  IMongooseOptions,
+  ISearchSynonymsRequest,
+  IVocabularyEntity,
+  IVocabularyFillersEntity,
+  IVocabularyFillersEntityWrapper,
+  IVocabularyJSONEntity,
+  IWordExplanationRequest,
+} from "../../../types"
 import { logger, validateToolResponse } from "../../../utils"
 import { ITextToSpeach } from "../../text_to_speach"
 import { IRepository } from "../storage"
@@ -215,6 +224,20 @@ export class VocabularyTrackerService implements IVocabularyTracker {
   }
 
   async deleteAllBySessionId(session_id: string): Promise<void> {
-    return this.vocabularyTrackerRepo.deleteAllBySessionId(session_id)
+    try {
+      return this.vocabularyTrackerRepo.deleteAllBySessionId(session_id)
+    } catch (error: unknown) {
+      logger.error(`deleteAllBySessionId | error: ${error}`)
+      throw error
+    }
+  }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      return this.vocabularyTrackerRepo.deleteAllByUserId(user_id, options)
+    } catch (error: unknown) {
+      logger.error(`deleteAllByUserId | error: ${error}`)
+      throw error
+    }
   }
 }

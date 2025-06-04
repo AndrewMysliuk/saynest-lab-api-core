@@ -93,4 +93,15 @@ export class SessionRepository implements IRepository {
       throw error
     }
   }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      await SessionModel.deleteMany({ user_id }).session(options?.session || null)
+
+      return
+    } catch (error: unknown) {
+      logger.error(`deleteAllByUserId | error: ${error}`)
+      throw error
+    }
+  }
 }

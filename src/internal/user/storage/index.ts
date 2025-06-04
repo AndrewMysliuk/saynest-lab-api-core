@@ -7,4 +7,5 @@ export interface IRepository {
   listByOrganization(organization_id: string, options?: IMongooseOptions): Promise<IUserEntity[]>
   listAll(options?: IMongooseOptions): Promise<IUserEntity[]>
   update(id: string, dto: IUserUpdateRequest, options?: IMongooseOptions): Promise<IUserEntity | null>
+  acceptUserPolicies(userId: string, options?: IMongooseOptions): Promise<IUserEntity | null>
 }

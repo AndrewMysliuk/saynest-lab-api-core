@@ -1,7 +1,7 @@
 import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
-import { cleanUserSessionFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
+import { cleanUserSessionFiles, deleteUserFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
 import {
   GPTRoleType,
   ICommunicationReview,
@@ -9,6 +9,7 @@ import {
   ICommunicationReviewGenerateRequest,
   ICommunicationReviewModelResponse,
   ICommunicationReviewUpdateAudioUrl,
+  IMongooseOptions,
   IPagination,
 } from "../../../types"
 import { countHistoryData, logger, validateToolResponse } from "../../../utils"
@@ -197,6 +198,23 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       ])
     } catch (error: unknown) {
       logger.error(`deleteReview | error: ${error}`)
+      throw error
+    }
+  }
+
+  async deleteAllHistoryByUserId(org_id: string, user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      await Promise.all([
+        this.communicationReviewRepo.deleteAllHistoryByUserId(user_id, options),
+        this.conversationService.deleteAllByUserId(user_id, options),
+        this.errorAnalysisService.deleteAllByUserId(user_id, options),
+        this.vocabularyTrackerService.deleteAllByUserId(user_id, options),
+        this.sessionService.deleteAllByUserId(user_id, options),
+      ])
+
+      await deleteUserFiles(org_id, user_id)
+    } catch (error: unknown) {
+      logger.error(`deleteAllHistoryByUserId | error: ${error}`)
       throw error
     }
   }

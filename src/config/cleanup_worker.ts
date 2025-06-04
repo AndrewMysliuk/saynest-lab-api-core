@@ -13,6 +13,34 @@ const SESSION_EXPIRATION_MINUTES = 240
 let shouldRunCleanup = true
 const log = createScopedLogger("cleanupWorker")
 
+export async function deleteUserFiles(organization_id: string, user_id: string): Promise<{ filesDeleted: number }> {
+  let totalDeleted = 0
+
+  const prefix =
+    getStorageFilePath({
+      user_id,
+      organization_id,
+    }) + "/"
+
+  try {
+    const [files] = await gcsBucket.getFiles({ prefix })
+
+    if (!files.length) {
+      log.info("deleteUserFiles", "No files found for user folder", { prefix })
+      return { filesDeleted: 0 }
+    }
+
+    await Promise.all(files.map((file) => file.delete()))
+    log.info("deleteUserFiles", "Deleted user files", { prefix, count: files.length })
+
+    totalDeleted += files.length
+  } catch (error) {
+    log.warn("deleteUserFiles", "Failed to delete user files", { prefix, error })
+  }
+
+  return { filesDeleted: totalDeleted }
+}
+
 export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<{ filesDeleted: number }> {
   let totalDeleted = 0
   const envPrefix = process.env.NODE_ENV === "production" ? "prod" : "dev"

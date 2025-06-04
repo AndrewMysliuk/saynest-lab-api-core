@@ -3,7 +3,7 @@ import { Types } from "mongoose"
 import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import Languages from "../../../json_data/languages.json"
-import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest } from "../../../types"
+import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest, IMongooseOptions } from "../../../types"
 import { logger, validateToolResponse } from "../../../utils"
 import { ILanguageTheory } from "../../language_theory"
 import { IPromptService } from "../../prompts_library"
@@ -148,6 +148,20 @@ export class ErrorAnalysisService implements IErrorAnalysis {
   }
 
   async deleteAllBySessionId(session_id: string): Promise<void> {
-    return this.errorAnalysisRepo.deleteAllBySessionId(session_id)
+    try {
+      return this.errorAnalysisRepo.deleteAllBySessionId(session_id)
+    } catch (error: unknown) {
+      logger.error(`deleteAllBySessionId | error: ${error}`)
+      throw error
+    }
+  }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      return this.errorAnalysisRepo.deleteAllByUserId(user_id, options)
+    } catch (error: unknown) {
+      logger.error(`deleteAllByUserId | error: ${error}`)
+      throw error
+    }
   }
 }

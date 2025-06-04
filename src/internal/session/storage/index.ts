@@ -6,4 +6,5 @@ export interface IRepository {
   setSessionStatus(session_id: string, status: SessionStatusEnum, options?: IMongooseOptions): Promise<ISessionEntity>
   deleteSession(session_id: string): Promise<void>
   getSessionsByUserId(user_id: string, options?: IMongooseOptions): Promise<ISessionEntity[]>
+  deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
 }

@@ -18,6 +18,9 @@ export enum UserStatusEnum {
 export interface IUserSettings {
   phone?: string
   avatar_url?: string
+  is_accept_terms_and_conditions: boolean
+  is_accept_privacy_policy: boolean
+  is_accept_refund_policy: boolean
 }
 
 export interface IUserEntity {
@@ -32,7 +35,7 @@ export interface IUserEntity {
   explanation_language: string | null
   role: UserRoleEnum
   status: UserStatusEnum
-  settings?: IUserSettings
+  settings: IUserSettings
   updated_at: Date
   created_at: Date
 }

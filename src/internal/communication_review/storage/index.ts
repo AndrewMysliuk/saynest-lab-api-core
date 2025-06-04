@@ -7,4 +7,5 @@ export interface IRepository {
   add(statistics: Partial<ICommunicationReview>, options?: IMongooseOptions): Promise<ICommunicationReview>
   update(id: string, user_id: string, updates: Partial<ICommunicationReview>, options?: IMongooseOptions): Promise<ICommunicationReview | null>
   delete(id: string, user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null>
+  deleteAllHistoryByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
 }

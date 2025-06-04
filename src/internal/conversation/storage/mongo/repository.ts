@@ -51,4 +51,15 @@ export class HistoryRepository implements IRepository {
       throw error
     }
   }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      await ConversationHistoryModel.deleteMany({ user_id }).session(options?.session || null)
+
+      return
+    } catch (error: unknown) {
+      logger.error(`deleteAllBySessionId | error: ${error}`)
+      throw error
+    }
+  }
 }

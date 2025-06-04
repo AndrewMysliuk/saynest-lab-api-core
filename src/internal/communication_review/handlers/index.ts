@@ -77,6 +77,21 @@ export const deleteReviewHandler = (communicationReviewService: ICommunicationRe
   }
 }
 
+export const deleteAllHistoryHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { user_id, organization_id } = req.user!
+
+      await communicationReviewService.deleteAllHistoryByUserId(organization_id, user_id)
+
+      res.status(200).json(true)
+    } catch (error: unknown) {
+      logger.error(`deleteAllHistoryHandler | error: ${error}`)
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
 export const getReviewHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {

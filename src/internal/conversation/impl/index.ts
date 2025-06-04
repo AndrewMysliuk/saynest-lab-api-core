@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
 import Languages from "../../../json_data/languages.json"
-import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, StreamEventEnum } from "../../../types"
+import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IMongooseOptions, StreamEventEnum } from "../../../types"
 import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, logger, trimConversationHistory } from "../../../utils"
 import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
@@ -275,7 +275,20 @@ export class ConversationService implements IConversationService {
   }
 
   async deleteAllBySessionId(session_id: string): Promise<void> {
-    log.warn("deleteAllBySessionId", "Deleting all messages by session", { session_id })
-    return this.historyRepo.deleteAllBySessionId(session_id)
+    try {
+      return this.historyRepo.deleteAllBySessionId(session_id)
+    } catch (error: unknown) {
+      log.info("deleteAllBySessionId", `${error}`)
+      throw error
+    }
+  }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      return this.historyRepo.deleteAllByUserId(user_id, options)
+    } catch (error: unknown) {
+      log.info("deleteAllByUserId", `${error}`)
+      throw error
+    }
   }
 }

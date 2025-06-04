@@ -60,4 +60,13 @@ export class UserService implements IUserService {
       throw error
     }
   }
+
+  async acceptUserPolicies(userId: string, options?: IMongooseOptions): Promise<IUserEntity | null> {
+    try {
+      return this.userRepo.acceptUserPolicies(userId, options)
+    } catch (error: unknown) {
+      logger.error(`update | error: ${error}`)
+      throw error
+    }
+  }
 }

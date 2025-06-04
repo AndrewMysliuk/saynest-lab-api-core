@@ -84,4 +84,25 @@ export class UserRepository implements IRepository {
       throw error
     }
   }
+
+  async acceptUserPolicies(userId: string, options?: IMongooseOptions): Promise<IUserEntity | null> {
+    try {
+      const user = await UserModel.findByIdAndUpdate(
+        new Types.ObjectId(userId),
+        {
+          $set: {
+            "settings.is_accept_terms_and_conditions": true,
+            "settings.is_accept_privacy_policy": true,
+            "settings.is_accept_refund_policy": true,
+          },
+        },
+        { new: true, session: options?.session || null },
+      ).lean()
+
+      return user
+    } catch (error: unknown) {
+      logger.error(`acceptUserPolicies | error: ${error}`)
+      throw error
+    }
+  }
 }

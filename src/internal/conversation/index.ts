@@ -1,6 +1,6 @@
 import { Types } from "mongoose"
 
-import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse } from "../../types"
+import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IMongooseOptions } from "../../types"
 
 export interface IConversationService {
   streamConversation(
@@ -12,4 +12,5 @@ export interface IConversationService {
   getSessionData(session_id: string): Promise<{ session_id: Types.ObjectId; finally_prompt: string; conversation_history: IConversationHistory[] }>
   listConversationHistory(session_id: string): Promise<IConversationHistory[]>
   deleteAllBySessionId(session_id: string): Promise<void>
+  deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
 }

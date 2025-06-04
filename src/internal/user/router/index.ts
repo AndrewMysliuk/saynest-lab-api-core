@@ -1,6 +1,6 @@
 import { Router } from "express"
 
-import { getUserHandler, patchUserHandler } from "../handlers"
+import { acceptPoliciesHandler, getUserHandler, patchUserHandler } from "../handlers"
 import { IUserService } from "../index"
 
 export const createUserRouter = (userService: IUserService): Router => {
@@ -8,6 +8,7 @@ export const createUserRouter = (userService: IUserService): Router => {
 
   router.patch("/", patchUserHandler(userService))
   router.get("/", getUserHandler(userService))
+  router.patch("/accept-policies", acceptPoliciesHandler(userService))
 
   return router
 }

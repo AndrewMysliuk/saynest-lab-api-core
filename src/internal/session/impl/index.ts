@@ -92,4 +92,13 @@ export class SessionService implements ISessionService {
       throw error
     }
   }
+
+  async deleteAllByUserId(user_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      return this.sessionRepo.deleteAllByUserId(user_id, options)
+    } catch (error: unknown) {
+      logger.error(`deleteAllByUserId | error: ${error}`)
+      throw error
+    }
+  }
 }

@@ -17,3 +17,9 @@ export const UserUpdateSchema = z.object({
   status: z.nativeEnum(UserStatusEnum).optional(),
   settings: UserSettingsSchema.optional(),
 })
+
+export const AcceptPoliciesSchema = z.object({
+  is_accept_terms_and_conditions: z.boolean(),
+  is_accept_privacy_policy: z.boolean(),
+  is_accept_refund_policy: z.boolean(),
+})
