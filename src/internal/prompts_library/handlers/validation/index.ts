@@ -44,7 +44,6 @@ export const CreateScenarioSchema = z.object({
     max_turns: z.number().min(1),
     model_end_behavior: z.string().min(1),
     target_language: z.string().min(1),
-    explanation_language: z.string().min(1),
     question_count_range: z
       .object({
         min: z.number(),
