@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IUserService } from ".."
 import { IMongooseOptions, IUserCreateRequest, IUserEntity, IUserUpdateRequest } from "../../../types"
-import { hashPassword, logger } from "../../../utils"
+import { createScopedLogger, hashPassword } from "../../../utils"
 import { IRepository } from "../storage"
+
+const log = createScopedLogger("UserService")
 
 export class UserService implements IUserService {
   private readonly userRepo: IRepository
@@ -29,7 +31,9 @@ export class UserService implements IUserService {
 
       return user
     } catch (error: unknown) {
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -38,7 +42,9 @@ export class UserService implements IUserService {
     try {
       return this.userRepo.getByEmail(email, options)
     } catch (error: unknown) {
-      logger.error(`getByEmail | error: ${error}`)
+      log.error("getByEmail", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -47,7 +53,9 @@ export class UserService implements IUserService {
     try {
       return this.userRepo.getById(id, options)
     } catch (error: unknown) {
-      logger.error(`getById | error: ${error}`)
+      log.error("getById", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -56,7 +64,9 @@ export class UserService implements IUserService {
     try {
       return this.userRepo.update(id, dto, options)
     } catch (error: unknown) {
-      logger.error(`update | error: ${error}`)
+      log.error("update", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -65,7 +75,9 @@ export class UserService implements IUserService {
     try {
       return this.userRepo.acceptUserPolicies(userId, options)
     } catch (error: unknown) {
-      logger.error(`update | error: ${error}`)
+      log.error("acceptUserPolicies", "error", {
+        error,
+      })
       throw error
     }
   }

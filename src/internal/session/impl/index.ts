@@ -1,11 +1,13 @@
 import { v4 as uuidv4 } from "uuid"
 
 import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum } from "../../../types"
-import { generateFinallyPrompt, logger } from "../../../utils"
+import { createScopedLogger, generateFinallyPrompt } from "../../../utils"
 import { IRepository as IHistoryRepository } from "../../conversation/storage"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../index"
 import { IRepository } from "../storage"
+
+const log = createScopedLogger("SessionService")
 
 export class SessionService implements ISessionService {
   private readonly sessionRepo: IRepository
@@ -46,7 +48,7 @@ export class SessionService implements ISessionService {
 
       return session
     } catch (error: unknown) {
-      logger.error(`createSession | error: ${error}`)
+      log.error("createSession", "error", { error })
       throw error
     }
   }
@@ -57,7 +59,7 @@ export class SessionService implements ISessionService {
 
       return this.sessionRepo.getSession(session_id)
     } catch (error: unknown) {
-      logger.error(`getSession | error: ${error}`)
+      log.error("getSession", "error", { error })
       throw error
     }
   }
@@ -68,7 +70,7 @@ export class SessionService implements ISessionService {
 
       return this.sessionRepo.setSessionStatus(session_id, SessionStatusEnum.FINISHED, options)
     } catch (error: unknown) {
-      logger.error(`finishSession | error: ${error}`)
+      log.error("finishSession", "error", { error })
       throw error
     }
   }
@@ -77,7 +79,7 @@ export class SessionService implements ISessionService {
     try {
       return this.sessionRepo.deleteSession(session_id)
     } catch (error: unknown) {
-      logger.error(`deleteSession | error: ${error}`)
+      log.error("deleteSession", "error", { error })
       throw error
     }
   }
@@ -88,7 +90,7 @@ export class SessionService implements ISessionService {
 
       return this.sessionRepo.getSessionsByUserId(user_id, options)
     } catch (error: unknown) {
-      logger.error(`getSessionsByUserId | error: ${error}`)
+      log.error("getSessionsByUserId", "error", { error })
       throw error
     }
   }
@@ -97,7 +99,7 @@ export class SessionService implements ISessionService {
     try {
       return this.sessionRepo.deleteAllByUserId(user_id, options)
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", { error })
       throw error
     }
   }

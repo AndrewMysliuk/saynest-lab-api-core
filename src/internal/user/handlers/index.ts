@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IUserService } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { AcceptPoliciesSchema, UserUpdateSchema } from "./validation"
+
+const log = createScopedLogger("UserHandler")
 
 export const getUserHandler = (userService: IUserService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -13,7 +15,9 @@ export const getUserHandler = (userService: IUserService): RequestHandler => {
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getUserHandler | error: ${error}`)
+      log.error("getUserHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -35,7 +39,9 @@ export const patchUserHandler = (userService: IUserService): RequestHandler => {
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`patchUserHandler | error: ${error}`)
+      log.error("patchUserHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -62,7 +68,9 @@ export const acceptPoliciesHandler = (userService: IUserService): RequestHandler
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`acceptPoliciesHandler | error: ${error}`)
+      log.error("acceptPoliciesHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

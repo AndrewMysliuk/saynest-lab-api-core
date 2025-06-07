@@ -2,17 +2,19 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IGenericTaskEntity, IMongooseOptions } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { TaskModel } from "./model"
+
+const log = createScopedLogger("TaskGeneratorRepository")
 
 export class TaskGeneratorRepository implements IRepository {
   async create(task: Partial<IGenericTaskEntity>, options?: IMongooseOptions): Promise<IGenericTaskEntity> {
     try {
       const result = await TaskModel.create([task], options)
       return result[0].toObject()
-    } catch (err) {
-      logger.error("[TaskRepository.create] Failed to create task", { error: err })
-      throw err
+    } catch (error: unknown) {
+      log.error("create", "Failed to create task", { error })
+      throw error
     }
   }
 
@@ -26,9 +28,9 @@ export class TaskGeneratorRepository implements IRepository {
           ...options,
         },
       )
-    } catch (err) {
-      logger.error("[TaskRepository.setCompleted] Failed to update task completion", { error: err, task_id })
-      throw err
+    } catch (error: unknown) {
+      log.error("setCompleted", "Failed to update task completion", { error })
+      throw error
     }
   }
 
@@ -36,9 +38,9 @@ export class TaskGeneratorRepository implements IRepository {
     try {
       const query = await TaskModel.find({ user_id, review_id }, null, options).lean()
       return query
-    } catch (err) {
-      logger.error("[TaskRepository.listByReviewId] Failed to list tasks", { error: err, user_id, review_id })
-      throw err
+    } catch (error: unknown) {
+      log.error("listByReviewId", "Failed to list tasks", { error })
+      throw error
     }
   }
 
@@ -47,9 +49,9 @@ export class TaskGeneratorRepository implements IRepository {
       const query = await TaskModel.findById(task_id, null, options).lean()
 
       return query
-    } catch (err) {
-      logger.error("[TaskRepository.getById] Failed to list tasks", err)
-      throw err
+    } catch (error: unknown) {
+      log.error("getById", "Failed to list tasks", { error })
+      throw error
     }
   }
 }

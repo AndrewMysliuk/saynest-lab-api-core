@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IErrorAnalysis } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { ErrorAnalysisRequestSchema } from "./validation"
+
+const log = createScopedLogger("ErrorAnalysisHandler")
 
 export const errorAnalysisHandler = (errorAnalysisService: IErrorAnalysis): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -23,7 +25,7 @@ export const errorAnalysisHandler = (errorAnalysisService: IErrorAnalysis): Requ
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`errorAnalysisHandler | error: ${error}`)
+      log.error("errorAnalysisHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

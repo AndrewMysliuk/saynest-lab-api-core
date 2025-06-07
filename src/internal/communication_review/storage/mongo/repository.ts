@@ -1,14 +1,16 @@
 import { IRepository } from "../"
 import { ICommunicationReview, ICommunicationReviewFilters, IMongooseOptions, IPagination } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { StatisticsModel } from "./model"
+
+const log = createScopedLogger("CommunicationReviewRepository")
 
 export class CommunicationReviewRepository implements IRepository {
   async get(id: string, user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
     try {
       return StatisticsModel.findOne({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`get | error: ${error}`)
+      log.error("get", "error", { error })
       throw error
     }
   }
@@ -17,7 +19,7 @@ export class CommunicationReviewRepository implements IRepository {
     try {
       return StatisticsModel.findOne({ session_id }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`getBySessionId | error: ${error}`)
+      log.error("getBySessionId", "error", { error })
       throw error
     }
   }
@@ -38,7 +40,7 @@ export class CommunicationReviewRepository implements IRepository {
         .limit(pagination?.limit || 20)
         .session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`list | error: ${error}`)
+      log.error("list", "error", { error })
       throw error
     }
   }
@@ -49,7 +51,7 @@ export class CommunicationReviewRepository implements IRepository {
 
       return created.save({ session: options?.session })
     } catch (error: unknown) {
-      logger.error(`add | error: ${error}`)
+      log.error("add", "error", { error })
       throw error
     }
   }
@@ -65,7 +67,7 @@ export class CommunicationReviewRepository implements IRepository {
         },
       )
     } catch (error) {
-      logger.error(`updateByIdAndUser | error: ${error}`)
+      log.error("update", "error", { error })
       throw error
     }
   }
@@ -74,7 +76,7 @@ export class CommunicationReviewRepository implements IRepository {
     try {
       return StatisticsModel.findOneAndDelete({ _id: id, user_id }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`delete | error: ${error}`)
+      log.error("delete", "error", { error })
       throw error
     }
   }
@@ -85,7 +87,7 @@ export class CommunicationReviewRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllHistoryByUserId | error: ${error}`)
+      log.error("deleteAllHistoryByUserId", "error", { error })
       throw error
     }
   }

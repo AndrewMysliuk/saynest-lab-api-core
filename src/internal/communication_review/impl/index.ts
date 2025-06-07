@@ -12,7 +12,7 @@ import {
   IMongooseOptions,
   IPagination,
 } from "../../../types"
-import { countHistoryData, logger, validateToolResponse } from "../../../utils"
+import { countHistoryData, createScopedLogger, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
 import { IPromptService } from "../../prompts_library"
@@ -21,6 +21,8 @@ import { IVocabularyTracker } from "../../vocabulary_tracker"
 import { IRepository } from "../storage"
 import GenerateStatisticSchema from "./json_schema/generate_statistic.schema.json"
 import { buildSystemPrompt, buildUserPrompt } from "./prompt"
+
+const log = createScopedLogger("CommunicationReviewService")
 
 export class CommunicationReviewService implements ICommunicationReviewService {
   private readonly communicationReviewRepo: IRepository
@@ -162,7 +164,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         session.endSession()
       }
     } catch (error: unknown) {
-      logger.error(`generateConversationReview | error: ${error}`)
+      log.error("generateConversationReview", "error", { error })
       throw error
     }
   }
@@ -171,7 +173,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
     try {
       return this.communicationReviewRepo.list(user_id, filter, pagination)
     } catch (error: unknown) {
-      logger.error(`reviewsList | error: ${error}`)
+      log.error("reviewsList", "error", { error })
       throw error
     }
   }
@@ -197,7 +199,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         },
       ])
     } catch (error: unknown) {
-      logger.error(`deleteReview | error: ${error}`)
+      log.error("deleteReview", "error", { error })
       throw error
     }
   }
@@ -214,7 +216,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       await deleteUserFiles(org_id, user_id)
     } catch (error: unknown) {
-      logger.error(`deleteAllHistoryByUserId | error: ${error}`)
+      log.error("deleteAllHistoryByUserId", "error", { error })
       throw error
     }
   }
@@ -229,7 +231,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       return result
     } catch (error: unknown) {
-      logger.error(`getReview | error: ${error}`)
+      log.error("getReview", "error", { error })
       throw error
     }
   }
@@ -258,7 +260,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       return newUrl
     } catch (error: unknown) {
-      logger.error(`updateAudioUrl | error: ${error}`)
+      log.error("updateAudioUrl", "error", { error })
       throw error
     }
   }

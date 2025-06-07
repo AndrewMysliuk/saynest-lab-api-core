@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-import { IModelBehavior, IPromptMeta, IPromptScenarioEntity, IScenarioDetails, IUserContent, VocabularyFrequencyLevelEnum } from "../../../../types"
+import { IModelBehavior, IPromptMeta, IPromptQuestionCountRange, IPromptScenarioEntity, IScenarioDetails, IUserContent, VocabularyFrequencyLevelEnum } from "../../../../types"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
@@ -53,19 +53,21 @@ const ModelBehaviorSchema = new Schema<IModelBehavior>(
   { _id: false },
 )
 
+const QuestionCountRangeSchema = new Schema<IPromptQuestionCountRange>(
+  {
+    min: { type: Number, required: true },
+    max: { type: Number, required: true },
+  },
+  { _id: false },
+)
+
 const PromptMetaSchema = new Schema<IPromptMeta>(
   {
     estimated_duration_minutes: { type: Number, required: true },
     max_turns: { type: Number, required: true },
     model_end_behavior: { type: String, required: true },
     target_language: { type: String, required: true },
-    question_count_range: {
-      type: {
-        min: { type: Number, required: true },
-        max: { type: Number, required: true },
-      },
-      default: null,
-    },
+    question_count_range: { type: QuestionCountRangeSchema, default: null },
   },
   { _id: false },
 )

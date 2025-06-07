@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { ITextToSpeach } from "../index"
+
+const log = createScopedLogger("TextToSpeechHandler")
 
 export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -29,10 +31,15 @@ export const textToSpeachHandler = (textToSpeachService: ITextToSpeach): Request
         res.write(chunk)
       }
 
-      logger.debug("Saved TTS audio:", output.filePath)
+      log.info("textToSpeachHandler", "Saved TTS audio", {
+        filepath: output.filePath,
+      })
       res.end()
     } catch (error: unknown) {
-      logger.error("textToSpeachController | error in ttsTextToSpeachHandler:", error)
+      log.error("textToSpeachHandler", "error", {
+        error,
+      })
+
       if (!res.headersSent) {
         res.status(500).json({ error: "Internal Server Error" })
       } else {
@@ -67,10 +74,15 @@ export const textToSpeechElevenLabsHandler = (textToSpeachService: ITextToSpeach
         res.write(chunk)
       }
 
-      logger.debug("ElevenLabs TTS audio saved at:", output.filePath)
+      log.info("textToSpeechElevenLabsHandler", "ElevenLabs TTS audio saved at", {
+        filepath: output.filePath,
+      })
       res.end()
     } catch (error: unknown) {
-      logger.error("textToSpeechHandlerElevenLabs | error:", error)
+      log.error("textToSpeechElevenLabsHandler", "error", {
+        error,
+      })
+
       if (!res.headersSent) {
         res.status(500).json({ error: "Internal Server Error" })
       } else {

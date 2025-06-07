@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid"
 import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
 import Languages from "../../../json_data/languages.json"
 import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IMongooseOptions, StreamEventEnum } from "../../../types"
-import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, logger, trimConversationHistory } from "../../../utils"
+import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, trimConversationHistory } from "../../../utils"
 import { ISessionService } from "../../session"
 import { ISpeachToText } from "../../speach_to_text"
 import { ITextAnalysis } from "../../text_analysis"
@@ -216,7 +216,7 @@ export class ConversationService implements IConversationService {
         created_at: new Date(),
       } as IConversationHistory
 
-      this.historyRepo.saveMany([userMessage, modelMessage]).catch((error) => logger.warn("Failed to save history", error))
+      this.historyRepo.saveMany([userMessage, modelMessage]).catch((error) => log.warn("streamConversation", "Failed to save history", { error }))
 
       log.info("streamConversation", "Saved user and model messages to history")
 

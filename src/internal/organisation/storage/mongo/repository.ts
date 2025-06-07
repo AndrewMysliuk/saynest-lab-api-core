@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { OrganizationModel } from "./model"
+
+const log = createScopedLogger("OrganisationRepository")
 
 export class OrganisationRepository implements IRepository {
   async create(data: Partial<IOrganizationEntity>, options?: IMongooseOptions): Promise<IOrganizationEntity> {
@@ -12,7 +14,7 @@ export class OrganisationRepository implements IRepository {
       await organization.save({ session: options?.session || null })
       return organization.toObject()
     } catch (error: unknown) {
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", { error })
       throw error
     }
   }
@@ -23,7 +25,7 @@ export class OrganisationRepository implements IRepository {
 
       return organization
     } catch (error: unknown) {
-      logger.error(`getById | error: ${error}`)
+      log.error("getById", "error", { error })
       throw error
     }
   }
@@ -34,7 +36,7 @@ export class OrganisationRepository implements IRepository {
 
       return organization
     } catch (error: unknown) {
-      logger.error(`getByOwnerId | error: ${error}`)
+      log.error("getByOwnerId", "error", { error })
       throw error
     }
   }
@@ -45,7 +47,7 @@ export class OrganisationRepository implements IRepository {
 
       return organizations
     } catch (error: unknown) {
-      logger.error(`list | error: ${error}`)
+      log.error("list", "error", { error })
       throw error
     }
   }
@@ -56,7 +58,7 @@ export class OrganisationRepository implements IRepository {
 
       return organization
     } catch (error: unknown) {
-      logger.error(`update | error: ${error}`)
+      log.error("update", "error", { error })
       throw error
     }
   }

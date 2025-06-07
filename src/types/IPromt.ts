@@ -54,15 +54,17 @@ export interface IScenarioDetails {
   optional_steps: string[]
 }
 
+export interface IPromptQuestionCountRange {
+  min: number
+  max: number
+}
+
 export interface IPromptMeta {
   estimated_duration_minutes: number
   max_turns: number
   model_end_behavior: string
   target_language: string
-  question_count_range: {
-    min: number
-    max: number
-  } | null
+  question_count_range: IPromptQuestionCountRange | null
 }
 
 export interface IPromptFilters {

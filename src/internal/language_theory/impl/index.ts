@@ -1,14 +1,16 @@
 import { ILanguageTheory } from ".."
 import language_theory_en_json from "../../../json_data/language_theory_en.json"
 import { ILanguageTopic, VocabularyFrequencyLevelEnum } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
+
+const log = createScopedLogger("LanguageTheoryService")
 
 export class LanguageTheoryService implements ILanguageTheory {
   async list(): Promise<ILanguageTopic[]> {
     try {
       return language_theory_en_json as ILanguageTopic[]
     } catch (error: unknown) {
-      logger.error(`list | error: ${error}`)
+      log.error("list", "error", { error })
       throw error
     }
   }
@@ -27,7 +29,7 @@ export class LanguageTheoryService implements ILanguageTheory {
 
       return records.filter((item) => item.language.toLowerCase() === language.toLowerCase())
     } catch (error: unknown) {
-      logger.error(`listByLanguage | error: ${error}`)
+      log.error("listByLanguage", "error", { error })
       throw error
     }
   }
@@ -47,7 +49,7 @@ export class LanguageTheoryService implements ILanguageTheory {
 
       return filtered.map(({ id, language, cefr_level, title }) => ({ id, language, cefr_level, title })) as ILanguageTopic[]
     } catch (error: unknown) {
-      logger.error(`filteredShortListByLanguage | error: ${error}`)
+      log.error("filteredShortListByLanguage", "error", { error })
       throw error
     }
   }

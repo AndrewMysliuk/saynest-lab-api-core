@@ -2,15 +2,19 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IVocabularyEntity, IWordExplanationRequest } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { VocabularyModel } from "../mongo/model"
+
+const log = createScopedLogger("VocabularyRepository")
 
 export class VocabularyRepository implements IRepository {
   async list(options?: IMongooseOptions): Promise<IVocabularyEntity[]> {
     try {
       return VocabularyModel.find().session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`list | error: ${error}`)
+      log.error("list", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -23,7 +27,9 @@ export class VocabularyRepository implements IRepository {
         session_id: new Types.ObjectId(session_id),
       }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`listBySessionId | error: ${error}`)
+      log.error("listBySessionId", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -32,7 +38,9 @@ export class VocabularyRepository implements IRepository {
     try {
       return VocabularyModel.findOne({ word, target_language, explanation_language }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`getByWord | error: ${error}`)
+      log.error("getByWord", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -45,14 +53,18 @@ export class VocabularyRepository implements IRepository {
         return vocab.toObject()
       } catch (error: any) {
         if (error && typeof error === "object" && (error as any).code === 11000) {
-          console.warn("Duplicate vocabulary entry skipped:", data)
+          log.warn("create", "Duplicate vocabulary entry skipped", {
+            data,
+          })
           return null
         }
 
         throw error
       }
     } catch (error: unknown) {
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -71,7 +83,9 @@ export class VocabularyRepository implements IRepository {
 
       return updated.toObject()
     } catch (error: unknown) {
-      logger.error(`patchAudio | error: ${error}`)
+      log.error("patchAudio", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -84,7 +98,9 @@ export class VocabularyRepository implements IRepository {
 
       await VocabularyModel.findByIdAndDelete(id).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`delete | error: ${error}`)
+      log.error("delete", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -95,7 +111,9 @@ export class VocabularyRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllBySessionId", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -106,7 +124,9 @@ export class VocabularyRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", {
+        error,
+      })
       throw error
     }
   }

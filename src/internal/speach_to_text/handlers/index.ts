@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IWhisperHandlerResponse } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { ISpeachToText } from "../index"
+
+const log = createScopedLogger("speachToTextHandler")
 
 export const whisperSpeechToTextHandler = (speachToTextService: ISpeachToText): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -24,7 +26,7 @@ export const whisperSpeechToTextHandler = (speachToTextService: ISpeachToText): 
         res.status(200).json(response)
       }
     } catch (error: unknown) {
-      logger.error("whisperController | error in whisperSpeechToTextHandler:", error)
+      log.error("whisperSpeechToTextHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

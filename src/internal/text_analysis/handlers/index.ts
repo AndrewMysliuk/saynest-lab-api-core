@@ -2,7 +2,9 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ITextAnalysis } from ".."
 import { IGPTConversationRequest } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
+
+const log = createScopedLogger("TextAnalysisHandler")
 
 export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -36,7 +38,10 @@ export const streamingTextAnalysisHandler = (textAnalysisService: ITextAnalysis)
 
       res.end()
     } catch (error: unknown) {
-      logger.error(`streamingTextAnalysisHandler | error: ${error}`)
+      log.error("streamingTextAnalysisHandler", "error", {
+        error,
+      })
+
       if (!res.headersSent) {
         res.status(500).json({ error: "Internal Server Error" })
       } else {

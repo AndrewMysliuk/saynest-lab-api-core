@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { SessionModel } from "./model"
+
+const log = createScopedLogger("SessionRepository")
 
 export class SessionRepository implements IRepository {
   async createSession(dto: ISessionCreateRequest, options?: IMongooseOptions): Promise<ISessionEntity> {
@@ -19,7 +21,7 @@ export class SessionRepository implements IRepository {
 
       return session.toObject()
     } catch (error: unknown) {
-      logger.error(`createSession | error: ${error}`)
+      log.error("createSession", "error", { error })
       throw error
     }
   }
@@ -36,7 +38,7 @@ export class SessionRepository implements IRepository {
 
       return session.toObject()
     } catch (error: unknown) {
-      logger.error(`getSession | error: ${error}`)
+      log.error("getSession", "error", { error })
       throw error
     }
   }
@@ -65,7 +67,7 @@ export class SessionRepository implements IRepository {
 
       return session.toObject()
     } catch (error: unknown) {
-      logger.error(`setSessionStatus | error: ${error}`)
+      log.error("setSessionStatus", "error", { error })
       throw error
     }
   }
@@ -76,7 +78,7 @@ export class SessionRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteSession | error: ${error}`)
+      log.error("deleteSession", "error", { error })
       throw error
     }
   }
@@ -89,7 +91,7 @@ export class SessionRepository implements IRepository {
 
       return sessions.map((session) => session.toObject())
     } catch (error: unknown) {
-      logger.error(`getSessionsByUserId | error: ${error}`)
+      log.error("getSessionsByUserId", "error", { error })
       throw error
     }
   }
@@ -100,7 +102,7 @@ export class SessionRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", { error })
       throw error
     }
   }

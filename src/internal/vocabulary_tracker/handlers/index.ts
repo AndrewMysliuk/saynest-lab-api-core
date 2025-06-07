@@ -2,7 +2,9 @@ import { Request, RequestHandler, Response } from "express"
 
 import { IVocabularyTracker } from ".."
 import { ISearchSynonymsRequest, IWordExplanationRequest } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
+
+const log = createScopedLogger("VocabularyTrackerHandler")
 
 export const getWordsListHandler = (vocabularyTrackerService: IVocabularyTracker): RequestHandler => {
   return async (_req: Request, res: Response): Promise<void> => {
@@ -11,7 +13,9 @@ export const getWordsListHandler = (vocabularyTrackerService: IVocabularyTracker
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getWordsListHandler | error: ${error}`)
+      log.error("getWordsListHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -34,7 +38,9 @@ export const getWordExplanationHandler = (vocabularyTrackerService: IVocabularyT
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getWordExplanationHandler | error: ${error}`)
+      log.error("getWordExplanationHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -56,7 +62,9 @@ export const getWordAudioHandler = (vocabularyTrackerService: IVocabularyTracker
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getWordExplanationHandler | error: ${error}`)
+      log.error("getWordAudioHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -66,7 +74,6 @@ export const searchWordsSynonymsHandler = (vocabularyTrackerService: IVocabulary
   return async (req: Request, res: Response): Promise<void> => {
     try {
       const dto = req.body as ISearchSynonymsRequest
-      const { user_id, organization_id } = req.user!
 
       if (!dto.history?.length || !dto.target_language || !dto.explanation_language) {
         res.status(400).json({
@@ -79,7 +86,9 @@ export const searchWordsSynonymsHandler = (vocabularyTrackerService: IVocabulary
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getWordExplanationHandler | error: ${error}`)
+      log.error("searchWordsSynonymsHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

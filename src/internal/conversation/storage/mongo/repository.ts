@@ -1,7 +1,9 @@
 import { IConversationHistory, IMongooseOptions } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { IRepository } from "../index"
 import { ConversationHistoryModel } from "./model"
+
+const log = createScopedLogger("HistoryRepository")
 
 export class HistoryRepository implements IRepository {
   async saveMany(historyArray: Partial<IConversationHistory>[], options?: IMongooseOptions): Promise<IConversationHistory[]> {
@@ -13,7 +15,7 @@ export class HistoryRepository implements IRepository {
         ordered: true,
       })
     } catch (error: unknown) {
-      logger.error(`saveMany | error: ${error}`)
+      log.error("saveMany", "error", { error })
       throw error
     }
   }
@@ -23,7 +25,7 @@ export class HistoryRepository implements IRepository {
       const history = new ConversationHistoryModel(history_data)
       return history.save({ session: options?.session })
     } catch (error: unknown) {
-      logger.error(`saveHistory | error: ${error}`)
+      log.error("saveHistory", "error", { error })
       throw error
     }
   }
@@ -36,7 +38,7 @@ export class HistoryRepository implements IRepository {
         })
         .session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`getHistoryBySession | error: ${error}`)
+      log.error("getHistoryBySession", "error", { error })
       throw error
     }
   }
@@ -47,7 +49,7 @@ export class HistoryRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllBySessionId", "error", { error })
       throw error
     }
   }
@@ -58,7 +60,7 @@ export class HistoryRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", { error })
       throw error
     }
   }

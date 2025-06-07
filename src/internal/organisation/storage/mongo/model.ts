@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose"
+import mongoose, { Document, Schema } from "mongoose"
 
 import { IOrganizationEntity, IOrganizationSettings, OrganizationStatusEnum } from "../../../../types"
 
@@ -18,7 +18,7 @@ const OrganizationSchema = new Schema<IOrganizationDocument>(
   {
     owner_id: { type: Schema.Types.ObjectId, required: false, default: null },
     name: { type: String, required: true },
-    plan_id: { type: Schema.Types.ObjectId, required: false, default: null },
+    subscription_id: { type: Schema.Types.ObjectId, required: false, default: null },
     status: { type: String, enum: Object.values(OrganizationStatusEnum), default: OrganizationStatusEnum.ACTIVE, required: true },
     settings: { type: OrganizationSettingsSchema, required: false },
   },

@@ -1,7 +1,9 @@
 import { IOrganisationService } from ".."
 import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { IRepository } from "../storage"
+
+const log = createScopedLogger("OrganisationService")
 
 export class OrganisationService implements IOrganisationService {
   private readonly orgRepo: IRepository
@@ -15,7 +17,7 @@ export class OrganisationService implements IOrganisationService {
       const organization = await this.orgRepo.create({ name }, options)
       return organization
     } catch (error: unknown) {
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", { error })
       throw error
     }
   }
@@ -30,7 +32,7 @@ export class OrganisationService implements IOrganisationService {
 
       return organization
     } catch (error: unknown) {
-      logger.error(`setOwner | error: ${error}`)
+      log.error("setOwner", "error", { error })
       throw error
     }
   }
@@ -39,7 +41,7 @@ export class OrganisationService implements IOrganisationService {
     try {
       return this.orgRepo.update(id, dto, options)
     } catch (error: unknown) {
-      logger.error(`setOwner | error: ${error}`)
+      log.error("update", "error", { error })
       throw error
     }
   }

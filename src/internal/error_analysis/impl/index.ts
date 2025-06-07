@@ -4,12 +4,14 @@ import { IErrorAnalysis } from ".."
 import { openaiREST } from "../../../config"
 import Languages from "../../../json_data/languages.json"
 import { GPTRoleType, IErrorAnalysisEntity, IErrorAnalysisModelEntity, IErrorAnalysisRequest, IMongooseOptions } from "../../../types"
-import { logger, validateToolResponse } from "../../../utils"
+import { createScopedLogger, validateToolResponse } from "../../../utils"
 import { ILanguageTheory } from "../../language_theory"
 import { IPromptService } from "../../prompts_library"
 import { IRepository } from "../storage"
 import ConversationErrorAnalyserSchema from "./json_schema/conversation_error_analysis.schema.json"
 import { buildSystemPrompt } from "./prompt"
+
+const log = createScopedLogger("ErrorAnalysisService")
 
 export class ErrorAnalysisService implements IErrorAnalysis {
   private readonly errorAnalysisRepo: IRepository
@@ -133,7 +135,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         updated_at: new Date(),
       }
     } catch (error: unknown) {
-      logger.error(`conversationErrorAnalysis | error: ${error}`)
+      log.error("conversationErrorAnalysis", "error", { error })
       throw error
     }
   }
@@ -142,7 +144,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
     try {
       return this.errorAnalysisRepo.listErrorAnalysisBySession(session_id)
     } catch (error: unknown) {
-      logger.error(`getConversationErrors | error: ${error}`)
+      log.error("listConversationErrors", "error", { error })
       throw error
     }
   }
@@ -151,7 +153,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
     try {
       return this.errorAnalysisRepo.deleteAllBySessionId(session_id)
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllBySessionId", "error", { error })
       throw error
     }
   }
@@ -160,7 +162,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
     try {
       return this.errorAnalysisRepo.deleteAllByUserId(user_id, options)
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", { error })
       throw error
     }
   }

@@ -3,12 +3,14 @@ import { Types } from "mongoose"
 import { ITaskGenerator } from ".."
 import { openaiREST } from "../../../config"
 import { GPTRoleType, IGenericTaskEntity, ITaskGeneratorRequest, TaskTypeEnum } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { ICommunicationReviewService } from "../../communication_review"
 import { IPromptService } from "../../prompts_library"
 import { IRepository } from "../storage"
 import { TaskTypeMap, getTaskDefinition } from "./helpers"
 import { buildSystemPrompt } from "./prompt"
+
+const log = createScopedLogger("TaskGeneratorService")
 
 export class TaskGeneratorService implements ITaskGenerator {
   private readonly taskGeneratorRepo: IRepository
@@ -93,7 +95,7 @@ export class TaskGeneratorService implements ITaskGenerator {
 
       return saved
     } catch (error: unknown) {
-      logger.error(`generateTask | error: ${error}`)
+      log.error("generateTask", "error", { error })
       throw error
     }
   }
@@ -108,7 +110,7 @@ export class TaskGeneratorService implements ITaskGenerator {
 
       return entity
     } catch (error: unknown) {
-      logger.error(`setCompleted | error: ${error}`)
+      log.error("setCompleted", "error", { error })
       throw error
     }
   }
@@ -117,7 +119,7 @@ export class TaskGeneratorService implements ITaskGenerator {
     try {
       return await this.taskGeneratorRepo.listByReviewId(new Types.ObjectId(user_id), new Types.ObjectId(review_id))
     } catch (error: unknown) {
-      logger.error(`listByReviewId | error: ${error}`)
+      log.error("listByReviewId", "error", { error })
       throw error
     }
   }
@@ -126,7 +128,7 @@ export class TaskGeneratorService implements ITaskGenerator {
     try {
       return this.taskGeneratorRepo.getById(new Types.ObjectId(task_id))
     } catch (error: unknown) {
-      logger.error(`getById | error: ${error}`)
+      log.error("getById", "error", { error })
       throw error
     }
   }

@@ -1,6 +1,9 @@
 import { NextFunction, Request, RequestHandler, Response } from "express"
 
 import { IUserProgressService } from "../internal/user_progress"
+import { createScopedLogger } from "../utils"
+
+const log = createScopedLogger("Middleware")
 
 export const createActivityMiddleware = (userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
@@ -15,8 +18,10 @@ export const createActivityMiddleware = (userProgressService: IUserProgressServi
       }
 
       next()
-    } catch (err) {
-      console.error("[activityMiddleware] Failed to track activity:", err)
+    } catch (error: unknown) {
+      log.error("createActivityMiddleware", "Failed to track activity", {
+        error,
+      })
       next()
     }
   }

@@ -4,8 +4,10 @@ import { Types } from "mongoose"
 
 import { IPromptService } from ".."
 import { IModuleFilters, IPromptFilters } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { CreateModuleSchema, CreateScenarioSchema, UpdateModuleSchema, UpdateScenarioSchema } from "./validation"
+
+const log = createScopedLogger("PromptHandler")
 
 export const createScenarioHandler = (promptService: IPromptService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -24,7 +26,7 @@ export const createScenarioHandler = (promptService: IPromptService): RequestHan
 
       res.status(201).json(scenario)
     } catch (error: unknown) {
-      logger.error(`createScenarioHandler | error: ${error}`)
+      log.error("createScenarioHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -53,7 +55,7 @@ export const updateScenarioHandler = (promptService: IPromptService): RequestHan
       const updated = await promptService.updateScenario(id, { ...parsed.data, user_id, organization_id })
       res.status(200).json(updated)
     } catch (error: unknown) {
-      logger.error(`updateScenarioHandler | error: ${error}`)
+      log.error("updateScenarioHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -78,7 +80,7 @@ export const getScenarioHandler = (promptService: IPromptService): RequestHandle
 
       res.status(200).json(scenario)
     } catch (error: unknown) {
-      logger.error(`getScenarioHandler | error: ${error}`)
+      log.error("getScenarioHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -106,7 +108,7 @@ export const listScenariosHandler = (promptService: IPromptService): RequestHand
 
       res.status(200).json(scenarios)
     } catch (error: unknown) {
-      logger.error(`listScenariosHandler | error: ${error}`)
+      log.error("listScenariosHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -129,7 +131,7 @@ export const createModuleHandler = (promptService: IPromptService): RequestHandl
 
       res.status(201).json(module)
     } catch (error: unknown) {
-      logger.error(`createModuleHandler | error: ${error}`)
+      log.error("createModuleHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -159,7 +161,7 @@ export const updateModuleHandler = (promptService: IPromptService): RequestHandl
 
       res.status(200).json(updated)
     } catch (error: unknown) {
-      logger.error(`updateModuleHandler | error: ${error}`)
+      log.error("updateModuleHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -182,7 +184,7 @@ export const getModuleHandler = (promptService: IPromptService): RequestHandler 
 
       res.status(200).json(module)
     } catch (error: unknown) {
-      logger.error(`getModuleHandler | error: ${error}`)
+      log.error("getModuleHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -209,7 +211,7 @@ export const listModulesHandler = (promptService: IPromptService): RequestHandle
 
       res.status(200).json(modules)
     } catch (error: unknown) {
-      logger.error(`listModulesHandler | error: ${error}`)
+      log.error("listModulesHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -229,7 +231,7 @@ export const getModuleScenariosHandler = (promptService: IPromptService): Reques
 
       res.status(200).json(scenarios)
     } catch (error: unknown) {
-      logger.error(`getModuleScenariosHandler | error: ${error}`)
+      log.error("getModuleScenariosHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

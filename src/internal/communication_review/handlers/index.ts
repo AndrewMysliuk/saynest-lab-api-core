@@ -1,9 +1,11 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ICommunicationReviewService } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { IUserProgressService } from "../../user_progress"
 import { StatisticsGenerateRequestSchema } from "./validation"
+
+const log = createScopedLogger("CommunicationReviewHandler")
 
 export const generateConversationReviewHandler = (communicationReviewService: ICommunicationReviewService, userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -21,7 +23,7 @@ export const generateConversationReviewHandler = (communicationReviewService: IC
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`generateConversationReviewHandler | error: ${error}`)
+      log.error("generateConversationReviewHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -48,7 +50,7 @@ export const reviewsListHandler = (communicationReviewService: ICommunicationRev
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`reviewsListHandler | error: ${error}`)
+      log.error("reviewsListHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -71,7 +73,7 @@ export const deleteReviewHandler = (communicationReviewService: ICommunicationRe
 
       res.status(200).json(true)
     } catch (error: unknown) {
-      logger.error(`deleteReviewHandler | error: ${error}`)
+      log.error("deleteReviewHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -86,7 +88,7 @@ export const deleteAllHistoryHandler = (communicationReviewService: ICommunicati
 
       res.status(200).json(true)
     } catch (error: unknown) {
-      logger.error(`deleteAllHistoryHandler | error: ${error}`)
+      log.error("deleteAllHistoryHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -109,7 +111,7 @@ export const getReviewHandler = (communicationReviewService: ICommunicationRevie
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getReviewHandler | error: ${error}`)
+      log.error("getReviewHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -138,7 +140,7 @@ export const updateAudioUrlHandler = (communicationReviewService: ICommunication
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`updateAudioUrlHandler | error: ${error}`)
+      log.error("updateAudioUrlHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

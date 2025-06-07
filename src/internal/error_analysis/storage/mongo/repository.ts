@@ -1,9 +1,11 @@
 import { Types } from "mongoose"
 
 import { IErrorAnalysisEntity, IErrorAnalysisModelEntity, IMongooseOptions } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { IRepository } from "../index"
 import { ErrorAnalysisModel } from "./model"
+
+const log = createScopedLogger("ErrorAnalysisRepository")
 
 export class ErrorAnalysisRepository implements IRepository {
   async setErrorAnalysis(
@@ -36,7 +38,7 @@ export class ErrorAnalysisRepository implements IRepository {
 
       return record
     } catch (error: unknown) {
-      logger.error(`setErrorAnalysis | error: ${error}`)
+      log.error("setErrorAnalysis", "error", { error })
       throw error
     }
   }
@@ -47,7 +49,7 @@ export class ErrorAnalysisRepository implements IRepository {
         .lean()
         .session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`getErrorAnalysisById | error: ${error}`)
+      log.error("getErrorAnalysisById", "error", { error })
       throw error
     }
   }
@@ -59,7 +61,7 @@ export class ErrorAnalysisRepository implements IRepository {
         .lean()
         .session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`listErrorAnalysisBySession | error: ${error}`)
+      log.error("listErrorAnalysisBySession", "error", { error })
       throw error
     }
   }
@@ -70,7 +72,7 @@ export class ErrorAnalysisRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllBySessionId", "error", { error })
       throw error
     }
   }
@@ -81,7 +83,7 @@ export class ErrorAnalysisRepository implements IRepository {
 
       return
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", { error })
       throw error
     }
   }

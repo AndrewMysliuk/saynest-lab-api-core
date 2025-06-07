@@ -1,9 +1,11 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IConversationResponse, StreamEventEnum } from "../../../types"
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { IConversationService } from "../index"
 import { conversationSchema } from "./validation"
+
+const log = createScopedLogger("conversationHandler")
 
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -76,7 +78,7 @@ export const createConversationHandler = (conversationService: IConversationServ
 
       res.end()
     } catch (error: unknown) {
-      logger.error("createConversationHandler | error:", error)
+      log.error("createConversationHandler", "error", { error })
 
       if (!res.headersSent) {
         res.status(500).json({ error: "Internal Server Error" })

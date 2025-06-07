@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IUserProgressEntity } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { UserProgressModel } from "./model"
+
+const log = createScopedLogger("UserProgressRepository")
 
 export class UserProgressRepository implements IRepository {
   async createIfNotExists(user_id: Types.ObjectId, organization_id?: Types.ObjectId, options?: IMongooseOptions): Promise<IUserProgressEntity | null> {
@@ -34,9 +36,9 @@ export class UserProgressRepository implements IRepository {
       const plain = progressDoc.toObject()
 
       return plain
-    } catch (err) {
-      logger.error("[UserProgressRepository.createIfNotExists] error", { error: err, user_id })
-      throw err
+    } catch (error: unknown) {
+      log.error("createIfNotExists", "error", { error, user_id })
+      throw error
     }
   }
 
@@ -49,9 +51,9 @@ export class UserProgressRepository implements IRepository {
       }
 
       return updated
-    } catch (err) {
-      logger.error("[UserProgressRepository.update] error", { error: err, user_id })
-      throw err
+    } catch (error: unknown) {
+      log.error("update", "error", { error, user_id })
+      throw error
     }
   }
 
@@ -71,18 +73,18 @@ export class UserProgressRepository implements IRepository {
       }
 
       await UserProgressModel.updateOne({ user_id }, { $set }, options)
-    } catch (err) {
-      logger.error("[UserProgressRepository.addActivityDate] error", { error: err, user_id, date })
-      throw err
+    } catch (error: unknown) {
+      log.error("addActivityDate", "error", { error, user_id, date })
+      throw error
     }
   }
 
   async getByUserId(user_id: Types.ObjectId, options?: IMongooseOptions): Promise<IUserProgressEntity | null> {
     try {
       return await UserProgressModel.findOne({ user_id }, null, options).lean()
-    } catch (err) {
-      logger.error("[UserProgressRepository.getByUserId] error", { error: err, user_id })
-      throw err
+    } catch (error: unknown) {
+      log.error("getByUserId", "error", { error, user_id })
+      throw error
     }
   }
 }

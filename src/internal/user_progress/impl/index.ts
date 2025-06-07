@@ -11,11 +11,13 @@ import {
   IUserProgressTasks,
   IVocabularyFillersEntity,
 } from "../../../types"
-import { calculateStreak, getTrend, logger } from "../../../utils"
+import { calculateStreak, createScopedLogger, getTrend } from "../../../utils"
 import { ICommunicationReviewService } from "../../communication_review"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
 import { IRepository } from "../storage"
+
+const log = createScopedLogger("UserProgressService")
 
 export class UserProgressService implements IUserProgressService {
   private readonly userProgressRepo: IRepository
@@ -36,7 +38,9 @@ export class UserProgressService implements IUserProgressService {
 
       return result
     } catch (error: unknown) {
-      logger.error(`createIfNotExists | error: ${error}`)
+      log.error("createIfNotExists", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -46,7 +50,9 @@ export class UserProgressService implements IUserProgressService {
       const result = await this.userProgressRepo.update(data, new Types.ObjectId(user_id), options)
       return result
     } catch (error: unknown) {
-      logger.error(`update | error: ${error}`)
+      log.error("update", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -56,7 +62,9 @@ export class UserProgressService implements IUserProgressService {
       const result = await this.userProgressRepo.getByUserId(new Types.ObjectId(user_id), options)
       return result
     } catch (error: unknown) {
-      logger.error(`getByUserId | error: ${error}`)
+      log.error("getByUserId", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -96,7 +104,9 @@ export class UserProgressService implements IUserProgressService {
         options,
       )
     } catch (error: unknown) {
-      logger.error(`markUserActivity | error: ${error}`)
+      log.error("markUserActivity", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -135,7 +145,9 @@ export class UserProgressService implements IUserProgressService {
         options,
       )
     } catch (error: unknown) {
-      logger.error(`syncTaskProgress | error: ${error}`)
+      log.error("syncTaskProgress", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -197,7 +209,9 @@ export class UserProgressService implements IUserProgressService {
         options,
       )
     } catch (error: unknown) {
-      logger.error(`applyReviewStats | error: ${error}`)
+      log.error("applyReviewStats", "error", {
+        error,
+      })
       throw error
     }
   }

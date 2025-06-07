@@ -15,7 +15,7 @@ export interface IOrganizationEntity {
   _id: Types.ObjectId
   owner_id: Types.ObjectId
   name: string
-  plan_id: Types.ObjectId
+  subscription_id: Types.ObjectId
   status: OrganizationStatusEnum
   settings: IOrganizationSettings
   updated_at: Date

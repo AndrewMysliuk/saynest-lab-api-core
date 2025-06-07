@@ -1,9 +1,11 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IAuthService } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { INVALID_CREDENTIALS } from "../impl"
 import { RegisterRequestSchema } from "./validation"
+
+const log = createScopedLogger("AuthHandler")
 
 export const googleHandler = (authService: IAuthService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -37,7 +39,7 @@ export const googleHandler = (authService: IAuthService): RequestHandler => {
           user: result.user,
         })
     } catch (error: unknown) {
-      logger.error(`registerHandler | error: ${error}`)
+      log.error("googleHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -71,7 +73,7 @@ export const registerHandler = (authService: IAuthService): RequestHandler => {
           user: result.user,
         })
     } catch (error: any) {
-      logger.error(`registerHandler | error: ${error}`)
+      log.error("registerHandler", "error", { error })
 
       if (error?.message?.includes("Email already exists")) {
         res.status(400).json({ error: "Email already exists" })
@@ -104,7 +106,7 @@ export const loginHandler = (authService: IAuthService): RequestHandler => {
           user: result.user,
         })
     } catch (error: any) {
-      logger.error(`loginHandler | error: ${error}`)
+      log.error("loginHandler", "error", { error })
 
       if (error?.message === INVALID_CREDENTIALS) {
         res.status(401).json({ error: "Invalid credentials" })
@@ -130,7 +132,7 @@ export const refreshAccessTokenHandler = (authService: IAuthService): RequestHan
 
       res.status(200).json(newAccessToken)
     } catch (error: unknown) {
-      logger.error(`refreshAccessTokenHandler | error: ${error}`)
+      log.error("refreshAccessTokenHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -150,7 +152,7 @@ export const logoutHandler = (authService: IAuthService): RequestHandler => {
 
       res.clearCookie("refresh_token", { path: "/api/auth" }).status(204).send()
     } catch (error: unknown) {
-      logger.error(`logoutHandler | error: ${error}`)
+      log.error("logoutHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

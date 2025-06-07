@@ -12,12 +12,14 @@ import {
   IVocabularyJSONEntity,
   IWordExplanationRequest,
 } from "../../../types"
-import { logger, validateToolResponse } from "../../../utils"
+import { createScopedLogger, validateToolResponse } from "../../../utils"
 import { ITextToSpeach } from "../../text_to_speach"
 import { IRepository } from "../storage"
 import SearchSynonymsSchema from "./json_schema/search_synonyms.schema.json"
 import WordExplanationSchema from "./json_schema/word_explanation.schema.json"
 import { buildSynonymsSystemPrompt, buildSynonymsUserPrompt, buildVocabularySystemPrompt } from "./prompt"
+
+const log = createScopedLogger("VocabularyTrackerService")
 
 export class VocabularyTrackerService implements IVocabularyTracker {
   private readonly vocabularyTrackerRepo: IRepository
@@ -35,11 +37,15 @@ export class VocabularyTrackerService implements IVocabularyTracker {
       const existingWord = await this.vocabularyTrackerRepo.getByWord(dto)
 
       if (existingWord) {
-        logger.info(`Cache hit for word: ${existingWord.word}`)
+        log.info("getWordExplanation", "Cache hit for word", {
+          word: existingWord.word,
+        })
         return existingWord
       }
 
-      logger.info(`Cache miss — querying GPT for word: ${dto.word}`)
+      log.info("getWordExplanation", "Cache miss — querying GPT for word", {
+        word: dto.word,
+      })
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         {
@@ -102,7 +108,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
 
       return modelResponse
     } catch (error: unknown) {
-      logger.error("VocabularyTrackerService | error in getWordExplanation: ", error)
+      log.error("getWordExplanation", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -131,7 +139,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
 
       return response
     } catch (error: unknown) {
-      logger.error("VocabularyTrackerService | error in getWordAudio: ", error)
+      log.error("getWordAudio", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -140,7 +150,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     try {
       return this.vocabularyTrackerRepo.list()
     } catch (error: unknown) {
-      logger.error("VocabularyTrackerService | error in wordsList:", error)
+      log.error("wordsList", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -153,7 +165,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
 
       return vocabularySessionList
     } catch (error: unknown) {
-      logger.error("wordsListBySessionId | error in wordsList:", error)
+      log.error("wordsListBySessionId", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -218,7 +232,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
 
       return modelResponse.entries
     } catch (error: unknown) {
-      logger.error("VocabularyTrackerService | error in searchFillersByHistory:", error)
+      log.error("searchFillersByHistory", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -227,7 +243,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     try {
       return this.vocabularyTrackerRepo.deleteAllBySessionId(session_id)
     } catch (error: unknown) {
-      logger.error(`deleteAllBySessionId | error: ${error}`)
+      log.error("deleteAllBySessionId", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -236,7 +254,9 @@ export class VocabularyTrackerService implements IVocabularyTracker {
     try {
       return this.vocabularyTrackerRepo.deleteAllByUserId(user_id, options)
     } catch (error: unknown) {
-      logger.error(`deleteAllByUserId | error: ${error}`)
+      log.error("deleteAllByUserId", "error", {
+        error,
+      })
       throw error
     }
   }

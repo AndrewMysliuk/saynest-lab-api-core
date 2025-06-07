@@ -5,7 +5,7 @@ import cors from "cors"
 import { createServer } from "http"
 
 import { connectToDatabase, disconnectFromDatabase, serverConfig, startCleanupWorker, stopCleanupWorker } from "./config"
-import routers from "./routes"
+import { apiRouter, paddleRouter } from "./routes"
 import { createScopedLogger } from "./utils"
 
 const log = createScopedLogger("main")
@@ -27,7 +27,8 @@ app.use(
 app.use(express.json())
 app.use(cookieParser())
 
-app.use("/api", routers)
+app.use(paddleRouter)
+app.use("/api", apiRouter)
 
 // WebSocket support — optional
 // wsServerConfig(server)

@@ -63,7 +63,7 @@ export class TextAnalysisService implements ITextAnalysis {
         totalTokens: fullText.length,
       })
     } catch (error) {
-      log.error("streamGptReplyOnly", "Error during GPT streaming", { error })
+      log.error(method, "Error during GPT streaming", { error })
       throw error
     }
   }

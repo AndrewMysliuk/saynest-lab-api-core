@@ -176,6 +176,11 @@
   dependencies:
     sparse-bitfield "^3.0.3"
 
+"@paddle/paddle-node-sdk@^2.7.3":
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/@paddle/paddle-node-sdk/-/paddle-node-sdk-2.7.3.tgz#844f9049589d9a911b2b1092be0fc1d49d866301"
+  integrity sha512-xnT3+dHPbYUI9zfHxAniYNYg/GDUtSupB9HvxELUkfTXhRZrVEALoWmYJ8ZKjJCBdCPED9R6UrH6BUvMNeTsUQ==
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"

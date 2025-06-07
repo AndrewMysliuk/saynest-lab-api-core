@@ -15,4 +15,6 @@ export const serverConfig: IServerConfig = {
   GCS_BUCKET_NAME: process.env.GCS_BUCKET_NAME ?? "",
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID ?? "",
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET ?? "",
+  PADDLE_API_KEY: process.env.PADDLE_API_KEY ?? "",
+  PADDLE_WEBHOOK_SECRET: process.env.PADDLE_WEBHOOK_SECRET ?? "",
 }

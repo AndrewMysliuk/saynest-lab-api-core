@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IUserEntity, IUserUpdateRequest, UserRoleEnum } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { UserModel } from "./model"
+
+const log = createScopedLogger("UserRepository")
 
 export class UserRepository implements IRepository {
   async create(data: Partial<IUserEntity>, options?: IMongooseOptions): Promise<IUserEntity> {
@@ -21,7 +23,9 @@ export class UserRepository implements IRepository {
         throw new Error("Email already exists")
       }
 
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -32,7 +36,9 @@ export class UserRepository implements IRepository {
 
       return user
     } catch (error: unknown) {
-      logger.error(`getById | error: ${error}`)
+      log.error("getById", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -43,7 +49,9 @@ export class UserRepository implements IRepository {
 
       return user
     } catch (error: unknown) {
-      logger.error(`getByEmail | error: ${error}`)
+      log.error("getByEmail", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -54,7 +62,9 @@ export class UserRepository implements IRepository {
 
       return users
     } catch (error: unknown) {
-      logger.error(`listByOrganization | error: ${error}`)
+      log.error("listByOrganization", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -65,7 +75,9 @@ export class UserRepository implements IRepository {
 
       return users
     } catch (error: unknown) {
-      logger.error(`listAll | error: ${error}`)
+      log.error("listAll", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -80,7 +92,9 @@ export class UserRepository implements IRepository {
 
       return user
     } catch (error: unknown) {
-      logger.error(`update | error: ${error}`)
+      log.error("update", "error", {
+        error,
+      })
       throw error
     }
   }
@@ -101,7 +115,9 @@ export class UserRepository implements IRepository {
 
       return user
     } catch (error: unknown) {
-      logger.error(`acceptUserPolicies | error: ${error}`)
+      log.error("acceptUserPolicies", "error", {
+        error,
+      })
       throw error
     }
   }

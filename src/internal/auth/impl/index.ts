@@ -4,11 +4,13 @@ import { IAuthService } from ".."
 import { googleClient, serverConfig } from "../../../config"
 import CountryList from "../../../json_data/countries.json"
 import { IAuthResponse, IGoogleAuth, ILoginRequest, IRegisterRequest, UserRoleEnum } from "../../../types"
-import { generateAccessToken, generateRefreshTokenHash, logger, verifyPassword } from "../../../utils"
+import { createScopedLogger, generateAccessToken, generateRefreshTokenHash, verifyPassword } from "../../../utils"
 import { IOrganisationService } from "../../organisation"
 import { IUserService } from "../../user"
 import { IUserProgressService } from "../../user_progress"
 import { IRepository } from "../storage"
+
+const log = createScopedLogger("AuthService")
 
 export const INVALID_CREDENTIALS = "AUTH.INVALID_CREDENTIALS"
 export const INVALID_REFRESH_TOKEN = "AUTH.INVALID_REFRESH_TOKEN"
@@ -160,7 +162,7 @@ export class AuthService implements IAuthService {
       }
     } catch (error: unknown) {
       await session.abortTransaction()
-      logger.error(`register | error: ${error}`)
+      log.error("register", "error", { error })
       throw error
     } finally {
       session.endSession()
@@ -202,7 +204,7 @@ export class AuthService implements IAuthService {
         user,
       }
     } catch (error: unknown) {
-      logger.error(`login | error: ${error}`)
+      log.error("login", "error", { error })
       throw error
     }
   }
@@ -229,7 +231,7 @@ export class AuthService implements IAuthService {
 
       return newAccessToken
     } catch (error: unknown) {
-      logger.error(`refreshAccessToken | error: ${error}`)
+      log.error("refreshAccessToken", "error", { error })
       throw error
     }
   }
@@ -238,7 +240,7 @@ export class AuthService implements IAuthService {
     try {
       await this.authRepo.deleteByToken(refresh_token)
     } catch (error: unknown) {
-      logger.error(`logout | error: ${error}`)
+      log.error("logout", "error", { error })
       throw error
     }
   }

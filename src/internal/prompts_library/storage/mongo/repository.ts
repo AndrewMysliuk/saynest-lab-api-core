@@ -2,9 +2,11 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { ModuleModel } from "./modules_model"
 import { ScenarioModel } from "./scenarios_model"
+
+const log = createScopedLogger("PromptsLibraryRepository")
 
 export class PromptsLibraryRepository implements IRepository {
   async createScenario(dto: Partial<IPromptScenarioEntity>, options?: IMongooseOptions): Promise<IPromptScenarioEntity> {
@@ -13,7 +15,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return created[0].toObject()
     } catch (error: unknown) {
-      logger.error(`createScenario | error: ${error}`)
+      log.error("createScenario", "error", { error })
       throw error
     }
   }
@@ -26,7 +28,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return updated.toObject()
     } catch (error: unknown) {
-      logger.error(`updateScenario | error: ${error}`)
+      log.error("updateScenario", "error", { error })
       throw error
     }
   }
@@ -39,7 +41,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return scenario.toObject({ flattenMaps: true })
     } catch (error: unknown) {
-      logger.error(`getScenario | error: ${error}`)
+      log.error("getScenario", "error", { error })
       throw error
     }
   }
@@ -70,7 +72,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
-      logger.error(`listScenario | error: ${error}`)
+      log.error("listScenario", "error", { error })
       throw error
     }
   }
@@ -81,7 +83,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return created[0].toObject()
     } catch (error: unknown) {
-      logger.error(`createModule | error: ${error}`)
+      log.error("createModule", "error", { error })
       throw error
     }
   }
@@ -94,7 +96,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return updated.toObject()
     } catch (error: unknown) {
-      logger.error(`updateModule | error: ${error}`)
+      log.error("updateModule", "error", { error })
       throw error
     }
   }
@@ -107,7 +109,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return module.toObject({ flattenMaps: true })
     } catch (error: unknown) {
-      logger.error(`getModule | error: ${error}`)
+      log.error("getModule", "error", { error })
       throw error
     }
   }
@@ -134,7 +136,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return modules.map((m) => m.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
-      logger.error(`listModule | error: ${error}`)
+      log.error("listModule", "error", { error })
       throw error
     }
   }
@@ -153,7 +155,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
-      logger.error(`getScenariosForModule | error: ${error}`)
+      log.error("getScenariosForModule", "error", { error })
       throw error
     }
   }

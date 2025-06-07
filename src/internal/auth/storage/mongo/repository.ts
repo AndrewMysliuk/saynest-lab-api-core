@@ -2,8 +2,10 @@ import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IMongooseOptions, IRefreshTokenEntity } from "../../../../types"
-import { logger } from "../../../../utils"
+import { createScopedLogger } from "../../../../utils"
 import { RefreshTokenModel } from "./model"
+
+const log = createScopedLogger("AuthRepository")
 
 export class AuthRepository implements IRepository {
   async create(data: Partial<IRefreshTokenEntity>, options?: IMongooseOptions): Promise<IRefreshTokenEntity> {
@@ -12,7 +14,7 @@ export class AuthRepository implements IRepository {
       await token.save({ session: options?.session || null })
       return token.toObject()
     } catch (error: unknown) {
-      logger.error(`create | error: ${error}`)
+      log.error("create", "error", { error })
       throw error
     }
   }
@@ -23,7 +25,7 @@ export class AuthRepository implements IRepository {
 
       return tokenEntry
     } catch (error: unknown) {
-      logger.error(`getByToken | error: ${error}`)
+      log.error("getByToken", "error", { error })
       throw error
     }
   }
@@ -32,7 +34,7 @@ export class AuthRepository implements IRepository {
     try {
       await RefreshTokenModel.deleteOne({ token }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`deleteByToken | error: ${error}`)
+      log.error("deleteByToken", "error", { error })
       throw error
     }
   }
@@ -41,7 +43,7 @@ export class AuthRepository implements IRepository {
     try {
       await RefreshTokenModel.deleteMany({ user_id: new Types.ObjectId(user_id) }).session(options?.session || null)
     } catch (error: unknown) {
-      logger.error(`deleteAllByUser | error: ${error}`)
+      log.error("deleteAllByUser", "error", { error })
       throw error
     }
   }
@@ -54,7 +56,7 @@ export class AuthRepository implements IRepository {
 
       return result.deletedCount || 0
     } catch (error: unknown) {
-      logger.error(`deleteAllExpired | error: ${error}`)
+      log.error("deleteAllExpired", "error", { error })
       throw error
     }
   }

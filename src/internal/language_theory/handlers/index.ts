@@ -1,7 +1,9 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { ILanguageTheory } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
+
+const log = createScopedLogger("LanguageTheoryHandler")
 
 export const getTheoryByLanguageHandler = (languageTheoryService: ILanguageTheory): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -19,7 +21,7 @@ export const getTheoryByLanguageHandler = (languageTheoryService: ILanguageTheor
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`getTheoryByLanguageHandler | error: ${error}`)
+      log.error("getTheoryByLanguageHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

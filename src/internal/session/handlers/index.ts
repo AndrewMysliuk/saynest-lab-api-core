@@ -2,7 +2,9 @@ import { Request, RequestHandler, Response } from "express"
 
 import { ISessionService } from ".."
 import { ISessionCreateRequest } from "../../../types"
-import { getStorageFilePath, logger } from "../../../utils"
+import { createScopedLogger, getStorageFilePath } from "../../../utils"
+
+const log = createScopedLogger("SessionHandler")
 
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -34,7 +36,7 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`errorAnalysisHandler | error: ${error}`)
+      log.error("createSessionHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -56,7 +58,7 @@ export const getSessionHandler = (sessionService: ISessionService): RequestHandl
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`errorAnalysisHandler | error: ${error}`)
+      log.error("getSessionHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -78,7 +80,7 @@ export const finishSessionHandler = (sessionService: ISessionService): RequestHa
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`errorAnalysisHandler | error: ${error}`)
+      log.error("finishSessionHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IUserProgressService } from ".."
-import { logger } from "../../../utils"
+import { createScopedLogger } from "../../../utils"
 import { updateUserProgressSchema } from "./validation"
+
+const log = createScopedLogger("UserProgressHandler")
 
 export const createIfNotExistsHandler = (userProgressService: IUserProgressService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
@@ -14,7 +16,9 @@ export const createIfNotExistsHandler = (userProgressService: IUserProgressServi
 
       res.status(200).json(response)
     } catch (error: unknown) {
-      logger.error(`createIfNotExistsHandler | error: ${error}`)
+      log.error("createIfNotExistsHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -34,7 +38,9 @@ export const getByUserIdHandler = (userProgressService: IUserProgressService): R
 
       res.status(200).json(progress)
     } catch (error: unknown) {
-      logger.error(`getByUserIdHandler | error: ${error}`)
+      log.error("getByUserIdHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
@@ -56,7 +62,9 @@ export const updateUserProgressHandler = (userProgressService: IUserProgressServ
 
       res.status(200).json(updated)
     } catch (error: unknown) {
-      logger.error(`updateUserProgressHandler | error: ${error}`)
+      log.error("updateUserProgressHandler", "error", {
+        error,
+      })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }
