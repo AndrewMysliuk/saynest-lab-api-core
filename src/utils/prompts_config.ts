@@ -40,6 +40,8 @@ ${userGoals}
 CONVERSATION FLOW
 ====================
 
+Below is a set of possible questions you can use to guide the conversation.
+Use them flexibly, based on the user's responses and needs:
 ${goalHints}
 
 ====================
