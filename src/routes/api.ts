@@ -15,7 +15,11 @@ import { ErrorAnalysisRepository } from "../internal/error_analysis/storage/mong
 import { LanguageTheoryService } from "../internal/language_theory/impl"
 import { createLanguageTheoryRouter } from "../internal/language_theory/router"
 import { OrganisationService } from "../internal/organisation/impl"
+import { createOrganisationRouter } from "../internal/organisation/router"
 import { OrganisationRepository } from "../internal/organisation/storage/mongo/repository"
+import { PlanService } from "../internal/plans/impl"
+import { createPlanRouter } from "../internal/plans/router"
+import { PlanRepository } from "../internal/plans/storage/mongo/repository"
 import { PromptService } from "../internal/prompts_library/impl"
 import { createPromptRouter } from "../internal/prompts_library/router"
 import { PromptsLibraryRepository } from "../internal/prompts_library/storage/mongo/repository"
@@ -24,6 +28,9 @@ import { createSessionRouter } from "../internal/session/router"
 import { SessionRepository } from "../internal/session/storage/mongo/repository"
 import { SpeachToTextService } from "../internal/speach_to_text/impl"
 import { createSpeachToTextRouter } from "../internal/speach_to_text/router"
+import { SubscriptionService } from "../internal/subscription/impl"
+import { createSubscriptionRouter } from "../internal/subscription/router"
+import { SubscriptionRepository } from "../internal/subscription/storage/mongo/repository"
 import { TaskGeneratorService } from "../internal/task_generator/impl"
 import { createTaskGeneratorRouter } from "../internal/task_generator/router"
 import { TaskGeneratorRepository } from "../internal/task_generator/storage/mongo/repository"
@@ -40,7 +47,7 @@ import { UserProgressRepository } from "../internal/user_progress/storage/mongo/
 import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
 import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
 import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
-import { authMiddleware, createActivityMiddleware, superUserOnlyMiddleware } from "../middlewares"
+import { authMiddleware, createActivityMiddleware, createPaddleMiddleware, superUserOnlyMiddleware } from "../middlewares"
 
 // Repositories
 const organisationRepo = new OrganisationRepository()
@@ -54,6 +61,8 @@ const historyRepo = new HistoryRepository()
 const communicationReviewRepo = new CommunicationReviewRepository()
 const taskGeneratorRepo = new TaskGeneratorRepository()
 const promptsLibraryRepository = new PromptsLibraryRepository()
+const planRepository = new PlanRepository()
+const subscriptionRepository = new SubscriptionRepository()
 
 // Services
 const organisationService = new OrganisationService(organisationRepo)
@@ -71,22 +80,27 @@ const communicationReviewService = new CommunicationReviewService(communicationR
 const userProgressService = new UserProgressService(userProgressRepo, sessionService, communicationReviewService, promptService)
 const authService = new AuthService(authRepo, userService, organisationService, userProgressService)
 const taskGeneratorService = new TaskGeneratorService(taskGeneratorRepo, communicationReviewService, promptService)
+const planService = new PlanService(planRepository)
+const subscriptionService = new SubscriptionService(subscriptionRepository)
 
 const apiRouter = Router()
 
 apiRouter.use("/auth", createAuthRouter(authService))
 apiRouter.use("/user", authMiddleware, createActivityMiddleware(userProgressService), createUserRouter(userService))
+apiRouter.use("/org", authMiddleware, createActivityMiddleware(userProgressService), createOrganisationRouter(organisationService))
 apiRouter.use("/user-progress", authMiddleware, createUserProgressRouter(userProgressService))
-apiRouter.use("/session", authMiddleware, createActivityMiddleware(userProgressService), createSessionRouter(sessionService))
-apiRouter.use("/language-theory", authMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createLanguageTheoryRouter(languageTheoryService))
-apiRouter.use("/vocabulary-tracker", authMiddleware, createActivityMiddleware(userProgressService), createVocabularyTrackerRouter(vocabularyTrackerService))
-apiRouter.use("/task-generator", authMiddleware, createActivityMiddleware(userProgressService), createTaskGeneratorRouter(taskGeneratorService, userProgressService))
-apiRouter.use("/error-analysis", authMiddleware, createActivityMiddleware(userProgressService), createErrorAnalysisRouter(errorAnalysisService))
-apiRouter.use("/speach-to-text", authMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createSpeachToTextRouter(speachToTextService))
-apiRouter.use("/text-analysis", authMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextAnalysisRouter(textAnalysisService))
-apiRouter.use("/text-to-speach", authMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextToSpeachRouter(textToSpeachService))
-apiRouter.use("/conversation", authMiddleware, createActivityMiddleware(userProgressService), createConversationRouter(conversationService))
+apiRouter.use("/session", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createSessionRouter(sessionService))
+apiRouter.use("/language-theory", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createLanguageTheoryRouter(languageTheoryService))
+apiRouter.use("/vocabulary-tracker", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createVocabularyTrackerRouter(vocabularyTrackerService))
+apiRouter.use("/task-generator", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createTaskGeneratorRouter(taskGeneratorService, userProgressService))
+apiRouter.use("/error-analysis", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createErrorAnalysisRouter(errorAnalysisService))
+apiRouter.use("/speach-to-text", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createSpeachToTextRouter(speachToTextService))
+apiRouter.use("/text-analysis", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextAnalysisRouter(textAnalysisService))
+apiRouter.use("/text-to-speach", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextToSpeachRouter(textToSpeachService))
+apiRouter.use("/conversation", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createConversationRouter(conversationService))
 apiRouter.use("/communication-review", authMiddleware, createActivityMiddleware(userProgressService), createCommunicationReviewRouter(communicationReviewService, userProgressService))
 apiRouter.use("/prompts-library", authMiddleware, createActivityMiddleware(userProgressService), createPromptRouter(promptService))
+apiRouter.use("/plan", authMiddleware, createPlanRouter(planService))
+apiRouter.use("/subscription", authMiddleware, createSubscriptionRouter(subscriptionService))
 
 export default apiRouter

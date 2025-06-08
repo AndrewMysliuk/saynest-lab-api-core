@@ -1,5 +1,5 @@
 import { IOrganisationService } from ".."
-import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../types"
+import { IMongooseOptions, IOrganizationEntity, IOrganizationTrialUsage, IOrganizationUpdateRequest } from "../../../types"
 import { createScopedLogger } from "../../../utils"
 import { IRepository } from "../storage"
 
@@ -42,6 +42,24 @@ export class OrganisationService implements IOrganisationService {
       return this.orgRepo.update(id, dto, options)
     } catch (error: unknown) {
       log.error("update", "error", { error })
+      throw error
+    }
+  }
+
+  async getById(id: string, options?: IMongooseOptions): Promise<IOrganizationEntity | null> {
+    try {
+      return this.orgRepo.getById(id, options)
+    } catch (error: unknown) {
+      log.error("getById", "error", { error })
+      throw error
+    }
+  }
+
+  async updateTrialUsage(id: string, updates: Partial<IOrganizationTrialUsage>, options?: IMongooseOptions): Promise<IOrganizationEntity | null> {
+    try {
+      return this.orgRepo.updateTrialUsage(id, updates, options)
+    } catch (error: unknown) {
+      log.error("updateTrialUsage", "error", { error })
       throw error
     }
   }

@@ -10,7 +10,7 @@ export type ISubscriptionDocument = ISubscriptionEntity & Document
 
 const SubscriptionSchema = new Schema<ISubscriptionDocument>(
   {
-    organization_id: { type: Schema.Types.ObjectId, required: true, ref: ORGANISATION_TABLE },
+    organization_id: { type: Schema.Types.ObjectId, required: true, ref: ORGANISATION_TABLE, unique: true, index: true },
     plan_id: { type: Schema.Types.ObjectId, required: true, ref: PLAN_TABLE },
     paddle_subscription_id: { type: String, required: true },
     status: {

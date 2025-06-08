@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-import { IOrganizationEntity, IOrganizationSettings, OrganizationStatusEnum } from "../../../../types"
+import { IOrganizationEntity, IOrganizationSettings, IOrganizationTrialUsage, OrganizationStatusEnum } from "../../../../types"
 
 export const MODEL_NAME = "organizations"
 
@@ -14,6 +14,15 @@ const OrganizationSettingsSchema = new Schema<IOrganizationSettings>(
   { _id: false },
 )
 
+const OrganizationTrialUsageSchema = new Schema<IOrganizationTrialUsage>(
+  {
+    session_count: { type: Number, default: 0 },
+    review_count: { type: Number, default: 0 },
+    task_count: { type: Number, default: 0 },
+  },
+  { _id: false },
+)
+
 const OrganizationSchema = new Schema<IOrganizationDocument>(
   {
     owner_id: { type: Schema.Types.ObjectId, required: false, default: null },
@@ -21,6 +30,7 @@ const OrganizationSchema = new Schema<IOrganizationDocument>(
     subscription_id: { type: Schema.Types.ObjectId, required: false, default: null },
     status: { type: String, enum: Object.values(OrganizationStatusEnum), default: OrganizationStatusEnum.ACTIVE, required: true },
     settings: { type: OrganizationSettingsSchema, required: false },
+    trial_usage: { type: OrganizationTrialUsageSchema, required: true },
   },
   {
     timestamps: {

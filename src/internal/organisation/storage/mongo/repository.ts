@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IMongooseOptions, IOrganizationEntity, IOrganizationUpdateRequest } from "../../../../types"
+import { IMongooseOptions, IOrganizationEntity, IOrganizationTrialUsage, IOrganizationUpdateRequest } from "../../../../types"
 import { createScopedLogger } from "../../../../utils"
 import { OrganizationModel } from "./model"
 
@@ -59,6 +59,19 @@ export class OrganisationRepository implements IRepository {
       return organization
     } catch (error: unknown) {
       log.error("update", "error", { error })
+      throw error
+    }
+  }
+
+  async updateTrialUsage(id: string, updates: Partial<IOrganizationTrialUsage>, options?: IMongooseOptions): Promise<IOrganizationEntity | null> {
+    try {
+      const updatedOrg = await OrganizationModel.findByIdAndUpdate(id, { $set: { trial_usage: updates } }, { new: true, ...options })
+        .lean<IOrganizationEntity>()
+        .exec()
+
+      return updatedOrg
+    } catch (error: unknown) {
+      log.error("updateTrialUsage", "error", { error })
       throw error
     }
   }

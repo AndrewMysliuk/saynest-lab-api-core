@@ -15,17 +15,25 @@ export enum PlanStatusEnum {
   DIACTIVATED = "DIACTIVATED",
 }
 
+export interface IPlanTrialInfo {
+  period_days: number
+  session_limit: number
+  review_limit: number
+  task_limit: number
+}
+
 export interface IPlanEntity {
   _id: Types.ObjectId
   name: PlanNameEnum
   description: string
+  features: string[]
   paddle_price_id: string
   currency: string
   amount: number
   is_public: boolean
   status: PlanStatusEnum
   billing_period: PlanBillingPeriodEnum
-  trial_period_days: number
+  trial_info: IPlanTrialInfo
   created_at: Date
   updated_at: Date
 }
