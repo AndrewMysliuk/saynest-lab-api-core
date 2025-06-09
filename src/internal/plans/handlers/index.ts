@@ -40,3 +40,25 @@ export const getPublicPlanListHandler = (planService: IPlanService): RequestHand
     }
   }
 }
+
+export const getPlanByIdHandler = (planService: IPlanService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const plan_id = req.params.plan_id
+
+      if (!plan_id) {
+        res.status(400).json({
+          error: "getPlanByIdHandler | Missing required fields in payload",
+        })
+        return
+      }
+
+      const response = await planService.getById(plan_id)
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
+      log.error("getPlanByIdHandler", "error", { error })
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}

@@ -33,4 +33,13 @@ export class PlanService implements IPlanService {
       throw error
     }
   }
+
+  async getById(id: string, options?: IMongooseOptions): Promise<IPlanEntity | null> {
+    try {
+      return this.planRepo.getById(id, options)
+    } catch (error: unknown) {
+      log.error("getById", "error", { error })
+      throw error
+    }
+  }
 }
