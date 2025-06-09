@@ -9,8 +9,8 @@ export type IUserDocument = IUserEntity & Document
 
 const UserSettingsSchema = new Schema<IUserSettings>(
   {
-    phone: { type: String, required: false },
-    avatar_url: { type: String, required: false },
+    phone: { type: String, default: "" },
+    avatar_url: { type: String, default: "" },
     is_accept_terms_and_conditions: { type: Boolean, default: false },
     is_accept_privacy_policy: { type: Boolean, default: false },
     is_accept_refund_policy: { type: Boolean, default: false },
@@ -30,7 +30,7 @@ const UserSchema = new Schema<IUserDocument>(
     explanation_language: { type: String, default: null },
     role: { type: String, enum: Object.values(UserRoleEnum), default: UserRoleEnum.USER, required: true },
     status: { type: String, enum: Object.values(UserStatusEnum), default: UserStatusEnum.ACTIVE, required: true },
-    settings: { type: UserSettingsSchema, required: true },
+    settings: { type: UserSettingsSchema, default: () => ({}) },
   },
   {
     timestamps: {

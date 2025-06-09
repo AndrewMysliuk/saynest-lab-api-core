@@ -8,8 +8,8 @@ export type IOrganizationDocument = IOrganizationEntity & Document
 
 const OrganizationSettingsSchema = new Schema<IOrganizationSettings>(
   {
-    locale: { type: String, required: false },
-    timezone: { type: String, required: false },
+    locale: { type: String, default: "" },
+    timezone: { type: String, default: "" },
   },
   { _id: false },
 )
@@ -29,8 +29,8 @@ const OrganizationSchema = new Schema<IOrganizationDocument>(
     name: { type: String, required: true },
     subscription_id: { type: Schema.Types.ObjectId, required: false, default: null },
     status: { type: String, enum: Object.values(OrganizationStatusEnum), default: OrganizationStatusEnum.ACTIVE, required: true },
-    settings: { type: OrganizationSettingsSchema, required: false },
-    trial_usage: { type: OrganizationTrialUsageSchema, required: true },
+    settings: { type: OrganizationSettingsSchema, default: () => ({}) },
+    trial_usage: { type: OrganizationTrialUsageSchema, default: () => ({}) },
   },
   {
     timestamps: {
