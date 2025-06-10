@@ -14,7 +14,7 @@ let serverInstance: any
 const app = express()
 const server = createServer({}, app)
 
-const allowedOrigins = ["http://localhost:3000", "https://frontend-926895610955.europe-central2.run.app"]
+const allowedOrigins = ["http://localhost:3000", "https://app.saynestlab.com"]
 
 app.use(
   cors({
