@@ -23,19 +23,19 @@ jobs:
 
       - name: Configure Docker for Artifact Registry
         run: |
-          gcloud auth configure-docker europe-central2-docker.pkg.dev
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: Build and push Docker image
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            -t europe-central2-docker.pkg.dev/speak-mate-mvp/backend-image/backend:latest \
+            -t europe-west1-docker.pkg.dev/speak-mate-mvp/backend-image/backend:latest \
             --push .
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy backend \
-            --image=europe-central2-docker.pkg.dev/speak-mate-mvp/backend-image/backend:latest \
-            --region=europe-central2 \
+            --image=europe-west1-docker.pkg.dev/speak-mate-mvp/backend-image/backend:latest \
+            --region=europe-west1 \
             --platform=managed \
             --allow-unauthenticated
