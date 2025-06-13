@@ -31,6 +31,16 @@ export class SubscriptionRepository implements IRepository {
     }
   }
 
+  async getByPaddleSubscriptionId(paddle_subscription_id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+    try {
+      const sub = await SubscriptionModel.findOne({ paddle_subscription_id }, null, options).lean<ISubscriptionEntity>().exec()
+      return sub
+    } catch (error: unknown) {
+      log.error("getByPaddleSubscriptionId", "error", { error })
+      throw error
+    }
+  }
+
   async list(options?: IMongooseOptions): Promise<ISubscriptionEntity[]> {
     try {
       const subs = await SubscriptionModel.find({}, null, options).lean<ISubscriptionEntity[]>().exec()
@@ -55,15 +65,15 @@ export class SubscriptionRepository implements IRepository {
     }
   }
 
-  async setCancelledStatus(id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+  async setStatus(id: string, status: SubscriptionTypeEnum, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
     try {
-      const cancelledSub = await SubscriptionModel.findByIdAndUpdate(new Types.ObjectId(id), { $set: { status: SubscriptionTypeEnum.CANCELLED, canceled_at: new Date() } }, { new: true, ...options })
+      const updatedSub = await SubscriptionModel.findByIdAndUpdate(new Types.ObjectId(id), { $set: { status } }, { new: true, ...options })
         .lean<ISubscriptionEntity>()
         .exec()
 
-      return cancelledSub
-    } catch (error: unknown) {
-      log.error("setCancelledStatus", "error", { error })
+      return updatedSub
+    } catch (error) {
+      log.error("setStatus", "error", { error })
       throw error
     }
   }

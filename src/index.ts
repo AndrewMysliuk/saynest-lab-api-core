@@ -14,7 +14,7 @@ let serverInstance: any
 const app = express()
 const server = createServer({}, app)
 
-const allowedOrigins = ["http://localhost:3000", "https://app.saynestlab.com"]
+const allowedOrigins = ["http://localhost:3000", "https://app.saynestlab.com:3000", "https://app.saynestlab.com"]
 
 app.use(
   cors({
@@ -24,10 +24,10 @@ app.use(
   }),
 )
 
+app.use(paddleRouter)
+
 app.use(express.json())
 app.use(cookieParser())
-
-app.use(paddleRouter)
 app.use("/api", apiRouter)
 
 // WebSocket support — optional

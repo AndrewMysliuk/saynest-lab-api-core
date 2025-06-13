@@ -81,7 +81,7 @@ const userProgressService = new UserProgressService(userProgressRepo, sessionSer
 const authService = new AuthService(authRepo, userService, organisationService, userProgressService)
 const taskGeneratorService = new TaskGeneratorService(taskGeneratorRepo, communicationReviewService, promptService)
 const planService = new PlanService(planRepository)
-const subscriptionService = new SubscriptionService(subscriptionRepository)
+const subscriptionService = new SubscriptionService(subscriptionRepository, organisationService, planService)
 
 const apiRouter = Router()
 

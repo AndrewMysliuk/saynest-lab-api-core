@@ -9,16 +9,19 @@ if (!webhookSecret) {
   throw new Error("PADDLE_WEBHOOK_SECRET is not set!")
 }
 
-export async function validatePaddleWebhook(rawBody: string, signature: string) {
+export async function validatePaddleWebhook(rawBody: string, signature?: string) {
+  const isDev = process.env.NODE_ENV === "development"
+
   if (!signature) {
+    if (isDev) {
+      return JSON.parse(rawBody)
+    }
     throw new Error("Missing paddle-signature header")
   }
 
   try {
-    const event = await paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
-    return event
+    return await paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
   } catch (error) {
-    log.error("validatePaddleWebhook", "Invalid Paddle webhook signature:", { error })
-    throw new Error("Invalid signature or corrupted webhook data")
+    throw new Error("Invalid signature or malformed webhook")
   }
 }

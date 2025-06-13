@@ -1,5 +1,5 @@
 import { IPlanService } from ".."
-import { IMongooseOptions, IPlanEntity } from "../../../types"
+import { IMongooseOptions, IPlanEntity, PlanNameEnum } from "../../../types"
 import { createScopedLogger } from "../../../utils"
 import { IRepository } from "../storage"
 
@@ -27,7 +27,17 @@ export class PlanService implements IPlanService {
     try {
       const plans = await this.planRepo.list(options)
 
-      return plans.filter((item) => item.is_public)
+      const isSandbox = process.env.NODE_ENV === "development"
+
+      return plans.filter((item) => {
+        if (item.is_public) {
+          return true
+        }
+        if (isSandbox && item.name === PlanNameEnum.TEST) {
+          return true
+        }
+        return false
+      })
     } catch (error: unknown) {
       log.error("publicList", "error", { error })
       throw error

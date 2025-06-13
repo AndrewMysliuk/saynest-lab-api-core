@@ -15,26 +15,6 @@ export const paddle = new Paddle(PADDLE_API_KEY, {
   environment: process.env.NODE_ENV === "development" ? Environment.sandbox : Environment.production,
 })
 
-export async function getProductList() {
-  try {
-    const products = await paddle.products.list()
-    return products
-  } catch (error) {
-    console.error("Failed to get products:", error)
-    throw error
-  }
-}
-
-export async function getSubscription(subscription_id: string) {
-  try {
-    const subscription = await paddle.subscriptions.get(subscription_id)
-    return subscription
-  } catch (error) {
-    console.error("Failed to get subscription:", error)
-    throw error
-  }
-}
-
 export async function cancelSubscription(subscription_id: string) {
   try {
     const result = await paddle.subscriptions.cancel(subscription_id)
@@ -42,6 +22,60 @@ export async function cancelSubscription(subscription_id: string) {
     return result
   } catch (error) {
     console.error("Failed to cancel subscription:", error)
+    throw error
+  }
+}
+
+export async function recancelSubscription(subscription_id: string) {
+  try {
+    const result = await paddle.subscriptions.update(subscription_id, {
+      scheduledChange: null,
+    })
+
+    return result
+  } catch (error) {
+    console.error("Failed to recancel subscription:", error)
+    throw error
+  }
+}
+
+export async function changePlanSubscription(subscription_id: string, paddle_price_id: string) {
+  try {
+    const result = await paddle.subscriptions.update(subscription_id, {
+      prorationBillingMode: "prorated_immediately",
+      items: [
+        {
+          priceId: paddle_price_id,
+          quantity: 1,
+        },
+      ],
+    })
+
+    return result
+  } catch (error) {
+    console.error("Failed to change plan subscription:", error)
+    throw error
+  }
+}
+
+export async function activateSubscription(subscription_id: string) {
+  try {
+    const result = await paddle.subscriptions.activate(subscription_id)
+
+    return result
+  } catch (error) {
+    console.error("Failed to activate subscription:", error)
+    throw error
+  }
+}
+
+export async function getSubscription(subscription_id: string) {
+  try {
+    const result = await paddle.subscriptions.get(subscription_id)
+
+    return result
+  } catch (error) {
+    console.error("Failed to get subscription:", error)
     throw error
   }
 }

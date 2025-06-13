@@ -34,4 +34,5 @@ export interface IOrganizationUpdateRequest {
   status?: OrganizationStatusEnum
   settings?: Partial<IOrganizationSettings>
   owner_id?: string
+  subscription_id?: Types.ObjectId
 }
