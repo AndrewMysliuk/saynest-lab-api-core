@@ -30,13 +30,13 @@ export class PlanService implements IPlanService {
       const isProd = process.env.NODE_ENV === "production"
 
       return plans.filter((item) => {
-        if (item.is_public) {
-          return true
+        const isTestPlan = item.name === PlanNameEnum.TEST
+
+        if (isProd && isTestPlan) {
+          return false
         }
-        if (!isProd && item.name === PlanNameEnum.TEST) {
-          return true
-        }
-        return false
+
+        return item.is_public || (!isProd && isTestPlan)
       })
     } catch (error: unknown) {
       log.error("publicList", "error", { error })
