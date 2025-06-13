@@ -27,13 +27,13 @@ export class PlanService implements IPlanService {
     try {
       const plans = await this.planRepo.list(options)
 
-      const isSandbox = process.env.NODE_ENV === "development"
+      const isProd = process.env.NODE_ENV === "production"
 
       return plans.filter((item) => {
         if (item.is_public) {
           return true
         }
-        if (isSandbox && item.name === PlanNameEnum.TEST) {
+        if (!isProd && item.name === PlanNameEnum.TEST) {
           return true
         }
         return false

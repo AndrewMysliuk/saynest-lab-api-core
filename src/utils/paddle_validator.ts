@@ -10,10 +10,10 @@ if (!webhookSecret) {
 }
 
 export async function validatePaddleWebhook(rawBody: string, signature?: string) {
-  const isDev = process.env.NODE_ENV === "development"
+  const isProd = process.env.NODE_ENV === "production"
 
   if (!signature) {
-    if (isDev) {
+    if (!isProd) {
       return JSON.parse(rawBody)
     }
     throw new Error("Missing paddle-signature header")

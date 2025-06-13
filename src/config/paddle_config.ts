@@ -12,7 +12,7 @@ if (!PADDLE_API_KEY) {
 const log = createScopedLogger("PaddleRequest")
 
 export const paddle = new Paddle(PADDLE_API_KEY, {
-  environment: process.env.NODE_ENV === "development" ? Environment.sandbox : Environment.production,
+  environment: process.env.NODE_ENV === "production" ? Environment.production : Environment.sandbox,
 })
 
 export async function cancelSubscription(subscription_id: string) {
