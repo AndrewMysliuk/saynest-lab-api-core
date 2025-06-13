@@ -352,6 +352,10 @@ export class SubscriptionService implements ISubscriptionService {
         updates.status = SubscriptionTypeEnum.ACTIVE
       }
 
+      if (normalizedStatus && normalizedStatus !== sub.status && normalizedStatus === SubscriptionTypeEnum.ACTIVE && sub.status === SubscriptionTypeEnum.TRIALING) {
+        updates.status = SubscriptionTypeEnum.ACTIVE
+      }
+
       if (p.nextBilledAt && (!sub.next_payment_date || new Date(p.nextBilledAt).getTime() !== sub.next_payment_date.getTime())) {
         updates.next_payment_date = new Date(p.nextBilledAt)
       }
