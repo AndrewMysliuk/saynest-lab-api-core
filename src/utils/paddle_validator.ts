@@ -1,4 +1,7 @@
 import { paddle, serverConfig } from "../config"
+import { createScopedLogger } from "../utils"
+
+const log = createScopedLogger("PaddleWebhook")
 
 const webhookSecret = serverConfig.PADDLE_WEBHOOK_SECRET
 
@@ -14,11 +17,16 @@ export async function validatePaddleWebhook(rawBody: string, signature?: string)
       if (!isProd) {
         return JSON.parse(rawBody)
       }
-
       throw new Error("Missing paddle-signature header")
     }
 
-    return paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
+    log.info("validatePaddleWebhook", "webhookSecret", { webhook_secret: webhookSecret })
+
+    const response = await paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
+
+    log.info("validatePaddleWebhook", "Response", { response })
+
+    return response
   } catch (error) {
     throw new Error("Invalid signature or malformed webhook")
   }

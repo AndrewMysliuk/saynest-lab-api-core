@@ -28,6 +28,7 @@ paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }),
     const rawBody = req.body.toString()
     const event = await validatePaddleWebhook(rawBody, signature)
 
+    log.info(method, "Valid rawBody", { raw_body: rawBody })
     log.info(method, "Valid Paddle webhook event", { event_type: event.event_type })
 
     switch (event.event_type) {
