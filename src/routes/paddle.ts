@@ -20,14 +20,14 @@ const log = createScopedLogger("PaddleWebhook")
 
 const paddleRouter = Router()
 
-paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }), async (req: Request, res: Response) => {
+paddleRouter.post("/webhooks/paddle", express.text({ type: "*/*" }), async (req: Request, res: Response) => {
   const signature = (req.headers["paddle-signature"] as string) ?? undefined
   const method = "paddleWebhookHandler"
 
   try {
     log.info(method, "Paddle req.body", { request: req.body })
 
-    const rawBody = req.body.toString("utf8")
+    const rawBody = req.body
     const event = await validatePaddleWebhook(rawBody, signature)
 
     log.info(method, "Valid Paddle webhook event", { event, event_type: event.event_type })
