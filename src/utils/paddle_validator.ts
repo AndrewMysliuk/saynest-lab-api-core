@@ -20,7 +20,7 @@ export async function validatePaddleWebhook(rawBody: string, signature?: string)
   }
 
   try {
-    return await paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
+    return paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
   } catch (error) {
     throw new Error("Invalid signature or malformed webhook")
   }
