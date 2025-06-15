@@ -61,14 +61,22 @@ export class SubscriptionService implements ISubscriptionService {
         : null
 
       const custom = paddleSub.customData as { user_id: string; organization_id: string; plan_id: string }
-      if (!custom) throw new Error("customData is missing")
+      if (!custom) {
+        log.info("createSubscription", "customData is missing", {
+          paddle_subscription_id,
+        })
+        return null
+      }
 
       const userId = custom.user_id
       const orgId = custom.organization_id
       const planId = custom.plan_id
 
       if (!userId || !orgId || !priceId || !planId) {
-        throw new Error("Missing required subscription data")
+        log.info("createSubscription", "Missing required subscription data", {
+          paddle_subscription_id,
+        })
+        return null
       }
 
       const existingSub = await this.subscriptionRepo.getByOrganizationId(orgId, options)
@@ -257,7 +265,10 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        throw new Error(`subscription not found for paddle_id: ${paddle_subscription_id}`)
+        log.info("cancelledSubscription", "subscription not found", {
+          paddle_subscription_id,
+        })
+        return null
       }
 
       const updated = await this.subscriptionRepo.update(
@@ -282,7 +293,10 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        throw new Error(`subscription not found for paddle_id: ${paddle_subscription_id}`)
+        log.info("pastDueSubscription", "subscription not found", {
+          paddle_subscription_id,
+        })
+        return null
       }
 
       const updated = await this.subscriptionRepo.update(
@@ -332,7 +346,10 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        throw new Error(`subscription not found for paddle_id: ${paddle_subscription_id}`)
+        log.info("updateSubscription", "subscription not found", {
+          paddle_subscription_id,
+        })
+        return null
       }
 
       const p = await getSubscription(paddle_subscription_id)

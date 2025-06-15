@@ -6,7 +6,7 @@ import { PlanService } from "../internal/plans/impl"
 import { PlanRepository } from "../internal/plans/storage/mongo/repository"
 import { SubscriptionService } from "../internal/subscription/impl"
 import { SubscriptionRepository } from "../internal/subscription/storage/mongo/repository"
-import { createScopedLogger, validatePaddleWebhook } from "../utils"
+import { WEBHOOK_INVALID_PAYLOAD, WEBHOOK_INVALID_SIGNATURE, createScopedLogger, validatePaddleWebhook } from "../utils"
 
 const organisationRepo = new OrganisationRepository()
 const planRepository = new PlanRepository()
@@ -65,9 +65,18 @@ paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }),
     }
 
     res.status(200).send("Webhook processed")
-  } catch (error) {
-    log.error(method, "Webhook processing error", { error })
-    res.status(400).send("Invalid webhook")
+  } catch (error: any) {
+    const message = error?.message
+
+    if (message === WEBHOOK_INVALID_SIGNATURE) {
+      log.warn(method, "Rejected webhook", { error: message })
+      res.status(403).send(message)
+      return
+    }
+
+    log.error(method, "Webhook handler failed", { error: message })
+    res.status(400).send(WEBHOOK_INVALID_PAYLOAD)
+    return
   }
 })
 
