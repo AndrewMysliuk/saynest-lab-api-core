@@ -16,6 +16,7 @@ export const createScopedLogger = (module: string) => {
     return (method: string, message: string, dto?: Record<string, any>) => {
       baseLogger.log({
         level,
+        severity: level.toUpperCase(),
         message,
         method,
         ...(dto || {}),
