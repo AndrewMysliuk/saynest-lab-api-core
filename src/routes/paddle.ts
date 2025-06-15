@@ -28,10 +28,9 @@ paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }),
     const rawBody = req.body.toString()
     const event = await validatePaddleWebhook(rawBody, signature)
 
-    log.info(method, "Valid rawBody", { raw_body: rawBody })
-    log.info(method, "Valid Paddle webhook event", { event_type: event.event_type })
+    log.info(method, "Valid Paddle webhook event", { event_type: event.eventType })
 
-    switch (event.event_type) {
+    switch (event.eventType) {
       // Subscription Events
       case "subscription.canceled":
         log.info(method, "Subscription canceled", { event_data_id: event.data.id })
@@ -62,7 +61,7 @@ paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }),
         break
 
       default:
-        log.info(method, "Event not handled", { event_type: event.event_type })
+        log.info(method, "Event not handled", { event_type: event.eventType })
     }
 
     res.status(200).send("Webhook processed")

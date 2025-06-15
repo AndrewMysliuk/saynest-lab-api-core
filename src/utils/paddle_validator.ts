@@ -1,7 +1,6 @@
-import { paddle, serverConfig } from "../config"
-import { createScopedLogger } from "../utils"
+import { EventEntity } from "@paddle/paddle-node-sdk"
 
-const log = createScopedLogger("PaddleWebhook")
+import { paddle, serverConfig } from "../config"
 
 const webhookSecret = serverConfig.PADDLE_WEBHOOK_SECRET
 
@@ -9,7 +8,7 @@ if (!webhookSecret) {
   throw new Error("PADDLE_WEBHOOK_SECRET is not set!")
 }
 
-export async function validatePaddleWebhook(rawBody: string, signature?: string) {
+export async function validatePaddleWebhook(rawBody: string, signature?: string): Promise<EventEntity> {
   try {
     const isProd = process.env.NODE_ENV === "production"
 
@@ -20,11 +19,7 @@ export async function validatePaddleWebhook(rawBody: string, signature?: string)
       throw new Error("Missing paddle-signature header")
     }
 
-    log.info("validatePaddleWebhook", "webhookSecret", { webhook_secret: webhookSecret })
-
     const response = await paddle.webhooks.unmarshal(rawBody, webhookSecret, signature)
-
-    log.info("validatePaddleWebhook", "Response", { response })
 
     return response
   } catch (error) {
