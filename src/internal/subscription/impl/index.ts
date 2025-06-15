@@ -62,7 +62,7 @@ export class SubscriptionService implements ISubscriptionService {
 
       const custom = paddleSub.customData as { user_id: string; organization_id: string; plan_id: string }
       if (!custom) {
-        log.info("createSubscription", "customData is missing", {
+        log.error("createSubscription", "customData is missing", {
           paddle_subscription_id,
         })
         return null
@@ -73,7 +73,7 @@ export class SubscriptionService implements ISubscriptionService {
       const planId = custom.plan_id
 
       if (!userId || !orgId || !priceId || !planId) {
-        log.info("createSubscription", "Missing required subscription data", {
+        log.error("createSubscription", "Missing required subscription data", {
           paddle_subscription_id,
         })
         return null
@@ -265,7 +265,7 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.info("cancelledSubscription", "subscription not found", {
+        log.error("cancelledSubscription", "subscription not found", {
           paddle_subscription_id,
         })
         return null
@@ -293,7 +293,7 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.info("pastDueSubscription", "subscription not found", {
+        log.error("pastDueSubscription", "subscription not found", {
           paddle_subscription_id,
         })
         return null
@@ -346,7 +346,7 @@ export class SubscriptionService implements ISubscriptionService {
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.info("updateSubscription", "subscription not found", {
+        log.error("updateSubscription", "subscription not found", {
           paddle_subscription_id,
         })
         return null
