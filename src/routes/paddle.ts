@@ -25,6 +25,8 @@ paddleRouter.post("/webhooks/paddle", express.text({ type: "*/*" }), async (req:
   const method = "paddleWebhookHandler"
 
   try {
+    log.info(method, "Paddle Headers", { "paddle-signature": req.headers["paddle-signature"] })
+    log.info(method, "Paddle signatuer", { signature })
     log.info(method, "Paddle req.body", { request: req.body })
 
     const rawBody = req.body
