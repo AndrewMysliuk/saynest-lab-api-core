@@ -9,9 +9,9 @@ export type IPlanDocument = IPlanEntity & Document
 const PlanTrialInfoSchema = new Schema<IPlanTrialInfo>(
   {
     period_days: { type: Number, default: 0 },
-    session_limit: { type: Number, default: 0 },
-    review_limit: { type: Number, default: 0 },
-    task_limit: { type: Number, default: 0 },
+    session_count_limit: { type: Number, default: 0 },
+    review_count_limit: { type: Number, default: 0 },
+    task_count_limit: { type: Number, default: 0 },
   },
   { _id: false },
 )

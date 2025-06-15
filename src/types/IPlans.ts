@@ -17,9 +17,9 @@ export enum PlanStatusEnum {
 
 export interface IPlanTrialInfo {
   period_days: number
-  session_limit: number
-  review_limit: number
-  task_limit: number
+  session_count_limit: number
+  review_count_limit: number
+  task_count_limit: number
 }
 
 export interface IPlanPaddlePriceIds {

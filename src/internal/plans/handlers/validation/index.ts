@@ -21,14 +21,14 @@ export const createPlanSchema = z.object({
   trial_info: z
     .object({
       period_days: z.number().nonnegative().default(0),
-      session_limit: z.number().nonnegative().default(0),
-      review_limit: z.number().nonnegative().default(0),
-      task_limit: z.number().nonnegative().default(0),
+      session_count_limit: z.number().nonnegative().default(0),
+      review_count_limit: z.number().nonnegative().default(0),
+      task_count_limit: z.number().nonnegative().default(0),
     })
     .default({
       period_days: 0,
-      session_limit: 0,
-      review_limit: 0,
-      task_limit: 0,
+      session_count_limit: 0,
+      review_count_limit: 0,
+      task_count_limit: 0,
     }),
 })
