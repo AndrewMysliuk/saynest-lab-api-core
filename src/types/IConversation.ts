@@ -43,6 +43,7 @@ export enum StreamEventEnum {
   TTS_CHUNK = "TTS_CHUNK",
   ERROR = "ERROR",
   COMPLETE = "COMPLETE",
+  HEARTBEAT = "HEARTBEAT",
 }
 
 export interface IHistoryStreamEvent {
@@ -70,7 +71,11 @@ export interface IErrorStreamEvent {
   content: string
 }
 
-export type ConversationStreamEvent = IHistoryStreamEvent | IGptResponseStreamEvent | ITtsChunkStreamEvent | IErrorStreamEvent
+export interface IHeartbeatStreamEvent {
+  type: StreamEventEnum.HEARTBEAT
+}
+
+export type ConversationStreamEvent = IHistoryStreamEvent | IGptResponseStreamEvent | ITtsChunkStreamEvent | IErrorStreamEvent | IHeartbeatStreamEvent
 
 export interface IConversationResponse {
   session_id: string

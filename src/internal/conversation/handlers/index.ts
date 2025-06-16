@@ -9,6 +9,9 @@ const log = createScopedLogger("conversationHandler")
 
 export const createConversationHandler = (conversationService: IConversationService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
+    let heartbeat: NodeJS.Timeout | null = null
+    let streamEnded = false
+
     try {
       const user_id = req.user?.user_id || null
       const organization_id = req.user?.organization_id || null
@@ -36,9 +39,15 @@ export const createConversationHandler = (conversationService: IConversationServ
       res.setHeader("Connection", "keep-alive")
       res.flushHeaders()
 
-      let streamEnded = false
+      heartbeat = setInterval(() => {
+        if (!streamEnded) {
+          res.write(`${JSON.stringify({ type: StreamEventEnum.HEARTBEAT })}\n`)
+        }
+      }, 1000)
+
       res.on("close", () => {
         streamEnded = true
+        if (heartbeat) clearInterval(heartbeat)
         log.warn("createConversationHandler", "Client disconnected before stream ended")
       })
 
@@ -88,6 +97,8 @@ export const createConversationHandler = (conversationService: IConversationServ
       } else {
         res.end()
       }
+    } finally {
+      if (heartbeat) clearInterval(heartbeat)
     }
   }
 }
