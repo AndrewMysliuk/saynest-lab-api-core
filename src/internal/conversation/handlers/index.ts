@@ -33,10 +33,13 @@ export const createConversationHandler = (conversationService: IConversationServ
       res.setHeader("Content-Type", "application/json; charset=utf-8")
       res.setHeader("Transfer-Encoding", "chunked")
       res.setHeader("Cache-Control", "no-cache")
+      res.setHeader("Connection", "keep-alive")
+      res.flushHeaders()
 
       let streamEnded = false
       res.on("close", () => {
         streamEnded = true
+        log.warn("createConversationHandler", "Client disconnected before stream ended")
       })
 
       const output: { finalData?: IConversationResponse } = {}
