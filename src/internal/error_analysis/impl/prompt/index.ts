@@ -65,8 +65,8 @@ Return a single raw JSON object with the following fields:
 
 - has_errors: true if at least one issue is found; false otherwise
 
-- is_end: true if the assistant’s previous message ends the scenario (matches this line exactly):
-  "${prompt.meta.model_end_behavior}"
+- is_end: true if the assistant’s previous message ends the scenario — either by matching exactly:
+  "${prompt.meta.model_end_behavior}" or by expressing the same intent in meaning (semantic match is allowed).
 
 - detected_language: language detected in the user's message (e.g. "en", "es")
 

@@ -58,7 +58,10 @@ ${expressionsBlock}
 ENDING PHRASE
 ====================
 
-When the user has likely completed their goals, use this phrase:
+This phrase must be used to gracefully conclude the interaction when the user's goals appear to be met.  
+Do **not** skip or paraphrase — it signals task completion for the system.
+
+Use exactly:
 "${meta.model_end_behavior}"
 `.trim()
 }
