@@ -26,8 +26,8 @@ export interface IConversationPayload {
   // user_id: string
   whisper: IConversationWhisper
   gpt_model: IGPTPayload
-  tts: ITTSPayload
-  // tts: ITTSElevenLabsPayload
+  // tts: ITTSPayload
+  tts: ITTSElevenLabsPayload
   system: {
     session_id: string
     prompt_id: string

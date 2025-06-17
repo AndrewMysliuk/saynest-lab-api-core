@@ -42,27 +42,27 @@ export const gptModelSchema = z.object({
   stream: z.boolean().optional(),
 })
 
-export const ttsSchema = z.object({
-  model: z.enum(["tts-1", "tts-1-hd"]),
-  voice: z.enum(["alloy", "echo", "fable", "onyx", "nova", "shimmer"]),
-  input: z.string().optional(),
-  response_format: z.enum(["mp3", "opus", "aac", "flac", "wav", "pcm"]).optional(),
-  speed: z.number().optional(),
-  stream: z.boolean().optional(),
-})
-
 // export const ttsSchema = z.object({
+//   model: z.enum(["tts-1", "tts-1-hd"]),
+//   voice: z.enum(["alloy", "echo", "fable", "onyx", "nova", "shimmer"]),
 //   input: z.string().optional(),
-//   voice: z.string(),
-//   model: z.string().optional(),
-//   response_format: z.enum(["mp3", "wav", "ogg"]).optional(),
-//   voice_settings: z
-//     .object({
-//       stability: z.number().optional(),
-//       similarity_boost: z.number().optional(),
-//     })
-//     .optional(),
+//   response_format: z.enum(["mp3", "opus", "aac", "flac", "wav", "pcm"]).optional(),
+//   speed: z.number().optional(),
+//   stream: z.boolean().optional(),
 // })
+
+export const ttsSchema = z.object({
+  input: z.string().optional(),
+  voice: z.string(),
+  model: z.string().optional(),
+  response_format: z.enum(["mp3", "wav", "ogg"]).optional(),
+  voice_settings: z
+    .object({
+      stability: z.number().optional(),
+      similarity_boost: z.number().optional(),
+    })
+    .optional(),
+})
 
 export const systemSchema = z.object({
   session_id: z.string().regex(objectIdRegex, {

@@ -56,7 +56,7 @@ export class TextToSpeachService implements ITextToSpeach {
     }
   }
 
-  async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }): AsyncGenerator<Buffer, void> {
+  async *ttsTextToSpeechStreamElevenLabs(payload: ITTSElevenLabsPayload, session_folder?: string, output?: { filePath?: string }, saveToFile: boolean = false): AsyncGenerator<Buffer, void> {
     const method = "ttsTextToSpeechStreamElevenLabs"
     try {
       const userSessionsDir = session_folder ?? getStorageFilePath({})
@@ -74,6 +74,8 @@ export class TextToSpeachService implements ITextToSpeach {
         voice_id,
         model_id,
         inputLength: payload.input?.length,
+        stability,
+        similarity_boost,
       })
 
       const response = await axios.post(
@@ -104,14 +106,16 @@ export class TextToSpeachService implements ITextToSpeach {
         yield chunk
       }
 
-      await gcsFile.save(Buffer.concat(chunks), {
-        metadata: {
-          contentType: "audio/mp3",
-        },
-      })
+      if (saveToFile) {
+        await gcsFile.save(Buffer.concat(chunks), {
+          metadata: {
+            contentType: "audio/mp3",
+          },
+        })
 
-      if (output) output.filePath = storagePath
-      log.info(method, "ElevenLabs audio saved to GCS", { storagePath })
+        if (output) output.filePath = storagePath
+        log.info(method, "ElevenLabs audio saved to GCS", { storagePath })
+      }
     } catch (error) {
       log.error(method, "Error during ElevenLabs TTS", { error })
       throw error

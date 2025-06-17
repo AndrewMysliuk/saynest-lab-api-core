@@ -136,8 +136,16 @@ export class ConversationService implements IConversationService {
           const sentence = combined.trim()
           sentenceBuffer.length = 0
 
-          // this.textToSpeachService.ttsTextToSpeechStreamElevenLabs
-          const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+          //   {
+          //     ...tts,
+          //     input: sentence,
+          //   },
+          //   undefined,
+          //   undefined,
+          //   false,
+          // )
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
             {
               ...tts,
               input: sentence,
@@ -161,8 +169,16 @@ export class ConversationService implements IConversationService {
       if (sentenceBuffer.length > 0) {
         const finalSentence = sentenceBuffer.join("").trim()
         if (finalSentence.length > 0) {
-          // this.textToSpeachService.ttsTextToSpeechStreamElevenLabs
-          const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+          //   {
+          //     ...tts,
+          //     input: finalSentence,
+          //   },
+          //   undefined,
+          //   undefined,
+          //   false,
+          // )
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
             {
               ...tts,
               input: finalSentence,
@@ -183,7 +199,8 @@ export class ConversationService implements IConversationService {
         }
       }
 
-      const fileExtension = tts?.response_format || "mp3"
+      // const fileExtension = tts?.response_format || "mp3"
+      const fileExtension = "mp3"
       const filename = generateFileName("model-response", fileExtension)
       const storagePath = `${sessionDir}/${filename}`
       const gcsFile = gcsBucket.file(storagePath)

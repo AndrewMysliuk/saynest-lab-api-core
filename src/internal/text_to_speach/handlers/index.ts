@@ -68,7 +68,7 @@ export const textToSpeechElevenLabsHandler = (textToSpeachService: ITextToSpeach
       })
 
       const output: { filePath?: string } = {}
-      const ttsStream = textToSpeachService.ttsTextToSpeechStreamElevenLabs(req.body, undefined, output)
+      const ttsStream = textToSpeachService.ttsTextToSpeechStreamElevenLabs(req.body, undefined, output, true)
 
       for await (const chunk of ttsStream) {
         res.write(chunk)
