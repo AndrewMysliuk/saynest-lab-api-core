@@ -89,11 +89,12 @@ export const getScenarioHandler = (promptService: IPromptService): RequestHandle
 export const listScenariosHandler = (promptService: IPromptService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { title, is_module_only, limit = 20, offset = 0, user_id, organization_id } = req.query
+      const { search, title, is_module_only, limit = 20, offset = 0, user_id, organization_id } = req.query
 
       const filter: IPromptFilters = {
         title: title as string,
         is_module_only: is_module_only === "true",
+        search: search as string,
       }
 
       if (user_id) {
@@ -193,10 +194,11 @@ export const getModuleHandler = (promptService: IPromptService): RequestHandler 
 export const listModulesHandler = (promptService: IPromptService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { title, limit = 20, offset = 0, user_id, organization_id } = req.query
+      const { search, title, limit = 20, offset = 0, user_id, organization_id } = req.query
 
       const filter: IModuleFilters = {
         title: title as string,
+        search: search as string,
       }
 
       if (user_id) {
@@ -207,7 +209,7 @@ export const listModulesHandler = (promptService: IPromptService): RequestHandle
         filter.organization_id = organization_id as string
       }
 
-      const modules = await promptService.listModule({ title: title as string }, { limit: Number(limit), offset: Number(offset) })
+      const modules = await promptService.listModule(filter, { limit: Number(limit), offset: Number(offset) })
 
       res.status(200).json(modules)
     } catch (error: unknown) {

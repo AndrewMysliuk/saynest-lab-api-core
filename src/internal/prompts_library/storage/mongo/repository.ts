@@ -66,6 +66,15 @@ export class PromptsLibraryRepository implements IRepository {
         query.user_id = new Types.ObjectId(filter.user_id)
       }
 
+      if (filter?.target_language) {
+        query["meta.target_language"] = filter.target_language
+      }
+
+      if (filter?.search) {
+        const regex = new RegExp(filter.search, "i")
+        query.$or = [{ title: { $regex: regex } }, { "meta.target_language": { $regex: regex } }]
+      }
+
       const scenarios = await ScenarioModel.find(query, {}, options)
         .skip(pagination?.offset || 0)
         .limit(pagination?.limit || 20)
@@ -130,11 +139,38 @@ export class PromptsLibraryRepository implements IRepository {
         query.user_id = new Types.ObjectId(filter.user_id)
       }
 
-      const modules = await ModuleModel.find(query, {}, options)
-        .skip(pagination?.offset || 0)
-        .limit(pagination?.limit || 20)
+      if (filter?.tag) {
+        query.tags = { $in: [filter.tag] }
+      }
 
-      return modules.map((m) => m.toObject({ flattenMaps: true }))
+      const modules = await ModuleModel.find(query, {}, options)
+        .populate({
+          path: "scenarios",
+          select: "meta.target_language",
+        })
+        .skip(pagination?.offset ?? 0)
+        .limit(pagination?.limit ?? 20)
+
+      const filteredModules = modules.filter((module) => {
+        if (filter?.target_language) {
+          const hasLang = module.scenarios.some((s: any) => s.meta?.target_language?.toLowerCase() === filter?.target_language?.toLowerCase())
+          if (!hasLang) return false
+        }
+
+        if (filter?.search) {
+          const search = filter.search.toLowerCase()
+
+          const inTitle = module.title.toLowerCase().includes(search)
+          const inTags = module.tags.some((t) => t.toLowerCase().includes(search))
+          const inLang = module.scenarios.some((s: any) => s.meta?.target_language?.toLowerCase().includes(search))
+
+          if (!inTitle && !inTags && !inLang) return false
+        }
+
+        return true
+      })
+
+      return filteredModules.map((m) => m.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
       log.error("listModule", "error", { error })
       throw error
