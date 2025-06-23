@@ -1,0 +1,512 @@
+[
+  {
+    "id": "es_001",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "El alfabeto español y pronunciación básica"
+  },
+  {
+    "id": "es_002",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Pronombres personales (yo, tú, él, ella...)"
+  },
+  {
+    "id": "es_003",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Verbo \"ser\" en presente"
+  },
+  {
+    "id": "es_004",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Verbo \"estar\" en presente"
+  },
+  {
+    "id": "es_005",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Verbo \"tener\" en presente"
+  },
+  {
+    "id": "es_006",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Conjugación regular de los verbos -ar, -er, -ir (presente)"
+  },
+  {
+    "id": "es_007",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Formación de frases afirmativas simples (SVO)"
+  },
+  {
+    "id": "es_008",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Negación básica con \"no\""
+  },
+  {
+    "id": "es_009",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Preguntas con palabras interrogativas (qué, cómo, dónde...)"
+  },
+  {
+    "id": "es_010",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Preguntas de sí/no (verbo al inicio)"
+  },
+  {
+    "id": "es_011",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Artículos definidos e indefinidos (el, la, un, una)"
+  },
+  {
+    "id": "es_012",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Género y número de sustantivos"
+  },
+  {
+    "id": "es_013",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Adjetivos básicos y concordancia con sustantivos"
+  },
+  {
+    "id": "es_014",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Pronombres demostrativos (este, ese, aquel...)"
+  },
+  {
+    "id": "es_015",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Adjetivos posesivos (mi, tu, su...)"
+  },
+  {
+    "id": "es_016",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Preposiciones básicas de lugar (en, sobre, bajo...)"
+  },
+  {
+    "id": "es_017",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Preposiciones básicas de tiempo (a, de, en...)"
+  },
+  {
+    "id": "es_018",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Uso de \"hay\" para existencia"
+  },
+  {
+    "id": "es_019",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Verbos irregulares básicos (ir, hacer, venir)"
+  },
+  {
+    "id": "es_020",
+    "language": "es",
+    "cefr_level": "A1",
+    "title": "Pronombres reflexivos básicos (me, te, se)"
+  },
+  {
+    "id": "es_021",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Pretérito perfecto (he comido, has vivido...)"
+  },
+  {
+    "id": "es_022",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Pretérito indefinido de verbos regulares e irregulares"
+  },
+  {
+    "id": "es_023",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Pretérito imperfecto: descripción y hábitos en el pasado"
+  },
+  {
+    "id": "es_024",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Contraste entre pretérito perfecto, indefinido e imperfecto"
+  },
+  {
+    "id": "es_025",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Futuro próximo con \"ir a + infinitivo\""
+  },
+  {
+    "id": "es_026",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Pronombres de objeto directo (lo, la, los, las)"
+  },
+  {
+    "id": "es_027",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Pronombres de objeto indirecto (me, te, le, nos...)"
+  },
+  {
+    "id": "es_028",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Uso combinado de pronombres de objeto directo e indirecto"
+  },
+  {
+    "id": "es_029",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Verbos reflexivos en distintos tiempos"
+  },
+  {
+    "id": "es_030",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Comparativos y superlativos (más que, menos que, el más...)"
+  },
+  {
+    "id": "es_031",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Oraciones con \"porque\", \"para\", \"por\" (causa y finalidad)"
+  },
+  {
+    "id": "es_032",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Oraciones condicionales con \"si\" (primer tipo)"
+  },
+  {
+    "id": "es_033",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Perífrasis verbales comunes (tener que, acabar de, estar + gerundio)"
+  },
+  {
+    "id": "es_034",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Adverbios de frecuencia, modo y cantidad"
+  },
+  {
+    "id": "es_035",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Concordancia de tiempos verbales en frases subordinadas"
+  },
+  {
+    "id": "es_036",
+    "language": "es",
+    "cefr_level": "A2",
+    "title": "Formación de preguntas indirectas"
+  },
+  {
+    "id": "es_037",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Pretérito pluscuamperfecto (había comido...)"
+  },
+  {
+    "id": "es_038",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Futuro simple (comeré, vivirás...)"
+  },
+  {
+    "id": "es_039",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Condicional simple (comería, vivirías...)"
+  },
+  {
+    "id": "es_040",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Estilo indirecto (dijo que..., preguntó si...)"
+  },
+  {
+    "id": "es_041",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Uso de pronombres relativos (que, quien, cuyo...)"
+  },
+  {
+    "id": "es_042",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Oraciones subordinadas sustantivas con \"que\""
+  },
+  {
+    "id": "es_043",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Oraciones temporales con \"cuando\", \"mientras\", \"hasta que\""
+  },
+  {
+    "id": "es_044",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Uso de \"por\" y \"para\" con matices"
+  },
+  {
+    "id": "es_045",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Perífrasis verbales con gerundio e infinitivo (seguir + gerundio, deber + infinitivo...)"
+  },
+  {
+    "id": "es_046",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Subjuntivo presente: uso básico en oraciones subordinadas"
+  },
+  {
+    "id": "es_047",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Contraste entre indicativo y subjuntivo en frases con \"que\""
+  },
+  {
+    "id": "es_048",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Construcciones impersonales con \"se\""
+  },
+  {
+    "id": "es_049",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Formas impersonales: infinitivo, gerundio, participio"
+  },
+  {
+    "id": "es_050",
+    "language": "es",
+    "cefr_level": "B1",
+    "title": "Pasiva refleja (se venden libros)"
+  },
+  {
+    "id": "es_051",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Pretérito perfecto de subjuntivo (haya comido...)"
+  },
+  {
+    "id": "es_052",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Pretérito imperfecto de subjuntivo (comiera/comiese...)"
+  },
+  {
+    "id": "es_053",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Pluscuamperfecto de subjuntivo (hubiera comido...)"
+  },
+  {
+    "id": "es_054",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Oraciones condicionales de segundo y tercer tipo"
+  },
+  {
+    "id": "es_055",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Estilo indirecto con cambios de tiempo y modo"
+  },
+  {
+    "id": "es_056",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Conectores complejos: \"aunque\", \"a pesar de que\", \"en caso de que\""
+  },
+  {
+    "id": "es_057",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Construcciones pasivas con \"ser\" + participio"
+  },
+  {
+    "id": "es_058",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Concordancia compleja de tiempos verbales"
+  },
+  {
+    "id": "es_059",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Uso matizado de \"se\" (pasiva refleja, impersonal, recíproco, dativo ético)"
+  },
+  {
+    "id": "es_060",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Perífrasis verbales avanzadas (llevar + gerundio, estar por + infinitivo...)"
+  },
+  {
+    "id": "es_061",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Subordinadas sustantivas, adjetivas y adverbiales con subjuntivo"
+  },
+  {
+    "id": "es_062",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Participios irregulares y su uso como adjetivos"
+  },
+  {
+    "id": "es_063",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Modos y tiempos verbales en textos formales y narrativos"
+  },
+  {
+    "id": "es_064",
+    "language": "es",
+    "cefr_level": "B2",
+    "title": "Estilo formal vs. informal: formas gramaticales y léxicas"
+  },
+  {
+    "id": "es_065",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Subjuntivo en estructuras avanzadas (aunque, como si, por más que...)"
+  },
+  {
+    "id": "es_066",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Concordancia compleja entre tiempos en subordinadas"
+  },
+  {
+    "id": "es_067",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Estilo indirecto con subjuntivo y tiempos compuestos"
+  },
+  {
+    "id": "es_068",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Construcciones impersonales formales (\"se dice que\", \"es sabido que\")"
+  },
+  {
+    "id": "es_069",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Participios y gerundios en función adjetiva o adverbial"
+  },
+  {
+    "id": "es_070",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Uso de la pasiva perifrástica y refleja con matices estilísticos"
+  },
+  {
+    "id": "es_071",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Transformaciones oracionales: voz activa/pasiva, reducción de relativo"
+  },
+  {
+    "id": "es_072",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Perífrasis verbales con matiz aspectual (venir a + infinitivo, acabar por + infinitivo...)"
+  },
+  {
+    "id": "es_073",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Lenguaje matizado: expresiones de duda, hipótesis, certeza"
+  },
+  {
+    "id": "es_074",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Formación y uso del estilo académico y formal"
+  },
+  {
+    "id": "es_075",
+    "language": "es",
+    "cefr_level": "C1",
+    "title": "Oraciones condicionales con inversión del orden (\"hubiera sabido, te habría llamado\")"
+  },
+  {
+    "id": "es_076",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Elipsis y estructuras omitidas con coherencia textual"
+  },
+  {
+    "id": "es_077",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Subjuntivo en estructuras altamente formales o literarias"
+  },
+  {
+    "id": "es_078",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Transformación estilística: variaciones de registro (coloquial, técnico, académico)"
+  },
+  {
+    "id": "es_079",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Construcciones complejas con múltiples subordinadas"
+  },
+  {
+    "id": "es_080",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Uso expresivo de los modos verbales para ironía, énfasis o matiz"
+  },
+  {
+    "id": "es_081",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Reestructuración oracional para fluidez y estilo avanzado"
+  },
+  {
+    "id": "es_082",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Dominio total de tiempos compuestos y su interacción semántica"
+  },
+  {
+    "id": "es_083",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Uso avanzado de conectores y marcadores discursivos"
+  },
+  {
+    "id": "es_084",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Manipulación del orden oracional para énfasis estilístico"
+  },
+  {
+    "id": "es_085",
+    "language": "es",
+    "cefr_level": "C2",
+    "title": "Matices de significado mediante la voz pasiva, activa y reflejas"
+  }
+]

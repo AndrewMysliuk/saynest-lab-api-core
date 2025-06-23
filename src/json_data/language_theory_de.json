@@ -1,0 +1,524 @@
+[
+  {
+    "id": "de_001",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Deutsches Alphabet und Aussprache"
+  },
+  {
+    "id": "de_002",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Personalpronomen (ich, du, er, sie, es, wir, ihr, sie, Sie)"
+  },
+  {
+    "id": "de_003",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Verb \"sein\" im Präsens"
+  },
+  {
+    "id": "de_004",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Verb \"haben\" im Präsens"
+  },
+  {
+    "id": "de_005",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Satzbau: einfache Aussagesätze (Subjekt-Verb-Objekt)"
+  },
+  {
+    "id": "de_006",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Fragesätze mit Fragewörtern (wer, was, wo, wann, warum...)"
+  },
+  {
+    "id": "de_007",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Ja/Nein-Fragen (Verb zuerst)"
+  },
+  {
+    "id": "de_008",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Verneinung mit \"nicht\""
+  },
+  {
+    "id": "de_009",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Verneinung mit \"kein\""
+  },
+  {
+    "id": "de_010",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Bestimmte und unbestimmte Artikel (der, die, das / ein, eine)"
+  },
+  {
+    "id": "de_011",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Genus und Numerus von Nomen (Singular/Plural)"
+  },
+  {
+    "id": "de_012",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Kasus: Nominativ (Grundform)"
+  },
+  {
+    "id": "de_013",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Possessivpronomen (mein, dein, sein, ihr...) im Nominativ"
+  },
+  {
+    "id": "de_014",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Demonstrativpronomen (dieser, diese, dieses...)"
+  },
+  {
+    "id": "de_015",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Adjektivdeklination im Nominativ (nach Artikeln)"
+  },
+  {
+    "id": "de_016",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Präpositionen des Ortes (in, auf, unter, neben...)"
+  },
+  {
+    "id": "de_017",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Temporale Präpositionen (am, im, um)"
+  },
+  {
+    "id": "de_018",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Trennbare Verben im Präsens"
+  },
+  {
+    "id": "de_019",
+    "language": "de",
+    "cefr_level": "A1",
+    "title": "Modale Hilfsverben im Präsens (können, müssen, wollen...)"
+  },
+  {
+    "id": "de_020",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Perfekt mit \"haben\" und \"sein\" (regelmäßige und unregelmäßige Verben)"
+  },
+  {
+    "id": "de_021",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Präteritum von \"sein\", \"haben\" und Modalverben"
+  },
+  {
+    "id": "de_022",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Modale Hilfsverben im Präteritum (konnte, musste, wollte...)"
+  },
+  {
+    "id": "de_023",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Kasus: Akkusativ (Wen-Fall)"
+  },
+  {
+    "id": "de_024",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Kasus: Dativ (Wem-Fall)"
+  },
+  {
+    "id": "de_025",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Präpositionen mit Akkusativ (durch, für, ohne, gegen...)"
+  },
+  {
+    "id": "de_026",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Präpositionen mit Dativ (mit, bei, nach, seit...)"
+  },
+  {
+    "id": "de_027",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Wechselpräpositionen mit Akkusativ und Dativ (in, an, auf...)"
+  },
+  {
+    "id": "de_028",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Adjektivdeklination im Akkusativ und Dativ"
+  },
+  {
+    "id": "de_029",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Imperativ (Befehlsform) für du, ihr und Sie"
+  },
+  {
+    "id": "de_030",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Nebensätze mit \"weil\", \"dass\", \"wenn\""
+  },
+  {
+    "id": "de_031",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Wortstellung in Nebensätzen (Verb am Ende)"
+  },
+  {
+    "id": "de_032",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Reflexive Verben im Präsens und Perfekt"
+  },
+  {
+    "id": "de_033",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Negationswörter: \"niemand\", \"nichts\""
+  },
+  {
+    "id": "de_034",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Unpersönliche Ausdrücke: \"es gibt\", \"man kann\""
+  },
+  {
+    "id": "de_035",
+    "language": "de",
+    "cefr_level": "A2",
+    "title": "Komparativ und Superlativ von Adjektiven"
+  },
+  {
+    "id": "de_036",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Konjunktionen für Hauptsätze: \"aber\", \"denn\", \"und\", \"oder\""
+  },
+  {
+    "id": "de_037",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Konjunktionen für Nebensätze: \"obwohl\", \"während\", \"bevor\", \"damit\""
+  },
+  {
+    "id": "de_038",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Temporale Nebensätze mit \"als\", \"wenn\", \"nachdem\""
+  },
+  {
+    "id": "de_039",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Konjunktiv II für höfliche Bitten und irreale Wünsche"
+  },
+  {
+    "id": "de_040",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Indirekte Rede im Präsens und Präteritum"
+  },
+  {
+    "id": "de_041",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Passiv im Präsens und Präteritum (wird gemacht, wurde gemacht)"
+  },
+  {
+    "id": "de_042",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Modalverben im Passiv"
+  },
+  {
+    "id": "de_043",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Relativsätze mit \"der\", \"die\", \"das\""
+  },
+  {
+    "id": "de_044",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Partizip I und II als Adjektive"
+  },
+  {
+    "id": "de_045",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Infinitivkonstruktionen mit \"zu\" (z. B. \"Ich habe vor, ... zu gehen\")"
+  },
+  {
+    "id": "de_046",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Wortstellung bei erweiterten Satzstrukturen"
+  },
+  {
+    "id": "de_047",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Unpersönliche Ausdrücke mit \"es\" (\"Es ist wichtig, dass…\")"
+  },
+  {
+    "id": "de_048",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Vergleiche mit \"so … wie\", \"mehr … als\""
+  },
+  {
+    "id": "de_049",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Verben mit Präpositionen (\"warten auf\", \"denken an\"...)"
+  },
+  {
+    "id": "de_050",
+    "language": "de",
+    "cefr_level": "B1",
+    "title": "Typ-1 und Typ-2 Konditionalsätze (wenn-Sätze)"
+  },
+  {
+    "id": "de_051",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Komplexe Nebensätze mit \"obwohl\", \"während\", \"solange\", \"sobald\""
+  },
+  {
+    "id": "de_052",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Indirekte Rede mit Konjunktiv I"
+  },
+  {
+    "id": "de_053",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Konjunktiv II für irreale Bedingungssätze (Typ II und III)"
+  },
+  {
+    "id": "de_054",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Passiv in allen Zeiten (Präsens, Präteritum, Perfekt, Plusquamperfekt, Futur I)"
+  },
+  {
+    "id": "de_055",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Ersatzformen für das Passiv (man-Form, sein + zu)"
+  },
+  {
+    "id": "de_056",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Infinitivkonstruktionen mit \"um … zu\", \"ohne … zu\", \"anstatt … zu\""
+  },
+  {
+    "id": "de_057",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Nominalisierung von Verben und Adjektiven"
+  },
+  {
+    "id": "de_058",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Partizipialkonstruktionen zur Verknüpfung von Sätzen"
+  },
+  {
+    "id": "de_059",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Satzreihen und Satzgefüge mit erweiterten Strukturen"
+  },
+  {
+    "id": "de_060",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Stilistische Unterschiede: formell vs. informell"
+  },
+  {
+    "id": "de_061",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Modalverben mit Ersatzformen (müssen → sein + zu)"
+  },
+  {
+    "id": "de_062",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Komplexe Vergleiche und Steigerungen"
+  },
+  {
+    "id": "de_063",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Erweiterte Relativsätze (mit Präpositionen, mit Kommasetzung)"
+  },
+  {
+    "id": "de_064",
+    "language": "de",
+    "cefr_level": "B2",
+    "title": "Verwendung von Modalverben in der Vergangenheit (\"hätte machen können\")"
+  },
+  {
+    "id": "de_065",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Komplexe Bedingungssätze mit \"falls\", \"sofern\", \"vorausgesetzt, dass\""
+  },
+  {
+    "id": "de_066",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Konzessive Nebensätze mit \"obwohl\", \"obgleich\", \"wenngleich\""
+  },
+  {
+    "id": "de_067",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Verwendung des Konjunktiv II in der Vergangenheit (\"hätte gemacht\")"
+  },
+  {
+    "id": "de_068",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Indirekte Rede mit gemischten Zeiten und Konjunktivformen"
+  },
+  {
+    "id": "de_069",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Nominalstil in wissenschaftlichen und formellen Texten"
+  },
+  {
+    "id": "de_070",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Partizipialkonstruktionen mit erweitertem Infinitiv"
+  },
+  {
+    "id": "de_071",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Redewiedergabe auf höherem Niveau (z. B. \"erwähnte, betonte, stellte klar…\")"
+  },
+  {
+    "id": "de_072",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Stilmittel und Satzvarianten (Ellipse, Parenthese, Inversion)"
+  },
+  {
+    "id": "de_073",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Subjektive Bedeutung der Modalverben (Vermutung, Kritik, Ironie)"
+  },
+  {
+    "id": "de_074",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Stilistische Umstellungen: Umgangssprache vs. Fachsprache"
+  },
+  {
+    "id": "de_075",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Nominalisierungen mit komplexer Präpositionalstruktur"
+  },
+  {
+    "id": "de_076",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Textverknüpfung durch Konnektoren (\"infolge dessen\", \"demgegenüber\")"
+  },
+  {
+    "id": "de_077",
+    "language": "de",
+    "cefr_level": "C1",
+    "title": "Erweiterte Relativsätze mit semantischen Feinheiten"
+  },
+  {
+    "id": "de_078",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Kontextabhängige Ellipsen und Auslassungen"
+  },
+  {
+    "id": "de_079",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Feinheiten der Tempuswahl in komplexen Texten"
+  },
+  {
+    "id": "de_080",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Stilistisch markierte Konstruktionen (z. B. gehobener Genitiv, altertümliche Wendungen)"
+  },
+  {
+    "id": "de_081",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Kohärenz durch komplexe Konnektoren und Diskursmarker"
+  },
+  {
+    "id": "de_082",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Ironie, Andeutung und rhetorische Mittel im Satzbau"
+  },
+  {
+    "id": "de_083",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Idiome und feste Wendungen mit grammatischer Variation"
+  },
+  {
+    "id": "de_084",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Komplexe Satzgefüge mit mehrfach untergeordneten Nebensätzen"
+  },
+  {
+    "id": "de_085",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Verwendung von Fach- und Bildungssprache im grammatischen Kontext"
+  },
+  {
+    "id": "de_086",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Nuancierte Modalität (z. B. \"dürfte\", \"sollte wohl\")"
+  },
+  {
+    "id": "de_087",
+    "language": "de",
+    "cefr_level": "C2",
+    "title": "Mehrdeutige Satzstrukturen und Interpretation"
+  }
+]

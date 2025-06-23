@@ -30,5 +30,6 @@
   { "language": "Turkish", "language_iso": "tr" },
   { "language": "Ukrainian", "language_iso": "uk" },
   { "language": "Urdu", "language_iso": "ur" },
-  { "language": "Vietnamese", "language_iso": "vi" }
+  { "language": "Vietnamese", "language_iso": "vi" },
+  { "language": "Bulgarisch", "language_iso": "bg" }
 ]

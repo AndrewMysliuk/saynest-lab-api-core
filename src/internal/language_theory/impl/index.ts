@@ -1,5 +1,8 @@
 import { ILanguageTheory } from ".."
+import language_theory_bg_json from "../../../json_data/language_theory_bg.json"
+import language_theory_de_json from "../../../json_data/language_theory_de.json"
 import language_theory_en_json from "../../../json_data/language_theory_en.json"
+import language_theory_es_json from "../../../json_data/language_theory_es.json"
 import { ILanguageTopic, VocabularyFrequencyLevelEnum } from "../../../types"
 import { createScopedLogger } from "../../../utils"
 
@@ -23,6 +26,16 @@ export class LanguageTheoryService implements ILanguageTheory {
         case "en":
           records = language_theory_en_json as ILanguageTopic[]
           break
+        case "de":
+          records = language_theory_de_json as ILanguageTopic[]
+          break
+        case "es":
+          records = language_theory_es_json as ILanguageTopic[]
+          break
+        case "bg":
+          records = language_theory_bg_json as ILanguageTopic[]
+          break
+
         default:
           throw new Error()
       }
