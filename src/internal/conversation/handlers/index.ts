@@ -46,9 +46,11 @@ export const createConversationHandler = (conversationService: IConversationServ
       }, 1000)
 
       res.on("close", () => {
-        streamEnded = true
+        if (!streamEnded) {
+          log.warn("createConversationHandler", "Client disconnected before stream ended")
+        }
+
         if (heartbeat) clearInterval(heartbeat)
-        log.warn("createConversationHandler", "Client disconnected before stream ended")
       })
 
       const output: { finalData?: IConversationResponse } = {}
@@ -88,6 +90,7 @@ export const createConversationHandler = (conversationService: IConversationServ
         res.write(`${JSON.stringify({ type: StreamEventEnum.COMPLETE, ...finalData })}\n`)
       }
 
+      streamEnded = true
       res.end()
     } catch (error: unknown) {
       log.error("createConversationHandler", "error", { error })
