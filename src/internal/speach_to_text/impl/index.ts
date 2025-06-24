@@ -71,6 +71,7 @@ export class SpeachToTextService implements ISpeachToText {
     const userSessionsDir = session_folder || getStorageFilePath({})
     const fileExtension = audioFile.originalname.split(".").pop() || "wav"
     const storagePath = `${userSessionsDir}/${generateFileName("user-request", fileExtension)}`
+    const isSmallFile = audioFile.size < 500_000
 
     const gcsFile = gcsBucket.file(storagePath)
     const tmpFile = tmp.fileSync({ postfix: `.${fileExtension}` })
@@ -90,21 +91,42 @@ export class SpeachToTextService implements ISpeachToText {
 
       log.info("whisperSpeechToText", "Uploaded audio to GCS", { storagePath })
 
-      await pipeline(gcsFile.createReadStream(), fs.createWriteStream(localPath))
+      let response
 
-      log.info("whisperSpeechToText", "Downloaded audio from GCS", { localPath })
+      if (isSmallFile) {
+        await pipeline(gcsFile.createReadStream(), fs.createWriteStream(localPath))
+        log.info("whisperSpeechToText", "Downloaded audio from GCS", { localPath })
 
-      const file = fs.readFileSync(localPath)
-      const audioBytes = file.toString("base64")
+        const file = fs.readFileSync(localPath)
+        const audioBytes = file.toString("base64")
 
-      const [response] = await googleSTTClient.recognize({
-        audio: { content: audioBytes },
-        config: {
-          languageCode: language,
-          enableAutomaticPunctuation: true,
-          model: "default",
-        },
-      })
+        const [syncResponse] = await googleSTTClient.recognize({
+          audio: { content: audioBytes },
+          config: {
+            // encoding: "WEBM_OPUS",
+            // sampleRateHertz: 48000,
+            languageCode: language,
+            enableAutomaticPunctuation: true,
+            model: "default",
+          },
+        })
+
+        response = syncResponse
+      } else {
+        const [operation] = await googleSTTClient.longRunningRecognize({
+          audio: { uri: `gs://${gcsBucket.name}/${storagePath}` },
+          config: {
+            // encoding: "WEBM_OPUS",
+            // sampleRateHertz: 48000,
+            languageCode: language,
+            enableAutomaticPunctuation: true,
+            model: "default",
+          },
+        })
+
+        const [asyncResponse] = await operation.promise()
+        response = asyncResponse
+      }
 
       const transcription =
         response.results
