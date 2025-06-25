@@ -63,22 +63,17 @@ export class ConversationService implements IConversationService {
         session_id: system.session_id,
       })
 
-      // const findAlpha2Code = Languages?.find((item) => item.language.toLowerCase() === payload.target_language.toLowerCase())?.language_iso?.toLowerCase()
-
-      // if (!findAlpha2Code) {
-      //   throw new Error("Can't find alpha2 code by country")
-      // }
-
-      // const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
-
       const targetLanguage = Languages?.find((item) => item.language.toLowerCase() === payload.target_language.toLowerCase())
       const languageCode = targetLanguage?.language_codes[0] || targetLanguage?.language_iso?.toLowerCase()
+      const findAlpha2Code = targetLanguage?.language_iso?.toLowerCase()
 
-      if (!languageCode) {
+      if (!languageCode || !findAlpha2Code) {
         throw new Error("Can't find language code by country")
       }
 
-      const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
+      // const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
+      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
+
       const sessionDataPromise = this.getSessionData(system.session_id)
 
       const [whisperResult, sessionData] = await Promise.all([whisperPromise, sessionDataPromise])
