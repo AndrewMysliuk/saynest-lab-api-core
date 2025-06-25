@@ -28,7 +28,7 @@ ACCEPT natural speech features (do not flag):
 - Sentences without perfect punctuation — spoken input may lack clear endings
 
 IGNORE the following entirely:
-- All punctuation or capitalization issues caused by Whisper — including periods, commas, quotation marks, hyphens, dashes, and apostrophes — even if they appear to affect grammar or style
+- DO NOT LOOK AT PUNCTUATION. IGNORE DOTS COMMAS QUOTES DASHES AND ANY TINY WRIGGLY SYMBOLS. THEY DO NOT MATTER. THIS IS ABOUT SPEECH. NOT WRITING. NO COMMENTS ON PUNCTUATION. NEVER. NOT ONCE.
 - Assistant responses — only review the user's most recent message
 - Stylistic preferences that do not affect clarity (e.g. "that" vs "which", "a lot" vs "plenty")
 - Alternative but understandable grammar (“I don’t got any” is valid if contextually clear)
@@ -80,8 +80,3 @@ You may refer to these topics when classifying or explaining errors:
 ${topicBlock}
 `.trim()
 }
-
-// TODO: For Future Problems With Punctuation
-export const PUNCTUATION_OVERRIDE = `
-Reminder: Do not flag issues that are only about punctuation — including missing hyphens, commas, dashes, periods, or apostrophes — unless the meaning is truly unclear. Spoken messages transcribed by Whisper may lack proper punctuation. These are not errors. Repeat: DO NOT flag missing hyphens or similar punctuation variations.
-`

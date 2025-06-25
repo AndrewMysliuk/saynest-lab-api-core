@@ -154,9 +154,21 @@ export class ConversationService implements IConversationService {
           //   undefined,
           //   false,
           // )
-          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
+
+          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
+          //   {
+          //     ...tts,
+          //     input: sentence,
+          //   },
+          //   undefined,
+          //   undefined,
+          //   false,
+          // )
+
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamGoogle(
             {
               ...tts,
+              language_code: languageCode,
               input: sentence,
             },
             undefined,
@@ -166,47 +178,49 @@ export class ConversationService implements IConversationService {
 
           for await (const audioChunk of ttsGen) {
             allAudioChunks.push(audioChunk)
-            yield {
-              type: StreamEventEnum.TTS_CHUNK,
-              role: "assistant",
-              audioChunk,
-            }
+
+            // yield {
+            //   type: StreamEventEnum.TTS_CHUNK,
+            //   role: "assistant",
+            //   audioChunk,
+            // }
           }
         }
       }
 
-      if (sentenceBuffer.length > 0) {
-        const finalSentence = sentenceBuffer.join("").trim()
-        if (finalSentence.length > 0) {
-          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
-          //   {
-          //     ...tts,
-          //     input: finalSentence,
-          //   },
-          //   undefined,
-          //   undefined,
-          //   false,
-          // )
-          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
-            {
-              ...tts,
-              input: finalSentence,
-            },
-            undefined,
-            undefined,
-            false,
-          )
+      // if (sentenceBuffer.length > 0) {
+      //   const finalSentence = sentenceBuffer.join("").trim()
+      //   if (finalSentence.length > 0) {
+      // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+      //   {
+      //     ...tts,
+      //     input: finalSentence,
+      //   },
+      //   undefined,
+      //   undefined,
+      //   false,
+      // )
 
-          for await (const audioChunk of ttsGen) {
-            allAudioChunks.push(audioChunk)
-            yield {
-              type: StreamEventEnum.TTS_CHUNK,
-              role: "assistant",
-              audioChunk,
-            }
-          }
-        }
-      }
+      // const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
+      //   {
+      //     ...tts,
+      //     input: finalSentence,
+      //   },
+      //   undefined,
+      //   undefined,
+      //   false,
+      // )
+
+      //     for await (const audioChunk of ttsGen) {
+      //       allAudioChunks.push(audioChunk)
+      //       yield {
+      //         type: StreamEventEnum.TTS_CHUNK,
+      //         role: "assistant",
+      //         audioChunk,
+      //       }
+      //     }
+      //   }
+      // }
 
       // const fileExtension = tts?.response_format || "mp3"
       const fileExtension = "mp3"
@@ -219,6 +233,15 @@ export class ConversationService implements IConversationService {
           contentType: `audio/${fileExtension}`,
         },
       })
+
+      const audioUrl = await getSignedUrlFromStoragePath(storagePath)
+
+      // Google TTS audio play solution
+      yield {
+        type: StreamEventEnum.TTS_LINK,
+        role: "assistant",
+        audioUrl,
+      }
 
       yield {
         type: StreamEventEnum.GPT_FULL_RESPONSE,
@@ -238,7 +261,7 @@ export class ConversationService implements IConversationService {
         role: "assistant",
         content: replyText,
         audio_path: storagePath,
-        audio_url: await getSignedUrlFromStoragePath(storagePath),
+        audio_url: audioUrl,
         created_at: new Date(),
       } as IConversationHistory
 

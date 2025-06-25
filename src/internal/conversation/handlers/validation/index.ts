@@ -51,17 +51,23 @@ export const gptModelSchema = z.object({
 //   stream: z.boolean().optional(),
 // })
 
+// export const ttsSchema = z.object({
+//   input: z.string().optional(),
+//   voice: z.string(),
+//   model: z.string().optional(),
+//   response_format: z.enum(["mp3", "wav", "ogg"]).optional(),
+//   voice_settings: z
+//     .object({
+//       stability: z.number().optional(),
+//       similarity_boost: z.number().optional(),
+//     })
+//     .optional(),
+// })
+
 export const ttsSchema = z.object({
   input: z.string().optional(),
-  voice: z.string(),
-  model: z.string().optional(),
-  response_format: z.enum(["mp3", "wav", "ogg"]).optional(),
-  voice_settings: z
-    .object({
-      stability: z.number().optional(),
-      similarity_boost: z.number().optional(),
-    })
-    .optional(),
+  language_code: z.string(),
+  response_format: z.enum(["mp3", "wav"]),
 })
 
 export const systemSchema = z.object({

@@ -103,8 +103,6 @@ export class SpeachToTextService implements ISpeachToText {
         const [syncResponse] = await googleSTTClient.recognize({
           audio: { content: audioBytes },
           config: {
-            // encoding: "WEBM_OPUS",
-            // sampleRateHertz: 48000,
             languageCode: language,
             enableAutomaticPunctuation: true,
             model: "default",
@@ -116,8 +114,6 @@ export class SpeachToTextService implements ISpeachToText {
         const [operation] = await googleSTTClient.longRunningRecognize({
           audio: { uri: `gs://${gcsBucket.name}/${storagePath}` },
           config: {
-            // encoding: "WEBM_OPUS",
-            // sampleRateHertz: 48000,
             languageCode: language,
             enableAutomaticPunctuation: true,
             model: "default",

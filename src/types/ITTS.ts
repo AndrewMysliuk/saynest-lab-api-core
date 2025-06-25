@@ -24,3 +24,9 @@ export interface ITTSElevenLabsPayload {
   model?: string
   voice_settings?: IVoiceSettings
 }
+
+export interface ITTSGooglePayload {
+  input?: string
+  language_code: string
+  response_format: string
+}

@@ -1,10 +1,12 @@
+import { protos } from "@google-cloud/text-to-speech"
 import axios from "axios"
 import { Readable } from "stream"
 
-import { gcsBucket, openaiREST, serverConfig } from "../../../config"
-import { ITTSElevenLabsPayload, ITTSPayload } from "../../../types"
+import { gcsBucket, googleTTSClient, openaiREST, serverConfig } from "../../../config"
+import { ITTSElevenLabsPayload, ITTSGooglePayload, ITTSPayload } from "../../../types"
 import { createScopedLogger, generateFileName, getStorageFilePath, normalizeAudioStream } from "../../../utils"
 import { ITextToSpeach } from "../index"
+import { defaultFemaleVoiceGoogle } from "./helpers"
 
 const log = createScopedLogger("textToSpeechService")
 
@@ -118,6 +120,57 @@ export class TextToSpeachService implements ITextToSpeach {
       }
     } catch (error) {
       log.error(method, "Error during ElevenLabs TTS", { error })
+      throw error
+    }
+  }
+
+  async *ttsTextToSpeechStreamGoogle(payload: ITTSGooglePayload, session_folder?: string, output?: { filePath?: string }, saveToFile: boolean = false): AsyncGenerator<Buffer, void> {
+    const method = "ttsTextToSpeechStreamGoogle"
+
+    try {
+      const userSessionsDir = session_folder ?? getStorageFilePath({})
+      const fileExtension = payload?.response_format || "mp3"
+      const fileName = generateFileName("model-response", fileExtension)
+      const storagePath = `${userSessionsDir}/${fileName}`
+      const gcsFile = gcsBucket.file(storagePath)
+
+      log.info(method, "Starting Google TTS generation", {
+        inputLength: payload.input?.length,
+        voice: defaultFemaleVoiceGoogle[payload.language_code],
+        response_format: fileExtension,
+      })
+
+      const request = {
+        input: { text: payload.input },
+        voice: {
+          languageCode: payload.language_code,
+          name: defaultFemaleVoiceGoogle[payload.language_code],
+        },
+        audioConfig: {
+          audioEncoding: fileExtension.toLowerCase() === "mp3" ? protos.google.cloud.texttospeech.v1.AudioEncoding.MP3 : protos.google.cloud.texttospeech.v1.AudioEncoding.LINEAR16,
+          // speakingRate: 1.25,
+          speakingRate: 1.1,
+          pitch: 0.0,
+          volumeGainDb: 0.0,
+        },
+      }
+
+      const [response] = await googleTTSClient.synthesizeSpeech(request)
+      const audioBuffer: Buffer = response.audioContent as Buffer
+
+      yield audioBuffer
+
+      if (saveToFile) {
+        await gcsFile.save(audioBuffer, {
+          metadata: {
+            contentType: `audio/${fileExtension}`,
+          },
+        })
+        if (output) output.filePath = storagePath
+        log.info(method, "Google TTS audio saved to GCS", { storagePath })
+      }
+    } catch (error) {
+      log.error(method, "Error during Google TTS generation", { error })
       throw error
     }
   }
