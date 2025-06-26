@@ -71,8 +71,8 @@ export class ConversationService implements IConversationService {
         throw new Error("Can't find language code by country")
       }
 
-      // const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
-      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
+      const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
+      // const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
 
       const sessionDataPromise = this.getSessionData(system.session_id)
 
@@ -183,39 +183,50 @@ export class ConversationService implements IConversationService {
         }
       }
 
-      // if (sentenceBuffer.length > 0) {
-      //   const finalSentence = sentenceBuffer.join("").trim()
-      //   if (finalSentence.length > 0) {
-      // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
-      //   {
-      //     ...tts,
-      //     input: finalSentence,
-      //   },
-      //   undefined,
-      //   undefined,
-      //   false,
-      // )
+      if (sentenceBuffer.length > 0) {
+        const finalSentence = sentenceBuffer.join("").trim()
 
-      // const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
-      //   {
-      //     ...tts,
-      //     input: finalSentence,
-      //   },
-      //   undefined,
-      //   undefined,
-      //   false,
-      // )
+        if (finalSentence.length > 0) {
+          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStream(
+          //   {
+          //     ...tts,
+          //     input: finalSentence,
+          //   },
+          //   undefined,
+          //   undefined,
+          //   false,
+          // )
+          // const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamElevenLabs(
+          //   {
+          //     ...tts,
+          //     input: finalSentence,
+          //   },
+          //   undefined,
+          //   undefined,
+          //   false,
+          // )
 
-      //     for await (const audioChunk of ttsGen) {
-      //       allAudioChunks.push(audioChunk)
-      //       yield {
-      //         type: StreamEventEnum.TTS_CHUNK,
-      //         role: "assistant",
-      //         audioChunk,
-      //       }
-      //     }
-      //   }
-      // }
+          const ttsGen = this.textToSpeachService.ttsTextToSpeechStreamGoogle(
+            {
+              ...tts,
+              language_code: languageCode,
+              input: finalSentence,
+            },
+            undefined,
+            undefined,
+            false,
+          )
+
+          for await (const audioChunk of ttsGen) {
+            allAudioChunks.push(audioChunk)
+            // yield {
+            //   type: StreamEventEnum.TTS_CHUNK,
+            //   role: "assistant",
+            //   audioChunk,
+            // }
+          }
+        }
+      }
 
       // const fileExtension = tts?.response_format || "mp3"
       const fileExtension = "mp3"
