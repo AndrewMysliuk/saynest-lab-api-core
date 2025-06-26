@@ -71,8 +71,8 @@ export class ConversationService implements IConversationService {
         throw new Error("Can't find language code by country")
       }
 
-      const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
-      // const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
+      // const whisperPromise = this.speachToTextService.CloudSpeechToText(whisper.audio_file, languageCode, sessionDir)
+      const whisperPromise = this.speachToTextService.whisperSpeechToText(whisper.audio_file, whisper?.prompt, findAlpha2Code, sessionDir)
 
       const sessionDataPromise = this.getSessionData(system.session_id)
 
