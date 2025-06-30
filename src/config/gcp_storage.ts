@@ -1,4 +1,4 @@
-import { Storage } from "@google-cloud/storage"
+import { Bucket, Storage } from "@google-cloud/storage"
 import path from "path"
 
 import { serverConfig } from "./server_config"
@@ -11,10 +11,11 @@ const gcs = isRunningInGCP
       keyFilename: path.resolve(__dirname, "../../speak-mate-mvp-5f8c7bbc58d1.json"),
     })
 
-export const gcsBucket = gcs.bucket(serverConfig.GCS_BUCKET_NAME)
+export const gcsConversationBucket = gcs.bucket(serverConfig.GCS_BUCKET_NAME)
+export const gcsVocabularyBucket = gcs.bucket(serverConfig.GCS_VOCABULARY_BUCKET_NAME)
 
-export async function getSignedUrlFromStoragePath(storagePath: string, expiresInMs = 5 * 60 * 1000): Promise<string> {
-  const file = gcsBucket.file(storagePath)
+export async function getSignedUrlFromBucket(bucket: Bucket, filePath: string, expiresInMs = 5 * 60 * 1000): Promise<string> {
+  const file = bucket.file(filePath)
 
   const [signedUrl] = await file.getSignedUrl({
     action: "read",

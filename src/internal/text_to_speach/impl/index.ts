@@ -1,10 +1,11 @@
 import { protos } from "@google-cloud/text-to-speech"
 import axios from "axios"
 import { Readable } from "stream"
+import { text } from "stream/consumers"
 
-import { gcsBucket, googleTTSClient, openaiREST, serverConfig } from "../../../config"
+import { gcsConversationBucket, gcsVocabularyBucket, googleTTSClient, openaiREST, serverConfig } from "../../../config"
 import { ITTSElevenLabsPayload, ITTSGooglePayload, ITTSPayload } from "../../../types"
-import { createScopedLogger, generateFileName, getStorageFilePath, normalizeAudioStream } from "../../../utils"
+import { createScopedLogger, generateFileName, getStorageFilePath, normalizeAudioStream, sanitizeWordForFilename } from "../../../utils"
 import { ITextToSpeach } from "../index"
 import { defaultFemaleVoiceGoogle } from "./helpers"
 
@@ -18,7 +19,7 @@ export class TextToSpeachService implements ITextToSpeach {
       const fileExtension = payload?.response_format || "mp3"
       const fileName = generateFileName("model-response", fileExtension)
       const storagePath = `${userSessionsDir}/${fileName}`
-      const gcsFile = gcsBucket.file(storagePath)
+      const gcsFile = gcsConversationBucket.file(storagePath)
 
       log.info(method, "Starting OpenAI TTS generation", {
         inputLength: payload.input?.length,
@@ -65,7 +66,7 @@ export class TextToSpeachService implements ITextToSpeach {
       const fileExtension = "mp3"
       const fileName = generateFileName("model-response", fileExtension)
       const storagePath = `${userSessionsDir}/${fileName}`
-      const gcsFile = gcsBucket.file(storagePath)
+      const gcsFile = gcsConversationBucket.file(storagePath)
 
       const voice_id = payload.voice || "EXAVITQu4vr4xnSDxMaL"
       const model_id = payload.model || "eleven_multilingual_v2"
@@ -132,7 +133,7 @@ export class TextToSpeachService implements ITextToSpeach {
       const fileExtension = payload?.response_format || "mp3"
       const fileName = generateFileName("model-response", fileExtension)
       const storagePath = `${userSessionsDir}/${fileName}`
-      const gcsFile = gcsBucket.file(storagePath)
+      const gcsFile = gcsConversationBucket.file(storagePath)
 
       log.info(method, "Starting Google TTS generation", {
         inputLength: payload.input?.length,
@@ -175,30 +176,42 @@ export class TextToSpeachService implements ITextToSpeach {
     }
   }
 
-  async ttsTextToSpeechBase64(payload: ITTSPayload, word: string): Promise<string> {
-    const method = "ttsTextToSpeechBase64"
+  async textToSpeechForDictionaryWords(payload: ITTSGooglePayload, word: string): Promise<string> {
+    const method = "textToSpeechForDictionaryWords"
     try {
-      const response = await openaiREST.audio.speech.create({
-        model: payload.model,
-        voice: payload.voice,
-        input: word,
-        response_format: "wav",
+      const fileExtension = payload?.response_format || "mp3"
+      const voiceName = defaultFemaleVoiceGoogle[payload.language_code]
+      const sanitizedWord = sanitizeWordForFilename(word)
+      const lang = payload.language_code
+
+      const request = {
+        input: { text: word },
+        voice: {
+          languageCode: lang,
+          name: voiceName,
+        },
+        audioConfig: {
+          audioEncoding: fileExtension.toLowerCase() === "mp3" ? protos.google.cloud.texttospeech.v1.AudioEncoding.MP3 : protos.google.cloud.texttospeech.v1.AudioEncoding.LINEAR16,
+          speakingRate: 1,
+          pitch: 0.0,
+          volumeGainDb: 0.0,
+        },
+      }
+
+      const [response] = await googleTTSClient.synthesizeSpeech(request)
+      const audioBuffer: Buffer = response.audioContent as Buffer
+
+      const gcsPath = `vocabularies-audio/${lang}/${sanitizedWord}.${fileExtension.toLowerCase()}`
+      const file = gcsVocabularyBucket.file(gcsPath)
+
+      await file.save(audioBuffer, {
+        contentType: `audio/${fileExtension.toLowerCase() === "mp3" ? "mpeg" : "wav"}`,
+        resumable: false,
       })
 
-      const arrayBuffer = await response.arrayBuffer()
-      const buffer = Buffer.from(arrayBuffer)
-      const base64 = buffer.toString("base64")
-
-      log.info(method, "Generated base64 audio", {
-        model: payload.model,
-        voice: payload.voice,
-        word,
-        size: buffer.length,
-      })
-
-      return `data:audio/wav;base64,${base64}`
+      return gcsPath
     } catch (error) {
-      log.error(method, "Error during base64 TTS generation", { error })
+      log.error(method, "Error during TTS generation or upload", { error })
       throw error
     }
   }

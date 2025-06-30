@@ -38,7 +38,6 @@ export const updateUserProgressSchema = z.object({
   total_session_duration: z.number().nonnegative().optional(),
   cefr_history: z.array(cefrHistorySchema).optional(),
   error_stats: z.array(errorStatsSchema).optional(),
-  filler_words_usage: z.array(fillerWordsUsageSchema).optional(),
   completed_prompts: z.record(z.string(), z.number()).optional(),
   tasks: z.array(tasksSchema).optional(),
   current_day_streak: z.number().nonnegative().optional(),

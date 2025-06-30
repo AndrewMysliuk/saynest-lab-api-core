@@ -1,7 +1,7 @@
 import mongoose, { ClientSession, Types } from "mongoose"
 
 import { ICommunicationReviewService } from ".."
-import { cleanUserSessionFiles, deleteUserFiles, getSignedUrlFromStoragePath, openaiREST } from "../../../config"
+import { cleanUserSessionFiles, deleteUserFiles, gcsConversationBucket, getSignedUrlFromBucket, openaiREST } from "../../../config"
 import {
   GPTRoleType,
   ICommunicationReview,
@@ -17,7 +17,6 @@ import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
-import { IVocabularyTracker } from "../../vocabulary_tracker"
 import { IRepository } from "../storage"
 import GenerateStatisticSchema from "./json_schema/generate_statistic.schema.json"
 import { buildSystemPrompt, buildUserPrompt } from "./prompt"
@@ -27,22 +26,13 @@ const log = createScopedLogger("CommunicationReviewService")
 export class CommunicationReviewService implements ICommunicationReviewService {
   private readonly communicationReviewRepo: IRepository
   private readonly errorAnalysisService: IErrorAnalysis
-  private readonly vocabularyTrackerService: IVocabularyTracker
   private readonly conversationService: IConversationService
   private readonly sessionService: ISessionService
   private readonly promptService: IPromptService
 
-  constructor(
-    communicationReviewRepo: IRepository,
-    errorAnalysisService: IErrorAnalysis,
-    vocabularyTrackerService: IVocabularyTracker,
-    conversationService: IConversationService,
-    sessionService: ISessionService,
-    promptService: IPromptService,
-  ) {
+  constructor(communicationReviewRepo: IRepository, errorAnalysisService: IErrorAnalysis, conversationService: IConversationService, sessionService: ISessionService, promptService: IPromptService) {
     this.communicationReviewRepo = communicationReviewRepo
     this.errorAnalysisService = errorAnalysisService
-    this.vocabularyTrackerService = vocabularyTrackerService
     this.conversationService = conversationService
     this.sessionService = sessionService
     this.promptService = promptService
@@ -60,18 +50,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       const historyList = await this.conversationService.listConversationHistory(dto.session_id)
 
-      const [prompt, errorsList, vocabularyList] = await Promise.all([
-        this.promptService.getScenario(dto.prompt_id),
-        this.errorAnalysisService.listConversationErrors(dto.session_id),
-        this.vocabularyTrackerService.searchFillersByHistory({
-          target_language: dto.target_language,
-          explanation_language: dto.explanation_language,
-          payload: {
-            model: "gpt-4o",
-          },
-          history: historyList,
-        }),
-      ])
+      const [prompt, errorsList] = await Promise.all([this.promptService.getScenario(dto.prompt_id), this.errorAnalysisService.listConversationErrors(dto.session_id)])
 
       if (!prompt) {
         throw new Error("Prompt not found.")
@@ -79,7 +58,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
         { role: "system", content: buildSystemPrompt(dto.target_language, dto.explanation_language, prompt) },
-        { role: "user", content: buildUserPrompt(historyList, errorsList, vocabularyList, dto.target_language, dto.explanation_language) },
+        { role: "user", content: buildUserPrompt(historyList, errorsList, dto.target_language, dto.explanation_language) },
       ]
 
       const response = await openaiREST.chat.completions.create({
@@ -139,7 +118,6 @@ export class CommunicationReviewService implements ICommunicationReviewService {
             explanation_language: dto.explanation_language,
             history: historyReview,
             error_analysis: errorsList,
-            vocabulary: vocabularyList,
             suggestion: modelResponse.suggestion,
             conclusion: modelResponse.conclusion,
             user_cefr_level: modelResponse.user_cefr_level,
@@ -187,7 +165,6 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       await Promise.all([
         this.conversationService.deleteAllBySessionId(review.session_id.toString()),
         this.errorAnalysisService.deleteAllBySessionId(review.session_id.toString()),
-        this.vocabularyTrackerService.deleteAllBySessionId(review.session_id.toString()),
         this.sessionService.deleteSession(review.session_id.toString()),
       ])
 
@@ -210,7 +187,6 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         this.communicationReviewRepo.deleteAllHistoryByUserId(user_id, options),
         this.conversationService.deleteAllByUserId(user_id, options),
         this.errorAnalysisService.deleteAllByUserId(user_id, options),
-        this.vocabularyTrackerService.deleteAllByUserId(user_id, options),
         this.sessionService.deleteAllByUserId(user_id, options),
       ])
 
@@ -250,7 +226,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         throw new Error(`History not found with pair_id: ${dto.pair_id}`)
       }
 
-      const newUrl = await getSignedUrlFromStoragePath(currentHistory.audio_path)
+      const newUrl = await getSignedUrlFromBucket(gcsConversationBucket, currentHistory.audio_path)
       currentHistory.audio_url = newUrl
 
       const newHistoryList = historyList.map((item) => (item.pair_id === dto.pair_id && item.role === dto.role ? currentHistory : item))

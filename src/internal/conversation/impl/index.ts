@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 import { v4 as uuidv4 } from "uuid"
 
-import { gcsBucket, getSignedUrlFromStoragePath } from "../../../config"
+import { gcsConversationBucket, getSignedUrlFromBucket } from "../../../config"
 import Languages from "../../../json_data/languages.json"
 import { ConversationStreamEvent, IConversationHistory, IConversationPayload, IConversationResponse, IMongooseOptions, StreamEventEnum } from "../../../types"
 import { PerfTimer, createScopedLogger, generateFileName, getStorageFilePath, trimConversationHistory } from "../../../utils"
@@ -232,7 +232,7 @@ export class ConversationService implements IConversationService {
       const fileExtension = "mp3"
       const filename = generateFileName("model-response", fileExtension)
       const storagePath = `${sessionDir}/${filename}`
-      const gcsFile = gcsBucket.file(storagePath)
+      const gcsFile = gcsConversationBucket.file(storagePath)
 
       await gcsFile.save(Buffer.concat(allAudioChunks), {
         metadata: {
@@ -240,7 +240,7 @@ export class ConversationService implements IConversationService {
         },
       })
 
-      const audioUrl = await getSignedUrlFromStoragePath(storagePath)
+      const audioUrl = await getSignedUrlFromBucket(gcsConversationBucket, storagePath)
 
       // Google TTS audio play solution
       yield {

@@ -8,13 +8,10 @@ import {
   IErrorImproveUserAnswer,
   IExpressionUsage,
   ILevelDiagnosis,
-  IMeaningEntity,
   IUserGoalEvaluation,
-  IVocabularyFillersEntity,
   IVocabularyUsage,
   IWord,
   IssueItem,
-  PartOfSpeechEnum,
   VocabularyFrequencyLevelEnum,
 } from "../../../../types"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
@@ -24,28 +21,6 @@ import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 export const MODEL_NAME = "communication_reviews"
 
 export type ICommunicationReviewDocument = ICommunicationReview & Document
-
-const MeaningSchema = new Schema<IMeaningEntity>(
-  {
-    part_of_speech: { type: String, enum: Object.values(PartOfSpeechEnum), required: true },
-    translation: { type: String, required: true },
-    meaning: { type: String, required: true },
-    synonyms: [{ type: String }],
-  },
-  { _id: false },
-)
-
-const VocabularySchema = new Schema<IVocabularyFillersEntity>(
-  {
-    target_language: { type: String, required: true },
-    explanation_language: { type: String, required: true },
-    word: { type: String, required: true },
-    frequency_level: { type: String, enum: Object.values(VocabularyFrequencyLevelEnum), required: true },
-    meanings: { type: [MeaningSchema], default: [] },
-    repeated_count: { type: Number, required: true },
-  },
-  { _id: false },
-)
 
 const ConversationHistorySchema = new Schema<IConversationHistory>(
   {
@@ -169,7 +144,6 @@ const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
     explanation_language: { type: String, required: true },
     history: { type: StatisticsHistorySchema, required: true },
     error_analysis: { type: [ErrorAnalysisSchema], default: [] },
-    vocabulary: { type: [VocabularySchema], default: [] },
     suggestion: { type: [String], required: true },
     conclusion: { type: String, required: true },
     user_cefr_level: { type: LevelDiagnosisSchema, required: true },

@@ -11,6 +11,7 @@ export interface IServerConfig {
   ACCESS_TOKEN_SECRET: string
   HCAPTCHA_SECRET_KEY: string
   GCS_BUCKET_NAME: string
+  GCS_VOCABULARY_BUCKET_NAME: string
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
   PADDLE_API_KEY: string

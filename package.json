@@ -11,7 +11,8 @@
     "build": "tsc",
     "start": "NODE_ENV=development node dist/index.js",
     "start_prod": "NODE_ENV=production node dist/index.js",
-    "migrate": "ts-node ./src/migrations/index.ts"
+    "migrate": "ts-node ./src/migrations/index.ts",
+    "generate_index": "ts-node ./src/utils/generate_index.ts"
   },
   "dependencies": {
     "@google-cloud/speech": "^7.1.0",
@@ -29,6 +30,7 @@
     "express": "^4.21.1",
     "google-auth-library": "^9.15.1",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "mongoose": "^8.8.1",
     "multer": "^1.4.5-lts.1",
     "openai": "^4.95.0",
@@ -48,6 +50,7 @@
     "@types/express": "^5.0.0",
     "@types/fluent-ffmpeg": "^2.1.27",
     "@types/jsonwebtoken": "^9.0.9",
+    "@types/lodash": "^4.17.19",
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.7.7",

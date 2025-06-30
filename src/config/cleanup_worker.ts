@@ -2,10 +2,9 @@ import { StatisticsModel } from "../internal/communication_review/storage/mongo/
 import { ConversationHistoryModel } from "../internal/conversation/storage/mongo/model"
 import { ErrorAnalysisModel } from "../internal/error_analysis/storage/mongo/model"
 import { SessionModel } from "../internal/session/storage/mongo/model"
-import { VocabularyModel } from "../internal/vocabulary_tracker/storage/mongo/model"
 import { ISessionIds } from "../types"
 import { createScopedLogger, getStorageFilePath } from "../utils"
-import { gcsBucket } from "./gcp_storage"
+import { gcsConversationBucket } from "./gcp_storage"
 
 const CLEAN_INTERVAL_MS = 60 * 60 * 1000
 const SESSION_EXPIRATION_MINUTES = 240
@@ -23,7 +22,7 @@ export async function deleteUserFiles(organization_id: string, user_id: string):
     }) + "/"
 
   try {
-    const [files] = await gcsBucket.getFiles({ prefix })
+    const [files] = await gcsConversationBucket.getFiles({ prefix })
 
     if (!files.length) {
       log.info("deleteUserFiles", "No files found for user folder", { prefix })
@@ -54,7 +53,7 @@ export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<
       }) + "/"
 
     try {
-      const [files] = await gcsBucket.getFiles({ prefix })
+      const [files] = await gcsConversationBucket.getFiles({ prefix })
 
       if (!files.length) {
         log.info("cleanUserSessionFiles", "No files found for session prefix", { prefix })
@@ -71,7 +70,7 @@ export async function cleanUserSessionFiles(sessionIds: ISessionIds[]): Promise<
   }
 
   try {
-    const [files] = await gcsBucket.getFiles({ prefix: `${envPrefix}/` })
+    const [files] = await gcsConversationBucket.getFiles({ prefix: `${envPrefix}/` })
     const rootLevelGarbage = files.filter((file) => {
       const parts = file.name.split("/")
       return parts.length === 2 && (parts[1].includes("user-request") || parts[1].includes("model-response"))
@@ -120,7 +119,6 @@ async function cleanExpiredSessions() {
       StatisticsModel.deleteMany({ session_id: { $in: sessionIds } }),
       ConversationHistoryModel.deleteMany({ session_id: { $in: sessionIds } }),
       ErrorAnalysisModel.deleteMany({ session_id: { $in: sessionIds } }),
-      VocabularyModel.deleteMany({ session_id: { $in: sessionIds } }),
       SessionModel.deleteMany({ _id: { $in: sessionIds } }),
     ])
 

@@ -1,4 +1,4 @@
-import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity, IVocabularyFillersEntity } from "../../../../types"
+import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity } from "../../../../types"
 
 export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
   const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
@@ -96,13 +96,7 @@ Your output must be only the JSON object. Do not include any additional commenta
 `.trim()
 }
 
-export const buildUserPrompt = (
-  historyList: IConversationHistory[],
-  errorsList: IErrorAnalysisEntity[],
-  vocabularyList: IVocabularyFillersEntity[],
-  target_language: string,
-  explanation_language: string,
-): string => {
+export const buildUserPrompt = (historyList: IConversationHistory[], errorsList: IErrorAnalysisEntity[], target_language: string, explanation_language: string): string => {
   const historySection = historyList.map((entry) => `[${entry.role.toUpperCase()} | ${entry.created_at.toISOString()}]: ${entry.content}`).join("\n")
 
   const errorsSection = errorsList.length
@@ -123,15 +117,6 @@ export const buildUserPrompt = (
         .join("\n\n")
     : "No errors detected."
 
-  const vocabularySection = vocabularyList.length
-    ? vocabularyList
-        .map((word, index) => {
-          const meanings = word.meanings.map((m) => `    - ${m.part_of_speech}: ${m.meaning} (translation: ${m.translation})`).join("\n")
-          return `${index + 1}. Word: "${word.word}"\n  Frequency Level: ${word.frequency_level}\n  Meanings:\n${meanings}`
-        })
-        .join("\n\n")
-    : "No vocabulary extracted."
-
   return `
 LANGUAGE: ${target_language}
 USER_NATIVE_LANGUAGE: ${explanation_language}
@@ -141,8 +126,5 @@ ${historySection}
 
 === USER LANGUAGE MISTAKES ===
 ${errorsSection}
-
-=== VOCABULARY USED ===
-${vocabularySection}
 `.trim()
 }

@@ -20,12 +20,6 @@ export interface IUserProgressErrorStats {
   trend: UserProgressTrendEnum
 }
 
-export interface IUserProgressFillerWordsUsage {
-  word: string
-  total_count: number
-  trend: UserProgressTrendEnum
-}
-
 export interface IUserProgressTasks {
   task_id: string
   type: TaskTypeEnum
@@ -44,7 +38,6 @@ export interface IUserProgressEntity {
   total_session_duration: number
   cefr_history: IUserProgressCefrHistory[]
   error_stats: IUserProgressErrorStats[]
-  filler_words_usage: IUserProgressFillerWordsUsage[]
   completed_prompts: {
     [prompt_id: string]: number // Кол-во раз, когда пользователь прошёл этот prompt
   }

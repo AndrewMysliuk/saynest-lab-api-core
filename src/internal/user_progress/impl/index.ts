@@ -1,16 +1,7 @@
 import { Types } from "mongoose"
 
 import { IUserProgressService } from ".."
-import {
-  IGenericTaskEntity,
-  IMongooseOptions,
-  IUserProgressApplyReviewStatsRequest,
-  IUserProgressEntity,
-  IUserProgressErrorStats,
-  IUserProgressFillerWordsUsage,
-  IUserProgressTasks,
-  IVocabularyFillersEntity,
-} from "../../../types"
+import { IGenericTaskEntity, IMongooseOptions, IUserProgressApplyReviewStatsRequest, IUserProgressEntity, IUserProgressErrorStats, IUserProgressTasks } from "../../../types"
 import { calculateStreak, createScopedLogger, getTrend } from "../../../utils"
 import { ICommunicationReviewService } from "../../communication_review"
 import { IPromptService } from "../../prompts_library"
@@ -189,7 +180,6 @@ export class UserProgressService implements IUserProgressService {
       const completed_prompts = { ...(progress.completed_prompts || {}) }
       completed_prompts[prompt.name] = (completed_prompts[prompt.name] || 0) + 1
 
-      const filler_words_usage = this.updateFillerStats(lastReview.vocabulary, progress.filler_words_usage)
       const error_stats = this.updateErrorStats(
         lastReview.error_analysis.flatMap((analysis) => analysis.issues.flatMap((issue) => issue.topic_titles)),
         progress.error_stats,
@@ -202,7 +192,6 @@ export class UserProgressService implements IUserProgressService {
           total_session_duration: totalSessionDuration,
           cefr_history,
           completed_prompts,
-          filler_words_usage,
           error_stats,
         },
         new Types.ObjectId(user_id),
@@ -214,31 +203,6 @@ export class UserProgressService implements IUserProgressService {
       })
       throw error
     }
-  }
-
-  private updateFillerStats(fillerWordsList: IVocabularyFillersEntity[], fillerWordsUsage: IUserProgressFillerWordsUsage[]): IUserProgressFillerWordsUsage[] {
-    const prevMap = new Map<string, IUserProgressFillerWordsUsage>()
-    for (const word of fillerWordsUsage) {
-      prevMap.set(word.word.toLowerCase(), { ...word })
-    }
-
-    for (const entry of fillerWordsList) {
-      const word = entry.word.toLowerCase()
-      const newCount = entry.repeated_count
-
-      const prevEntry = prevMap.get(word)
-      const prevCount = prevEntry ? prevEntry.total_count : 0
-
-      const trend = getTrend(prevCount, newCount)
-
-      prevMap.set(word, {
-        word,
-        total_count: newCount,
-        trend,
-      })
-    }
-
-    return Array.from(prevMap.values()).sort((a, b) => b.total_count - a.total_count)
   }
 
   private updateErrorStats(errorTopicTitles: string[], prevErrorStats: IUserProgressErrorStats[]): IUserProgressErrorStats[] {

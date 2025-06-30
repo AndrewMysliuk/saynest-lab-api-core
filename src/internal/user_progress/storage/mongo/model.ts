@@ -25,15 +25,6 @@ const errorStatsSchema = new Schema(
   { _id: false },
 )
 
-const fillerWordsUsageSchema = new Schema(
-  {
-    word: { type: String, required: true },
-    total_count: { type: Number, required: true },
-    trend: { type: String, enum: Object.values(UserProgressTrendEnum), required: true },
-  },
-  { _id: false },
-)
-
 const tasksSchema = new Schema(
   {
     task_id: { type: String, required: true },
@@ -55,7 +46,6 @@ const userProgressSchema = new Schema<IUserProgressDocument>(
     total_session_duration: { type: Number, required: true },
     cefr_history: [cefrHistorySchema],
     error_stats: [errorStatsSchema],
-    filler_words_usage: [fillerWordsUsageSchema],
     completed_prompts: {
       type: Map,
       of: Number,

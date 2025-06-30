@@ -2,7 +2,7 @@ import fs from "fs"
 import { pipeline } from "stream/promises"
 import tmp from "tmp"
 
-import { gcsBucket, getSignedUrlFromStoragePath, googleSTTClient, openaiREST } from "../../../config"
+import { gcsConversationBucket, getSignedUrlFromBucket, googleSTTClient, openaiREST } from "../../../config"
 import { IWhisperHandlerResponse } from "../../../types"
 import { createScopedLogger, generateFileName, getStorageFilePath } from "../../../utils"
 import { ISpeachToText } from "../index"
@@ -15,7 +15,7 @@ export class SpeachToTextService implements ISpeachToText {
     const fileExtension = audioFile.originalname.split(".").pop() || "wav"
     const storagePath = `${userSessionsDir}/${generateFileName("user-request", fileExtension)}`
 
-    const gcsFile = gcsBucket.file(storagePath)
+    const gcsFile = gcsConversationBucket.file(storagePath)
     const tmpFile = tmp.fileSync({ postfix: `.${fileExtension}` })
     const localPath = tmpFile.name
 
@@ -52,7 +52,7 @@ export class SpeachToTextService implements ISpeachToText {
       return {
         transcription: response.text,
         user_audio_path: storagePath,
-        user_audio_url: await getSignedUrlFromStoragePath(storagePath),
+        user_audio_url: await getSignedUrlFromBucket(gcsConversationBucket, storagePath),
       }
     } catch (error) {
       log.error("whisperSpeechToText", "Failed during transcription", { error })
@@ -73,7 +73,7 @@ export class SpeachToTextService implements ISpeachToText {
     const storagePath = `${userSessionsDir}/${generateFileName("user-request", fileExtension)}`
     const isSmallFile = audioFile.size < 500_000
 
-    const gcsFile = gcsBucket.file(storagePath)
+    const gcsFile = gcsConversationBucket.file(storagePath)
     const tmpFile = tmp.fileSync({ postfix: `.${fileExtension}` })
     const localPath = tmpFile.name
 
@@ -112,7 +112,7 @@ export class SpeachToTextService implements ISpeachToText {
         response = syncResponse
       } else {
         const [operation] = await googleSTTClient.longRunningRecognize({
-          audio: { uri: `gs://${gcsBucket.name}/${storagePath}` },
+          audio: { uri: `gs://${gcsConversationBucket.name}/${storagePath}` },
           config: {
             languageCode: language,
             enableAutomaticPunctuation: true,
@@ -138,7 +138,7 @@ export class SpeachToTextService implements ISpeachToText {
       return {
         transcription,
         user_audio_path: storagePath,
-        user_audio_url: await getSignedUrlFromStoragePath(storagePath),
+        user_audio_url: await getSignedUrlFromBucket(gcsConversationBucket, storagePath),
       }
     } catch (error) {
       log.error("whisperSpeechToText", "Failed during transcription", { error })

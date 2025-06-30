@@ -1,8 +1,5 @@
 import { Types } from "mongoose"
 
-import { IConversationHistory } from "./IConversation"
-import { IGPTPayload } from "./IGPT"
-
 export enum VocabularyFrequencyLevelEnum {
   A1 = "A1",
   A2 = "A2",
@@ -27,65 +24,60 @@ export enum PartOfSpeechEnum {
   determiner = "determiner", // определяющее слово (например, this, those)
 }
 
-export interface IMeaningEntity {
-  part_of_speech: PartOfSpeechEnum
-  translation: string
-  meaning: string
-  synonyms: string[]
+export interface IGlobalWordSenses {
+  translations: string[] // краткий перевод
+  definitions: string[] // пояснение/описание
+  examples: string[] // примеры предложений
+  synonyms: string[] // опционально
 }
 
-export interface IVocabularyEntity {
+export interface IGlobalWord {
+  _id: Types.ObjectId
+  word: string // само слово
+  target_language: string // язык слова (ISO 639-1)
+  native_language: string // язык перевода (ISO 639-1)
+  part_of_speech?: PartOfSpeechEnum
+  senses: IGlobalWordSenses[]
+  audio_url: string | null // ссылка на аудио (CDN или TTS)
+  audio_url_request: string | null // запрос ссылки на бакете
+  used_fallback: boolean // был ли использован en как промежуточный
+  created_at: Date
+  updated_at: Date
+}
+
+export enum IUserWordTierEnum {
+  UNKNOWN = 1, // Впервые видит слово
+  RECOGNIZABLE = 2, // Что-то знакомое, но неуверен
+  CONTEXTUAL = 3, // Понимает в контексте, но не использует
+  MASTERED = 4, // Уверенно знает и использует
+}
+
+export interface IUserWord {
   _id: Types.ObjectId
   user_id: Types.ObjectId
-  organization_id: Types.ObjectId
-  session_id: Types.ObjectId
-  target_language: string
-  explanation_language: string
-  word: string
-  frequency_level: VocabularyFrequencyLevelEnum
-  meanings: IMeaningEntity[]
-  audio_base64: string | null
-  updated_at: Date
+  global_word_id: Types.ObjectId
+  tier: IUserWordTierEnum
   created_at: Date
+  updated_at: Date
 }
 
-export interface IVocabularyJSONEntity {
-  target_language: string
-  explanation_language: string
+export interface IUserWordListFilters {
+  target_language?: string
+  native_language?: string
+}
+
+export interface IUserWordPublic {
+  _id: Types.ObjectId
+  user_id: Types.ObjectId | null
+  global_word_entity: Partial<IGlobalWord>
+  tier: IUserWordTierEnum | null
+  created_at: Date
+  updated_at: Date
+}
+
+export interface IUserWordLookUpRequest {
   word: string
-  frequency_level: VocabularyFrequencyLevelEnum
-  meanings: IMeaningEntity[]
-  audio_base64: string | null
-}
-
-export interface IVocabularyEntityWrapper {
-  entries: IVocabularyJSONEntity[]
-}
-
-export interface IVocabularyFillersEntity {
   target_language: string
-  explanation_language: string
-  word: string
-  frequency_level: VocabularyFrequencyLevelEnum
-  meanings: IMeaningEntity[]
-  repeated_count: number
-}
-
-export interface IVocabularyFillersEntityWrapper {
-  entries: IVocabularyFillersEntity[]
-}
-
-export interface IWordExplanationRequest {
-  session_id: string
-  target_language: string
-  explanation_language: string
-  word: string
-}
-
-export interface ISearchSynonymsRequest {
-  payload: IGPTPayload
-  history: IConversationHistory[]
-  // session_id: string
-  target_language: string
-  explanation_language: string
+  native_language: string
+  user_id: string
 }

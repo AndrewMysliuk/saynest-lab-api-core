@@ -13,7 +13,8 @@ import { MODEL_NAME as SUBSCRIPTION_TABLE } from "../internal/subscription/stora
 import { MODEL_NAME as TASK_TABLE } from "../internal/task_generator/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../internal/user/storage/mongo/model"
 import { MODEL_NAME as USER_PROGRESS_TABLE } from "../internal/user_progress/storage/mongo/model"
-import { MODEL_NAME as VOCABULARY_TABLE } from "../internal/vocabulary_tracker/storage/mongo/model"
+import { MODEL_NAME as GLOBAL_WORD_TABLE } from "../internal/vocabulary/storage/mongo/global_word_model"
+import { MODEL_NAME as USER_WORD_TABLE } from "../internal/vocabulary/storage/mongo/user_word_model"
 import { createScopedLogger } from "../utils/logger"
 import { serverConfig } from "./server_config"
 
@@ -28,7 +29,8 @@ const CURRENT_TABLES = [
   SESSION_TABLE,
   CONVERSATION_TABLE,
   ERROR_ANALYSIS_TABLE,
-  VOCABULARY_TABLE,
+  GLOBAL_WORD_TABLE,
+  USER_WORD_TABLE,
   COMMUNICATION_REVIEWS_TABLE,
   TASK_TABLE,
   USER_PROGRESS_TABLE,

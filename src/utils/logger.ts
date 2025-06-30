@@ -14,12 +14,22 @@ export const createScopedLogger = (module: string) => {
 
   const scopedLog = (level: "info" | "error" | "warn") => {
     return (method: string, message: string, dto?: Record<string, any>) => {
+      const transformed = { ...(dto || {}) }
+
+      if (transformed.error instanceof Error) {
+        transformed.error = {
+          message: transformed.error.message,
+          name: transformed.error.name,
+          stack: transformed.error.stack,
+        }
+      }
+
       baseLogger.log({
         level,
         severity: level.toUpperCase(),
         message,
         method,
-        ...(dto || {}),
+        ...transformed,
       })
     }
   }

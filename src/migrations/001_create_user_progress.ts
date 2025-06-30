@@ -20,7 +20,6 @@ export async function runMigration(): Promise<void> {
         total_session_duration: 0,
         cefr_history: [],
         error_stats: [],
-        filler_words_usage: [],
         completed_prompts: {},
         tasks: [],
         current_day_streak: 0,

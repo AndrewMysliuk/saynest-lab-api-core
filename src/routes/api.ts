@@ -44,9 +44,9 @@ import { UserRepository } from "../internal/user/storage/mongo/repository"
 import { UserProgressService } from "../internal/user_progress/impl"
 import { createUserProgressRouter } from "../internal/user_progress/router"
 import { UserProgressRepository } from "../internal/user_progress/storage/mongo/repository"
-import { VocabularyTrackerService } from "../internal/vocabulary_tracker/impl"
-import { createVocabularyTrackerRouter } from "../internal/vocabulary_tracker/router"
-import { VocabularyRepository } from "../internal/vocabulary_tracker/storage/mongo/repository"
+import { VocabularyService } from "../internal/vocabulary/impl"
+import { createVocabularyRouter } from "../internal/vocabulary/router"
+import { VocabularyRepository } from "../internal/vocabulary/storage/mongo/repository"
 import { authMiddleware, createActivityMiddleware, createPaddleMiddleware, superUserOnlyMiddleware } from "../middlewares"
 
 // Repositories
@@ -73,10 +73,10 @@ const languageTheoryService = new LanguageTheoryService()
 const speachToTextService = new SpeachToTextService()
 const textToSpeachService = new TextToSpeachService()
 const textAnalysisService = new TextAnalysisService()
-const vocabularyTrackerService = new VocabularyTrackerService(vocabularyRepo, textToSpeachService)
+const vocabularyService = new VocabularyService(vocabularyRepo, textToSpeachService)
 const errorAnalysisService = new ErrorAnalysisService(errorAnalysisRepository, languageTheoryService, promptService)
 const conversationService = new ConversationService(historyRepo, sessionService, speachToTextService, textAnalysisService, textToSpeachService)
-const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, vocabularyTrackerService, conversationService, sessionService, promptService)
+const communicationReviewService = new CommunicationReviewService(communicationReviewRepo, errorAnalysisService, conversationService, sessionService, promptService)
 const userProgressService = new UserProgressService(userProgressRepo, sessionService, communicationReviewService, promptService)
 const authService = new AuthService(authRepo, userService, organisationService, userProgressService)
 const taskGeneratorService = new TaskGeneratorService(taskGeneratorRepo, communicationReviewService, promptService)
@@ -91,7 +91,7 @@ apiRouter.use("/org", authMiddleware, createActivityMiddleware(userProgressServi
 apiRouter.use("/user-progress", authMiddleware, createUserProgressRouter(userProgressService))
 apiRouter.use("/session", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createSessionRouter(sessionService))
 apiRouter.use("/language-theory", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createLanguageTheoryRouter(languageTheoryService))
-apiRouter.use("/vocabulary-tracker", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createVocabularyTrackerRouter(vocabularyTrackerService))
+apiRouter.use("/vocabulary", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createVocabularyRouter(vocabularyService))
 apiRouter.use("/task-generator", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createTaskGeneratorRouter(taskGeneratorService, userProgressService))
 apiRouter.use("/error-analysis", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createErrorAnalysisRouter(errorAnalysisService))
 apiRouter.use("/speach-to-text", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createSpeachToTextRouter(speachToTextService))
