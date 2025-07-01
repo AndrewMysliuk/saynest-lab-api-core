@@ -91,7 +91,7 @@ apiRouter.use("/org", authMiddleware, createActivityMiddleware(userProgressServi
 apiRouter.use("/user-progress", authMiddleware, createUserProgressRouter(userProgressService))
 apiRouter.use("/session", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createSessionRouter(sessionService))
 apiRouter.use("/language-theory", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createLanguageTheoryRouter(languageTheoryService))
-apiRouter.use("/vocabulary", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createVocabularyRouter(vocabularyService))
+apiRouter.use("/vocabulary", authMiddleware, createActivityMiddleware(userProgressService), createVocabularyRouter(vocabularyService))
 apiRouter.use("/task-generator", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createTaskGeneratorRouter(taskGeneratorService, userProgressService))
 apiRouter.use("/error-analysis", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createErrorAnalysisRouter(errorAnalysisService))
 apiRouter.use("/speach-to-text", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createSpeachToTextRouter(speachToTextService))
