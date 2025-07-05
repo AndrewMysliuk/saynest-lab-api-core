@@ -12,8 +12,8 @@ The user is a learner whose native language is ${explanation_language}.
 The session was based on the following scenario:
 
 - Title: ${prompt.title}
-- Situation: ${prompt.model_behavior.scenario.situation}
-- Goal: ${prompt.model_behavior.scenario.goal}
+- Situation: ${prompt.model_behavior.scenario!.situation}
+- Goal: ${prompt.model_behavior.scenario!.goal}
 
 You will be provided with:
 - The full message history between the user and the assistant
@@ -93,6 +93,85 @@ Useful expressions:
 ${expressionsBlock}
 
 Your output must be only the JSON object. Do not include any additional commentary or formatting outside the object.
+`.trim()
+}
+
+export const buildIELTSSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
+  const scenario = prompt.model_behavior.ielts_scenario!
+  const { part1, part2, part3 } = scenario
+
+  const part1Block = part1.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
+
+  const part2Block = [`${part2.question}`, `You should say:`, ...part2.bullet_points.map((p) => `- ${p}`)].join("\n")
+
+  const part3Block = part3.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
+
+  return `
+You are an official IELTS Speaking assessment assistant.
+
+You must strictly evaluate the user's speaking performance based on the **IELTS Speaking Band Descriptors**. Be critical and realistic — this is **exam preparation**, not casual conversation feedback.
+
+LANGUAGE CONTEXT:
+- Target language: ${target_language}
+- User’s native language (for explanation): ${explanation_language}
+
+AVAILABLE DATA:
+- The full message history of the speaking session
+- Grammar and vocabulary errors (auto-detected)
+- The structure followed: IELTS Speaking Parts 1–3
+
+YOUR TASK:
+- Provide honest, detailed feedback to help the user **improve and calibrate their expectations**
+- Use only the user’s native language (**${explanation_language}**) for comments
+- When quoting examples from the user’s answers — **leave them in ${target_language}**
+- Return your analysis as a single **valid JSON object** — no extra text
+
+SCORING RULES:
+- Band 9: native-like fluency, very rare mistakes
+- Band 7: some errors, but natural and effective communication
+- Band 6: noticeable errors in grammar/lexis, limited flexibility
+- Band 5: frequent errors, simple structures, unclear ideas
+- Band 4 and below: communication breaks down
+
+DO NOT inflate the scores. If the user had frequent lexical or grammatical errors, give a **realistic band (5 or below)**. Fluency means smooth, coherent, and confident delivery — not just “not pausing”.
+
+OUTPUT FORMAT:
+
+{
+  "suggestion": [string],               // concrete advice (e.g. "Practice linking ideas with connectors")
+  "conclusion": string,                 // short overall summary in user's native language
+  "user_ielts_mark": number,            // overall band (e.g. 5.5)
+  "band_breakdown": {
+    "fluency": number,
+    "lexical": number,
+    "grammar": number
+  },
+  "part1": {
+    "summary": string,
+    "highlights": [string] (optional)
+  },
+  "part2": {
+    "summary": string,
+    "highlights": [string] (optional)
+  },
+  "part3": {
+    "summary": string,
+    "highlights": [string] (optional)
+  }
+}
+
+Do not include markdown, formatting, or comments outside the JSON.
+
+=== IELTS SCENARIO REFERENCE ===
+
+PART 1 – INTRODUCTION & INTERVIEW
+${part1Block}
+
+PART 2 – LONG TURN
+${part2Block}
+
+PART 3 – DISCUSSION
+${part3Block}
 `.trim()
 }
 

@@ -85,9 +85,19 @@ export function buildSystemPrompt(request: ITaskGeneratorRequest & { task_senten
   const readableType = taskTypeReadable[request.type]
   const schemaInstructions = getReadableSchemaInstructions(request.type, request.task_sentences_count)
 
-  const vocabBlock = prompt.user_content.dictionary.length ? prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
+  const isIELTS = prompt.meta?.is_it_ielts === true
 
-  const expressionsBlock = prompt.user_content.phrases.length ? prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
+  // ----------------------
+  // Vocabulary & phrases
+  // ----------------------
+  const vocabBlock = !isIELTS && prompt.user_content.dictionary.length ? prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n") : "None"
+  const expressionsBlock = !isIELTS && prompt.user_content.phrases.length ? prompt.user_content.phrases.map((entry) => `- "${entry.phrase}"`).join("\n") : "None"
+
+  // ----------------------
+  // Title & Setting
+  // ----------------------
+  const title = prompt.title
+  const setting = isIELTS ? (prompt.model_behavior.ielts_scenario?.setting ?? "IELTS Speaking Simulation") : (prompt.model_behavior.scenario?.setting ?? "Unknown setting")
 
   return `
 ====================
@@ -116,8 +126,8 @@ SCENARIO CONTEXT (Optional)
 ====================
 Use this background info only if clearly relevant to the topic.
 
-- Scenario Title: ${prompt.title}
-- Scenario Setting: ${prompt.model_behavior.scenario.setting}
+- Scenario Title: ${title}
+- Scenario Setting: ${setting}
 
 Key Vocabulary:
 ${vocabBlock}

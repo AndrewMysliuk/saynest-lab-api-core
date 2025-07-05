@@ -22,7 +22,18 @@ export const createScenarioHandler = (promptService: IPromptService): RequestHan
       const user_id = new Types.ObjectId(req.user!.user_id)
       const organization_id = new Types.ObjectId(req.user!.organization_id)
 
-      const scenario = await promptService.createScenario({ ...parsed.data, user_id, organization_id })
+      const cleanedData = {
+        ...parsed.data,
+        user_id,
+        organization_id,
+        model_behavior: {
+          ...parsed.data.model_behavior,
+          scenario: parsed.data.model_behavior.scenario ?? null,
+          ielts_scenario: parsed.data.model_behavior.ielts_scenario ?? null,
+        },
+      }
+
+      const scenario = await promptService.createScenario(cleanedData)
 
       res.status(201).json(scenario)
     } catch (error: unknown) {

@@ -7,6 +7,7 @@ import {
   ICommunicationReview,
   ICommunicationReviewFilters,
   ICommunicationReviewGenerateRequest,
+  ICommunicationReviewIELTSModelResponse,
   ICommunicationReviewModelResponse,
   ICommunicationReviewUpdateAudioUrl,
   IMongooseOptions,
@@ -18,8 +19,9 @@ import { IErrorAnalysis } from "../../error_analysis"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
 import { IRepository } from "../storage"
+import GenerateIELTSStatisticSchema from "./json_schema/generate_ielts_statistic.schema.json"
 import GenerateStatisticSchema from "./json_schema/generate_statistic.schema.json"
-import { buildSystemPrompt, buildUserPrompt } from "./prompt"
+import { buildIELTSSystemPrompt, buildSystemPrompt, buildUserPrompt } from "./prompt"
 
 const log = createScopedLogger("CommunicationReviewService")
 
@@ -56,10 +58,16 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         throw new Error("Prompt not found.")
       }
 
+      const systemPrompt = prompt.meta.is_it_ielts
+        ? buildIELTSSystemPrompt(dto.target_language, dto.explanation_language, prompt)
+        : buildSystemPrompt(dto.target_language, dto.explanation_language, prompt)
+
       const messages: Array<{ role: GPTRoleType; content: string }> = [
-        { role: "system", content: buildSystemPrompt(dto.target_language, dto.explanation_language, prompt) },
+        { role: "system", content: systemPrompt },
         { role: "user", content: buildUserPrompt(historyList, errorsList, dto.target_language, dto.explanation_language) },
       ]
+
+      const schema = prompt.meta.is_it_ielts ? GenerateIELTSStatisticSchema : GenerateStatisticSchema
 
       const response = await openaiREST.chat.completions.create({
         // model: "gpt-4.1",
@@ -73,7 +81,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
             function: {
               name: "structured_response_tool",
               description: "Process user conversation and provide structured JSON response.",
-              parameters: GenerateStatisticSchema,
+              parameters: schema,
             },
           },
         ],
@@ -95,7 +103,30 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       }
 
       const rawParsed = JSON.parse(toolCall.function.arguments)
-      const modelResponse = validateToolResponse<ICommunicationReviewModelResponse>(rawParsed, GenerateStatisticSchema)
+
+      let modelResponse, modelAdditional
+
+      if (prompt.meta.is_it_ielts) {
+        modelResponse = validateToolResponse<ICommunicationReviewIELTSModelResponse>(rawParsed, GenerateIELTSStatisticSchema)
+
+        modelAdditional = {
+          user_ielts_mark: modelResponse.user_ielts_mark,
+          band_breakdown: modelResponse.band_breakdown,
+          part1: modelResponse.part1,
+          part2: modelResponse.part2,
+          part3: modelResponse.part3,
+        }
+      } else {
+        modelResponse = validateToolResponse<ICommunicationReviewModelResponse>(rawParsed, GenerateStatisticSchema)
+
+        modelAdditional = {
+          user_cefr_level: modelResponse.user_cefr_level,
+          goals_coverage: modelResponse.goals_coverage,
+          vocabulary_used: modelResponse.vocabulary_used,
+          phrases_used: modelResponse.phrases_used,
+          consistency_review: modelResponse.consistency_review,
+        }
+      }
 
       const historyReview = countHistoryData(historyList)
 
@@ -120,11 +151,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
             error_analysis: errorsList,
             suggestion: modelResponse.suggestion,
             conclusion: modelResponse.conclusion,
-            user_cefr_level: modelResponse.user_cefr_level,
-            goals_coverage: modelResponse.goals_coverage,
-            vocabulary_used: modelResponse.vocabulary_used,
-            phrases_used: modelResponse.phrases_used,
-            consistency_review: modelResponse.consistency_review,
+            ...modelAdditional,
           },
           {
             session,

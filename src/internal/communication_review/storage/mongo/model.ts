@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose"
 
 import {
+  IBandBreakdown,
   ICommunicationReview,
   ICommunicationReviewHistory,
   IConversationHistory,
@@ -8,6 +9,7 @@ import {
   IErrorImproveUserAnswer,
   IExpressionUsage,
   ILevelDiagnosis,
+  IPartReview,
   IUserGoalEvaluation,
   IVocabularyUsage,
   IWord,
@@ -133,6 +135,23 @@ const ConsistencyReviewSchema = new Schema(
   { _id: false },
 )
 
+const BandBreakdownSchema = new Schema<IBandBreakdown>(
+  {
+    fluency: { type: Number, required: true, min: 0, max: 9 },
+    lexical: { type: Number, required: true, min: 0, max: 9 },
+    grammar: { type: Number, required: true, min: 0, max: 9 },
+  },
+  { _id: false },
+)
+
+const PartReviewSchema = new Schema<IPartReview>(
+  {
+    summary: { type: String, required: true },
+    highlights: { type: [String], default: null },
+  },
+  { _id: false },
+)
+
 const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
   {
     user_id: { type: Schema.Types.ObjectId, ref: USER_TABLE, required: true },
@@ -146,11 +165,16 @@ const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
     error_analysis: { type: [ErrorAnalysisSchema], default: [] },
     suggestion: { type: [String], required: true },
     conclusion: { type: String, required: true },
-    user_cefr_level: { type: LevelDiagnosisSchema, required: true },
-    goals_coverage: { type: [UserGoalEvaluationSchema], required: true },
-    vocabulary_used: { type: [VocabularyUsageSchema], required: true },
-    phrases_used: { type: [ExpressionUsageSchema], required: true },
-    consistency_review: { type: ConsistencyReviewSchema, required: true },
+    user_cefr_level: { type: LevelDiagnosisSchema, default: null },
+    goals_coverage: { type: [UserGoalEvaluationSchema], default: null },
+    vocabulary_used: { type: [VocabularyUsageSchema], default: null },
+    phrases_used: { type: [ExpressionUsageSchema], default: null },
+    consistency_review: { type: ConsistencyReviewSchema, default: null },
+    user_ielts_mark: { type: Number, default: null },
+    band_breakdown: { type: BandBreakdownSchema, default: null },
+    part1: { type: PartReviewSchema, default: null },
+    part2: { type: PartReviewSchema, default: null },
+    part3: { type: PartReviewSchema, default: null },
     updated_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now },
   },

@@ -172,10 +172,12 @@ export class UserProgressService implements IUserProgressService {
 
       const cefr_history = [...(progress.cefr_history || [])]
 
-      cefr_history.push({
-        date: new Date(),
-        level: lastReview.user_cefr_level.level,
-      })
+      if (lastReview.user_cefr_level) {
+        cefr_history.push({
+          date: new Date(),
+          level: lastReview.user_cefr_level.level,
+        })
+      }
 
       const completed_prompts = { ...(progress.completed_prompts || {}) }
       completed_prompts[prompt.name] = (completed_prompts[prompt.name] || 0) + 1

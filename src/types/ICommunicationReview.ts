@@ -60,11 +60,16 @@ export interface ICommunicationReview {
   error_analysis: IErrorAnalysisEntity[]
   suggestion: string[]
   conclusion: string
-  user_cefr_level: ILevelDiagnosis
-  goals_coverage: IUserGoalEvaluation[]
-  vocabulary_used: IVocabularyUsage[]
-  phrases_used: IExpressionUsage[]
-  consistency_review: IConsistencyReview
+  user_cefr_level: ILevelDiagnosis | null
+  goals_coverage: IUserGoalEvaluation[] | null
+  vocabulary_used: IVocabularyUsage[] | null
+  phrases_used: IExpressionUsage[] | null
+  consistency_review: IConsistencyReview | null
+  user_ielts_mark: number | null // общий балл от 0 до 9
+  band_breakdown: IBandBreakdown | null
+  part1: IPartReview | null
+  part2: IPartReview | null
+  part3: IPartReview | null
   updated_at: Date
   created_at: Date
 }
@@ -77,6 +82,27 @@ export interface ICommunicationReviewModelResponse {
   vocabulary_used: IVocabularyUsage[]
   phrases_used: IExpressionUsage[]
   consistency_review: IConsistencyReview
+}
+
+export interface IBandBreakdown {
+  fluency: number
+  lexical: number
+  grammar: number
+}
+
+export interface IPartReview {
+  summary: string // текстовое описание
+  highlights: string[] | null // ключевые моменты (опционально)
+}
+
+export interface ICommunicationReviewIELTSModelResponse {
+  suggestion: string[]
+  conclusion: string
+  user_ielts_mark: number // общий балл от 0 до 9
+  band_breakdown: IBandBreakdown
+  part1: IPartReview
+  part2: IPartReview
+  part3: IPartReview
 }
 
 export interface ICommunicationReviewGenerateRequest {

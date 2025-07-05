@@ -148,6 +148,7 @@ export class PromptsLibraryRepository implements IRepository {
           path: "scenarios",
           select: "meta.target_language",
         })
+        .sort({ created_at: 1 })
         .skip(pagination?.offset ?? 0)
         .limit(pagination?.limit ?? 20)
 

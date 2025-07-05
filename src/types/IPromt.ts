@@ -43,7 +43,30 @@ export interface IPhraseEntry {
 
 export interface IModelBehavior {
   prompt: string
-  scenario: IScenarioDetails
+  scenario: IScenarioDetails | null
+  ielts_scenario: IIELTSScenarioDetails | null
+}
+
+export interface IIELTSTopic {
+  title: string
+  questions: string[]
+}
+
+export interface IIELTSPartOneAndThree {
+  topics: IIELTSTopic[]
+}
+
+export interface IIELTSPartTwo {
+  title: string
+  question: string
+  bullet_points: string[]
+}
+
+export interface IIELTSScenarioDetails {
+  setting: string
+  part1: IIELTSPartOneAndThree
+  part2: IIELTSPartTwo
+  part3: IIELTSPartOneAndThree
 }
 
 export interface IScenarioDetails {
@@ -65,6 +88,7 @@ export interface IPromptMeta {
   model_end_behavior: string
   target_language: string
   question_count_range: IPromptQuestionCountRange | null
+  is_it_ielts: boolean
 }
 
 export interface IPromptFilters {

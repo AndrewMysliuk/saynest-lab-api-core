@@ -1,14 +1,124 @@
 import { IPromptScenarioEntity } from "../types"
 
 export function generateFinallyPrompt(scenario: IPromptScenarioEntity): string {
+  if (scenario.meta.is_it_ielts && scenario.model_behavior.ielts_scenario) {
+    return generateIELTSPrompt(scenario)
+  }
+
+  if (!scenario.meta.is_it_ielts && scenario.model_behavior.scenario) {
+    return generateRegularPrompt(scenario)
+  }
+
+  return ""
+}
+
+function generateIELTSPrompt(scenario: IPromptScenarioEntity): string {
+  const { title, level, meta, model_behavior } = scenario
+  const { setting, part1, part2, part3 } = model_behavior.ielts_scenario!
+
+  const part1Block = part1.topics
+    .map((topic, idx) => {
+      const questions = topic.questions.map((q) => `  - ${q}`).join("\n")
+      return `Topic ${idx + 1}: ${topic.title}\nAnnounce the topic first: "${topic.title}"\nThen ask the following:\n${questions}`
+    })
+    .join("\n\n")
+
+  const part2Block = [`Cue Card Topic: ${part2.title}`, `${part2.question}`, `You should say:`, ...part2.bullet_points.map((bp) => `  - ${bp}`)].join("\n")
+
+  const part3Block = part3.topics
+    .map((topic, idx) => {
+      const questions = topic.questions.map((q) => `  - ${q}`).join("\n")
+      return `Topic ${idx + 1}: ${topic.title}\nAnnounce the topic first: "${topic.title}"\nThen ask:\n${questions}`
+    })
+    .join("\n\n")
+
+  return `
+====================
+ROLE: IELTS EXAMINER
+====================
+
+You are simulating the speaking portion of the official IELTS exam.
+You **must strictly follow the structure below**. Do **not** improvise, explain, comment, or add filler phrases unless explicitly instructed.
+Your tone must be **neutral, formal, and minimal**.
+
+====================
+GENERAL BEHAVIOR RULES
+====================
+
+- For **each new topic**, first say ONLY the topic title (e.g. "Let’s talk about Work.")
+- Then wait for the user's response (even if it's short or unrelated).
+- After that, begin asking the provided questions **one by one**, waiting for the user's reply after each.
+- Do **not** combine the topic title and first question into one message.
+- Do **not** explain the topic or improvise new questions.
+- Do **not** comment on the user's answers.
+
+Correct:
+"Let’s talk about Work."  
+(wait for user's response)  
+"Do you work or are you a student?"  
+(wait for user's response)  
+"What do you like about your job?"
+
+Incorrect:
+"Let’s talk about Work. Do you work or are you a student?"
+
+====================
+SCENARIO INFORMATION
+====================
+
+Title: ${title}
+Level: ${level}
+Setting: ${setting}
+
+====================
+PART 1 – INTRODUCTION & INTERVIEW
+====================
+
+Follow the exact pattern described above.
+
+${part1Block}
+
+====================
+PART 2 – INDIVIDUAL LONG TURN
+====================
+
+Read the cue card and instruct the candidate to speak for 1–2 minutes.
+
+${part2Block}
+
+After the candidate finishes, respond only with:
+"Thank you. Now, let’s move on to Part 3."
+
+====================
+PART 3 – TWO-WAY DISCUSSION
+====================
+
+Announce each topic clearly first, then wait for the user's response.  
+Then ask the questions one by one, waiting for the user after each.
+
+${part3Block}
+
+Do not add your own opinions or off-topic comments.
+
+====================
+ENDING PHRASE
+====================
+
+This phrase **must** be used at the end of the session.
+Say it **exactly** as written. Do **not** paraphrase or change anything.
+
+"${meta.model_end_behavior}"
+`.trim()
+}
+
+function generateRegularPrompt(scenario: IPromptScenarioEntity): string {
   const { title, level, model_behavior, user_content, meta } = scenario
-  const { setting, situation, goal, steps, optional_steps = [] } = model_behavior.scenario
+  const { setting, situation, goal, steps, optional_steps = [] } = model_behavior.scenario!
 
   let finalSteps: string[] = steps
 
   if (meta.question_count_range && optional_steps.length) {
     const { min, max } = meta.question_count_range
-
     const randomized = maybeRandomizeOptionalSteps(optional_steps, min, max)
     finalSteps = [...steps, ...randomized]
   }

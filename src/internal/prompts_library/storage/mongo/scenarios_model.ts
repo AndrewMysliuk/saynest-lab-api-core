@@ -1,6 +1,18 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-import { IModelBehavior, IPromptMeta, IPromptQuestionCountRange, IPromptScenarioEntity, IScenarioDetails, IUserContent, VocabularyFrequencyLevelEnum } from "../../../../types"
+import {
+  IIELTSPartOneAndThree,
+  IIELTSPartTwo,
+  IIELTSScenarioDetails,
+  IIELTSTopic,
+  IModelBehavior,
+  IPromptMeta,
+  IPromptQuestionCountRange,
+  IPromptScenarioEntity,
+  IScenarioDetails,
+  IUserContent,
+  VocabularyFrequencyLevelEnum,
+} from "../../../../types"
 import { MODEL_NAME as ORGANISATION_TABLE } from "../../../organisation/storage/mongo/model"
 import { MODEL_NAME as USER_TABLE } from "../../../user/storage/mongo/model"
 
@@ -45,10 +57,45 @@ const ScenarioDetailsSchema = new Schema<IScenarioDetails>(
   { _id: false },
 )
 
+const IELTSTopicSchema = new Schema<IIELTSTopic>(
+  {
+    title: { type: String, required: true },
+    questions: [{ type: String, required: true }],
+  },
+  { _id: false },
+)
+
+const IELTSPartOneAndThreeSchema = new Schema<IIELTSPartOneAndThree>(
+  {
+    topics: { type: [IELTSTopicSchema], required: true },
+  },
+  { _id: false },
+)
+
+const IELTSPartTwoSchema = new Schema<IIELTSPartTwo>(
+  {
+    title: { type: String, required: true },
+    question: { type: String, required: true },
+    bullet_points: [{ type: String, required: true }],
+  },
+  { _id: false },
+)
+
+const IELTSScenarioDetailsSchema = new Schema<IIELTSScenarioDetails>(
+  {
+    setting: { type: String, required: true },
+    part1: { type: IELTSPartOneAndThreeSchema, required: true },
+    part2: { type: IELTSPartTwoSchema, required: true },
+    part3: { type: IELTSPartOneAndThreeSchema, required: true },
+  },
+  { _id: false },
+)
+
 const ModelBehaviorSchema = new Schema<IModelBehavior>(
   {
     prompt: { type: String, required: true },
-    scenario: { type: ScenarioDetailsSchema, required: true },
+    scenario: { type: ScenarioDetailsSchema, default: null },
+    ielts_scenario: { type: IELTSScenarioDetailsSchema, default: null },
   },
   { _id: false },
 )
@@ -68,6 +115,7 @@ const PromptMetaSchema = new Schema<IPromptMeta>(
     model_end_behavior: { type: String, required: true },
     target_language: { type: String, required: true },
     question_count_range: { type: QuestionCountRangeSchema, default: null },
+    is_it_ielts: { type: Boolean, default: false },
   },
   { _id: false },
 )
