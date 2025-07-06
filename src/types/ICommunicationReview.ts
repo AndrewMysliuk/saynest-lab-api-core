@@ -53,6 +53,7 @@ export interface ICommunicationReview {
   organization_id: Types.ObjectId
   session_id: Types.ObjectId
   prompt_id: string
+  public_id: string | null
   topic_title: string
   target_language: string
   explanation_language: string

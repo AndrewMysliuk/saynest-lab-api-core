@@ -145,3 +145,48 @@ export const updateAudioUrlHandler = (communicationReviewService: ICommunication
     }
   }
 }
+
+export const generateReviewPublicIdHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const id = req.params.id
+      const { user_id } = req.user!
+
+      if (!id) {
+        res.status(400).json({
+          error: "generateReviewPublicIdHandler | Missing required id field in payload",
+        })
+        return
+      }
+
+      const response = await communicationReviewService.generateReviewPublicId(id, user_id)
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
+      log.error("generateReviewPublicIdHandler", "error", { error })
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
+export const getReviewByPublicIdHandler = (communicationReviewService: ICommunicationReviewService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const id = req.params.public_id
+
+      if (!id) {
+        res.status(400).json({
+          error: "getReviewByPublicIdHandler | Missing required id field in payload",
+        })
+        return
+      }
+
+      const response = await communicationReviewService.getReviewByPublicId(id)
+
+      res.status(200).json(response)
+    } catch (error: unknown) {
+      log.error("getReviewByPublicIdHandler", "error", { error })
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}

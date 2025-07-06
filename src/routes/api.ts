@@ -98,7 +98,7 @@ apiRouter.use("/speach-to-text", authMiddleware, createPaddleMiddleware, superUs
 apiRouter.use("/text-analysis", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextAnalysisRouter(textAnalysisService))
 apiRouter.use("/text-to-speach", authMiddleware, createPaddleMiddleware, superUserOnlyMiddleware, createActivityMiddleware(userProgressService), createTextToSpeachRouter(textToSpeachService))
 apiRouter.use("/conversation", authMiddleware, createPaddleMiddleware, createActivityMiddleware(userProgressService), createConversationRouter(conversationService))
-apiRouter.use("/communication-review", authMiddleware, createActivityMiddleware(userProgressService), createCommunicationReviewRouter(communicationReviewService, userProgressService))
+apiRouter.use("/communication-review", createCommunicationReviewRouter(communicationReviewService, userProgressService))
 apiRouter.use("/prompts-library", authMiddleware, createActivityMiddleware(userProgressService), createPromptRouter(promptService))
 apiRouter.use("/plan", authMiddleware, createPlanRouter(planService))
 apiRouter.use("/subscription", authMiddleware, createSubscriptionRouter(subscriptionService))

@@ -8,4 +8,6 @@ export interface IRepository {
   update(id: string, user_id: string, updates: Partial<ICommunicationReview>, options?: IMongooseOptions): Promise<ICommunicationReview | null>
   delete(id: string, user_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null>
   deleteAllHistoryByUserId(user_id: string, options?: IMongooseOptions): Promise<void>
+  generateReviewPublicId(id: string, user_id: string, public_id: string, options?: IMongooseOptions): Promise<void>
+  getReviewByPublicId(public_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null>
 }

@@ -7,4 +7,6 @@ export interface ICommunicationReviewService {
   deleteAllHistoryByUserId(org_id: string, user_id: string, options?: IMongooseOptions): Promise<void>
   getReview(id: string, user_id: string): Promise<ICommunicationReview>
   updateAudioUrl(dto: ICommunicationReviewUpdateAudioUrl): Promise<string>
+  generateReviewPublicId(review_id: string, user_id: string): Promise<string>
+  getReviewByPublicId(public_id: string): Promise<ICommunicationReview>
 }

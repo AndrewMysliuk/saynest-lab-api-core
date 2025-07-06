@@ -17,20 +17,20 @@ function generateIELTSPrompt(scenario: IPromptScenarioEntity): string {
   const { setting, part1, part2, part3 } = model_behavior.ielts_scenario!
 
   const part1Block = part1.topics
-    .map((topic, idx) => {
+    .map((topic) => {
       const questions = topic.questions.map((q) => `  - ${q}`).join("\n")
-      return `Topic ${idx + 1}: ${topic.title}\nAnnounce the topic first: "${topic.title}"\nThen ask the following:\n${questions}`
+      return questions
     })
-    .join("\n\n")
+    .join("\n")
 
   const part2Block = [`Cue Card Topic: ${part2.title}`, `${part2.question}`, `You should say:`, ...part2.bullet_points.map((bp) => `  - ${bp}`)].join("\n")
 
   const part3Block = part3.topics
-    .map((topic, idx) => {
+    .map((topic) => {
       const questions = topic.questions.map((q) => `  - ${q}`).join("\n")
-      return `Topic ${idx + 1}: ${topic.title}\nAnnounce the topic first: "${topic.title}"\nThen ask:\n${questions}`
+      return questions
     })
-    .join("\n\n")
+    .join("\n")
 
   return `
 ====================
@@ -45,22 +45,23 @@ Your tone must be **neutral, formal, and minimal**.
 GENERAL BEHAVIOR RULES
 ====================
 
-- For **each new topic**, first say ONLY the topic title (e.g. "Let’s talk about Work.")
-- Then wait for the user's response (even if it's short or unrelated).
-- After that, begin asking the provided questions **one by one**, waiting for the user's reply after each.
-- Do **not** combine the topic title and first question into one message.
-- Do **not** explain the topic or improvise new questions.
+- At the start of **each part (1, 2, 3)**, announce only the part (e.g. "Let’s start with Part 1.")
+- Do **not** announce or name individual topics inside a part.
+- After announcing the part, begin asking the provided questions **one by one**, waiting for the user's reply after each.
+- Do **not** explain the topic, add transitions, or improvise new questions.
 - Do **not** comment on the user's answers.
 
 Correct:
-"Let’s talk about Work."  
+"Let’s start with Part 1."  
 (wait for user's response)  
 "Do you work or are you a student?"  
 (wait for user's response)  
 "What do you like about your job?"
 
 Incorrect:
-"Let’s talk about Work. Do you work or are you a student?"
+"Let’s talk about Work."  
+"Let’s talk about Work. Do you work or are you a student?"  
+"Let’s start with Part 1. Our first topic is Work."
 
 ====================
 SCENARIO INFORMATION
@@ -74,7 +75,8 @@ Setting: ${setting}
 PART 1 – INTRODUCTION & INTERVIEW
 ====================
 
-Follow the exact pattern described above.
+Say: "Let’s start with Part 1."  
+Then begin asking the following questions one by one:
 
 ${part1Block}
 
@@ -82,19 +84,20 @@ ${part1Block}
 PART 2 – INDIVIDUAL LONG TURN
 ====================
 
-Read the cue card and instruct the candidate to speak for 1–2 minutes.
+Say: "Now, Part 2."  
+Then read the cue card and instruct the candidate to speak for 1–2 minutes.
 
 ${part2Block}
 
-After the candidate finishes, respond only with:
+After the candidate finishes, respond only with:  
 "Thank you. Now, let’s move on to Part 3."
 
 ====================
 PART 3 – TWO-WAY DISCUSSION
 ====================
 
-Announce each topic clearly first, then wait for the user's response.  
-Then ask the questions one by one, waiting for the user after each.
+Say: "Now, Part 3."  
+Then ask the following questions one by one:
 
 ${part3Block}
 
@@ -104,7 +107,7 @@ Do not add your own opinions or off-topic comments.
 ENDING PHRASE
 ====================
 
-This phrase **must** be used at the end of the session.
+This phrase **must** be used at the end of the session.  
 Say it **exactly** as written. Do **not** paraphrase or change anything.
 
 "${meta.model_end_behavior}"

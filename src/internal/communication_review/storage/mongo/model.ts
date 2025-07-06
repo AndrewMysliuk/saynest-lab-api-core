@@ -158,6 +158,7 @@ const StatisticsSchema = new Schema<ICommunicationReviewDocument>(
     organization_id: { type: Schema.Types.ObjectId, ref: ORGANISATION_TABLE, required: true },
     session_id: { type: Schema.Types.ObjectId, required: true, ref: SESSION_TABLE },
     prompt_id: { type: String, required: true },
+    public_id: { type: String, default: null, index: true },
     topic_title: { type: String, required: true },
     target_language: { type: String, required: true },
     explanation_language: { type: String, required: true },

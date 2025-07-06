@@ -91,4 +91,24 @@ export class CommunicationReviewRepository implements IRepository {
       throw error
     }
   }
+
+  async generateReviewPublicId(id: string, user_id: string, public_id: string, options?: IMongooseOptions): Promise<void> {
+    try {
+      await StatisticsModel.findOneAndUpdate({ _id: id, user_id }, { public_id }, { new: true, session: options?.session })
+
+      return
+    } catch (error: unknown) {
+      log.error("generateReviewPublicId", "error", { error })
+      throw error
+    }
+  }
+
+  async getReviewByPublicId(public_id: string, options?: IMongooseOptions): Promise<ICommunicationReview | null> {
+    try {
+      return StatisticsModel.findOne({ public_id }).session(options?.session || null)
+    } catch (error: unknown) {
+      log.error("getReviewByPublicId", "error", { error })
+      throw error
+    }
+  }
 }

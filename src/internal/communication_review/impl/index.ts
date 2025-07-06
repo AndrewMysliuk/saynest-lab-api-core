@@ -13,7 +13,7 @@ import {
   IMongooseOptions,
   IPagination,
 } from "../../../types"
-import { countHistoryData, createScopedLogger, validateToolResponse } from "../../../utils"
+import { countHistoryData, createScopedLogger, generatePublicId, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
 import { IErrorAnalysis } from "../../error_analysis"
 import { IPromptService } from "../../prompts_library"
@@ -264,6 +264,40 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       return newUrl
     } catch (error: unknown) {
       log.error("updateAudioUrl", "error", { error })
+      throw error
+    }
+  }
+
+  async generateReviewPublicId(review_id: string, user_id: string): Promise<string> {
+    try {
+      const result = await this.communicationReviewRepo.get(review_id, user_id)
+
+      if (!result) {
+        throw new Error(`Review not found with id: ${review_id}`)
+      }
+
+      const public_id = generatePublicId(review_id, user_id)
+
+      await this.communicationReviewRepo.generateReviewPublicId(review_id, user_id, public_id)
+
+      return public_id
+    } catch (error: unknown) {
+      log.error("generateReviewPublicId", "error", { error })
+      throw error
+    }
+  }
+
+  async getReviewByPublicId(public_id: string): Promise<ICommunicationReview> {
+    try {
+      const result = await this.communicationReviewRepo.getReviewByPublicId(public_id)
+
+      if (!result) {
+        throw new Error(`Review not found with public_id: ${public_id}`)
+      }
+
+      return result
+    } catch (error: unknown) {
+      log.error("getReviewByPublicId", "error", { error })
       throw error
     }
   }
