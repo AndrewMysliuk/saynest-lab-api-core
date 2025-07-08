@@ -5,6 +5,9 @@ export enum UserRoleEnum {
   ADMIN = "ADMIN",
   OWNER = "OWNER",
 
+  TESTER = "TESTER",
+  TEACHER = "TEACHER",
+
   SUPER_USER = "SUPER_USER",
 }
 
