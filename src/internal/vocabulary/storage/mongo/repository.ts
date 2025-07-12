@@ -1,4 +1,5 @@
 import { omit } from "lodash"
+import { Types } from "mongoose"
 
 import { IRepository } from ".."
 import { IGlobalWord, IMongooseOptions, IPagination, IUserWordListFilters, IUserWordPublic, IUserWordTierEnum } from "../../../../types"
@@ -137,17 +138,72 @@ export class VocabularyRepository implements IRepository {
 
   async listUserWords(user_id: string, filters: IUserWordListFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IUserWordPublic[]> {
     try {
-      const query: any = { user_id }
+      const matchStage: any = { user_id: new Types.ObjectId(user_id) }
 
-      if (filters.native_language) {
-        query["global_word_id.native_language"] = filters.native_language
+      if (filters.tier?.length) {
+        matchStage["tier"] = { $in: filters.tier }
       }
 
-      if (filters.target_language) {
-        query["global_word_id.target_language"] = filters.target_language
+      const needsLookup = !!filters.word || !!filters.native_language || !!filters.target_language
+
+      if (needsLookup) {
+        const pipeline: any[] = [
+          { $match: matchStage },
+          {
+            $lookup: {
+              from: "global_words",
+              localField: "global_word_id",
+              foreignField: "_id",
+              as: "global_word_entity",
+            },
+          },
+          { $unwind: "$global_word_entity" },
+        ]
+
+        const subMatch: any = {}
+
+        if (filters.native_language) {
+          subMatch["global_word_entity.native_language"] = filters.native_language
+        }
+
+        if (filters.target_language) {
+          subMatch["global_word_entity.target_language"] = filters.target_language
+        }
+
+        if (filters.word) {
+          subMatch["global_word_entity.word"] = {
+            $regex: filters.word,
+            $options: "i",
+          }
+        }
+
+        if (Object.keys(subMatch).length > 0) {
+          pipeline.push({ $match: subMatch })
+        }
+
+        pipeline.push(
+          { $sort: { created_at: -1 } },
+          { $skip: pagination?.offset ?? 0 },
+          { $limit: pagination?.limit ?? 20 },
+          {
+            $project: {
+              __v: 0,
+              "global_word_entity.__v": 0,
+              "global_word_entity.created_at": 0,
+              "global_word_entity.updated_at": 0,
+            },
+          },
+        )
+
+        const results = await UserWordModel.aggregate(pipeline).option({ session: options?.session || null })
+
+        return results.map(({ global_word_entity, ...rest }) => ({
+          ...rest,
+          global_word_entity,
+        }))
       }
 
-      const rawResults = await UserWordModel.find(query)
+      const rawResults = await UserWordModel.find(matchStage)
         .sort({ created_at: -1 })
         .skip(pagination?.offset || 0)
         .limit(pagination?.limit || 20)

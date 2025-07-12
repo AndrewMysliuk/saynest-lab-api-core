@@ -64,6 +64,8 @@ export interface IUserWord {
 export interface IUserWordListFilters {
   target_language?: string
   native_language?: string
+  word?: string
+  tier?: IUserWordTierEnum[]
 }
 
 export interface IUserWordPublic {

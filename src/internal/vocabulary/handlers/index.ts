@@ -1,6 +1,7 @@
 import { Request, RequestHandler, Response } from "express"
 
 import { IVocabulary } from ".."
+import { IUserWordListFilters } from "../../../types"
 import { createScopedLogger } from "../../../utils"
 
 const log = createScopedLogger("VocabularyTrackerHandler")
@@ -118,16 +119,20 @@ export const listUserWordsHandler = (vocabularyService: IVocabulary): RequestHan
     try {
       const { user_id } = req.user!
 
-      const { target_language, native_language, limit = 20, offset = 0 } = req.query
-
       if (!user_id) {
         res.status(400).json({ error: "Missing user_id" })
         return
       }
 
-      const filters = {
+      const { target_language, native_language, word, tier, limit = 20, offset = 0 } = req.query
+
+      const parsedTiers = typeof tier === "string" ? [Number(tier)] : Array.isArray(tier) ? tier.map(Number) : []
+
+      const filters: IUserWordListFilters = {
         target_language: target_language?.toString(),
         native_language: native_language?.toString(),
+        word: word?.toString(),
+        tier: parsedTiers.length > 0 ? parsedTiers : undefined,
       }
 
       const pagination = {
