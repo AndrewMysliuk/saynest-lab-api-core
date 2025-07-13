@@ -179,6 +179,15 @@ export class UserProgressService implements IUserProgressService {
         })
       }
 
+      const ielts_marks_history = [...(progress.ielts_marks_history || [])]
+
+      if (lastReview.user_ielts_mark) {
+        ielts_marks_history.push({
+          date: new Date(),
+          mark: lastReview.user_ielts_mark,
+        })
+      }
+
       const completed_prompts = { ...(progress.completed_prompts || {}) }
       completed_prompts[prompt.name] = (completed_prompts[prompt.name] || 0) + 1
 

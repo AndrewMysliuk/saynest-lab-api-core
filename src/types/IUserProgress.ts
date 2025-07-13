@@ -14,6 +14,11 @@ export interface IUserProgressCefrHistory {
   level: VocabularyFrequencyLevelEnum
 }
 
+export interface IUserProgressIeltsHistory {
+  date: Date
+  mark: number
+}
+
 export interface IUserProgressErrorStats {
   category: string
   total_count: number
@@ -37,6 +42,7 @@ export interface IUserProgressEntity {
   avg_session_duration: number
   total_session_duration: number
   cefr_history: IUserProgressCefrHistory[]
+  ielts_marks_history: IUserProgressIeltsHistory[]
   error_stats: IUserProgressErrorStats[]
   completed_prompts: {
     [prompt_id: string]: number // Кол-во раз, когда пользователь прошёл этот prompt

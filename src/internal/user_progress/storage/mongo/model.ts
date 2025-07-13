@@ -16,6 +16,14 @@ const cefrHistorySchema = new Schema(
   { _id: false },
 )
 
+const ieltsHistorySchema = new Schema(
+  {
+    date: { type: Date, required: true },
+    mark: { type: Number, min: 0, max: 9, required: true },
+  },
+  { _id: false },
+)
+
 const errorStatsSchema = new Schema(
   {
     category: { type: String, required: true },
@@ -45,6 +53,7 @@ const userProgressSchema = new Schema<IUserProgressDocument>(
     avg_session_duration: { type: Number, required: true },
     total_session_duration: { type: Number, required: true },
     cefr_history: [cefrHistorySchema],
+    ielts_marks_history: [ieltsHistorySchema],
     error_stats: [errorStatsSchema],
     completed_prompts: {
       type: Map,
