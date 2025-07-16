@@ -8,6 +8,7 @@ import {
   getModuleHandler,
   getModuleScenariosHandler,
   getScenarioHandler,
+  listIeltsScenariosHandler,
   listModulesHandler,
   listScenariosHandler,
   updateModuleHandler,
@@ -22,6 +23,7 @@ export const createPromptRouter = (promptService: IPromptService): Router => {
   router.put("/scenario/:id", superUserOnlyMiddleware, updateScenarioHandler(promptService))
   router.get("/scenario/:id", getScenarioHandler(promptService))
   router.get("/scenarios", listScenariosHandler(promptService))
+  router.get("/ielts-scenarios", listIeltsScenariosHandler(promptService))
 
   // Modules
   router.post("/module", superUserOnlyMiddleware, createModuleHandler(promptService))

@@ -101,9 +101,9 @@ export interface ICommunicationReviewIELTSModelResponse {
   conclusion: string
   user_ielts_mark: number // общий балл от 0 до 9
   band_breakdown: IBandBreakdown
-  part1: IPartReview
-  part2: IPartReview
-  part3: IPartReview
+  part1?: IPartReview
+  part2?: IPartReview
+  part3?: IPartReview
 }
 
 export interface ICommunicationReviewGenerateRequest {

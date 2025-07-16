@@ -3,7 +3,7 @@ import { Request, RequestHandler, Response } from "express"
 import { Types } from "mongoose"
 
 import { IPromptService } from ".."
-import { IModuleFilters, IPromptFilters } from "../../../types"
+import { IIeltsPromptFilters, IModuleFilters, IPromptFilters, SessionIeltsPartEnum } from "../../../types"
 import { createScopedLogger } from "../../../utils"
 import { CreateModuleSchema, CreateScenarioSchema, UpdateModuleSchema, UpdateScenarioSchema } from "./validation"
 
@@ -121,6 +121,26 @@ export const listScenariosHandler = (promptService: IPromptService): RequestHand
       res.status(200).json(scenarios)
     } catch (error: unknown) {
       log.error("listScenariosHandler", "error", { error })
+      res.status(500).json({ error: "Internal Server Error" })
+    }
+  }
+}
+
+export const listIeltsScenariosHandler = (promptService: IPromptService): RequestHandler => {
+  return async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { search, ielts_part, limit = 20, offset = 0 } = req.query
+
+      const filter: IIeltsPromptFilters = {
+        search: search as string,
+        ielts_part: ielts_part !== undefined ? (Number(ielts_part) as SessionIeltsPartEnum) : undefined,
+      }
+
+      const scenarios = await promptService.listIeltsScenario(filter, { limit: Number(limit), offset: Number(offset) })
+
+      res.status(200).json(scenarios)
+    } catch (error: unknown) {
+      log.error("listIeltsScenariosHandler", "error", { error })
       res.status(500).json({ error: "Internal Server Error" })
     }
   }

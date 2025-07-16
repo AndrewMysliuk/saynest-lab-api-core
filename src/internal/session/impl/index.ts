@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 
 import { IMongooseOptions, ISessionCreateRequest, ISessionEntity, SessionStatusEnum } from "../../../types"
-import { createScopedLogger, generateFinallyPrompt } from "../../../utils"
+import { createScopedLogger, generateFinallyPrompt, getSingleUsedIeltsPart } from "../../../utils"
 import { IRepository as IHistoryRepository } from "../../conversation/storage"
 import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../index"
@@ -30,7 +30,12 @@ export class SessionService implements ISessionService {
 
       const system_prompt = generateFinallyPrompt(prompt)
 
-      const session = await this.sessionRepo.createSession({ ...dto, system_prompt })
+      let activeIeltsPart = undefined
+      if (prompt.meta.is_it_ielts) {
+        activeIeltsPart = getSingleUsedIeltsPart(prompt)
+      }
+
+      const session = await this.sessionRepo.createSession({ ...dto, system_prompt, active_ielts_part: activeIeltsPart })
 
       const pair_id = uuidv4()
       const session_id = session._id

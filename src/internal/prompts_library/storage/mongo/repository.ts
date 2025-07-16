@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../../types"
+import { IIELTSScenarioDetails, IIeltsPromptFilters, IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../../types"
 import { createScopedLogger } from "../../../../utils"
 import { ModuleModel } from "./modules_model"
 import { ScenarioModel } from "./scenarios_model"
@@ -82,6 +82,64 @@ export class PromptsLibraryRepository implements IRepository {
       return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
       log.error("listScenario", "error", { error })
+      throw error
+    }
+  }
+
+  async listIeltsScenario(filter?: IIeltsPromptFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IPromptScenarioEntity[]> {
+    try {
+      const query: any = {
+        "meta.is_it_ielts": true,
+      }
+
+      if (filter?.search) {
+        const regex = new RegExp(filter.search, "i")
+        query.$or = [
+          { title: { $regex: regex } },
+          { "meta.target_language": { $regex: regex } },
+          { "model_behavior.ielts_scenario.part2.title": { $regex: regex } },
+          {
+            "model_behavior.ielts_scenario.part1.topics": {
+              $elemMatch: { title: { $regex: regex } },
+            },
+          },
+          {
+            "model_behavior.ielts_scenario.part3.topics": {
+              $elemMatch: { title: { $regex: regex } },
+            },
+          },
+        ]
+      }
+
+      const rawScenarios = await ScenarioModel.find(query, {}, options)
+        .skip(pagination?.offset || 0)
+        .limit(pagination?.limit || 20)
+
+      const scenarios = rawScenarios.map((s) => s.toObject({ flattenMaps: true }))
+
+      if (filter?.ielts_part) {
+        const partKey = `part${filter.ielts_part}` as keyof IIELTSScenarioDetails
+
+        return scenarios
+          .filter((s) => s.model_behavior?.ielts_scenario?.[partKey])
+          .map((s) => {
+            const setting = s.model_behavior.ielts_scenario?.setting
+            return {
+              ...s,
+              model_behavior: {
+                ...s.model_behavior,
+                ielts_scenario: {
+                  setting,
+                  [partKey]: s.model_behavior?.ielts_scenario?.[partKey],
+                },
+              },
+            }
+          })
+      }
+
+      return scenarios
+    } catch (error: unknown) {
+      log.error("listIeltsScenario", "error", { error })
       throw error
     }
   }

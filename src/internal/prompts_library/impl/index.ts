@@ -1,6 +1,6 @@
 import { IPromptService } from ".."
 import { createScopedLogger } from "../../..//utils"
-import { IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../types"
+import { IIeltsPromptFilters, IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../types"
 import { IRepository } from "../storage"
 
 const log = createScopedLogger("PromptService")
@@ -44,6 +44,15 @@ export class PromptService implements IPromptService {
       return this.promptRepo.listScenario(filter, pagination, options)
     } catch (error: unknown) {
       log.error("listScenario", "error", { error })
+      throw error
+    }
+  }
+
+  async listIeltsScenario(filter?: IIeltsPromptFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IPromptScenarioEntity[]> {
+    try {
+      return this.promptRepo.listIeltsScenario(filter, pagination, options)
+    } catch (error: unknown) {
+      log.error("listIeltsScenario", "error", { error })
       throw error
     }
   }

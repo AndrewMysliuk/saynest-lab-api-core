@@ -13,11 +13,18 @@ export enum SessionStatusEnum {
   DELETED = "DELETED",
 }
 
+export enum SessionIeltsPartEnum {
+  PART_1 = 1,
+  PART_2 = 2,
+  PART_3 = 3,
+}
+
 export interface ISessionEntity {
   _id: Types.ObjectId
   user_id: Types.ObjectId | null
   organization_id: Types.ObjectId | null
   prompt_id: string
+  active_ielts_part?: SessionIeltsPartEnum
   type: SessionTypeEnum
   status: SessionStatusEnum
   system_prompt: string
@@ -29,6 +36,7 @@ export interface ISessionEntity {
 
 export interface ISessionCreateRequest {
   prompt_id: string
+  active_ielts_part?: SessionIeltsPartEnum
   user_id: string | null
   organization_id: string | null
   system_prompt?: string

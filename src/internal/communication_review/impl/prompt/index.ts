@@ -1,4 +1,5 @@
-import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity } from "../../../../types"
+import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity, SessionIeltsPartEnum } from "../../../../types"
+import { getSingleUsedIeltsPart } from "../../../../utils"
 
 export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
   const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
@@ -99,12 +100,43 @@ Your output must be only the JSON object. Do not include any additional commenta
 export const buildIELTSSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
   const scenario = prompt.model_behavior.ielts_scenario!
   const { part1, part2, part3 } = scenario
+  const activePart = getSingleUsedIeltsPart(prompt)
 
-  const part1Block = part1.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
+  const part1Block = part1?.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
 
-  const part2Block = [`${part2.question}`, `You should say:`, ...part2.bullet_points.map((p) => `- ${p}`)].join("\n")
+  const part2Block = part2 ? [`${part2?.question}`, `You should say:`, ...part2.bullet_points.map((p) => `- ${p}`)].join("\n") : ""
 
-  const part3Block = part3.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
+  const part3Block = part3?.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
+
+  const refSections: string[] = []
+  const jsonFields: string[] = []
+
+  if (!activePart || activePart === SessionIeltsPartEnum.PART_1) {
+    refSections.push(`PART 1 – INTRODUCTION & INTERVIEW\n${part1Block}`)
+    jsonFields.push(`"part1": {\n  "summary": string,\n  "highlights": [string] (optional)\n}`)
+  }
+
+  if (!activePart || activePart === SessionIeltsPartEnum.PART_2) {
+    refSections.push(`PART 2 – LONG TURN\n${part2Block}`)
+    jsonFields.push(`"part2": {\n  "summary": string,\n  "highlights": [string] (optional)\n}`)
+  }
+
+  if (!activePart || activePart === SessionIeltsPartEnum.PART_3) {
+    refSections.push(`PART 3 – DISCUSSION\n${part3Block}`)
+    jsonFields.push(`"part3": {\n  "summary": string,\n  "highlights": [string] (optional)\n}`)
+  }
+
+  const outputFormatBlock = `{
+  "suggestion": [string],               // concrete advice (e.g. "Practice linking ideas with connectors")
+  "conclusion": string,                 // short overall summary in user's native language
+  "user_ielts_mark": number,            // overall band (e.g. 5.5)
+  "band_breakdown": {
+    "fluency": number,
+    "lexical": number,
+    "grammar": number
+  },
+  ${jsonFields.join(",\n  ")}
+}`
 
   return `
 You are an official IELTS Speaking assessment assistant.
@@ -118,7 +150,7 @@ LANGUAGE CONTEXT:
 AVAILABLE DATA:
 - The full message history of the speaking session
 - Grammar and vocabulary errors (auto-detected)
-- The structure followed: IELTS Speaking Parts 1–3
+- The structure followed: IELTS Speaking ${activePart ? `Part ${activePart}` : "Parts 1–3"}
 
 YOUR TASK:
 - Provide honest, detailed feedback to help the user **improve and calibrate their expectations**
@@ -137,41 +169,13 @@ DO NOT inflate the scores. If the user had frequent lexical or grammatical error
 
 OUTPUT FORMAT:
 
-{
-  "suggestion": [string],               // concrete advice (e.g. "Practice linking ideas with connectors")
-  "conclusion": string,                 // short overall summary in user's native language
-  "user_ielts_mark": number,            // overall band (e.g. 5.5)
-  "band_breakdown": {
-    "fluency": number,
-    "lexical": number,
-    "grammar": number
-  },
-  "part1": {
-    "summary": string,
-    "highlights": [string] (optional)
-  },
-  "part2": {
-    "summary": string,
-    "highlights": [string] (optional)
-  },
-  "part3": {
-    "summary": string,
-    "highlights": [string] (optional)
-  }
-}
+${outputFormatBlock}
 
 Do not include markdown, formatting, or comments outside the JSON.
 
 === IELTS SCENARIO REFERENCE ===
 
-PART 1 – INTRODUCTION & INTERVIEW
-${part1Block}
-
-PART 2 – LONG TURN
-${part2Block}
-
-PART 3 – DISCUSSION
-${part3Block}
+${refSections.join("\n\n")}
 `.trim()
 }
 

@@ -1,7 +1,16 @@
 import { Types } from "mongoose"
 
 import { IUserProgressService } from ".."
-import { IGenericTaskEntity, IMongooseOptions, IUserProgressApplyReviewStatsRequest, IUserProgressEntity, IUserProgressErrorStats, IUserProgressTasks } from "../../../types"
+import {
+  IGenericTaskEntity,
+  IMongooseOptions,
+  IPromptScenarioEntity,
+  IUserProgressApplyReviewStatsRequest,
+  IUserProgressEntity,
+  IUserProgressErrorStats,
+  IUserProgressTasks,
+  SessionIeltsPartEnum,
+} from "../../../types"
 import { calculateStreak, createScopedLogger, getTrend } from "../../../utils"
 import { ICommunicationReviewService } from "../../communication_review"
 import { IPromptService } from "../../prompts_library"
@@ -170,6 +179,12 @@ export class UserProgressService implements IUserProgressService {
         throw new Error(`Scenario prompt not found for user_id: ${user_id}`)
       }
 
+      const currentSession = sessions.find((item) => item._id === new Types.ObjectId(session_id))
+
+      if (!currentSession) {
+        throw new Error(`currentSession not found by session_id: ${session_id}`)
+      }
+
       const cefr_history = [...(progress.cefr_history || [])]
 
       if (lastReview.user_cefr_level) {
@@ -188,8 +203,7 @@ export class UserProgressService implements IUserProgressService {
         })
       }
 
-      const completed_prompts = { ...(progress.completed_prompts || {}) }
-      completed_prompts[prompt.name] = (completed_prompts[prompt.name] || 0) + 1
+      const updated_completed_prompts = this.updatePromptProgress(progress.completed_prompts, prompt, currentSession.active_ielts_part)
 
       const error_stats = this.updateErrorStats(
         lastReview.error_analysis.flatMap((analysis) => analysis.issues.flatMap((issue) => issue.topic_titles)),
@@ -202,7 +216,7 @@ export class UserProgressService implements IUserProgressService {
           avg_session_duration: avgSessionDuration,
           total_session_duration: totalSessionDuration,
           cefr_history,
-          completed_prompts,
+          completed_prompts: updated_completed_prompts,
           error_stats,
         },
         new Types.ObjectId(user_id),
@@ -214,6 +228,17 @@ export class UserProgressService implements IUserProgressService {
       })
       throw error
     }
+  }
+
+  private updatePromptProgress(completed_prompts: Record<string, number>, prompt: IPromptScenarioEntity, activePart?: SessionIeltsPartEnum): Record<string, number> {
+    const updated = { ...completed_prompts }
+
+    const baseKey = prompt.name
+    const partKey = activePart ? `${baseKey}#${activePart}` : baseKey
+
+    updated[partKey] = (updated[partKey] || 0) + 1
+
+    return updated
   }
 
   private updateErrorStats(errorTopicTitles: string[], prevErrorStats: IUserProgressErrorStats[]): IUserProgressErrorStats[] {

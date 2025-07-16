@@ -1,5 +1,6 @@
 import { Types } from "mongoose"
 
+import { SessionIeltsPartEnum } from "./ISession"
 import { VocabularyFrequencyLevelEnum } from "./IVocabulary"
 
 export interface IPromptScenarioEntity {
@@ -44,7 +45,7 @@ export interface IPhraseEntry {
 export interface IModelBehavior {
   prompt: string
   scenario: IScenarioDetails | null
-  ielts_scenario: IIELTSScenarioDetails | null
+  ielts_scenario: Partial<IIELTSScenarioDetails> | null
 }
 
 export interface IIELTSTopic {
@@ -98,6 +99,11 @@ export interface IPromptFilters {
   user_id?: string
   organization_id?: string
   target_language?: string
+}
+
+export interface IIeltsPromptFilters {
+  search?: string
+  ielts_part?: SessionIeltsPartEnum
 }
 
 // Modules
