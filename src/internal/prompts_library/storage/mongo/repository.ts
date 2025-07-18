@@ -117,8 +117,9 @@ export class PromptsLibraryRepository implements IRepository {
 
       const scenarios = rawScenarios.map((s) => s.toObject({ flattenMaps: true }))
 
-      if (filter?.ielts_part) {
-        const partKey = `part${filter.ielts_part}` as keyof IIELTSScenarioDetails
+      const { ielts_part } = filter ?? {}
+      if (ielts_part !== undefined) {
+        const partKey = `part${ielts_part}` as keyof IIELTSScenarioDetails
 
         return scenarios
           .filter((s) => s.model_behavior?.ielts_scenario?.[partKey])
@@ -126,6 +127,10 @@ export class PromptsLibraryRepository implements IRepository {
             const setting = s.model_behavior.ielts_scenario?.setting
             return {
               ...s,
+              user_content: {
+                ...s.user_content,
+                goals: [s.user_content.goals[ielts_part - 1]],
+              },
               model_behavior: {
                 ...s.model_behavior,
                 ielts_scenario: {
