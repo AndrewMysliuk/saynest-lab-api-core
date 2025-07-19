@@ -100,12 +100,13 @@ export const getScenarioHandler = (promptService: IPromptService): RequestHandle
 export const listScenariosHandler = (promptService: IPromptService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { search, title, is_module_only, limit = 20, offset = 0, user_id, organization_id } = req.query
+      const { search, title, is_module_only, target_language, limit = 20, offset = 0, user_id, organization_id } = req.query
 
       const filter: IPromptFilters = {
         title: title as string,
         is_module_only: is_module_only === "true",
         search: search as string,
+        target_language: target_language as string,
       }
 
       if (user_id) {
@@ -225,11 +226,12 @@ export const getModuleHandler = (promptService: IPromptService): RequestHandler 
 export const listModulesHandler = (promptService: IPromptService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { search, title, limit = 20, offset = 0, user_id, organization_id } = req.query
+      const { search, title, target_language, limit = 20, offset = 0, user_id, organization_id } = req.query
 
       const filter: IModuleFilters = {
         title: title as string,
         search: search as string,
+        target_language: target_language as string,
       }
 
       if (user_id) {

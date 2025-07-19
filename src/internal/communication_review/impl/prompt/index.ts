@@ -1,5 +1,4 @@
 import { IConversationHistory, IErrorAnalysisEntity, IPromptScenarioEntity, SessionIeltsPartEnum } from "../../../../types"
-import { getSingleUsedIeltsPart } from "../../../../utils"
 
 export const buildSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
   const vocabBlock = prompt.user_content.dictionary.map((entry) => `- ${entry.word}: ${entry.meaning}`).join("\n")
@@ -97,10 +96,10 @@ Your output must be only the JSON object. Do not include any additional commenta
 `.trim()
 }
 
-export const buildIELTSSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity): string => {
+export const buildIELTSSystemPrompt = (target_language: string, explanation_language: string, prompt: IPromptScenarioEntity, active_ielts_part?: SessionIeltsPartEnum): string => {
   const scenario = prompt.model_behavior.ielts_scenario!
   const { part1, part2, part3 } = scenario
-  const activePart = getSingleUsedIeltsPart(prompt)
+  const activePart = active_ielts_part
 
   const part1Block = part1?.topics.map((t, i) => `Topic ${i + 1}: ${t.title}\n${t.questions.map((q) => `- ${q}`).join("\n")}`).join("\n\n")
 

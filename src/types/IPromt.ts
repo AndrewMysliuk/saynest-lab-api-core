@@ -110,6 +110,7 @@ export interface IIeltsPromptFilters {
 export enum ModuleTypeEnum {
   STRUCTURED = "STRUCTURED",
   FLAT = "FLAT",
+  IELTS = "IELTS",
 }
 
 export interface IModuleSubmodules {

@@ -31,5 +31,5 @@
   { "language": "Ukrainian", "language_iso": "uk", "language_codes": ["uk-UA"] },
   { "language": "Urdu", "language_iso": "ur", "language_codes": ["ur-IN", "ur-PK"] },
   { "language": "Vietnamese", "language_iso": "vi", "language_codes": ["vi-VN"] },
-  { "language": "Bulgarisch", "language_iso": "bg", "language_codes": ["bg-BG"] }
+  { "language": "Bolgarian", "language_iso": "bg", "language_codes": ["bg-BG"] }
 ]

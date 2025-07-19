@@ -1,7 +1,17 @@
 import { Types } from "mongoose"
 
 import { IRepository } from ".."
-import { IIELTSScenarioDetails, IIeltsPromptFilters, IModuleFilters, IModuleScenarioEntity, IMongooseOptions, IPagination, IPromptFilters, IPromptScenarioEntity } from "../../../../types"
+import {
+  IIELTSScenarioDetails,
+  IIeltsPromptFilters,
+  IModuleFilters,
+  IModuleScenarioEntity,
+  IMongooseOptions,
+  IPagination,
+  IPromptFilters,
+  IPromptScenarioEntity,
+  ModuleTypeEnum,
+} from "../../../../types"
 import { createScopedLogger } from "../../../../utils"
 import { ModuleModel } from "./modules_model"
 import { ScenarioModel } from "./scenarios_model"
@@ -96,7 +106,6 @@ export class PromptsLibraryRepository implements IRepository {
         const regex = new RegExp(filter.search, "i")
         query.$or = [
           { title: { $regex: regex } },
-          { "meta.target_language": { $regex: regex } },
           { "model_behavior.ielts_scenario.part2.title": { $regex: regex } },
           {
             "model_behavior.ielts_scenario.part1.topics": {
@@ -189,6 +198,8 @@ export class PromptsLibraryRepository implements IRepository {
   async listModule(filter?: IModuleFilters, pagination?: IPagination, options?: IMongooseOptions): Promise<IModuleScenarioEntity[]> {
     try {
       const query: any = {}
+
+      query.type = { $ne: ModuleTypeEnum.IELTS }
 
       if (filter?.title) {
         query.title = { $regex: new RegExp(filter.title, "i") }

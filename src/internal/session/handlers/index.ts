@@ -9,7 +9,7 @@ const log = createScopedLogger("SessionHandler")
 export const createSessionHandler = (sessionService: ISessionService): RequestHandler => {
   return async (req: Request, res: Response): Promise<void> => {
     try {
-      const { type, prompt_id } = req.body as ISessionCreateRequest
+      const { type, prompt_id, active_ielts_part } = req.body as ISessionCreateRequest
 
       if (!type || !prompt_id) {
         res.status(400).json({
@@ -32,6 +32,7 @@ export const createSessionHandler = (sessionService: ISessionService): RequestHa
         user_id,
         organization_id,
         type,
+        active_ielts_part,
       })
 
       res.status(200).json(response)

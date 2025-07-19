@@ -12,6 +12,7 @@ import {
   ICommunicationReviewUpdateAudioUrl,
   IMongooseOptions,
   IPagination,
+  SessionIeltsPartEnum,
 } from "../../../types"
 import { countHistoryData, createScopedLogger, generatePublicId, validateToolResponse } from "../../../utils"
 import { IConversationService } from "../../conversation"
@@ -20,6 +21,9 @@ import { IPromptService } from "../../prompts_library"
 import { ISessionService } from "../../session"
 import { IRepository } from "../storage"
 import GenerateIELTSStatisticSchema from "./json_schema/generate_ielts_statistic.schema.json"
+import GenerateIELTSStatisticSchemaPart1 from "./json_schema/generate_ielts_statistic_part_1.schema.json"
+import GenerateIELTSStatisticSchemaPart2 from "./json_schema/generate_ielts_statistic_part_2.schema.json"
+import GenerateIELTSStatisticSchemaPart3 from "./json_schema/generate_ielts_statistic_part_3.schema.json"
 import GenerateStatisticSchema from "./json_schema/generate_statistic.schema.json"
 import { buildIELTSSystemPrompt, buildSystemPrompt, buildUserPrompt } from "./prompt"
 
@@ -52,14 +56,18 @@ export class CommunicationReviewService implements ICommunicationReviewService {
 
       const historyList = await this.conversationService.listConversationHistory(dto.session_id)
 
-      const [prompt, errorsList] = await Promise.all([this.promptService.getScenario(dto.prompt_id), this.errorAnalysisService.listConversationErrors(dto.session_id)])
+      const [prompt, errorsList, currentSession] = await Promise.all([
+        this.promptService.getScenario(dto.prompt_id),
+        this.errorAnalysisService.listConversationErrors(dto.session_id),
+        this.sessionService.getSession(dto.session_id),
+      ])
 
       if (!prompt) {
         throw new Error("Prompt not found.")
       }
 
       const systemPrompt = prompt.meta.is_it_ielts
-        ? buildIELTSSystemPrompt(dto.target_language, dto.explanation_language, prompt)
+        ? buildIELTSSystemPrompt(dto.target_language, dto.explanation_language, prompt, currentSession?.active_ielts_part)
         : buildSystemPrompt(dto.target_language, dto.explanation_language, prompt)
 
       const messages: Array<{ role: GPTRoleType; content: string }> = [
@@ -67,7 +75,23 @@ export class CommunicationReviewService implements ICommunicationReviewService {
         { role: "user", content: buildUserPrompt(historyList, errorsList, dto.target_language, dto.explanation_language) },
       ]
 
-      const schema = prompt.meta.is_it_ielts ? GenerateIELTSStatisticSchema : GenerateStatisticSchema
+      let ieltsSchemaByPart
+      switch (currentSession?.active_ielts_part) {
+        case SessionIeltsPartEnum.PART_1:
+          ieltsSchemaByPart = GenerateIELTSStatisticSchemaPart1
+          break
+        case SessionIeltsPartEnum.PART_2:
+          ieltsSchemaByPart = GenerateIELTSStatisticSchemaPart2
+          break
+        case SessionIeltsPartEnum.PART_3:
+          ieltsSchemaByPart = GenerateIELTSStatisticSchemaPart3
+          break
+        default:
+          ieltsSchemaByPart = GenerateIELTSStatisticSchema
+          break
+      }
+
+      const schema = prompt.meta.is_it_ielts ? ieltsSchemaByPart : GenerateStatisticSchema
 
       const response = await openaiREST.chat.completions.create({
         // model: "gpt-4.1",
@@ -107,7 +131,7 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       let modelResponse, modelAdditional
 
       if (prompt.meta.is_it_ielts) {
-        modelResponse = validateToolResponse<ICommunicationReviewIELTSModelResponse>(rawParsed, GenerateIELTSStatisticSchema)
+        modelResponse = validateToolResponse<ICommunicationReviewIELTSModelResponse>(rawParsed, ieltsSchemaByPart)
 
         modelAdditional = {
           user_ielts_mark: modelResponse.user_ielts_mark,

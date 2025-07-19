@@ -1,8 +1,8 @@
 import { IPromptScenarioEntity, SessionIeltsPartEnum } from "../types"
 
-export function generateFinallyPrompt(scenario: IPromptScenarioEntity): string {
+export function generateFinallyPrompt(scenario: IPromptScenarioEntity, active_ielts_part?: SessionIeltsPartEnum): string {
   if (scenario.meta.is_it_ielts && scenario.model_behavior.ielts_scenario) {
-    return generateIELTSPrompt(scenario)
+    return generateIELTSPrompt(scenario, active_ielts_part)
   }
 
   if (!scenario.meta.is_it_ielts && scenario.model_behavior.scenario) {
@@ -12,8 +12,8 @@ export function generateFinallyPrompt(scenario: IPromptScenarioEntity): string {
   return ""
 }
 
-export function generateIELTSPrompt(scenario: IPromptScenarioEntity): string {
-  const part = getSingleUsedIeltsPart(scenario)
+export function generateIELTSPrompt(scenario: IPromptScenarioEntity, active_ielts_part?: SessionIeltsPartEnum): string {
+  const part = active_ielts_part
   const { title, level, meta, model_behavior } = scenario
   const { setting, part1, part2, part3 } = model_behavior.ielts_scenario!
 
@@ -23,12 +23,15 @@ export function generateIELTSPrompt(scenario: IPromptScenarioEntity): string {
 
   const part3Block = part3?.topics.map((topic) => topic.questions.map((q) => `  - ${q}`).join("\n")).join("\n")
 
+  const partNotice = part ? `This session includes **only Part ${part}**.\nDo **not** continue to any other parts.\n` : `This session includes **all parts: Part 1, 2, and 3**.\n`
+
   const header = `
 ====================
 ROLE: IELTS EXAMINER
 ====================
 
 You are simulating the speaking portion of the official IELTS exam.  
+${partNotice}
 Follow the instructions **exactly**. Do **not** add or modify anything unless told to.  
 Use a neutral, formal, and minimal tone throughout.
 
@@ -213,17 +216,4 @@ function maybeRandomizeOptionalSteps(optionalSteps: string[], min: number, max: 
     .slice()
     .sort(() => 0.5 - Math.random())
     .slice(0, count)
-}
-
-export function getSingleUsedIeltsPart(prompt: IPromptScenarioEntity): SessionIeltsPartEnum | undefined {
-  const scenario = prompt.model_behavior?.ielts_scenario
-  if (!scenario) return undefined
-
-  const presentParts: SessionIeltsPartEnum[] = []
-
-  if ("part1" in scenario) presentParts.push(SessionIeltsPartEnum.PART_1)
-  if ("part2" in scenario) presentParts.push(SessionIeltsPartEnum.PART_2)
-  if ("part3" in scenario) presentParts.push(SessionIeltsPartEnum.PART_3)
-
-  return presentParts.length === 1 ? presentParts[0] : undefined
 }

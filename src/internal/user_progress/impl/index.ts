@@ -156,7 +156,11 @@ export class UserProgressService implements IUserProgressService {
     try {
       const { user_id, session_id } = dto
 
-      const [sessions, reviews] = await Promise.all([this.sessionService.getSessionsByUserId(user_id, options), this.communicationReviewService.reviewsList(user_id)])
+      const [sessions, reviews, currentSession] = await Promise.all([
+        this.sessionService.getSessionsByUserId(user_id, options),
+        this.communicationReviewService.reviewsList(user_id),
+        this.sessionService.getSession(dto.session_id),
+      ])
 
       const lastReview = reviews.find((review) => review.session_id.toString() === session_id)
 
@@ -177,12 +181,6 @@ export class UserProgressService implements IUserProgressService {
 
       if (!prompt) {
         throw new Error(`Scenario prompt not found for user_id: ${user_id}`)
-      }
-
-      const currentSession = sessions.find((item) => item._id === new Types.ObjectId(session_id))
-
-      if (!currentSession) {
-        throw new Error(`currentSession not found by session_id: ${session_id}`)
       }
 
       const cefr_history = [...(progress.cefr_history || [])]
