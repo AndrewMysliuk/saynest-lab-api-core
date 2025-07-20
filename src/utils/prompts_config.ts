@@ -82,11 +82,11 @@ PART 1 – INTRODUCTION & INTERVIEW
 Say: "Now, Part 1."  
 Then ask each of the following questions one at a time, in the given order.
 
-- Before each question, consider what the user has already said.
-- If their previous answer already covers the next question, **skip it silently**.
-- If a question includes branching logic (e.g. work vs study), ask only the follow-up that matches the user's situation.
-- Do **not** ask both sides of a branching question.
-- Do **not** comment, evaluate, or improvise.
+- Ask each question in order, one at a time.  
+- If a question includes branching logic (e.g. work vs study), ask **only** the follow-up that matches the user's answer.  
+- You may slightly reword the follow-up to reflect the user's choice (e.g. change "studies" to "work"), but only to stay consistent.  
+- Do **not** ask both branches or contradict the user's earlier answer.  
+- Do **not** comment on, evaluate, or improvise around the user’s responses.
 
 ${part1Block}
 
@@ -185,11 +185,11 @@ PART 1 – INTRODUCTION & INTERVIEW
 Say: "Now, Part 1."  
 Then ask each of the following questions one at a time, in the given order.
 
-- Before each question, consider what the user has already said.
-- If their previous answer already covers the next question, **skip it silently**.
-- If a question includes branching logic (e.g. work vs study), ask only the follow-up that matches the user's situation.
-- Do **not** ask both sides of a branching question.
-- Do **not** comment, evaluate, or improvise.
+- Ask each question in order, one at a time.
+- If a question includes branching logic (e.g. work vs study), ask **only** the follow-up that matches the user's answer.  
+- You may slightly reword the follow-up to reflect the user's choice (e.g. change "studies" to "work"), but only to stay consistent.  
+- Do **not** ask both branches or contradict the user's earlier answer.  
+- Do **not** comment on, evaluate, or improvise around the user’s responses.
 
 ${part1Block}
 
@@ -383,10 +383,12 @@ Overall Goal: ${goal}
 CONVERSATION FLOW
 ====================
 
-- Ask all of them, unless the user has already answered or clearly implied the answer.
-- Do **not** repeat or rephrase what has already been covered.
-- If a question includes a branching logic (e.g. "Do you work or are you a student?"), ask only the follow-up that fits the user's answer.
-- You may adjust the order of questions to keep the conversation natural.
+- Follow the scenario questions, but always prioritize the user's actual responses over the planned order.
+- If the user has already answered a question or clearly implied the answer, skip it.
+- If the user responds ahead of the flow (e.g. answers a later question early), adjust by skipping or lightly reformulating follow-ups to maintain continuity.
+- Do not rigidly repeat or rephrase what the user already said, but brief clarification or confirmation is acceptable if it helps the flow.
+- If a question includes branching logic (e.g. "Do you work or are you a student?"), ask only the relevant follow-up based on the user's input.
+- You may adjust the order of questions as needed to maintain a natural and responsive conversation.
 
 Scenario Questions: ${stepHints}
 

@@ -245,7 +245,13 @@ export class PromptsLibraryRepository implements IRepository {
         return true
       })
 
-      return filteredModules.map((m) => m.toObject({ flattenMaps: true }))
+      return filteredModules.map((m) => {
+        const obj = m.toObject({ flattenMaps: true })
+        return {
+          ...obj,
+          scenarios: obj.scenarios.map((s: any) => s._id.toString()),
+        }
+      })
     } catch (error: unknown) {
       log.error("listModule", "error", { error })
       throw error
@@ -262,7 +268,7 @@ export class PromptsLibraryRepository implements IRepository {
 
       const scenarioIds = module.scenarios
 
-      const scenarios = await ScenarioModel.find({ _id: { $in: scenarioIds } }, {}, options)
+      const scenarios = await ScenarioModel.find({ _id: { $in: scenarioIds } }, {}, options).sort({ created_at: 1 })
 
       return scenarios.map((s) => s.toObject({ flattenMaps: true }))
     } catch (error: unknown) {
