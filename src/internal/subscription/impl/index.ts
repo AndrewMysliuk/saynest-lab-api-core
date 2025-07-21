@@ -44,6 +44,8 @@ export class SubscriptionService implements ISubscriptionService {
   }
 
   async createSubscription(paddle_subscription_id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+    const method = "createSubscription"
+
     try {
       const paddleSub = await getSubscription(paddle_subscription_id)
 
@@ -62,7 +64,7 @@ export class SubscriptionService implements ISubscriptionService {
 
       const custom = paddleSub.customData as { user_id: string; organization_id: string; plan_id: string }
       if (!custom) {
-        log.error("createSubscription", "customData is missing", {
+        log.error(method, "customData is missing", {
           paddle_subscription_id,
         })
         return null
@@ -73,7 +75,7 @@ export class SubscriptionService implements ISubscriptionService {
       const planId = custom.plan_id
 
       if (!userId || !orgId || !priceId || !planId) {
-        log.error("createSubscription", "Missing required subscription data", {
+        log.error(method, "Missing required subscription data", {
           paddle_subscription_id,
         })
         return null
@@ -82,7 +84,7 @@ export class SubscriptionService implements ISubscriptionService {
       const existingSub = await this.subscriptionRepo.getByOrganizationId(orgId, options)
 
       if (existingSub) {
-        log.info("createSubscription", "Updating existing subscription instead of creating new", {
+        log.info(method, "Updating existing subscription instead of creating new", {
           existing_status: existingSub.status,
           new_status: paddleStatus,
         })
@@ -103,6 +105,18 @@ export class SubscriptionService implements ISubscriptionService {
           options,
         )
 
+        log.info(method, "Subscription updated", {
+          type: "payment_success",
+          is_new: false,
+          subscription_id: existingSub._id.toString(),
+          user_id: userId,
+          organizationId: orgId,
+          plan_id: planId,
+          paddle_subscription_id,
+          status: paddleStatus,
+          trial: !!trialDates,
+        })
+
         return updated
       }
 
@@ -121,9 +135,22 @@ export class SubscriptionService implements ISubscriptionService {
       )
 
       await this.orgService.update(orgId, { subscription_id: newSub._id }, options)
+
+      log.info(method, "New subscription created", {
+        type: trialDates ? "trial_start" : "payment_success",
+        is_new: true,
+        subscription_id: newSub._id.toString(),
+        user_id: userId,
+        organization_id: orgId,
+        plan_id: planId,
+        paddle_subscription_id,
+        status: paddleStatus,
+        trial: !!trialDates,
+      })
+
       return newSub
     } catch (error: unknown) {
-      log.error("startSubscription", "error", { error })
+      log.error(method, "error", { error })
       throw error
     }
   }
@@ -262,10 +289,12 @@ export class SubscriptionService implements ISubscriptionService {
   }
 
   async cancelledSubscription(paddle_subscription_id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+    const method = "cancelledSubscription"
+
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.error("cancelledSubscription", "subscription not found", {
+        log.error(method, "subscription not found", {
           paddle_subscription_id,
         })
         return null
@@ -282,18 +311,29 @@ export class SubscriptionService implements ISubscriptionService {
         options,
       )
 
+      log.info(method, "Subscription cancelled", {
+        type: "payment_cancelled",
+        subscription_id: sub._id.toString(),
+        organization_id: sub.organization_id?.toString(),
+        plan_id: sub.plan_id?.toString(),
+        paddle_subscription_id,
+        canceled_at: new Date().toISOString(),
+      })
+
       return updated
     } catch (error: unknown) {
-      log.error("cancelledSubscription", "error", { error })
+      log.error(method, "error", { error })
       throw error
     }
   }
 
   async pastDueSubscription(paddle_subscription_id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+    const method = "pastDueSubscription"
+
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.error("pastDueSubscription", "subscription not found", {
+        log.error(method, "subscription not found", {
           paddle_subscription_id,
         })
         return null
@@ -310,9 +350,18 @@ export class SubscriptionService implements ISubscriptionService {
         options,
       )
 
+      log.info(method, "Subscription marked as past due", {
+        type: "payment_past_due",
+        subscription_id: sub._id.toString(),
+        organization_id: sub.organization_id?.toString(),
+        plan_id: sub.plan_id?.toString(),
+        paddle_subscription_id,
+        status: SubscriptionTypeEnum.PAST_DUE,
+      })
+
       return updated
     } catch (error: unknown) {
-      log.error("pastDueSubscription", "error", { error })
+      log.error(method, "error", { error })
       throw error
     }
   }
@@ -343,10 +392,12 @@ export class SubscriptionService implements ISubscriptionService {
   }
 
   async updateSubscription(paddle_subscription_id: string, options?: IMongooseOptions): Promise<ISubscriptionEntity | null> {
+    const method = "updateSubscription"
+
     try {
       const sub = await this.subscriptionRepo.getByPaddleSubscriptionId(paddle_subscription_id, options)
       if (!sub) {
-        log.error("updateSubscription", "subscription not found", {
+        log.error(method, "subscription not found", {
           paddle_subscription_id,
         })
         return null
@@ -398,15 +449,19 @@ export class SubscriptionService implements ISubscriptionService {
         return null
       }
 
-      log.info("updateSubscription", "Applying updates to subscription", {
+      log.info(method, "Subscription updated", {
+        type: "subscription_updated",
         subscription_id: sub._id.toString(),
+        organization_id: sub.organization_id?.toString(),
+        plan_id: sub.plan_id?.toString(),
+        paddle_subscription_id,
         updates,
       })
 
       const updated = await this.subscriptionRepo.update(sub._id.toString(), updates, options)
       return updated
     } catch (error: unknown) {
-      log.error("updateSubscription", "error", { error })
+      log.error(method, "error", { error })
       throw error
     }
   }

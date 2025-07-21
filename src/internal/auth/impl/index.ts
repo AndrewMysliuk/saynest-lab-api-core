@@ -79,6 +79,16 @@ export class AuthService implements IAuthService {
 
         user = userDoc
         await session.commitTransaction()
+
+        log.info("google_oauth", "User registered via Google", {
+          type: "user_register",
+          user_id: user._id.toString(),
+          email: user.email,
+          organization_id: user.organization_id,
+          ip: dto.ip,
+          user_agent: dto.user_agent,
+          country,
+        })
       } catch (err) {
         await session.abortTransaction()
         throw err
@@ -154,6 +164,16 @@ export class AuthService implements IAuthService {
       )
 
       await session.commitTransaction()
+
+      log.info("register", "User registered", {
+        type: "user_register",
+        user_id: user._id.toString(),
+        email: user.email,
+        organization_id: organization._id.toString(),
+        ip,
+        user_agent: user_agent,
+        country,
+      })
 
       return {
         access_token: accessToken,

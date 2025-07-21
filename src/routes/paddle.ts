@@ -33,35 +33,35 @@ paddleRouter.post("/webhooks/paddle", express.raw({ type: "application/json" }),
     switch (event.eventType) {
       // Subscription Events
       case "subscription.canceled":
-        log.info(method, "Subscription canceled", { event_data_id: event.data.id })
+        log.info(method, "Subscription canceled hook", { event_data_id: event.data.id })
 
         await subscriptionService.cancelledSubscription(event.data.id)
 
         break
 
       case "subscription.created":
-        log.info(method, "Subscription created", { event_data_id: event.data.id })
+        log.info(method, "Subscription created hook", { event_data_id: event.data.id })
 
         await subscriptionService.createSubscription(event.data.id)
 
         break
 
       case "subscription.past_due":
-        log.info(method, "Subscription past due", { event_data_id: event.data.id })
+        log.info(method, "Subscription past due hook", { event_data_id: event.data.id })
 
         await subscriptionService.pastDueSubscription(event.data.id)
 
         break
 
       case "subscription.updated":
-        log.info(method, "Subscription updated", { event_data_id: event.data.id })
+        log.info(method, "Subscription updated hook", { event_data_id: event.data.id })
 
         await subscriptionService.updateSubscription(event.data.id)
 
         break
 
       default:
-        log.info(method, "Event not handled", { event_type: event.eventType })
+        log.info(method, "Event not handled hook", { event_type: event.eventType })
     }
 
     res.status(200).send("Webhook processed")
