@@ -12,6 +12,7 @@
     "start": "NODE_ENV=development node dist/index.js",
     "start_prod": "NODE_ENV=production node dist/index.js",
     "migrate": "ts-node ./src/migrations/index.ts",
+    "delete_all_for_org_n_user": "ts-node ./src/migrations/delete_all_records_for_org_n_user.ts",
     "generate_index": "ts-node ./src/utils/generate_index.ts"
   },
   "dependencies": {
