@@ -1,7 +1,7 @@
 import { protos } from "@google-cloud/text-to-speech"
 import axios from "axios"
+import type { ReadableStream as WebReadableStream } from "node:stream/web"
 import { Readable } from "stream"
-import { text } from "stream/consumers"
 
 import { gcsConversationBucket, gcsVocabularyBucket, googleTTSClient, openaiREST, serverConfig } from "../../../config"
 import { ITTSElevenLabsPayload, ITTSGooglePayload, ITTSPayload } from "../../../types"
@@ -35,12 +35,16 @@ export class TextToSpeachService implements ITextToSpeach {
         response_format: fileExtension,
       })
 
-      const readableStream = response.body as NodeJS.ReadableStream
-      const chunks: Buffer[] = []
+      const webStream = response.body as WebReadableStream<Uint8Array>
+      if (!webStream) throw new Error("Empty response body from OpenAI (null stream)")
 
-      for await (const chunk of readableStream as AsyncIterable<Buffer>) {
-        chunks.push(chunk)
-        yield chunk
+      const nodeStream = Readable.fromWeb(webStream)
+
+      const chunks: Buffer[] = []
+      for await (const chunk of nodeStream) {
+        const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk as Uint8Array)
+        chunks.push(buf)
+        yield buf
       }
 
       if (saveToFile) {

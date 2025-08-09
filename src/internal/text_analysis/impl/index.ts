@@ -40,6 +40,7 @@ export class TextAnalysisService implements ITextAnalysis {
         model: payload.model,
         temperature: payload.temperature,
         max_tokens: payload.max_tokens,
+        // max_completion_tokens: payload.max_tokens,
       })
 
       const stream = await openaiREST.chat.completions.create({
@@ -47,6 +48,7 @@ export class TextAnalysisService implements ITextAnalysis {
         messages,
         temperature: payload.temperature || 0.6,
         max_tokens: payload.max_tokens || 300,
+        // max_completion_tokens: payload.max_tokens || 300,
         stream: true,
       })
 

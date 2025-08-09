@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 const GPTRoleType = z.enum(["user", "system", "assistant"])
-const GPTModelType = z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4.1"])
+const GPTModelType = z.enum(["gpt-5", "gpt-4o"])
 
 const GPTMessage = z.object({
   role: GPTRoleType,

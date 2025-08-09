@@ -94,11 +94,11 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       const schema = prompt.meta.is_it_ielts ? ieltsSchemaByPart : GenerateStatisticSchema
 
       const response = await openaiREST.chat.completions.create({
-        // model: "gpt-4.1",
         model: "gpt-4o",
         messages,
         temperature: 0.6,
         max_tokens: 3000,
+        // max_completion_tokens: 3000,
         tools: [
           {
             type: "function",
@@ -118,12 +118,14 @@ export class CommunicationReviewService implements ICommunicationReviewService {
       const toolCall = response.choices?.[0]?.message?.tool_calls?.[0]
       const choice = response.choices?.[0]
 
+      if (!choice) throw new Error("no choices")
+
       if (choice.finish_reason === "length") {
         throw new Error("OpenAI response was cut off due to max_tokens limit.")
       }
 
-      if (!toolCall?.function?.arguments) {
-        throw new Error("no tool response returned by model.")
+      if (!toolCall || !("function" in toolCall)) {
+        throw new Error("no function tool call in response.")
       }
 
       const rawParsed = JSON.parse(toolCall.function.arguments)

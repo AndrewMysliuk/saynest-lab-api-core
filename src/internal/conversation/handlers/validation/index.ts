@@ -1,4 +1,4 @@
-import { FunctionParameters } from "openai/src/resources/index.js"
+import { FunctionParameters } from "openai/resources"
 import { z } from "zod"
 
 const objectIdRegex = /^[a-f\d]{24}$/i
@@ -28,7 +28,7 @@ export const functionParametersSchema: z.ZodType<FunctionParameters> = z.object(
 })
 
 export const gptModelSchema = z.object({
-  model: z.enum(["gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4.1"]),
+  model: z.enum(["gpt-5", "gpt-4o"]),
   messages: z
     .array(
       z.object({

@@ -83,6 +83,7 @@ export class ErrorAnalysisService implements IErrorAnalysis {
         messages,
         temperature: dto.gpt_payload.temperature || 0.6,
         max_tokens: dto.gpt_payload.max_tokens || 1500,
+        // max_completion_tokens: dto.gpt_payload.max_tokens || 1500,
         tools: [
           {
             type: "function",
@@ -102,12 +103,14 @@ export class ErrorAnalysisService implements IErrorAnalysis {
       const toolCall = response.choices?.[0]?.message?.tool_calls?.[0]
       const choice = response.choices?.[0]
 
+      if (!choice) throw new Error("no choices")
+
       if (choice.finish_reason === "length") {
         throw new Error("OpenAI response was cut off due to max_tokens limit.")
       }
 
-      if (!toolCall?.function?.arguments) {
-        throw new Error("no tool response returned by model.")
+      if (!toolCall || !("function" in toolCall)) {
+        throw new Error("no function tool call in response.")
       }
 
       const rawParsed = JSON.parse(toolCall.function.arguments)
