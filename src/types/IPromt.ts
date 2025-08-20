@@ -46,6 +46,7 @@ export interface IModelBehavior {
   prompt: string
   scenario: IScenarioDetails | null
   ielts_scenario: Partial<IIELTSScenarioDetails> | null
+  // learning_scenario: ILearningScenario | null
 }
 
 export interface IIELTSTopic {
@@ -146,4 +147,29 @@ export interface IModuleFilters {
   organization_id?: string
   target_language?: string
   tag?: string
+}
+
+// TODO: impl new type of scenario structure for learning from scratch
+export interface ILearningScenario {
+  setting: string // Контекст тренировки (пример: "Beginner English lesson")
+  goal: string // Цель модуля — чему научится пользователь
+  phases: ILearningScenarioPhase[] // Последовательность этапов (от простого к сложному)
+}
+
+export interface ILearningScenarioPhase {
+  title: string // Название этапа ("Warm-up", "Practice" и т.д.)
+  type: LearningScenarioPhaseEnum // Тип фазы — влияет на поведение UI/AI
+  content: ILearningScenarioSimplePhrase[] // Список шагов внутри этапа
+}
+
+export enum LearningScenarioPhaseEnum {
+  REPEAT = "REPEAT", // Пользователь повторяет за AI (возможно с TTS и текстом)
+  INTERACTION = "INTERACTION", // AI задаёт вопрос — пользователь отвечает (с подсказкой)
+  FREE = "FREE", // AI даёт задание — пользователь отвечает свободно
+}
+
+export interface ILearningScenarioSimplePhrase {
+  phrase: string // Фраза на изучаемом языке (например, "Wie heißt du?")
+  transliteration?: Record<string, string> // ISO-код → транслитерация (например, "ru" → "Ви хайст ду?")
+  translation?: Record<string, string> // ISO-код → перевод (например, "uk" → "Як тебе звати?")
 }
